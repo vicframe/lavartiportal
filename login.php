@@ -81,6 +81,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="alert alert-danger"><?php echo htmlspecialchars($error); ?></div>
                 <?php endif; ?>
                 
+                <!-- Test credentials info -->
+                <div class="alert alert-info">
+                    <small><strong>Test Account:</strong> Email: test@example.com / Password: password</small>
+                </div>
+                
                 <form method="post" action="" id="login-form">
                     <div class="mb-3">
                         <label for="email" class="form-label">Email Address</label>

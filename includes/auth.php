@@ -32,9 +32,13 @@ function login($email, $password, $remember = false) {
             return false;
         }
         
+        // For debugging
+        error_log('Attempting password verify: email=' . $email . ', password hash=' . $user['password']);
+        
         // Verify password
         if (!password_verify($password, $user['password'])) {
             // Invalid password
+            error_log('Password verification failed for: ' . $email);
             return false;
         }
         
