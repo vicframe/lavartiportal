@@ -1,0 +1,544 @@
+/**
+ * Dashboard Specific Styles for LaVarti Systems Portal
+ */
+
+/* Dashboard Layout */
+.dashboard-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.dashboard-sidebar {
+    flex: 0 0 240px;
+}
+
+.dashboard-main {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Dashboard Cards */
+.stat-card {
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card .card-body {
+    padding: 1.5rem;
+}
+
+.stat-card h5 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.stat-card h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.stat-card p {
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+
+/* Icon Cards */
+.icon-card {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.icon-card .icon {
+    background-color: rgba(13, 110, 253, 0.1);
+    color: #0d6efd;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    flex-shrink: 0;
+}
+
+.icon-card .content {
+    flex: 1;
+}
+
+.icon-card h5 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.icon-card p {
+    font-size: 0.875rem;
+    color: #6c757d;
+    margin-bottom: 0;
+}
+
+/* Activity Feeds */
+.activity-feed {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.activity-item {
+    padding: 1rem 0;
+    border-bottom: 1px solid #e9ecef;
+    position: relative;
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-item .activity-icon {
+    width: 40px;
+    height: 40px;
+    background: #f8f9fa;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+}
+
+.activity-item .activity-content {
+    flex: 1;
+}
+
+.activity-item .activity-title {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.activity-item .activity-time {
+    font-size: 0.75rem;
+    color: #6c757d;
+}
+
+/* Chart Containers */
+.chart-container {
+    background: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.chart-header h5 {
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+.chart-container canvas {
+    width: 100% !important;
+    height: 300px !important;
+}
+
+/* Commission Tables */
+.commission-table th {
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.commission-table td {
+    vertical-align: middle;
+}
+
+/* Tier Badge */
+.tier-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 2rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tier-badge-1 {
+    background-color: #e9ecef;
+    color: #495057;
+}
+
+.tier-badge-2 {
+    background-color: #cfe2ff;
+    color: #0d6efd;
+}
+
+.tier-badge-3 {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+/* Affiliate Links Box */
+.affiliate-link-box {
+    background: #f8f9fa;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.affiliate-link-box h5 {
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+/* Dashboard Tabs */
+.dashboard-tabs .nav-link {
+    padding: 0.75rem 1.25rem;
+    font-weight: 500;
+    color: #495057;
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.dashboard-tabs .nav-link.active {
+    background-color: #fff;
+    color: #0d6efd;
+    border-bottom-color: #fff;
+}
+
+/* Progress Steps */
+.progress-steps {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.progress-step {
+    flex: 1;
+    text-align: center;
+    position: relative;
+}
+
+.progress-step::after {
+    content: '';
+    position: absolute;
+    top: 1.5rem;
+    left: 50%;
+    width: 100%;
+    height: 2px;
+    background-color: #e9ecef;
+    z-index: 1;
+}
+
+.progress-step:last-child::after {
+    display: none;
+}
+
+.progress-step-icon {
+    width: 3rem;
+    height: 3rem;
+    background-color: #e9ecef;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 0.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.progress-step.active .progress-step-icon {
+    background-color: #0d6efd;
+    color: #fff;
+}
+
+.progress-step.completed .progress-step-icon {
+    background-color: #198754;
+    color: #fff;
+}
+
+.progress-step-text {
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+/* Settings Page */
+.settings-section {
+    margin-bottom: 2rem;
+}
+
+.settings-section-title {
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+/* Membership Content Cards */
+.content-card {
+    height: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.content-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.content-card .card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.content-card .card-footer {
+    margin-top: auto;
+}
+
+/* Datatable Customization */
+.dataTables_wrapper .dataTables_length, 
+.dataTables_wrapper .dataTables_filter {
+    margin-bottom: 1rem;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 0.25rem 0.5rem;
+    margin-left: 2px;
+    border-radius: 0.25rem;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: #fff !important;
+}
+
+/* Responsive Dashboard */
+@media (max-width: 992px) {
+    .dashboard-sidebar {
+        flex: 0 0 100%;
+        margin-bottom: 1.5rem;
+    }
+    
+    .dashboard-main {
+        flex: 0 0 100%;
+    }
+    
+    .stat-card {
+        margin-bottom: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .progress-steps {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .progress-step {
+        flex: 0 0 100%;
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+        text-align: left;
+    }
+    
+    .progress-step::after {
+        display: none;
+    }
+    
+    .progress-step-icon {
+        margin: 0 1rem 0 0;
+    }
+    
+    .chart-container {
+        overflow-x: auto;
+    }
+    
+    .chart-container canvas {
+        min-width: 500px;
+    }
+}
+
+/* Payment Form */
+.payment-form-section {
+    background-color: #f8f9fa;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.payment-method {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.payment-method:hover {
+    border-color: #adb5bd;
+}
+
+.payment-method.selected {
+    border-color: #0d6efd;
+    background-color: rgba(13, 110, 253, 0.05);
+}
+
+.payment-method img {
+    height: 36px;
+    margin-right: 1rem;
+}
+
+/* Order Details */
+.order-timeline {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 1.5rem;
+}
+
+.order-timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 15px;
+    height: 100%;
+    width: 2px;
+    background-color: #e9ecef;
+}
+
+.order-timeline-item {
+    position: relative;
+    padding-bottom: 1.5rem;
+}
+
+.order-timeline-item:last-child {
+    padding-bottom: 0;
+}
+
+.order-timeline-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -30px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background-color: #e9ecef;
+    border: 2px solid #fff;
+    margin-top: 5px;
+}
+
+.order-timeline-item.completed::before {
+    background-color: #198754;
+}
+
+.order-timeline-item.in-progress::before {
+    background-color: #0dcaf0;
+}
+
+.order-timeline-item.pending::before {
+    background-color: #ffc107;
+}
+
+.order-timeline-date {
+    font-size: 0.75rem;
+    color: #6c757d;
+}
+
+.order-timeline-title {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.order-timeline-description {
+    color: #6c757d;
+    font-size: 0.875rem;
+    margin-bottom: 0;
+}
+
+/* Membership Benefits List */
+.benefits-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.benefits-list li {
+    padding: 0.5rem 0;
+    display: flex;
+    align-items: flex-start;
+}
+
+.benefits-list li i {
+    color: #198754;
+    margin-right: 0.5rem;
+    margin-top: 0.25rem;
+}
+
+.benefits-list li.disabled {
+    color: #6c757d;
+}
+
+.benefits-list li.disabled i {
+    color: #ced4da;
+}
+
+/* Comparison Table */
+.comparison-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+
+.comparison-table th,
+.comparison-table td {
+    padding: 1rem;
+    border: 1px solid #e9ecef;
+}
+
+.comparison-table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+.comparison-table td:first-child {
+    font-weight: 500;
+}
+
+.comparison-table tr:last-child td {
+    border-bottom: none;
+}
+
+.comparison-table .check-icon {
+    color: #198754;
+}
+
+.comparison-table .x-icon {
+    color: #dc3545;
+}
+
+.comparison-table .highlight {
+    background-color: rgba(13, 110, 253, 0.05);
+}
