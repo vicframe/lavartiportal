@@ -1,121 +1,171 @@
 <?php
-$page_title = 'My Orders';
+/**
+ * Orders Dashboard
+ * 
+ * Displays user's orders from GHL
+ */
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../includes/auth.php';
-require_once __DIR__ . '/../includes/header.php';
+require_once __DIR__ . '/../includes/database.php';
 
-// Require login for this page
+// Set page title
+$page_title = 'My Orders';
+
+// Require login
 require_login();
-
-// Get user information
 $user = get_current_logged_user();
 
-// Get all orders for the user
-$orders = get_user_orders($user['id']);
+// Get user's orders
+$orders_query = db_query(
+    "SELECT o.*, 
+            CASE 
+                WHEN o.tier_level = 1 THEN 'Basic'
+                WHEN o.tier_level = 2 THEN 'Premium'
+                WHEN o.tier_level = 3 THEN 'Elite'
+                ELSE 'Unknown'
+            END as tier_name,
+            CASE 
+                WHEN o.status = 'completed' THEN 'success'
+                WHEN o.status = 'pending' THEN 'warning'
+                WHEN o.status = 'failed' THEN 'danger'
+                ELSE 'secondary'
+            END as status_class
+     FROM orders o
+     WHERE o.user_id = ?
+     ORDER BY o.order_date DESC",
+    [$user['id']]
+);
 
-// Calculate statistics
-$total_spent = 0;
-$total_orders = count($orders);
-$completed_orders = 0;
+$orders = db_fetch_all($orders_query);
 
-foreach ($orders as $order) {
-    if ($order['status'] === 'completed') {
-        $total_spent += $order['amount'];
-        $completed_orders++;
-    }
-}
+// Include header
+$custom_css = '<link href="/assets/css/dashboard.css" rel="stylesheet">';
+require_once __DIR__ . '/../includes/header.php';
 ?>
 
-<div class="row mb-4">
-    <div class="col-12">
-        <h1>My Orders</h1>
-        <p class="lead">View your order history and subscription details.</p>
-    </div>
-</div>
-
-<div class="row mb-4">
-    <div class="col-md-4 mb-3">
-        <div class="card bg-primary text-white h-100">
-            <div class="card-body">
-                <h5 class="card-title">Total Spent</h5>
-                <h2 class="mb-0"><?php echo format_currency($total_spent); ?></h2>
-                <p class="mb-0">Lifetime purchases</p>
-            </div>
-        </div>
-    </div>
+<div class="dashboard-container">
+    <!-- Sidebar -->
+    <?php include __DIR__ . '/partials/sidebar.php'; ?>
     
-    <div class="col-md-4 mb-3">
-        <div class="card bg-info text-white h-100">
-            <div class="card-body">
-                <h5 class="card-title">Total Orders</h5>
-                <h2 class="mb-0"><?php echo $total_orders; ?></h2>
-                <p class="mb-0">All-time orders</p>
+    <!-- Main content -->
+    <div class="main-content">
+        <!-- Top navigation -->
+        <?php include __DIR__ . '/partials/topnav.php'; ?>
+        
+        <div class="container-fluid px-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="dashboard-title">My Orders</h1>
+                <button id="refreshOrdersBtn" class="btn btn-sm btn-outline-primary">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
             </div>
-        </div>
-    </div>
-    
-    <div class="col-md-4 mb-3">
-        <div class="card bg-success text-white h-100">
-            <div class="card-body">
-                <h5 class="card-title">Completed Orders</h5>
-                <h2 class="mb-0"><?php echo $completed_orders; ?></h2>
-                <p class="mb-0">Successfully processed</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header bg-light">
-                <h5 class="mb-0">Order History</h5>
-            </div>
-            <div class="card-body">
-                <?php if (empty($orders)): ?>
-                <div class="text-center p-4">
-                    <i class="fas fa-shopping-cart fa-3x text-muted mb-3"></i>
-                    <h5>No Orders Yet</h5>
-                    <p class="mb-3">You haven't placed any orders yet.</p>
-                    <a href="/dashboard/products.php" class="btn btn-primary">View Products</a>
+            
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <?php if (empty($orders)): ?>
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle"></i> You have no orders yet. Visit our product page to make a purchase.
+                            </div>
+                        <?php else: ?>
+                            <table class="table table-hover table-striped align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Product</th>
+                                        <th>Amount</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($orders as $order): ?>
+                                        <tr>
+                                            <td><?php echo htmlspecialchars($order['id']); ?></td>
+                                            <td><?php echo htmlspecialchars($order['product_name']); ?></td>
+                                            <td>$<?php echo number_format($order['amount'], 2); ?></td>
+                                            <td><?php echo date('M j, Y', strtotime($order['order_date'])); ?></td>
+                                            <td>
+                                                <span class="badge bg-<?php echo $order['status_class']; ?>">
+                                                    <?php echo ucfirst(htmlspecialchars($order['status'])); ?>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-sm btn-primary view-order-btn" data-order-id="<?php echo $order['id']; ?>">
+                                                    <i class="fas fa-eye"></i> View
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        <?php endif; ?>
+                    </div>
                 </div>
-                <?php else: ?>
-                <div class="table-responsive">
-                    <table class="table table-striped table-hover" id="ordersTable">
-                        <thead>
-                            <tr>
-                                <th>Order ID</th>
-                                <th>Date</th>
-                                <th>Product</th>
-                                <th>Amount</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($orders as $order): ?>
-                            <tr>
-                                <td><?php echo $order['id']; ?></td>
-                                <td><?php echo format_date($order['order_date']); ?></td>
-                                <td><?php echo htmlspecialchars($order['product_name']); ?></td>
-                                <td><?php echo format_currency($order['amount']); ?></td>
-                                <td>
-                                    <span class="badge bg-<?php echo $order['status'] === 'completed' ? 'success' : ($order['status'] === 'pending' ? 'warning' : ($order['status'] === 'processing' ? 'info' : 'secondary')); ?>">
-                                        <?php echo ucfirst($order['status']); ?>
-                                    </span>
-                                </td>
-                                <td>
-                                    <button class="btn btn-sm btn-outline-primary view-order" data-order-id="<?php echo $order['id']; ?>">
-                                        <i class="fas fa-eye"></i> View
-                                    </button>
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
-                <?php endif; ?>
             </div>
+            
+            <?php if (!empty($orders)): ?>
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Order Summary</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <?php
+                            // Calculate totals
+                            $total_orders = count($orders);
+                            $total_amount = array_sum(array_column($orders, 'amount'));
+                            
+                            // Count statuses
+                            $completed_orders = count(array_filter($orders, function($order) {
+                                return $order['status'] === 'completed';
+                            }));
+                            
+                            $pending_orders = count(array_filter($orders, function($order) {
+                                return $order['status'] === 'pending';
+                            }));
+                            ?>
+                            
+                            <div class="col-md-4 mb-3">
+                                <div class="stat-card">
+                                    <div class="icon">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </div>
+                                    <div class="details">
+                                        <h3 class="value"><?php echo $total_orders; ?></h3>
+                                        <p class="label">Total Orders</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4 mb-3">
+                                <div class="stat-card">
+                                    <div class="icon">
+                                        <i class="fas fa-dollar-sign"></i>
+                                    </div>
+                                    <div class="details">
+                                        <h3 class="value">$<?php echo number_format($total_amount, 2); ?></h3>
+                                        <p class="label">Total Amount</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4 mb-3">
+                                <div class="stat-card">
+                                    <div class="icon">
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
+                                    <div class="details">
+                                        <h3 class="value"><?php echo $completed_orders; ?></h3>
+                                        <p class="label">Completed Orders</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 </div>
@@ -128,71 +178,16 @@ foreach ($orders as $order) {
                 <h5 class="modal-title" id="orderDetailsModalLabel">Order Details</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h6>Order Information</h6>
-                        <ul class="list-group list-group-flush mb-3">
-                            <li class="list-group-item d-flex justify-content-between">
-                                <span>Order ID:</span>
-                                <span id="orderDetailId"></span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between">
-                                <span>Date:</span>
-                                <span id="orderDetailDate"></span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between">
-                                <span>Status:</span>
-                                <span id="orderDetailStatus"></span>
-                            </li>
-                        </ul>
+            <div class="modal-body" id="orderDetailsContent">
+                <div class="text-center p-4">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
                     </div>
-                    <div class="col-md-6">
-                        <h6>Product Information</h6>
-                        <ul class="list-group list-group-flush mb-3">
-                            <li class="list-group-item d-flex justify-content-between">
-                                <span>Product:</span>
-                                <span id="orderDetailProduct"></span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between">
-                                <span>Amount:</span>
-                                <span id="orderDetailAmount"></span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between">
-                                <span>Billing Type:</span>
-                                <span id="orderDetailBillingType">Monthly Subscription</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="col-12">
-                        <h6>Tier Access Granted</h6>
-                        <div class="alert alert-info" id="orderDetailTierAccess">
-                            This order provides access to Tier X benefits.
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="col-12">
-                        <h6>Next Steps</h6>
-                        <div id="orderNextStepsPending" class="d-none">
-                            <p>Your order is being processed. You will receive an email confirmation once completed.</p>
-                        </div>
-                        <div id="orderNextStepsCompleted" class="d-none">
-                            <p>Your order has been completed. You now have access to all the benefits included with your membership tier.</p>
-                        </div>
-                        <div id="orderNextStepsFailed" class="d-none">
-                            <p>There was an issue processing your order. Please contact support for assistance.</p>
-                        </div>
-                    </div>
+                    <p class="mt-2">Loading order details...</p>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <a href="/dashboard/membership.php" class="btn btn-primary">Access Membership</a>
             </div>
         </div>
     </div>
@@ -200,53 +195,151 @@ foreach ($orders as $order) {
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Handle view order button clicks
-    const viewOrderButtons = document.querySelectorAll('.view-order');
+    // Setup view order buttons
+    const viewOrderButtons = document.querySelectorAll('.view-order-btn');
+    const orderDetailsModal = new bootstrap.Modal(document.getElementById('orderDetailsModal'));
+    
     viewOrderButtons.forEach(button => {
         button.addEventListener('click', function() {
             const orderId = this.getAttribute('data-order-id');
-            
-            // Find the order in the list
-            <?php echo 'const orders = ' . json_encode($orders) . ';'; ?>
-            
-            const order = orders.find(o => o.id == orderId);
-            
-            if (order) {
-                // Fill modal with order details
-                document.getElementById('orderDetailId').textContent = order.id;
-                document.getElementById('orderDetailDate').textContent = order.order_date;
-                document.getElementById('orderDetailProduct').textContent = order.product_name;
-                document.getElementById('orderDetailAmount').textContent = '$' + parseFloat(order.amount).toFixed(2);
-                
-                // Set status with badge
-                const statusBadgeClass = order.status === 'completed' ? 'bg-success' : 
-                                        (order.status === 'pending' ? 'bg-warning' : 
-                                        (order.status === 'processing' ? 'bg-info' : 'bg-secondary'));
-                document.getElementById('orderDetailStatus').innerHTML = `<span class="badge ${statusBadgeClass}">${order.status.charAt(0).toUpperCase() + order.status.slice(1)}</span>`;
-                
-                // Set tier access info
-                document.getElementById('orderDetailTierAccess').textContent = `This order provides access to Tier ${order.tier_level} benefits.`;
-                
-                // Show appropriate next steps
-                document.getElementById('orderNextStepsPending').classList.add('d-none');
-                document.getElementById('orderNextStepsCompleted').classList.add('d-none');
-                document.getElementById('orderNextStepsFailed').classList.add('d-none');
-                
-                if (order.status === 'pending' || order.status === 'processing') {
-                    document.getElementById('orderNextStepsPending').classList.remove('d-none');
-                } else if (order.status === 'completed') {
-                    document.getElementById('orderNextStepsCompleted').classList.remove('d-none');
-                } else {
-                    document.getElementById('orderNextStepsFailed').classList.remove('d-none');
-                }
-                
-                // Show the modal
-                const modal = new bootstrap.Modal(document.getElementById('orderDetailsModal'));
-                modal.show();
-            }
+            loadOrderDetails(orderId);
+            orderDetailsModal.show();
         });
     });
+    
+    // Refresh orders button
+    const refreshOrdersBtn = document.getElementById('refreshOrdersBtn');
+    if (refreshOrdersBtn) {
+        refreshOrdersBtn.addEventListener('click', function() {
+            window.location.reload();
+        });
+    }
 });
+
+function loadOrderDetails(orderId) {
+    const orderDetailsContent = document.getElementById('orderDetailsContent');
+    
+    // Show loading state
+    orderDetailsContent.innerHTML = `
+        <div class="text-center p-4">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2">Loading order details...</p>
+        </div>
+    `;
+    
+    // Fetch order details
+    fetch(`/api/order-details.php?id=${orderId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                displayOrderDetails(data.order);
+            } else {
+                orderDetailsContent.innerHTML = `
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-circle"></i> 
+                        Error loading order details: ${data.error}
+                    </div>
+                `;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            orderDetailsContent.innerHTML = `
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-circle"></i> 
+                    Failed to load order details. Please try again.
+                </div>
+            `;
+        });
+}
+
+function displayOrderDetails(order) {
+    const orderDetailsContent = document.getElementById('orderDetailsContent');
+    
+    // Format status badge
+    let statusClass = 'secondary';
+    switch (order.status) {
+        case 'completed':
+            statusClass = 'success';
+            break;
+        case 'pending':
+            statusClass = 'warning';
+            break;
+        case 'failed':
+            statusClass = 'danger';
+            break;
+    }
+    
+    // Format tier level
+    let tierName = 'Unknown';
+    switch (order.tier_level) {
+        case 1:
+            tierName = 'Basic';
+            break;
+        case 2:
+            tierName = 'Premium';
+            break;
+        case 3:
+            tierName = 'Elite';
+            break;
+    }
+    
+    // Set modal content
+    orderDetailsContent.innerHTML = `
+        <div class="order-details">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <h6>Order Information</h6>
+                    <table class="table table-sm">
+                        <tr>
+                            <th>Order ID:</th>
+                            <td>${order.id}</td>
+                        </tr>
+                        <tr>
+                            <th>Date:</th>
+                            <td>${new Date(order.order_date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</td>
+                        </tr>
+                        <tr>
+                            <th>Status:</th>
+                            <td><span class="badge bg-${statusClass}">${order.status.charAt(0).toUpperCase() + order.status.slice(1)}</span></td>
+                        </tr>
+                        <tr>
+                            <th>GHL Order ID:</th>
+                            <td>${order.ghl_order_id || 'N/A'}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <h6>Product Information</h6>
+                    <table class="table table-sm">
+                        <tr>
+                            <th>Product:</th>
+                            <td>${order.product_name}</td>
+                        </tr>
+                        <tr>
+                            <th>Membership Tier:</th>
+                            <td>${tierName}</td>
+                        </tr>
+                        <tr>
+                            <th>Amount:</th>
+                            <td>$${parseFloat(order.amount).toFixed(2)}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="alert alert-info mb-0">
+                <i class="fas fa-info-circle"></i>
+                If you have any questions about this order, please contact customer support.
+            </div>
+        </div>
+    `;
+}
 </script>
 
-<?php require_once __DIR__ . '/../includes/footer.php'; ?>
+<?php
+// Include footer
+require_once __DIR__ . '/../includes/footer.php';
+?>

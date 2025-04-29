@@ -28,7 +28,14 @@ date_default_timezone_set('America/New_York');
 // Define constants
 define('APP_NAME', 'LaVarti Travel');
 define('APP_VERSION', '1.0.0');
-define('APP_URL', (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST']);
+
+// Set APP_URL safely whether called from web or CLI
+if (php_sapi_name() === 'cli') {
+    define('APP_URL', 'http://localhost:5000');
+} else {
+    define('APP_URL', (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST']);
+}
+
 define('SESSION_LIFETIME', 86400); // 24 hours
 
 // Define log directory

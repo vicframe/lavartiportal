@@ -1,215 +1,483 @@
 <?php
+/**
+ * Dashboard Home
+ */
+require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/../includes/auth.php';
+require_once __DIR__ . '/../includes/database.php';
+
+// Set page title
 $page_title = 'Dashboard';
 
-// Include all necessary files
-require_once __DIR__ . '/../config.php';
-require_once __DIR__ . '/../includes/functions.php';
-require_once __DIR__ . '/../includes/database.php';
-require_once __DIR__ . '/../includes/auth.php';
-
-// Require login to access this page
+// Require login
 require_login();
-
-// Get user data
 $user = get_current_logged_user();
+$is_admin = isset($user['is_admin']) && $user['is_admin'];
+$user_id = $user['id'];
 
-// Generate Affiliate Link
-$affiliate_link = APP_URL . '/?ref=' . ($user['replicated_site'] ?? $user['id']);
+// Get user's statistics
+$stats = [
+    'orders_count' => 0,
+    'total_spent' => 0,
+    'membership_tier' => $user['tier_level'] ?? 0,
+    'affiliate_commissions' => 0,
+    'referrals_count' => 0
+];
 
-// Get the first letter of the first name for avatar
-$avatar_letter = substr($user['first_name'] ?? 'U', 0, 1);
+// Get order stats
+$orders_query = db_query(
+    "SELECT COUNT(*) as count, COALESCE(SUM(amount), 0) as total 
+     FROM orders 
+     WHERE user_id = ? AND status = 'completed'",
+    [$user_id]
+);
+$orders_result = db_fetch_one($orders_query);
 
-// Set custom styles for the dashboard
+if ($orders_result) {
+    $stats['orders_count'] = $orders_result['count'];
+    $stats['total_spent'] = $orders_result['total'];
+}
+
+// Get commission stats
+$commissions_query = db_query(
+    "SELECT COALESCE(SUM(amount), 0) as total 
+     FROM commissions 
+     WHERE user_id = ? AND status = 'completed'",
+    [$user_id]
+);
+$commissions_result = db_fetch_one($commissions_query);
+
+if ($commissions_result) {
+    $stats['affiliate_commissions'] = $commissions_result['total'];
+}
+
+// Get referrals count
+$referrals_query = db_query(
+    "SELECT COUNT(*) as count 
+     FROM users 
+     WHERE sponsor_id = ?",
+    [$user_id]
+);
+$referrals_result = db_fetch_one($referrals_query);
+
+if ($referrals_result) {
+    $stats['referrals_count'] = $referrals_result['count'];
+}
+
+// Get recent activity
+$activity_query = db_query(
+    "SELECT * FROM activities 
+     WHERE user_id = ? 
+     ORDER BY created_at DESC 
+     LIMIT 10",
+    [$user_id]
+);
+$activities = db_fetch_all($activity_query);
+
+// Get tier information
+$tier_info = [
+    'name' => 'No Membership',
+    'description' => 'Sign up for a membership to access exclusive benefits',
+    'color' => 'secondary',
+    'features' => []
+];
+
+switch ($stats['membership_tier']) {
+    case 1:
+        $tier_info = [
+            'name' => 'Basic Membership',
+            'description' => 'Essential travel benefits and access to basic training materials',
+            'color' => 'primary',
+            'features' => [
+                'Access to basic travel deals',
+                'Standard customer support',
+                'Basic training materials',
+                'Affiliate program participation'
+            ]
+        ];
+        break;
+    
+    case 2:
+        $tier_info = [
+            'name' => 'Premium Membership',
+            'description' => 'Enhanced travel benefits and access to premium training materials',
+            'color' => 'info',
+            'features' => [
+                'Access to premium travel deals',
+                'Priority customer support',
+                'Advanced training materials',
+                'Enhanced affiliate commissions',
+                'Exclusive webinars and events'
+            ]
+        ];
+        break;
+    
+    case 3:
+        $tier_info = [
+            'name' => 'Elite Membership',
+            'description' => 'VIP travel benefits, exclusive access to elite training materials, and premium support',
+            'color' => 'warning',
+            'features' => [
+                'VIP travel deals and packages',
+                'Dedicated customer support',
+                'Elite training and resources',
+                'Highest affiliate commissions',
+                'Exclusive mastermind events',
+                'One-on-one coaching sessions',
+                'Priority access to new features'
+            ]
+        ];
+        break;
+}
+
+// Include header
 $custom_css = '<link href="/assets/css/dashboard.css" rel="stylesheet">';
+require_once __DIR__ . '/../includes/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $page_title; ?> - <?php echo APP_NAME; ?></title>
-    
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    
-    <!-- Custom CSS -->
-    <link href="/assets/css/styles.css" rel="stylesheet">
-    <?php echo $custom_css; ?>
-    
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
-    <!-- Bootstrap JS Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-</head>
-<body>
-    <!-- Mobile menu toggle -->
-    <div class="menu-toggle d-md-none">
-        <i class="fas fa-bars"></i>
-    </div>
-    
+
+<div class="dashboard-container">
     <!-- Sidebar -->
-    <div class="sidebar">
-        <div class="sidebar-header">
-            <h2>LaVarti</h2>
-        </div>
-        
-        <div class="sidebar-menu">
-            <a href="/dashboard/index.php" class="menu-item active">
-                <i class="fas fa-tachometer-alt"></i> Dashboard
-            </a>
-            <a href="/dashboard/store.php" class="menu-item">
-                <i class="fas fa-store"></i> Store
-            </a>
-            <a href="/dashboard/affiliate.php" class="menu-item">
-                <i class="fas fa-users"></i> Affiliate
-            </a>
-            <a href="/dashboard/membership.php" class="menu-item">
-                <i class="fas fa-id-card"></i> Membership
-            </a>
-            <a href="/dashboard/account.php" class="menu-item">
-                <i class="fas fa-user-cog"></i> Account
-            </a>
-            <a href="/logout.php" class="menu-item">
-                <i class="fas fa-sign-out-alt"></i> Sign Out
-            </a>
-        </div>
-    </div>
+    <?php include __DIR__ . '/partials/sidebar.php'; ?>
     
     <!-- Main content -->
     <div class="main-content">
-        <!-- User profile dropdown -->
-        <div class="user-profile">
-            <div class="dropdown">
-                <div class="dropdown-toggle" id="userDropdown">
-                    <div class="avatar"><?php echo htmlspecialchars($avatar_letter); ?></div>
-                    <span class="name"><?php echo htmlspecialchars($user['first_name']); ?></span>
-                </div>
-                <div class="dropdown-menu" aria-labelledby="userDropdown">
-                    <a href="account.php" class="dropdown-item">My Account</a>
-                    <a href="membership.php" class="dropdown-item">Membership</a>
-                    <div class="dropdown-divider"></div>
-                    <a href="/logout.php" class="dropdown-item">Sign Out</a>
-                </div>
-            </div>
-        </div>
+        <!-- Top navigation -->
+        <?php include __DIR__ . '/partials/topnav.php'; ?>
         
-        <!-- Welcome message -->
-        <div class="welcome-header">
-            <h1>Welcome, <?php echo htmlspecialchars($user['first_name']); ?>!</h1>
-        </div>
-        
-        <!-- Stats cards -->
-        <div class="stats-container">
-            <div class="stat-card">
-                <div class="icon">
-                    <i class="fas fa-users"></i>
+        <div class="container-fluid px-4">
+            <div class="welcome-banner">
+                <div class="welcome-text">
+                    <h1>Welcome back, <?php echo htmlspecialchars($user['first_name'] ?? 'User'); ?>!</h1>
+                    <p class="text-muted"><?php echo date('l, F j, Y'); ?></p>
                 </div>
-                <div class="details">
-                    <p class="value" id="team-members-count">24</p>
-                    <p class="label">Active Team Members</p>
-                </div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="icon">
-                    <i class="fas fa-dollar-sign"></i>
-                </div>
-                <div class="details">
-                    <p class="value" id="commissions-amount">$0.00</p>
-                    <p class="label">Commissions (Month)</p>
-                </div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="icon">
-                    <i class="fas fa-crown"></i>
-                </div>
-                <div class="details">
-                    <p class="value" id="membership-tier">Premium</p>
-                    <p class="label">(<span id="membership-price">$65/mo</span>)</p>
-                </div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="icon">
-                    <i class="fas fa-link"></i>
-                </div>
-                <div class="details">
-                    <p class="value" id="affiliate-clicks">243</p>
-                    <p class="label">Affiliate Clicks</p>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Quick actions tabs -->
-        <div class="action-tabs">
-            <div class="tab active" data-tab="quick-actions">Quick Actions</div>
-            <div class="tab" data-tab="store">Store</div>
-            <div class="tab" data-tab="affiliate">Affiliate</div>
-            <div class="tab" data-tab="membership">Membership</div>
-        </div>
-        
-        <!-- Quick actions cards -->
-        <div class="action-cards">
-            <div class="action-card tab-content" id="quick-actions">
-                <div class="card-title">
-                    <i class="fas fa-link"></i>
-                    <h3>My Affiliate Link</h3>
-                </div>
-                <p>Copy your unique referral link</p>
                 
-                <div class="copy-input">
-                    <input type="text" id="affiliate-link" value="<?php echo htmlspecialchars($affiliate_link); ?>" readonly>
-                    <button id="copy-affiliate-link">Copy</button>
+                <?php if ($stats['membership_tier'] === 0): ?>
+                <div class="upgrade-cta">
+                    <a href="/dashboard/membership.php" class="btn btn-primary">
+                        <i class="fas fa-crown me-1"></i> Upgrade Membership
+                    </a>
                 </div>
+                <?php endif; ?>
             </div>
             
-            <div class="action-card tab-content" id="store" style="display: none;">
-                <div class="card-title">
-                    <i class="fas fa-graduation-cap"></i>
-                    <h3>Latest Training</h3>
+            <!-- Stats cards -->
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="details">
+                        <h3 class="value"><?php echo $stats['orders_count']; ?></h3>
+                        <p class="label">Total Orders</p>
+                    </div>
                 </div>
-                <p>Continue where you left off</p>
                 
-                <button class="action-button">Resume Training</button>
-            </div>
-            
-            <div class="action-card tab-content" id="affiliate" style="display: none;">
-                <div class="card-title">
-                    <i class="fas fa-users"></i>
-                    <h3>Invite Team Members</h3>
+                <div class="stat-card">
+                    <div class="icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="details">
+                        <h3 class="value">$<?php echo number_format($stats['total_spent'], 2); ?></h3>
+                        <p class="label">Total Spent</p>
+                    </div>
                 </div>
-                <p>Grow your team and increase commissions</p>
                 
-                <button class="action-button">Send Invites</button>
-            </div>
-            
-            <div class="action-card tab-content" id="membership" style="display: none;">
-                <div class="card-title">
-                    <i class="fas fa-arrow-up"></i>
-                    <h3>Upgrade Plan</h3>
+                <div class="stat-card">
+                    <div class="icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <div class="details">
+                        <h3 class="value"><?php echo $tier_info['name']; ?></h3>
+                        <p class="label">Membership Tier</p>
+                    </div>
                 </div>
-                <p>Access more features and benefits</p>
                 
-                <button class="action-button">View Plans</button>
+                <div class="stat-card">
+                    <div class="icon">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <div class="details">
+                        <h3 class="value">$<?php echo number_format($stats['affiliate_commissions'], 2); ?></h3>
+                        <p class="label">Affiliate Earnings</p>
+                    </div>
+                </div>
             </div>
-        </div>
-        
-        <!-- Recent activity -->
-        <div class="recent-activity">
-            <h2>Recent Activity</h2>
             
-            <div id="recent-activity-list">
-                <p class="text-center text-muted">Loading activity data...</p>
+            <div class="row">
+                <!-- Membership section -->
+                <div class="col-md-8 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h2 class="card-title">Your Membership</h2>
+                            <a href="/dashboard/membership.php" class="btn btn-sm btn-outline-primary">
+                                Manage Membership
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <div class="membership-status">
+                                <div class="membership-info">
+                                    <div class="tier-badge bg-<?php echo $tier_info['color']; ?>">
+                                        <?php echo $tier_info['name']; ?>
+                                    </div>
+                                    <p class="tier-description">
+                                        <?php echo $tier_info['description']; ?>
+                                    </p>
+                                </div>
+                                
+                                <div class="membership-features">
+                                    <h3>Benefits</h3>
+                                    <ul class="features-list">
+                                        <?php if (empty($tier_info['features'])): ?>
+                                            <li class="empty">No active membership benefits</li>
+                                        <?php else: ?>
+                                            <?php foreach ($tier_info['features'] as $feature): ?>
+                                                <li>
+                                                    <i class="fas fa-check"></i>
+                                                    <span><?php echo $feature; ?></span>
+                                                </li>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
+                                    </ul>
+                                    
+                                    <?php if ($stats['membership_tier'] < 3): ?>
+                                    <a href="/dashboard/membership.php" class="action-button">
+                                        <?php if ($stats['membership_tier'] === 0): ?>
+                                            Get Started
+                                        <?php else: ?>
+                                            Upgrade Membership
+                                        <?php endif; ?>
+                                    </a>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Affiliate section -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h2 class="card-title">Affiliate Program</h2>
+                            <a href="/dashboard/affiliate.php" class="btn btn-sm btn-outline-primary">
+                                View Details
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <div class="affiliate-stats">
+                                <div class="stat">
+                                    <h3>$<?php echo number_format($stats['affiliate_commissions'], 2); ?></h3>
+                                    <p>Total Commissions</p>
+                                </div>
+                                
+                                <div class="stat">
+                                    <h3><?php echo $stats['referrals_count']; ?></h3>
+                                    <p>Referred Members</p>
+                                </div>
+                            </div>
+                            
+                            <div class="card-title">
+                                <i class="fas fa-link"></i>
+                                <h3>Your Affiliate Link</h3>
+                            </div>
+                            
+                            <div class="copy-input">
+                                <input type="text" value="<?php echo APP_URL; ?>/?ref=<?php echo $user_id; ?>" id="affiliateLink" readonly>
+                                <button id="copyLinkBtn">Copy</button>
+                            </div>
+                            
+                            <a href="/dashboard/affiliate.php" class="action-button">
+                                Promote & Earn
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <!-- Recent orders -->
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h2 class="card-title">Recent Orders</h2>
+                            <a href="/dashboard/orders.php" class="btn btn-sm btn-outline-primary">
+                                View All
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <?php
+                            // Get recent orders
+                            $recent_orders_query = db_query(
+                                "SELECT * FROM orders 
+                                 WHERE user_id = ? 
+                                 ORDER BY created_at DESC 
+                                 LIMIT 3",
+                                [$user_id]
+                            );
+                            $recent_orders = db_fetch_all($recent_orders_query);
+                            ?>
+                            
+                            <?php if (empty($recent_orders)): ?>
+                                <div class="empty-state">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    <p>No orders yet</p>
+                                    <a href="/products.php" class="btn btn-primary btn-sm">Browse Products</a>
+                                </div>
+                            <?php else: ?>
+                                <div class="recent-orders">
+                                    <?php foreach ($recent_orders as $order): ?>
+                                        <?php
+                                        $status_class = 'secondary';
+                                        switch ($order['status']) {
+                                            case 'completed':
+                                                $status_class = 'success';
+                                                break;
+                                            case 'pending':
+                                                $status_class = 'warning';
+                                                break;
+                                            case 'failed':
+                                                $status_class = 'danger';
+                                                break;
+                                        }
+                                        ?>
+                                        <div class="order-item">
+                                            <div class="order-info">
+                                                <div class="order-name">
+                                                    <?php echo htmlspecialchars($order['product_name']); ?>
+                                                </div>
+                                                <div class="order-date">
+                                                    <?php echo date('M j, Y', strtotime($order['created_at'])); ?>
+                                                </div>
+                                            </div>
+                                            <div class="order-details">
+                                                <div class="order-amount">
+                                                    $<?php echo number_format($order['amount'], 2); ?>
+                                                </div>
+                                                <div class="order-status">
+                                                    <span class="badge bg-<?php echo $status_class; ?>">
+                                                        <?php echo ucfirst($order['status']); ?>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent activity -->
+                <div class="col-md-6 mb-4">
+                    <div class="recent-activity">
+                        <h2>Recent Activity</h2>
+                        
+                        <?php if (empty($activities)): ?>
+                            <div class="empty-state">
+                                <i class="fas fa-history"></i>
+                                <p>No recent activity</p>
+                            </div>
+                        <?php else: ?>
+                            <?php foreach ($activities as $activity): ?>
+                                <div class="activity-item">
+                                    <div class="activity-icon">
+                                        <i class="fas <?php echo getActivityIcon($activity['type']); ?>"></i>
+                                    </div>
+                                    <div class="activity-details">
+                                        <h3><?php echo htmlspecialchars($activity['description']); ?></h3>
+                                        <p>
+                                            <?php if ($activity['amount'] > 0): ?>
+                                                $<?php echo number_format($activity['amount'], 2); ?>
+                                            <?php endif; ?>
+                                        </p>
+                                    </div>
+                                    <div class="activity-time">
+                                        <?php echo formatTimeAgo($activity['created_at']); ?>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Copy affiliate link
+    const copyLinkBtn = document.getElementById('copyLinkBtn');
+    const affiliateLink = document.getElementById('affiliateLink');
     
-    <!-- Dashboard scripts -->
-    <script src="/assets/js/dashboard.js"></script>
-</body>
-</html>
+    if (copyLinkBtn && affiliateLink) {
+        copyLinkBtn.addEventListener('click', function() {
+            affiliateLink.select();
+            document.execCommand('copy');
+            
+            const originalText = copyLinkBtn.textContent;
+            copyLinkBtn.textContent = 'Copied!';
+            
+            setTimeout(() => {
+                copyLinkBtn.textContent = originalText;
+            }, 2000);
+        });
+    }
+});
+</script>
+
+<?php
+// Include footer
+require_once __DIR__ . '/../includes/footer.php';
+
+/**
+ * Get activity icon
+ */
+function getActivityIcon($type) {
+    switch ($type) {
+        case 'order':
+            return 'fa-shopping-cart';
+        case 'payment':
+            return 'fa-credit-card';
+        case 'commission':
+            return 'fa-hand-holding-usd';
+        case 'login':
+            return 'fa-sign-in-alt';
+        case 'referral':
+            return 'fa-user-plus';
+        default:
+            return 'fa-circle';
+    }
+}
+
+/**
+ * Format time ago
+ */
+function formatTimeAgo($datetime) {
+    $time = strtotime($datetime);
+    $now = time();
+    $diff = $now - $time;
+    
+    if ($diff < 60) {
+        return 'just now';
+    } elseif ($diff < 3600) {
+        $mins = round($diff / 60);
+        return $mins . ' min' . ($mins > 1 ? 's' : '') . ' ago';
+    } elseif ($diff < 86400) {
+        $hours = round($diff / 3600);
+        return $hours . ' hour' . ($hours > 1 ? 's' : '') . ' ago';
+    } elseif ($diff < 604800) {
+        $days = round($diff / 86400);
+        return $days . ' day' . ($days > 1 ? 's' : '') . ' ago';
+    } elseif ($diff < 2592000) {
+        $weeks = round($diff / 604800);
+        return $weeks . ' week' . ($weeks > 1 ? 's' : '') . ' ago';
+    } elseif ($diff < 31536000) {
+        $months = round($diff / 2592000);
+        return $months . ' month' . ($months > 1 ? 's' : '') . ' ago';
+    } else {
+        $years = round($diff / 31536000);
+        return $years . ' year' . ($years > 1 ? 's' : '') . ' ago';
+    }
+}
+?>
