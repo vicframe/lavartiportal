@@ -42,7 +42,7 @@ if ($orders_result) {
 $commissions_query = db_query(
     "SELECT COALESCE(SUM(amount), 0) as total 
      FROM commissions 
-     WHERE user_id = ? AND status = 'completed'",
+     WHERE user_id = ? AND status = 'paid'",
     [$user_id]
 );
 $commissions_result = db_fetch_one($commissions_query);
