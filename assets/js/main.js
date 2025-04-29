@@ -1,232 +1,219 @@
 /**
  * Main JavaScript file for LaVarti Systems
  */
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize tooltips
-    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
-    });
+$(document).ready(function() {
+    // Initialize Bootstrap tooltips
+    $('[data-bs-toggle="tooltip"]').tooltip();
     
-    // Initialize popovers
-    const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
-    popoverTriggerList.map(function (popoverTriggerEl) {
-        return new bootstrap.Popover(popoverTriggerEl);
-    });
-    
-    // Handle alert dismissal
-    const alerts = document.querySelectorAll('.alert-dismissible');
-    alerts.forEach(function(alert) {
-        setTimeout(function() {
-            const bsAlert = new bootstrap.Alert(alert);
-            bsAlert.close();
-        }, 5000); // Auto close alerts after 5 seconds
-    });
-    
-    // Copy affiliate link functionality
-    const copyAffiliateLinkButton = document.getElementById('copyAffiliateLink');
-    if (copyAffiliateLinkButton) {
-        copyAffiliateLinkButton.addEventListener('click', function() {
-            const affiliateLinkInput = document.getElementById('affiliateLink');
-            affiliateLinkInput.select();
-            document.execCommand('copy');
-            
-            // Show feedback to user
-            const originalText = this.innerHTML;
-            this.innerHTML = '<i class="fas fa-check"></i> Copied!';
-            this.classList.remove('btn-outline-secondary', 'btn-outline-primary');
-            this.classList.add('btn-success');
-            
-            setTimeout(() => {
-                this.innerHTML = originalText;
-                this.classList.remove('btn-success');
-                this.classList.add('btn-outline-secondary');
-            }, 2000);
-        });
-    }
-    
-    // Mobile menu enhancement
-    const navbarToggler = document.querySelector('.navbar-toggler');
-    if (navbarToggler) {
-        navbarToggler.addEventListener('click', function() {
-            document.body.classList.toggle('navbar-open');
-        });
-    }
+    // Initialize Bootstrap popovers
+    $('[data-bs-toggle="popover"]').popover();
     
     // Form validation
-    const forms = document.querySelectorAll('.needs-validation');
-    Array.from(forms).forEach(form => {
-        form.addEventListener('submit', event => {
-            if (!form.checkValidity()) {
+    $('form.needs-validation').each(function() {
+        $(this).on('submit', function(event) {
+            if (!this.checkValidity()) {
                 event.preventDefault();
                 event.stopPropagation();
             }
-            
-            form.classList.add('was-validated');
-        }, false);
+            $(this).addClass('was-validated');
+        });
     });
     
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            const href = this.getAttribute('href');
+    // AJAX form submissions
+    $('.ajax-form').each(function() {
+        $(this).on('submit', function(e) {
+            e.preventDefault();
             
-            if (href !== "#" && href.charAt(0) === '#') {
-                e.preventDefault();
-                
-                const targetElement = document.querySelector(this.getAttribute('href'));
-                if (targetElement) {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth'
-                    });
+            const form = $(this);
+            const url = form.attr('action');
+            const method = form.attr('method') || 'POST';
+            const formData = new FormData(this);
+            
+            // Get the submit button and loading text
+            const submitBtn = form.find('[type="submit"]');
+            const originalBtnText = submitBtn.html();
+            const loadingText = submitBtn.data('loading-text') || 'Loading...';
+            
+            // Show loading state
+            submitBtn.html(loadingText).prop('disabled', true);
+            
+            $.ajax({
+                url: url,
+                type: method,
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.success) {
+                        if (response.message) {
+                            showAlert('success', response.message);
+                        }
+                        
+                        if (response.redirect) {
+                            setTimeout(function() {
+                                window.location.href = response.redirect;
+                            }, 1500);
+                        } else {
+                            submitBtn.html(originalBtnText).prop('disabled', false);
+                            
+                            // Execute success callback if defined
+                            if (typeof form.data('success-callback') === 'function') {
+                                form.data('success-callback')(response);
+                            }
+                        }
+                    } else {
+                        if (response.message) {
+                            showAlert('danger', response.message);
+                        } else {
+                            showAlert('danger', 'An error occurred. Please try again.');
+                        }
+                        submitBtn.html(originalBtnText).prop('disabled', false);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    showAlert('danger', 'An error occurred: ' + error);
+                    submitBtn.html(originalBtnText).prop('disabled', false);
                 }
-            }
-        });
-    });
-    
-    // Back to top button
-    const backToTopButton = document.getElementById('back-to-top');
-    if (backToTopButton) {
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                backToTopButton.style.display = 'block';
-            } else {
-                backToTopButton.style.display = 'none';
-            }
-        });
-        
-        backToTopButton.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
             });
         });
-    }
+    });
     
-    // Dark mode toggle
-    const darkModeToggle = document.getElementById('darkModeToggle');
-    if (darkModeToggle) {
-        // Check for saved theme preference or use preferred color scheme
-        const savedTheme = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        
-        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-            document.body.classList.add('dark-mode');
-            darkModeToggle.checked = true;
+    // Handle logout confirmation
+    $('.confirm-logout').on('click', function(e) {
+        e.preventDefault();
+        if (confirm('Are you sure you want to log out?')) {
+            window.location.href = $(this).attr('href');
         }
-        
-        darkModeToggle.addEventListener('change', function() {
-            if (this.checked) {
-                document.body.classList.add('dark-mode');
-                localStorage.setItem('theme', 'dark');
-            } else {
-                document.body.classList.remove('dark-mode');
-                localStorage.setItem('theme', 'light');
-            }
-        });
-    }
-    
-    // Pricing toggle (monthly/yearly)
-    const pricingToggle = document.getElementById('pricingToggle');
-    if (pricingToggle) {
-        pricingToggle.addEventListener('change', function() {
-            const monthlyPrices = document.querySelectorAll('.price-monthly');
-            const yearlyPrices = document.querySelectorAll('.price-yearly');
-            
-            if (this.checked) {
-                // Show yearly prices
-                monthlyPrices.forEach(el => el.style.display = 'none');
-                yearlyPrices.forEach(el => el.style.display = 'block');
-            } else {
-                // Show monthly prices
-                monthlyPrices.forEach(el => el.style.display = 'block');
-                yearlyPrices.forEach(el => el.style.display = 'none');
-            }
-        });
-    }
+    });
 });
 
-// Helper function to format currency
+/**
+ * Format currency with $ sign and 2 decimal places
+ */
 function formatCurrency(amount) {
-    return '$' + parseFloat(amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+    return '$' + parseFloat(amount).toFixed(2);
 }
 
-// Helper function to format date
+/**
+ * Format date to readable format
+ */
 function formatDate(dateString) {
-    const options = { year: 'numeric', month: 'short', day: 'numeric' };
-    return new Date(dateString).toLocaleDateString('en-US', options);
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
 }
 
-// Helper function to show loading spinner
+/**
+ * Show loading state
+ */
 function showLoading(message = 'Loading...') {
-    const loadingDiv = document.createElement('div');
-    loadingDiv.className = 'loading-overlay';
-    loadingDiv.innerHTML = `
-        <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-        <div class="mt-2">${message}</div>
-    `;
-    document.body.appendChild(loadingDiv);
-}
-
-// Helper function to hide loading spinner
-function hideLoading() {
-    const loadingDiv = document.querySelector('.loading-overlay');
-    if (loadingDiv) {
-        loadingDiv.remove();
+    if ($('#loading-overlay').length === 0) {
+        $('body').append(`
+            <div id="loading-overlay">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <div id="loading-message">${message}</div>
+            </div>
+        `);
+    } else {
+        $('#loading-message').text(message);
+        $('#loading-overlay').show();
     }
 }
 
-// Handle form submission with AJAX
+/**
+ * Hide loading state
+ */
+function hideLoading() {
+    $('#loading-overlay').hide();
+}
+
+/**
+ * Show alert message
+ */
+function showAlert(type, message, duration = 5000) {
+    // Create alert container if it doesn't exist
+    if ($('#alert-container').length === 0) {
+        $('body').append('<div id="alert-container"></div>');
+    }
+    
+    // Generate unique ID for this alert
+    const alertId = 'alert-' + Date.now();
+    
+    // Create alert element
+    const alertHtml = `
+        <div id="${alertId}" class="alert alert-${type} alert-dismissible fade show" role="alert">
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    `;
+    
+    // Add alert to container
+    $('#alert-container').append(alertHtml);
+    
+    // Auto close after duration
+    if (duration > 0) {
+        setTimeout(function() {
+            $(`#${alertId}`).alert('close');
+        }, duration);
+    }
+}
+
+/**
+ * Handle form submission with custom callbacks
+ */
 function handleFormSubmit(formElement, successCallback, errorCallback) {
-    formElement.addEventListener('submit', function(event) {
-        event.preventDefault();
-        
-        if (!formElement.checkValidity()) {
-            formElement.classList.add('was-validated');
-            return;
-        }
-        
-        const formData = new FormData(formElement);
-        const submitButton = formElement.querySelector('button[type="submit"]');
-        const originalButtonText = submitButton.innerHTML;
-        
-        submitButton.disabled = true;
-        submitButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Submitting...';
-        
-        fetch(formElement.action, {
-            method: formElement.method,
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            submitButton.disabled = false;
-            submitButton.innerHTML = originalButtonText;
+    const form = $(formElement);
+    const url = form.attr('action');
+    const method = form.attr('method') || 'POST';
+    const formData = new FormData(formElement);
+    
+    // Show loading state
+    showLoading('Processing...');
+    
+    $.ajax({
+        url: url,
+        type: method,
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+            hideLoading();
             
-            if (data.success) {
+            if (response.success) {
                 if (typeof successCallback === 'function') {
-                    successCallback(data);
+                    successCallback(response);
+                } else if (response.message) {
+                    showAlert('success', response.message);
+                }
+                
+                if (response.redirect) {
+                    setTimeout(function() {
+                        window.location.href = response.redirect;
+                    }, 1500);
                 }
             } else {
                 if (typeof errorCallback === 'function') {
-                    errorCallback(data);
+                    errorCallback(response);
+                } else if (response.message) {
+                    showAlert('danger', response.message);
                 } else {
-                    alert(data.message || 'An error occurred. Please try again.');
+                    showAlert('danger', 'An error occurred. Please try again.');
                 }
             }
-        })
-        .catch(error => {
-            submitButton.disabled = false;
-            submitButton.innerHTML = originalButtonText;
+        },
+        error: function(xhr, status, error) {
+            hideLoading();
             
             if (typeof errorCallback === 'function') {
-                errorCallback({ message: 'Network error. Please check your connection and try again.' });
+                errorCallback({ success: false, message: error });
             } else {
-                alert('Network error. Please check your connection and try again.');
+                showAlert('danger', 'An error occurred: ' + error);
             }
-            console.error('Error:', error);
-        });
+        }
     });
 }

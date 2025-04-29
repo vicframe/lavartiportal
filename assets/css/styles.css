@@ -1,430 +1,263 @@
-/**
- * Main Styles for LaVarti Systems Portal
- */
+/* Global Styles */
 
 :root {
-    --primary-color: #0d6efd;
-    --secondary-color: #6c757d;
-    --success-color: #198754;
-    --info-color: #0dcaf0;
-    --warning-color: #ffc107;
-    --danger-color: #dc3545;
-    --light-color: #f8f9fa;
-    --dark-color: #212529;
+    --primary-color: #4e73df;
+    --secondary-color: #1cc88a;
+    --danger-color: #e74a3b;
+    --warning-color: #f6c23e;
+    --dark-color: #5a5c69;
+    --light-color: #f8f9fc;
 }
 
-/* General Styles */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #333;
-    line-height: 1.6;
-    padding-bottom: 60px; /* Ensure footer doesn't cover content */
+    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f8f9fc;
 }
 
-a {
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-.container {
-    max-width: 1200px;
-}
-
-/* Navbar Styles */
-.navbar-brand {
-    font-weight: 700;
-    font-size: 1.4rem;
-}
-
-.navbar-dark .navbar-nav .nav-link {
-    color: rgba(255, 255, 255, 0.85);
-}
-
-.navbar-dark .navbar-nav .nav-link:hover {
-    color: #fff;
-}
-
-.navbar-dark .navbar-nav .nav-link.active {
-    color: #fff;
-    font-weight: 600;
-}
-
-/* Card Styles */
-.card {
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    border-radius: 0.5rem;
-    transition: all 0.3s ease;
-    margin-bottom: 1.5rem;
-}
-
-.card:hover {
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-.card-header {
-    font-weight: 600;
-    border-top-left-radius: 0.5rem !important;
-    border-top-right-radius: 0.5rem !important;
-}
-
-.card-footer {
-    border-bottom-left-radius: 0.5rem !important;
-    border-bottom-right-radius: 0.5rem !important;
-}
-
-/* Pricing Cards */
-.pricing-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.pricing-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-.pricing-card .card-header h2 {
-    font-size: 2.2rem;
-}
-
-.pricing-card .card-header h2 small {
-    font-size: 1rem;
-    opacity: 0.8;
-}
-
-/* Buttons */
-.btn {
-    border-radius: 0.4rem;
-    font-weight: 500;
-    padding: 0.5rem 1.25rem;
-    transition: all 0.3s ease;
-}
-
-.btn-lg {
-    padding: 0.8rem 1.5rem;
-    font-size: 1.1rem;
-}
-
-.btn-primary {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-}
-
-.btn-primary:hover {
-    background-color: #0b5ed7;
-    border-color: #0a58ca;
-}
-
-.btn-outline-primary {
-    color: var(--primary-color);
-    border-color: var(--primary-color);
-}
-
-.btn-outline-primary:hover {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-}
-
-/* Forms */
-.form-control {
-    border-radius: 0.4rem;
-    padding: 0.6rem 0.75rem;
-}
-
-.form-control:focus {
-    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-    border-color: #86b7fe;
-}
-
-/* Alerts */
-.alert {
-    border-radius: 0.4rem;
-    border: none;
-}
-
-.alert-dismissible .btn-close {
-    padding: 0.9rem 1rem;
-}
-
-/* Badge Styles */
-.badge {
-    font-weight: 500;
-    padding: 0.4em 0.8em;
-    border-radius: 0.3rem;
-}
-
-/* List Group */
-.list-group-item {
-    padding: 0.8rem 1.25rem;
-}
-
-/* Footer */
-footer {
-    margin-top: 3rem;
-    padding: 2rem 0;
-}
-
-footer a {
-    color: #333;
-}
-
-footer a:hover {
-    color: var(--primary-color);
-}
-
-/* Home Page Jumbotron */
-.jumbotron {
-    padding: 3rem 2rem;
-    margin-bottom: 2rem;
-    background-color: #f8f9fa;
-    border-radius: 0.5rem;
-}
-
-/* Features Section */
-.feature-icon {
-    width: 4rem;
-    height: 4rem;
-    border-radius: 50%;
+/* Login and Authentication pages */
+.auth-container {
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(13, 110, 253, 0.1);
-    color: var(--primary-color);
-    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+    padding: 2rem;
 }
 
-/* Testimonials */
-.testimonial {
-    padding: 1.5rem;
+.auth-card {
+    background-color: white;
     border-radius: 0.5rem;
-    background-color: #f8f9fa;
-    margin-bottom: 1.5rem;
-}
-
-.testimonial-image {
-    width: 4rem;
-    height: 4rem;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 1rem;
-}
-
-/* Login Page */
-.login-card {
-    max-width: 400px;
-    margin: 0 auto;
-}
-
-/* Loading Overlay */
-.loading-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
     width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.8);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
+    max-width: 450px;
+    overflow: hidden;
 }
 
-/* Modal Styles */
-.modal-header {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.modal-footer {
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-/* Responsive Utilities */
-@media (max-width: 768px) {
-    .display-4 {
-        font-size: 2.5rem;
-    }
-    
-    .jumbotron {
-        padding: 2rem 1rem;
-    }
-    
-    .card-deck {
-        display: block;
-    }
-}
-
-/* Back to top button */
-#back-to-top {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    display: none;
-    z-index: 99;
-    padding: 0.5rem 0.75rem;
-    border-radius: 50%;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-/* Table Styles */
-.table th {
-    font-weight: 600;
-    color: #333;
-}
-
-/* Custom Circle Icons */
-.rounded-circle.bg-light,
-.rounded-circle.bg-primary {
-    width: 60px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Affiliate Link Input Group */
-.affiliate-link-container {
-    margin: 1.5rem 0;
-}
-
-/* Pagination */
-.pagination .page-link {
-    color: var(--primary-color);
-    border-color: #dee2e6;
-}
-
-.pagination .page-item.active .page-link {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-    color: white;
-}
-
-/* Tier Indicators */
-.tier-indicator {
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.25rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-}
-
-.tier-basic {
-    background-color: #e9ecef;
-    color: #495057;
-}
-
-.tier-premium {
-    background-color: #cfe2ff;
-    color: #0d6efd;
-}
-
-.tier-elite {
-    background-color: #ffc107;
-    color: #212529;
-}
-
-/* Accordion Customization */
-.accordion-button:not(.collapsed) {
-    background-color: rgba(13, 110, 253, 0.1);
-    color: var(--primary-color);
-}
-
-/* Empty State Styling */
-.empty-state {
-    padding: 3rem 1rem;
+.auth-header {
+    background-color: #f8f9fc;
+    border-bottom: 1px solid #e3e6f0;
+    padding: 1.5rem;
     text-align: center;
 }
 
-.empty-state-icon {
+.auth-header h2 {
+    margin: 0;
+    font-weight: 700;
+    color: #5a5c69;
+}
+
+.auth-body {
+    padding: 2rem;
+}
+
+.auth-footer {
+    background-color: #f8f9fc;
+    border-top: 1px solid #e3e6f0;
+    padding: 1rem;
+    text-align: center;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #4e73df;
+    border-color: #4e73df;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+    background-color: #2e59d9;
+    border-color: #2653d4;
+}
+
+.btn-success {
+    background-color: #1cc88a;
+    border-color: #1cc88a;
+}
+
+.btn-success:hover, .btn-success:focus, .btn-success:active {
+    background-color: #17a673;
+    border-color: #169b6b;
+}
+
+.btn-danger {
+    background-color: #e74a3b;
+    border-color: #e74a3b;
+}
+
+.btn-danger:hover, .btn-danger:focus, .btn-danger:active {
+    background-color: #e02d1b;
+    border-color: #d52a1a;
+}
+
+/* Forms */
+.form-control:focus {
+    border-color: #bac8f3;
+    box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+}
+
+.form-label {
+    font-weight: 600;
+    color: #5a5c69;
+}
+
+/* Alert messages */
+.alert {
+    border: none;
+    border-radius: 0.25rem;
+}
+
+.alert-success {
+    color: #0f6848;
+    background-color: #d1f0e6;
+}
+
+.alert-danger {
+    color: #8f2c21;
+    background-color: #f8d7da;
+}
+
+.alert-warning {
+    color: #8f6d13;
+    background-color: #fff3cd;
+}
+
+.alert-info {
+    color: #1c6282;
+    background-color: #d2f4f9;
+}
+
+/* Table styles */
+.table thead th {
+    border-top: none;
+    border-bottom: 2px solid #e3e6f0;
+    font-weight: 700;
+    color: #5a5c69;
+    background-color: #f8f9fc;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f8f9fc;
+}
+
+/* Card styles */
+.card {
+    border: none;
+    border-radius: 0.35rem;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+}
+
+.card-header {
+    background-color: #f8f9fc;
+    border-bottom: 1px solid #e3e6f0;
+}
+
+.card-header h5, .card-header h4 {
+    margin: 0;
+    font-weight: 700;
+    color: #5a5c69;
+}
+
+/* Image styles */
+.img-thumbnail {
+    border: 1px solid #e3e6f0;
+    border-radius: 0.25rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(58, 59, 69, 0.075);
+}
+
+/* Badge styles */
+.badge {
+    font-weight: 600;
+    padding: 0.25em 0.5em;
+    border-radius: 0.25rem;
+}
+
+/* Footer styles */
+.footer {
+    background-color: white;
+    padding: 1.5rem;
+    text-align: center;
+    color: #858796;
+    border-top: 1px solid #e3e6f0;
+}
+
+/* Landing page specific styles */
+.hero-section {
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+    color: white;
+    padding: 4rem 0;
+}
+
+.hero-content h1 {
+    font-weight: 700;
     font-size: 3rem;
-    color: #adb5bd;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 
-/* Payment Form Styling */
-#paymentForm .form-label {
-    font-weight: 500;
+.feature-card {
+    text-align: center;
+    padding: 2rem;
+    transition: transform 0.3s;
 }
 
-/* Animate.css-like animations */
-.fade-in {
-    animation: fadeIn 0.5s ease-in-out;
+.feature-card:hover {
+    transform: translateY(-10px);
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+.feature-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: rgba(78, 115, 223, 0.1);
+    color: #4e73df;
+    font-size: 2rem;
 }
 
-.slide-up {
-    animation: slideUp 0.5s ease-in-out;
-}
-
-@keyframes slideUp {
-    from { transform: translateY(20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
-/* Dashboard Cards Hover Effect */
-.dashboard-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.dashboard-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-/* Progress Bar Styling */
-.progress {
-    height: 0.8rem;
-    border-radius: 0.4rem;
-}
-
-/* Notification Badge */
-.notification-badge {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    padding: 0.25rem 0.5rem;
-    font-size: 0.75rem;
-    line-height: 1;
-    border-radius: 50rem;
-}
-
-/* Alert Animations */
-.alert.fade.show {
-    animation: slideFadeIn 0.3s ease-in-out;
-}
-
-@keyframes slideFadeIn {
-    from { 
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to { 
-        opacity: 1;
-        transform: translateY(0);
+/* Responsive utilities */
+@media (max-width: 576px) {
+    .hero-content h1 {
+        font-size: 2rem;
     }
 }
 
-/* Print Styles */
-@media print {
-    .no-print {
-        display: none !important;
-    }
-    
-    body {
-        padding: 0;
-        margin: 0;
-    }
-    
-    .container {
-        max-width: 100%;
-        width: 100%;
-    }
+/* Utility classes */
+.text-primary {
+    color: #4e73df !important;
+}
+
+.text-success {
+    color: #1cc88a !important;
+}
+
+.text-danger {
+    color: #e74a3b !important;
+}
+
+.text-warning {
+    color: #f6c23e !important;
+}
+
+.bg-primary {
+    background-color: #4e73df !important;
+}
+
+.bg-success {
+    background-color: #1cc88a !important;
+}
+
+.bg-danger {
+    background-color: #e74a3b !important;
+}
+
+.bg-warning {
+    background-color: #f6c23e !important;
+}
+
+.shadow {
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
 }

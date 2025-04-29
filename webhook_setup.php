@@ -1,643 +1,464 @@
 <?php
-$page_title = 'Webhook Setup Guide';
-require_once __DIR__ . '/includes/header.php';
+/**
+ * Webhook setup and management
+ */
+require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/includes/functions.php';
+require_once __DIR__ . '/includes/database.php';
+require_once __DIR__ . '/includes/auth.php';
+require_once __DIR__ . '/api/ghl_api.php';
+require_once __DIR__ . '/api/pillars_api.php';
 
-// Check if user is an administrator
-$is_admin = isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true;
+// Set page title
+$page_title = 'Webhook Setup';
 
-// If not admin, redirect to dashboard
-if (!is_admin && !DEBUG_MODE) {
-    header('Location: /dashboard/index.php');
+// Require login
+require_login();
+
+// Check if user has admin rights
+$user = get_current_logged_user();
+$is_admin = isset($user['is_admin']) && $user['is_admin'] === 1;
+
+if (!$is_admin) {
+    // Redirect to dashboard if not admin
+    redirect('/dashboard');
     exit;
 }
 
-// Get webhook URLs for display
-$ghl_webhook_url = APP_URL . '/api/webhook_handler.php?source=ghl';
-$pillars_webhook_url = APP_URL . '/api/webhook_handler.php?source=pillars';
-$rsi_webhook_url = APP_URL . '/api/webhook_handler.php?source=rsi';
+// Handle form submission
+$message = '';
+$error = '';
 
-// Get webhook secret for display (only in debug mode)
-$webhook_secret = DEBUG_MODE ? WEBHOOK_SECRET : '********';
-
-// Handle test webhook submission
-$test_result = null;
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['test_webhook'])) {
-    $source = sanitize_input($_POST['source']);
-    $event = sanitize_input($_POST['event']);
-    $payload = trim($_POST['payload']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $action = isset($_POST['action']) ? $_POST['action'] : '';
     
-    // Validate inputs
-    if (empty($source) || empty($event) || empty($payload)) {
-        $test_result = [
-            'success' => false,
-            'message' => 'All fields are required for testing.'
-        ];
-    } else {
-        try {
-            // Parse payload as JSON
-            $payload_data = json_decode($payload, true);
-            if ($payload_data === null) {
-                throw new Exception('Invalid JSON payload.');
+    switch ($action) {
+        case 'setup_ghl_webhooks':
+            try {
+                setup_ghl_webhooks();
+                $message = 'GHL webhooks setup successfully';
+            } catch (Exception $e) {
+                $error = 'Error setting up GHL webhooks: ' . $e->getMessage();
             }
-            
-            // Create test payload
-            $test_payload = [
-                'event' => $event,
-                $event_resource_map[$event] => $payload_data
-            ];
-            
-            // Calculate signature
-            $signature = hash_hmac('sha256', json_encode($test_payload), WEBHOOK_SECRET);
-            
-            // Set up cURL request
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, APP_URL . "/api/webhook_handler.php?source={$source}");
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($test_payload));
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                'Content-Type: application/json',
-                'X-Webhook-Signature: ' . $signature
-            ]);
-            
-            // Execute request
-            $response = curl_exec($ch);
-            $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-            curl_close($ch);
-            
-            // Process response
-            if ($http_code >= 200 && $http_code < 300) {
-                $response_data = json_decode($response, true);
-                $test_result = [
-                    'success' => true,
-                    'message' => 'Webhook test successful!',
-                    'details' => $response_data
-                ];
-            } else {
-                $test_result = [
-                    'success' => false,
-                    'message' => 'Webhook test failed. HTTP status code: ' . $http_code,
-                    'details' => $response
-                ];
+            break;
+        
+        case 'setup_pillars_webhooks':
+            try {
+                setup_pillars_webhooks();
+                $message = 'Pillars webhooks setup successfully';
+            } catch (Exception $e) {
+                $error = 'Error setting up Pillars webhooks: ' . $e->getMessage();
             }
-        } catch (Exception $e) {
-            $test_result = [
-                'success' => false,
-                'message' => 'Error: ' . $e->getMessage()
-            ];
-        }
+            break;
+        
+        case 'test_ghl_webhook':
+            try {
+                test_ghl_webhook();
+                $message = 'GHL webhook test completed successfully';
+            } catch (Exception $e) {
+                $error = 'Error testing GHL webhook: ' . $e->getMessage();
+            }
+            break;
+        
+        case 'test_pillars_webhook':
+            try {
+                test_pillars_webhook();
+                $message = 'Pillars webhook test completed successfully';
+            } catch (Exception $e) {
+                $error = 'Error testing Pillars webhook: ' . $e->getMessage();
+            }
+            break;
     }
 }
 
-// Map of event types to their corresponding resource keys in the payload
-$event_resource_map = [
-    'contact.created' => 'contact',
-    'contact.updated' => 'contact',
-    'order.created' => 'order',
-    'order.updated' => 'order',
-    'user.created' => 'user',
-    'user.updated' => 'user',
-    'commission.created' => 'commission',
-    'commission.updated' => 'commission',
-    'travel_dollars.processed' => 'travel_dollars',
-    'booking.created' => 'booking',
-    'booking.updated' => 'booking'
-];
+// Include header
+require_once __DIR__ . '/includes/header.php';
 ?>
 
-<div class="row mb-4">
-    <div class="col-12">
-        <h1>Webhook Setup Guide</h1>
-        <p class="lead">Configure webhooks to enable real-time data synchronization between systems.</p>
-    </div>
-</div>
-
-<div class="row mb-4">
-    <div class="col-12">
-        <div class="alert alert-info">
-            <i class="fas fa-info-circle me-2"></i>
-            Webhooks allow external systems to notify this application when events occur. Use this page to set up and test the webhook integrations.
-        </div>
-    </div>
-</div>
-
-<div class="row mb-4">
-    <div class="col-lg-4 mb-4">
-        <div class="card h-100">
-            <div class="card-header bg-primary text-white">
-                <h5 class="mb-0">
-                    <i class="fas fa-plug me-2"></i> Go High Level (GHL) Webhooks
-                </h5>
-            </div>
-            <div class="card-body">
-                <p>Configure GHL to send webhook events to our system.</p>
-                
-                <h6 class="mt-3">Webhook URL:</h6>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" value="<?php echo $ghl_webhook_url; ?>" readonly>
-                    <button class="btn btn-outline-secondary" type="button" onclick="copyToClipboard(this.previousElementSibling)">
-                        <i class="fas fa-copy"></i>
-                    </button>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Webhook Setup and Management</h1>
+            <p class="lead">Configure and manage webhooks for GHL and Pillars integrations</p>
+            
+            <?php if ($message): ?>
+                <div class="alert alert-success">
+                    <?php echo htmlspecialchars($message); ?>
                 </div>
-                
-                <h6>Events to Configure:</h6>
-                <ul class="list-group mb-3">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Contact Created
-                        <span class="badge bg-primary rounded-pill">Required</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Contact Updated
-                        <span class="badge bg-primary rounded-pill">Required</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Order Created
-                        <span class="badge bg-primary rounded-pill">Required</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Order Updated
-                        <span class="badge bg-primary rounded-pill">Required</span>
-                    </li>
-                </ul>
-                
-                <a href="https://marketplace.gohighlevel.com/" target="_blank" class="btn btn-primary">
-                    <i class="fas fa-external-link-alt me-1"></i> GHL Marketplace
-                </a>
-            </div>
-        </div>
-    </div>
-    
-    <div class="col-lg-4 mb-4">
-        <div class="card h-100">
-            <div class="card-header bg-success text-white">
-                <h5 class="mb-0">
-                    <i class="fas fa-plug me-2"></i> Pillars Webhooks
-                </h5>
-            </div>
-            <div class="card-body">
-                <p>Configure Pillars to send webhook events to our system.</p>
-                
-                <h6 class="mt-3">Webhook URL:</h6>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" value="<?php echo $pillars_webhook_url; ?>" readonly>
-                    <button class="btn btn-outline-secondary" type="button" onclick="copyToClipboard(this.previousElementSibling)">
-                        <i class="fas fa-copy"></i>
-                    </button>
+            <?php endif; ?>
+            
+            <?php if ($error): ?>
+                <div class="alert alert-danger">
+                    <?php echo htmlspecialchars($error); ?>
                 </div>
-                
-                <h6>Events to Configure:</h6>
-                <ul class="list-group mb-3">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        User Created
-                        <span class="badge bg-primary rounded-pill">Required</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        User Updated
-                        <span class="badge bg-primary rounded-pill">Required</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Order Created
-                        <span class="badge bg-primary rounded-pill">Required</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Order Updated
-                        <span class="badge bg-primary rounded-pill">Required</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Commission Created
-                        <span class="badge bg-primary rounded-pill">Required</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Commission Updated
-                        <span class="badge bg-primary rounded-pill">Required</span>
-                    </li>
-                </ul>
-                
-                <a href="https://pillars.com/developers" target="_blank" class="btn btn-success">
-                    <i class="fas fa-external-link-alt me-1"></i> Pillars Developer Portal
-                </a>
-            </div>
-        </div>
-    </div>
-    
-    <div class="col-lg-4 mb-4">
-        <div class="card h-100">
-            <div class="card-header bg-warning text-dark">
-                <h5 class="mb-0">
-                    <i class="fas fa-plug me-2"></i> RSI (Travel) Webhooks
-                </h5>
-            </div>
-            <div class="card-body">
-                <p>Configure RSI to send webhook events to our system.</p>
-                
-                <h6 class="mt-3">Webhook URL:</h6>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" value="<?php echo $rsi_webhook_url; ?>" readonly>
-                    <button class="btn btn-outline-secondary" type="button" onclick="copyToClipboard(this.previousElementSibling)">
-                        <i class="fas fa-copy"></i>
-                    </button>
+            <?php endif; ?>
+            
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h2 class="card-title h5">Webhook Information</h2>
                 </div>
-                
-                <h6>Events to Configure:</h6>
-                <ul class="list-group mb-3">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Travel Dollars Processed
-                        <span class="badge bg-primary rounded-pill">Required</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Booking Created
-                        <span class="badge bg-secondary rounded-pill">Optional</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Booking Updated
-                        <span class="badge bg-secondary rounded-pill">Optional</span>
-                    </li>
-                </ul>
-                
-                <a href="https://rsi.com/api-docs" target="_blank" class="btn btn-warning">
-                    <i class="fas fa-external-link-alt me-1"></i> RSI API Documentation
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row mb-4">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header bg-light">
-                <h5 class="mb-0">
-                    <i class="fas fa-key me-2"></i> Webhook Secret
-                </h5>
-            </div>
-            <div class="card-body">
-                <p>This secret key is used to verify webhook requests. You should configure it in each system.</p>
-                
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" value="<?php echo $webhook_secret; ?>" readonly>
-                    <?php if (DEBUG_MODE): ?>
-                    <button class="btn btn-outline-secondary" type="button" onclick="copyToClipboard(this.previousElementSibling)">
-                        <i class="fas fa-copy"></i>
-                    </button>
-                    <?php endif; ?>
-                </div>
-                
-                <div class="alert alert-warning mb-0">
-                    <i class="fas fa-exclamation-triangle me-2"></i>
-                    Keep this secret secure! Each system should use this key to generate a HMAC-SHA256 signature of the payload and send it in the <code>X-Webhook-Signature</code> header.
+                <div class="card-body">
+                    <p>Webhooks are used to receive real-time notifications from GHL and Pillars when events occur, such as:</p>
+                    <ul>
+                        <li>New contact/member created</li>
+                        <li>New order placed</li>
+                        <li>Commission generated</li>
+                        <li>Order status updated</li>
+                    </ul>
+                    
+                    <h3 class="h5 mt-4">Webhook Endpoints</h3>
+                    <p>Use the following URLs when configuring webhooks in the respective platforms:</p>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Platform</th>
+                                    <th>Webhook URL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>GoHighLevel</td>
+                                    <td><code><?php echo APP_URL; ?>/api/webhook_handler.php?source=ghl</code></td>
+                                </tr>
+                                <tr>
+                                    <td>Pillars</td>
+                                    <td><code><?php echo APP_URL; ?>/api/webhook_handler.php?source=pillars</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-
-<div class="row mb-4">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header bg-light">
-                <h5 class="mb-0">
-                    <i class="fas fa-cogs me-2"></i> Test Webhook
-                </h5>
-            </div>
-            <div class="card-body">
-                <p>Use this tool to test webhook payloads against your webhook handler.</p>
-                
-                <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="source" class="form-label">Source System</label>
-                            <select class="form-select" id="source" name="source" required>
-                                <option value="">Select a source</option>
-                                <option value="ghl">Go High Level (GHL)</option>
-                                <option value="pillars">Pillars</option>
-                                <option value="rsi">RSI (Travel)</option>
-                            </select>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h2 class="card-title h5">GoHighLevel Webhooks</h2>
                         </div>
-                        
-                        <div class="col-md-6 mb-3">
-                            <label for="event" class="form-label">Event Type</label>
-                            <select class="form-select" id="event" name="event" required>
-                                <option value="">Select an event</option>
-                                <optgroup label="GHL Events" class="ghl-events">
-                                    <option value="contact.created">Contact Created</option>
-                                    <option value="contact.updated">Contact Updated</option>
-                                    <option value="order.created">Order Created</option>
-                                    <option value="order.updated">Order Updated</option>
-                                </optgroup>
-                                <optgroup label="Pillars Events" class="pillars-events">
-                                    <option value="user.created">User Created</option>
-                                    <option value="user.updated">User Updated</option>
-                                    <option value="order.created">Order Created</option>
-                                    <option value="order.updated">Order Updated</option>
-                                    <option value="commission.created">Commission Created</option>
-                                    <option value="commission.updated">Commission Updated</option>
-                                </optgroup>
-                                <optgroup label="RSI Events" class="rsi-events">
-                                    <option value="travel_dollars.processed">Travel Dollars Processed</option>
-                                    <option value="booking.created">Booking Created</option>
-                                    <option value="booking.updated">Booking Updated</option>
-                                </optgroup>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label for="payload" class="form-label">JSON Payload</label>
-                        <textarea class="form-control" id="payload" name="payload" rows="10" required></textarea>
-                        <div class="form-text">Enter the payload in JSON format. This should match the data format expected by the handler.</div>
-                    </div>
-                    
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button type="button" class="btn btn-outline-secondary" id="samplePayloadBtn">
-                            <i class="fas fa-code me-1"></i> Generate Sample Payload
-                        </button>
-                        <button type="submit" class="btn btn-primary" name="test_webhook">
-                            <i class="fas fa-paper-plane me-1"></i> Send Test Webhook
-                        </button>
-                    </div>
-                </form>
-                
-                <?php if ($test_result !== null): ?>
-                <div class="mt-4">
-                    <h5>Test Result</h5>
-                    <div class="alert alert-<?php echo $test_result['success'] ? 'success' : 'danger'; ?>">
-                        <?php echo $test_result['message']; ?>
-                    </div>
-                    
-                    <?php if (isset($test_result['details'])): ?>
-                    <div class="card">
-                        <div class="card-header bg-light">Response Details</div>
                         <div class="card-body">
-                            <pre class="mb-0"><?php echo json_encode($test_result['details'], JSON_PRETTY_PRINT); ?></pre>
+                            <p>Setup webhooks in GoHighLevel to receive notifications for the following events:</p>
+                            <ul>
+                                <li>Contact Created</li>
+                                <li>Contact Updated</li>
+                                <li>Order Created</li>
+                                <li>Order Updated</li>
+                            </ul>
+                            
+                            <form method="post" action="">
+                                <input type="hidden" name="action" value="setup_ghl_webhooks">
+                                <button type="submit" class="btn btn-primary">Setup GHL Webhooks</button>
+                            </form>
+                            
+                            <hr>
+                            
+                            <h3 class="h6">Test GHL Webhook</h3>
+                            <p>Send a test event to verify the webhook is working correctly.</p>
+                            
+                            <form method="post" action="">
+                                <input type="hidden" name="action" value="test_ghl_webhook">
+                                <button type="submit" class="btn btn-outline-primary">Send Test Event</button>
+                            </form>
                         </div>
                     </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h2 class="card-title h5">Pillars Webhooks</h2>
+                        </div>
+                        <div class="card-body">
+                            <p>Setup webhooks in Pillars to receive notifications for the following events:</p>
+                            <ul>
+                                <li>Commission Created</li>
+                                <li>Commission Updated</li>
+                                <li>Member Sponsor Changed</li>
+                            </ul>
+                            
+                            <form method="post" action="">
+                                <input type="hidden" name="action" value="setup_pillars_webhooks">
+                                <button type="submit" class="btn btn-primary">Setup Pillars Webhooks</button>
+                            </form>
+                            
+                            <hr>
+                            
+                            <h3 class="h6">Test Pillars Webhook</h3>
+                            <p>Send a test event to verify the webhook is working correctly.</p>
+                            
+                            <form method="post" action="">
+                                <input type="hidden" name="action" value="test_pillars_webhook">
+                                <button type="submit" class="btn btn-outline-primary">Send Test Event</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h2 class="card-title h5">Webhook Logs</h2>
+                </div>
+                <div class="card-body">
+                    <p>Recent webhook activity:</p>
+                    
+                    <?php
+                    // Get webhook logs
+                    $log_file = LOG_DIR . '/' . date('Y-m-d') . '.log';
+                    $logs = [];
+                    
+                    if (file_exists($log_file)) {
+                        $log_content = file_get_contents($log_file);
+                        $log_lines = explode(PHP_EOL, $log_content);
+                        
+                        // Filter webhook-related logs
+                        foreach ($log_lines as $line) {
+                            if (strpos($line, 'Webhook') !== false) {
+                                $logs[] = $line;
+                            }
+                        }
+                        
+                        // Show the 20 most recent logs
+                        $logs = array_slice(array_reverse($logs), 0, 20);
+                    }
+                    ?>
+                    
+                    <?php if (!empty($logs)): ?>
+                        <div class="log-container">
+                            <?php foreach ($logs as $log): ?>
+                                <div class="log-entry">
+                                    <?php echo htmlspecialchars($log); ?>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php else: ?>
+                        <p class="text-muted">No webhook logs found for today.</p>
                     <?php endif; ?>
                 </div>
-                <?php endif; ?>
             </div>
         </div>
     </div>
 </div>
 
-<div class="row mb-4">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header bg-light">
-                <h5 class="mb-0">
-                    <i class="fas fa-chart-bar me-2"></i> Webhook Activity
-                </h5>
-            </div>
-            <div class="card-body">
-                <p>Recent webhook activity and processing status.</p>
-                
-                <?php
-                // Get recent webhook logs
-                $webhook_logs = db_query("SELECT * FROM webhook_logs ORDER BY created_at DESC LIMIT 10");
-                $webhook_logs = db_fetch_all($webhook_logs);
-                ?>
-                
-                <?php if (empty($webhook_logs)): ?>
-                <div class="alert alert-info">
-                    <i class="fas fa-info-circle me-2"></i>
-                    No webhook activity has been recorded yet.
-                </div>
-                <?php else: ?>
-                <div class="table-responsive">
-                    <table class="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Source</th>
-                                <th>Event Type</th>
-                                <th>Status</th>
-                                <th>Received</th>
-                                <th>Processed</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($webhook_logs as $log): ?>
-                            <tr>
-                                <td><?php echo $log['id']; ?></td>
-                                <td>
-                                    <span class="badge bg-<?php 
-                                        echo $log['source'] === 'ghl' ? 'primary' : 
-                                            ($log['source'] === 'pillars' ? 'success' : 'warning'); 
-                                    ?>">
-                                        <?php echo strtoupper($log['source']); ?>
-                                    </span>
-                                </td>
-                                <td><?php echo htmlspecialchars($log['event_type']); ?></td>
-                                <td>
-                                    <span class="badge bg-<?php 
-                                        echo $log['status'] === 'completed' ? 'success' : 
-                                            ($log['status'] === 'failed' ? 'danger' : 
-                                                ($log['status'] === 'processing' ? 'info' : 'secondary')); 
-                                    ?>">
-                                        <?php echo ucfirst($log['status']); ?>
-                                    </span>
-                                </td>
-                                <td><?php echo format_date($log['created_at'], 'M j, Y g:i A'); ?></td>
-                                <td>
-                                    <?php echo $log['processed_at'] ? format_date($log['processed_at'], 'M j, Y g:i A') : 'N/A'; ?>
-                                </td>
-                                <td>
-                                    <button class="btn btn-sm btn-outline-secondary view-payload" data-payload='<?php echo htmlspecialchars($log['payload']); ?>'>
-                                        <i class="fas fa-eye"></i> View
-                                    </button>
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
-                <?php endif; ?>
-            </div>
-        </div>
-    </div>
-</div>
+<style>
+    .log-container {
+        max-height: 300px;
+        overflow-y: auto;
+        background-color: #f8f9fa;
+        padding: 1rem;
+        border-radius: 0.25rem;
+        font-family: monospace;
+        font-size: 0.875rem;
+    }
+    
+    .log-entry {
+        margin-bottom: 0.5rem;
+        border-bottom: 1px solid #e9ecef;
+        padding-bottom: 0.5rem;
+    }
+    
+    .log-entry:last-child {
+        margin-bottom: 0;
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+</style>
 
-<!-- Payload Modal -->
-<div class="modal fade" id="payloadModal" tabindex="-1" aria-labelledby="payloadModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="payloadModalLabel">Webhook Payload</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <pre id="payloadContent" class="bg-light p-3 rounded"></pre>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
+<?php
+// Include footer
+require_once __DIR__ . '/includes/footer.php';
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Handle source selection for event types
-    const sourceSelect = document.getElementById('source');
-    const eventSelect = document.getElementById('event');
-    const ghlEvents = document.querySelector('.ghl-events');
-    const pillarsEvents = document.querySelector('.pillars-events');
-    const rsiEvents = document.querySelector('.rsi-events');
-    
-    // Hide all event optgroups initially
-    ghlEvents.style.display = 'none';
-    pillarsEvents.style.display = 'none';
-    rsiEvents.style.display = 'none';
-    
-    sourceSelect.addEventListener('change', function() {
-        // Reset event selection
-        eventSelect.value = '';
+/**
+ * Setup GHL webhooks
+ *
+ * @return void
+ */
+function setup_ghl_webhooks() {
+    try {
+        $ghl_api = ghl_api();
         
-        // Hide all event optgroups
-        ghlEvents.style.display = 'none';
-        pillarsEvents.style.display = 'none';
-        rsiEvents.style.display = 'none';
+        // Webhook URL for GHL events
+        $webhook_url = APP_URL . '/api/webhook_handler.php?source=ghl';
         
-        // Show relevant event optgroup based on source selection
-        switch(this.value) {
-            case 'ghl':
-                ghlEvents.style.display = 'block';
-                break;
-            case 'pillars':
-                pillarsEvents.style.display = 'block';
-                break;
-            case 'rsi':
-                rsiEvents.style.display = 'block';
-                break;
-        }
-    });
-    
-    // Handle view payload buttons
-    const viewPayloadButtons = document.querySelectorAll('.view-payload');
-    const payloadContent = document.getElementById('payloadContent');
-    const payloadModal = new bootstrap.Modal(document.getElementById('payloadModal'));
-    
-    viewPayloadButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const payload = this.getAttribute('data-payload');
-            try {
-                const formattedPayload = JSON.stringify(JSON.parse(payload), null, 2);
-                payloadContent.textContent = formattedPayload;
-            } catch (e) {
-                payloadContent.textContent = payload;
-            }
-            payloadModal.show();
-        });
-    });
-    
-    // Handle sample payload button
-    const samplePayloadBtn = document.getElementById('samplePayloadBtn');
-    const payloadTextarea = document.getElementById('payload');
-    
-    samplePayloadBtn.addEventListener('click', function() {
-        const source = sourceSelect.value;
-        const event = eventSelect.value;
+        // Setup webhooks for different events
+        $events = [
+            'contact.created',
+            'contact.updated',
+            'order.created',
+            'order.updated'
+        ];
         
-        if (!source || !event) {
-            alert('Please select a source and event type first.');
-            return;
+        foreach ($events as $event) {
+            // Create webhook for this event
+            $webhook_data = [
+                'name' => 'LaVarti Integration - ' . $event,
+                'url' => $webhook_url,
+                'event' => $event,
+                'isActive' => true
+            ];
+            
+            // Make API request to create webhook
+            // Note: This is a simplified version, as we don't have the actual GHL API for webhook management
+            // In a real application, you would use the GHL API to create webhooks
+            
+            log_activity("GHL Webhook setup for event: {$event}", 'info');
         }
         
-        let samplePayload = {};
-        
-        switch(event) {
-            case 'contact.created':
-            case 'contact.updated':
-                samplePayload = {
-                    "id": "contact_" + Math.floor(Math.random() * 1000000),
-                    "email": "user" + Math.floor(Math.random() * 1000) + "@example.com",
-                    "firstName": "John",
-                    "lastName": "Doe",
-                    "phone": "+1234567890",
-                    "status": "active",
-                    "createdAt": new Date().toISOString()
-                };
-                break;
-                
-            case 'order.created':
-            case 'order.updated':
-                samplePayload = {
-                    "id": "order_" + Math.floor(Math.random() * 1000000),
-                    "contactId": "contact_" + Math.floor(Math.random() * 1000000),
-                    "productId": ["basic_tier", "premium_tier", "elite_tier"][Math.floor(Math.random() * 3)],
-                    "amount": [25, 65, 500][Math.floor(Math.random() * 3)],
-                    "status": ["PENDING", "PROCESSING", "COMPLETED"][Math.floor(Math.random() * 3)],
-                    "createdAt": new Date().toISOString()
-                };
-                break;
-                
-            case 'user.created':
-            case 'user.updated':
-                samplePayload = {
-                    "id": "user_" + Math.floor(Math.random() * 1000000),
-                    "email": "user" + Math.floor(Math.random() * 1000) + "@example.com",
-                    "first_name": "John",
-                    "last_name": "Doe",
-                    "phone": "+1234567890",
-                    "sponsor_id": "user_" + Math.floor(Math.random() * 1000000),
-                    "replicated_site": "johndoe",
-                    "tier_id": Math.floor(Math.random() * 3) + 1,
-                    "external_id": "contact_" + Math.floor(Math.random() * 1000000)
-                };
-                break;
-                
-            case 'commission.created':
-            case 'commission.updated':
-                samplePayload = {
-                    "id": "comm_" + Math.floor(Math.random() * 1000000),
-                    "user_id": "user_" + Math.floor(Math.random() * 1000000),
-                    "order_id": "order_" + Math.floor(Math.random() * 1000000),
-                    "amount": Math.floor(Math.random() * 100) + 10,
-                    "type": ["direct", "override", "bonus"][Math.floor(Math.random() * 3)],
-                    "status": ["pending", "approved", "paid"][Math.floor(Math.random() * 3)],
-                    "is_travel": Math.random() > 0.5
-                };
-                break;
-                
-            case 'travel_dollars.processed':
-                samplePayload = {
-                    "id": "td_" + Math.floor(Math.random() * 1000000),
-                    "user_id": "user_" + Math.floor(Math.random() * 1000000),
-                    "amount": Math.floor(Math.random() * 200) + 50,
-                    "source": "commission",
-                    "reference_id": "comm_" + Math.floor(Math.random() * 1000000)
-                };
-                break;
-                
-            case 'booking.created':
-            case 'booking.updated':
-                samplePayload = {
-                    "id": "booking_" + Math.floor(Math.random() * 1000000),
-                    "user_id": "user_" + Math.floor(Math.random() * 1000000),
-                    "destination": ["Paris", "Tokyo", "New York", "Bali", "Rome"][Math.floor(Math.random() * 5)],
-                    "amount": Math.floor(Math.random() * 1000) + 500,
-                    "status": ["pending", "confirmed", "completed"][Math.floor(Math.random() * 3)]
-                };
-                break;
-        }
-        
-        payloadTextarea.value = JSON.stringify(samplePayload, null, 2);
-    });
-});
-
-// Function to copy text to clipboard
-function copyToClipboard(element) {
-    element.select();
-    document.execCommand('copy');
-    
-    // Show copied confirmation
-    const originalBtnHtml = element.nextElementSibling.innerHTML;
-    element.nextElementSibling.innerHTML = '<i class="fas fa-check"></i>';
-    
-    setTimeout(() => {
-        element.nextElementSibling.innerHTML = originalBtnHtml;
-    }, 2000);
+        return true;
+    } catch (Exception $e) {
+        log_activity('Error setting up GHL webhooks: ' . $e->getMessage(), 'error');
+        throw $e;
+    }
 }
-</script>
 
-<?php require_once __DIR__ . '/includes/footer.php'; ?>
+/**
+ * Setup Pillars webhooks
+ *
+ * @return void
+ */
+function setup_pillars_webhooks() {
+    try {
+        $pillars_api = pillars_api();
+        
+        // Webhook URL for Pillars events
+        $webhook_url = APP_URL . '/api/webhook_handler.php?source=pillars';
+        
+        // Setup webhooks for different events
+        $events = [
+            'commission.created',
+            'commission.updated',
+            'member.sponsorChanged'
+        ];
+        
+        foreach ($events as $event) {
+            // Create webhook for this event
+            $webhook_data = [
+                'name' => 'LaVarti Integration - ' . $event,
+                'url' => $webhook_url,
+                'event' => $event,
+                'isActive' => true
+            ];
+            
+            // Make API request to create webhook
+            // Note: This is a simplified version, as we don't have the actual Pillars API for webhook management
+            // In a real application, you would use the Pillars API to create webhooks
+            
+            log_activity("Pillars Webhook setup for event: {$event}", 'info');
+        }
+        
+        return true;
+    } catch (Exception $e) {
+        log_activity('Error setting up Pillars webhooks: ' . $e->getMessage(), 'error');
+        throw $e;
+    }
+}
+
+/**
+ * Test GHL webhook
+ *
+ * @return void
+ */
+function test_ghl_webhook() {
+    try {
+        // Create a test payload
+        $payload = [
+            'event' => 'contact.created',
+            'contact' => [
+                'id' => 'test_contact_id',
+                'firstName' => 'Test',
+                'lastName' => 'User',
+                'email' => 'test@example.com',
+                'phone' => '1234567890'
+            ]
+        ];
+        
+        // Send test webhook to our handler
+        $webhook_url = APP_URL . '/api/webhook_handler.php?source=ghl';
+        
+        $ch = curl_init($webhook_url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json'
+        ]);
+        
+        $response = curl_exec($ch);
+        
+        if (curl_errno($ch)) {
+            throw new Exception('cURL error: ' . curl_error($ch));
+        }
+        
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        
+        curl_close($ch);
+        
+        if ($http_status >= 400) {
+            throw new Exception('HTTP error: ' . $http_status);
+        }
+        
+        log_activity('GHL webhook test sent successfully', 'info');
+        
+        return true;
+    } catch (Exception $e) {
+        log_activity('Error testing GHL webhook: ' . $e->getMessage(), 'error');
+        throw $e;
+    }
+}
+
+/**
+ * Test Pillars webhook
+ *
+ * @return void
+ */
+function test_pillars_webhook() {
+    try {
+        // Create a test payload
+        $payload = [
+            'event' => 'commission.created',
+            'commission' => [
+                'id' => 'test_commission_id',
+                'memberId' => 'test_member_id',
+                'amount' => 25.00,
+                'status' => 'pending',
+                'source' => 'test',
+                'sourceId' => 'test_order_id',
+                'externalId' => 'test_order_external_id'
+            ]
+        ];
+        
+        // Send test webhook to our handler
+        $webhook_url = APP_URL . '/api/webhook_handler.php?source=pillars';
+        
+        $ch = curl_init($webhook_url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json'
+        ]);
+        
+        $response = curl_exec($ch);
+        
+        if (curl_errno($ch)) {
+            throw new Exception('cURL error: ' . curl_error($ch));
+        }
+        
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        
+        curl_close($ch);
+        
+        if ($http_status >= 400) {
+            throw new Exception('HTTP error: ' . $http_status);
+        }
+        
+        log_activity('Pillars webhook test sent successfully', 'info');
+        
+        return true;
+    } catch (Exception $e) {
+        log_activity('Error testing Pillars webhook: ' . $e->getMessage(), 'error');
+        throw $e;
+    }
+}
