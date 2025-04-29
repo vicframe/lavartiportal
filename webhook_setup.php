@@ -1,464 +1,472 @@
 <?php
 /**
- * Webhook setup and management
+ * Webhook Setup Page
+ * 
+ * This page allows admins to set up and test webhooks for GHL and Pillars integrations.
  */
-require_once __DIR__ . '/config.php';
-require_once __DIR__ . '/includes/functions.php';
-require_once __DIR__ . '/includes/database.php';
-require_once __DIR__ . '/includes/auth.php';
-require_once __DIR__ . '/api/ghl_api.php';
-require_once __DIR__ . '/api/pillars_api.php';
 
-// Set page title
-$page_title = 'Webhook Setup';
+require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/includes/auth.php';
+require_once __DIR__ . '/includes/database.php';
+require_once __DIR__ . '/includes/functions.php';
 
 // Require login
-require_login();
-
-// Check if user has admin rights
-$user = get_current_logged_user();
-$is_admin = isset($user['is_admin']) && $user['is_admin'] === 1;
-
-if (!$is_admin) {
-    // Redirect to dashboard if not admin
-    redirect('/dashboard');
+if (!is_logged_in()) {
+    header('Location: login.php');
     exit;
 }
 
-// Handle form submission
-$message = '';
-$error = '';
+$user = get_current_logged_user();
 
+// Check if user is admin
+if (!isset($user['is_admin']) || !$user['is_admin']) {
+    header('Location: dashboard');
+    exit;
+}
+
+// Initialize error and success messages
+$error_message = '';
+$success_message = '';
+
+// Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $action = isset($_POST['action']) ? $_POST['action'] : '';
+    $action = $_POST['action'] ?? '';
     
-    switch ($action) {
-        case 'setup_ghl_webhooks':
-            try {
-                setup_ghl_webhooks();
-                $message = 'GHL webhooks setup successfully';
-            } catch (Exception $e) {
-                $error = 'Error setting up GHL webhooks: ' . $e->getMessage();
+    if ($action === 'update_webhook_urls') {
+        try {
+            // Get base URL
+            $base_url = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://";
+            $base_url .= $_SERVER['HTTP_HOST'];
+            
+            // Save GHL webhook config
+            $ghl_config = [
+                'webhook_url' => $base_url . '/webhook_ghl.php',
+                'webhook_secret' => $_POST['ghl_webhook_secret'] ?? '',
+                'api_key' => $_POST['ghl_api_key'] ?? '',
+                'location_id' => $_POST['ghl_location_id'] ?? ''
+            ];
+            
+            // Save Pillars webhook config
+            $pillars_config = [
+                'webhook_url' => $base_url . '/webhook_pillars.php',
+                'webhook_secret' => $_POST['pillars_webhook_secret'] ?? '',
+                'api_key' => $_POST['pillars_api_key'] ?? '',
+                'organization_id' => $_POST['pillars_organization_id'] ?? ''
+            ];
+            
+            // Save configurations to database
+            save_integration_config('ghl', $ghl_config);
+            save_integration_config('pillars', $pillars_config);
+            
+            $success_message = 'Webhook configurations updated successfully.';
+        } catch (Exception $e) {
+            $error_message = 'Error updating webhook configurations: ' . $e->getMessage();
+        }
+    } elseif ($action === 'test_ghl_webhook') {
+        try {
+            // Get GHL config
+            $ghl_config = get_integration_config('ghl');
+            
+            // Create test data
+            $test_data = [
+                'event' => 'contact.created',
+                'contact' => [
+                    'id' => 'test-' . time(),
+                    'email' => 'test-' . time() . '@example.com',
+                    'firstName' => 'Test',
+                    'lastName' => 'User',
+                    'phone' => '+1234567890'
+                ]
+            ];
+            
+            // Send test webhook to our own endpoint
+            $result = send_test_webhook('/webhook_ghl.php', $test_data, $ghl_config['webhook_secret'] ?? '');
+            
+            if ($result['success']) {
+                $success_message = 'GHL webhook test successful: ' . $result['message'];
+            } else {
+                $error_message = 'GHL webhook test failed: ' . $result['error'];
             }
-            break;
-        
-        case 'setup_pillars_webhooks':
-            try {
-                setup_pillars_webhooks();
-                $message = 'Pillars webhooks setup successfully';
-            } catch (Exception $e) {
-                $error = 'Error setting up Pillars webhooks: ' . $e->getMessage();
+        } catch (Exception $e) {
+            $error_message = 'Error testing GHL webhook: ' . $e->getMessage();
+        }
+    } elseif ($action === 'test_pillars_webhook') {
+        try {
+            // Get Pillars config
+            $pillars_config = get_integration_config('pillars');
+            
+            // Create test data
+            $test_data = [
+                'event' => 'affiliate.created',
+                'affiliate' => [
+                    'id' => 'test-' . time(),
+                    'email' => 'test-' . time() . '@example.com',
+                    'firstName' => 'Test',
+                    'lastName' => 'Affiliate'
+                ]
+            ];
+            
+            // Send test webhook to our own endpoint
+            $result = send_test_webhook('/webhook_pillars.php', $test_data, $pillars_config['webhook_secret'] ?? '');
+            
+            if ($result['success']) {
+                $success_message = 'Pillars webhook test successful: ' . $result['message'];
+            } else {
+                $error_message = 'Pillars webhook test failed: ' . $result['error'];
             }
-            break;
-        
-        case 'test_ghl_webhook':
-            try {
-                test_ghl_webhook();
-                $message = 'GHL webhook test completed successfully';
-            } catch (Exception $e) {
-                $error = 'Error testing GHL webhook: ' . $e->getMessage();
-            }
-            break;
-        
-        case 'test_pillars_webhook':
-            try {
-                test_pillars_webhook();
-                $message = 'Pillars webhook test completed successfully';
-            } catch (Exception $e) {
-                $error = 'Error testing Pillars webhook: ' . $e->getMessage();
-            }
-            break;
+        } catch (Exception $e) {
+            $error_message = 'Error testing Pillars webhook: ' . $e->getMessage();
+        }
     }
 }
 
-// Include header
-require_once __DIR__ . '/includes/header.php';
+// Get current configurations
+$ghl_config = get_integration_config('ghl');
+$pillars_config = get_integration_config('pillars');
+
+// Get sync history
+$ghl_sync_history = get_sync_history('ghl', 5);
+$pillars_sync_history = get_sync_history('pillars', 5);
+
+/**
+ * Get integration configuration
+ */
+function get_integration_config($integration_name) {
+    $query = "SELECT config_data FROM integration_settings WHERE integration_name = ?";
+    $result = db_query($query, [$integration_name]);
+    $config = db_fetch_one($result);
+    
+    if ($config) {
+        return json_decode($config['config_data'], true);
+    }
+    
+    return [
+        'webhook_url' => '',
+        'webhook_secret' => '',
+        'api_key' => '',
+        'location_id' => '',
+        'organization_id' => ''
+    ];
+}
+
+/**
+ * Save integration configuration
+ */
+function save_integration_config($integration_name, $config) {
+    // Check if config already exists
+    $query = "SELECT id FROM integration_settings WHERE integration_name = ?";
+    $result = db_query($query, [$integration_name]);
+    $existing = db_fetch_one($result);
+    
+    if ($existing) {
+        // Update existing config
+        $query = "UPDATE integration_settings SET config_data = ?, updated_at = NOW() WHERE integration_name = ?";
+        db_query($query, [json_encode($config), $integration_name]);
+    } else {
+        // Insert new config
+        $query = "INSERT INTO integration_settings (integration_name, config_data, created_at, updated_at) VALUES (?, ?, NOW(), NOW())";
+        db_query($query, [$integration_name, json_encode($config)]);
+    }
+    
+    return true;
+}
+
+/**
+ * Get sync history for an integration
+ */
+function get_sync_history($integration, $limit = 5) {
+    $query = "
+        SELECT * FROM sync_history 
+        WHERE integration = ? 
+        ORDER BY created_at DESC 
+        LIMIT ?
+    ";
+    
+    $result = db_query($query, [$integration, $limit]);
+    return db_fetch_all($result);
+}
+
+/**
+ * Send a test webhook to our own endpoint
+ */
+function send_test_webhook($endpoint, $data, $secret = '') {
+    // Get base URL
+    $base_url = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://";
+    $base_url .= $_SERVER['HTTP_HOST'];
+    
+    $url = $base_url . $endpoint;
+    $payload = json_encode($data);
+    
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Content-Type: application/json',
+        'Content-Length: ' . strlen($payload),
+        'X-Webhook-Signature: ' . $secret
+    ]);
+    
+    $response = curl_exec($ch);
+    $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $error = curl_error($ch);
+    
+    curl_close($ch);
+    
+    if ($error) {
+        return ['success' => false, 'error' => $error];
+    }
+    
+    if ($status_code >= 200 && $status_code < 300) {
+        $response_data = json_decode($response, true);
+        return ['success' => true, 'message' => $response_data['message'] ?? 'Webhook received successfully'];
+    } else {
+        return ['success' => false, 'error' => "HTTP Error: {$status_code} - {$response}"];
+    }
+}
+
+// Include admin header
+include 'includes/admin_header.php';
 ?>
 
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-md-12">
-            <h1>Webhook Setup and Management</h1>
-            <p class="lead">Configure and manage webhooks for GHL and Pillars integrations</p>
-            
-            <?php if ($message): ?>
-                <div class="alert alert-success">
-                    <?php echo htmlspecialchars($message); ?>
-                </div>
-            <?php endif; ?>
-            
-            <?php if ($error): ?>
-                <div class="alert alert-danger">
-                    <?php echo htmlspecialchars($error); ?>
-                </div>
-            <?php endif; ?>
-            
-            <div class="card mb-4">
-                <div class="card-header">
-                    <h2 class="card-title h5">Webhook Information</h2>
-                </div>
-                <div class="card-body">
-                    <p>Webhooks are used to receive real-time notifications from GHL and Pillars when events occur, such as:</p>
-                    <ul>
-                        <li>New contact/member created</li>
-                        <li>New order placed</li>
-                        <li>Commission generated</li>
-                        <li>Order status updated</li>
-                    </ul>
-                    
-                    <h3 class="h5 mt-4">Webhook Endpoints</h3>
-                    <p>Use the following URLs when configuring webhooks in the respective platforms:</p>
-                    
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Platform</th>
-                                    <th>Webhook URL</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>GoHighLevel</td>
-                                    <td><code><?php echo APP_URL; ?>/api/webhook_handler.php?source=ghl</code></td>
-                                </tr>
-                                <tr>
-                                    <td>Pillars</td>
-                                    <td><code><?php echo APP_URL; ?>/api/webhook_handler.php?source=pillars</code></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box">
+                    <h4 class="page-title">Webhook Setup</h4>
                 </div>
             </div>
-            
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h2 class="card-title h5">GoHighLevel Webhooks</h2>
-                        </div>
-                        <div class="card-body">
-                            <p>Setup webhooks in GoHighLevel to receive notifications for the following events:</p>
-                            <ul>
-                                <li>Contact Created</li>
-                                <li>Contact Updated</li>
-                                <li>Order Created</li>
-                                <li>Order Updated</li>
-                            </ul>
-                            
-                            <form method="post" action="">
-                                <input type="hidden" name="action" value="setup_ghl_webhooks">
-                                <button type="submit" class="btn btn-primary">Setup GHL Webhooks</button>
-                            </form>
-                            
-                            <hr>
-                            
-                            <h3 class="h6">Test GHL Webhook</h3>
-                            <p>Send a test event to verify the webhook is working correctly.</p>
-                            
-                            <form method="post" action="">
-                                <input type="hidden" name="action" value="test_ghl_webhook">
-                                <button type="submit" class="btn btn-outline-primary">Send Test Event</button>
-                            </form>
-                        </div>
+        </div>
+        
+        <?php if ($error_message): ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <?php echo $error_message; ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php endif; ?>
+        
+        <?php if ($success_message): ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <?php echo $success_message; ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php endif; ?>
+        
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0">Webhook Configuration</h5>
                     </div>
-                </div>
-                
-                <div class="col-md-6">
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h2 class="card-title h5">Pillars Webhooks</h2>
-                        </div>
-                        <div class="card-body">
-                            <p>Setup webhooks in Pillars to receive notifications for the following events:</p>
-                            <ul>
-                                <li>Commission Created</li>
-                                <li>Commission Updated</li>
-                                <li>Member Sponsor Changed</li>
-                            </ul>
+                    <div class="card-body">
+                        <form method="post" action="webhook_setup.php">
+                            <input type="hidden" name="action" value="update_webhook_urls">
                             
-                            <form method="post" action="">
-                                <input type="hidden" name="action" value="setup_pillars_webhooks">
-                                <button type="submit" class="btn btn-primary">Setup Pillars Webhooks</button>
-                            </form>
-                            
-                            <hr>
-                            
-                            <h3 class="h6">Test Pillars Webhook</h3>
-                            <p>Send a test event to verify the webhook is working correctly.</p>
-                            
-                            <form method="post" action="">
-                                <input type="hidden" name="action" value="test_pillars_webhook">
-                                <button type="submit" class="btn btn-outline-primary">Send Test Event</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="card mb-4">
-                <div class="card-header">
-                    <h2 class="card-title h5">Webhook Logs</h2>
-                </div>
-                <div class="card-body">
-                    <p>Recent webhook activity:</p>
-                    
-                    <?php
-                    // Get webhook logs
-                    $log_file = LOG_DIR . '/' . date('Y-m-d') . '.log';
-                    $logs = [];
-                    
-                    if (file_exists($log_file)) {
-                        $log_content = file_get_contents($log_file);
-                        $log_lines = explode(PHP_EOL, $log_content);
-                        
-                        // Filter webhook-related logs
-                        foreach ($log_lines as $line) {
-                            if (strpos($line, 'Webhook') !== false) {
-                                $logs[] = $line;
-                            }
-                        }
-                        
-                        // Show the 20 most recent logs
-                        $logs = array_slice(array_reverse($logs), 0, 20);
-                    }
-                    ?>
-                    
-                    <?php if (!empty($logs)): ?>
-                        <div class="log-container">
-                            <?php foreach ($logs as $log): ?>
-                                <div class="log-entry">
-                                    <?php echo htmlspecialchars($log); ?>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-header bg-primary text-white">
+                                            <h5 class="card-title mb-0">GoHighLevel (GHL)</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="mb-3">
+                                                <label for="ghl_api_key" class="form-label">API Key</label>
+                                                <input type="text" class="form-control" id="ghl_api_key" name="ghl_api_key" value="<?php echo htmlspecialchars($ghl_config['api_key'] ?? ''); ?>">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="ghl_location_id" class="form-label">Location ID</label>
+                                                <input type="text" class="form-control" id="ghl_location_id" name="ghl_location_id" value="<?php echo htmlspecialchars($ghl_config['location_id'] ?? ''); ?>">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="ghl_webhook_secret" class="form-label">Webhook Secret</label>
+                                                <input type="text" class="form-control" id="ghl_webhook_secret" name="ghl_webhook_secret" value="<?php echo htmlspecialchars($ghl_config['webhook_secret'] ?? ''); ?>">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="ghl_webhook_url" class="form-label">Webhook URL (use this in GHL)</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="ghl_webhook_url" value="<?php echo htmlspecialchars($ghl_config['webhook_url'] ?? ''); ?>" readonly>
+                                                    <button class="btn btn-outline-secondary" type="button" onclick="copyToClipboard('ghl_webhook_url')">Copy</button>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <button type="button" class="btn btn-secondary" onclick="testWebhook('ghl')">Test Webhook</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            <?php endforeach; ?>
+                                
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-header bg-info text-white">
+                                            <h5 class="card-title mb-0">Pillars</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="mb-3">
+                                                <label for="pillars_api_key" class="form-label">API Key</label>
+                                                <input type="text" class="form-control" id="pillars_api_key" name="pillars_api_key" value="<?php echo htmlspecialchars($pillars_config['api_key'] ?? ''); ?>">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="pillars_organization_id" class="form-label">Organization ID</label>
+                                                <input type="text" class="form-control" id="pillars_organization_id" name="pillars_organization_id" value="<?php echo htmlspecialchars($pillars_config['organization_id'] ?? ''); ?>">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="pillars_webhook_secret" class="form-label">Webhook Secret</label>
+                                                <input type="text" class="form-control" id="pillars_webhook_secret" name="pillars_webhook_secret" value="<?php echo htmlspecialchars($pillars_config['webhook_secret'] ?? ''); ?>">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="pillars_webhook_url" class="form-label">Webhook URL (use this in Pillars)</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="pillars_webhook_url" value="<?php echo htmlspecialchars($pillars_config['webhook_url'] ?? ''); ?>" readonly>
+                                                    <button class="btn btn-outline-secondary" type="button" onclick="copyToClipboard('pillars_webhook_url')">Copy</button>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <button type="button" class="btn btn-secondary" onclick="testWebhook('pillars')">Test Webhook</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-primary">Save Configuration</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">GHL Sync History</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Action</th>
+                                        <th>Status</th>
+                                        <th>Records</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php if (empty($ghl_sync_history)): ?>
+                                    <tr>
+                                        <td colspan="4" class="text-center">No sync history available</td>
+                                    </tr>
+                                    <?php else: ?>
+                                        <?php foreach ($ghl_sync_history as $sync): ?>
+                                        <tr>
+                                            <td><?php echo date('M d, Y H:i:s', strtotime($sync['created_at'])); ?></td>
+                                            <td><?php echo htmlspecialchars($sync['action']); ?></td>
+                                            <td>
+                                                <span class="badge <?php echo $sync['status'] === 'success' ? 'bg-success' : ($sync['status'] === 'error' ? 'bg-danger' : 'bg-warning'); ?>">
+                                                    <?php echo htmlspecialchars($sync['status']); ?>
+                                                </span>
+                                            </td>
+                                            <td><?php echo htmlspecialchars($sync['records_processed']); ?></td>
+                                        </tr>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
                         </div>
-                    <?php else: ?>
-                        <p class="text-muted">No webhook logs found for today.</p>
-                    <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Pillars Sync History</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Action</th>
+                                        <th>Status</th>
+                                        <th>Records</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php if (empty($pillars_sync_history)): ?>
+                                    <tr>
+                                        <td colspan="4" class="text-center">No sync history available</td>
+                                    </tr>
+                                    <?php else: ?>
+                                        <?php foreach ($pillars_sync_history as $sync): ?>
+                                        <tr>
+                                            <td><?php echo date('M d, Y H:i:s', strtotime($sync['created_at'])); ?></td>
+                                            <td><?php echo htmlspecialchars($sync['action']); ?></td>
+                                            <td>
+                                                <span class="badge <?php echo $sync['status'] === 'success' ? 'bg-success' : ($sync['status'] === 'error' ? 'bg-danger' : 'bg-warning'); ?>">
+                                                    <?php echo htmlspecialchars($sync['status']); ?>
+                                                </span>
+                                            </td>
+                                            <td><?php echo htmlspecialchars($sync['records_processed']); ?></td>
+                                        </tr>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<style>
-    .log-container {
-        max-height: 300px;
-        overflow-y: auto;
-        background-color: #f8f9fa;
-        padding: 1rem;
-        border-radius: 0.25rem;
-        font-family: monospace;
-        font-size: 0.875rem;
-    }
+<script>
+function copyToClipboard(elementId) {
+    const element = document.getElementById(elementId);
+    element.select();
+    document.execCommand('copy');
     
-    .log-entry {
-        margin-bottom: 0.5rem;
-        border-bottom: 1px solid #e9ecef;
-        padding-bottom: 0.5rem;
-    }
+    // Show success alert
+    const alertPlaceholder = document.createElement('div');
+    alertPlaceholder.innerHTML = `
+        <div class="alert alert-success alert-dismissible fade show fixed-top m-3" role="alert">
+            Copied to clipboard!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    `;
+    document.body.appendChild(alertPlaceholder);
     
-    .log-entry:last-child {
-        margin-bottom: 0;
-        border-bottom: none;
-        padding-bottom: 0;
-    }
-</style>
-
-<?php
-// Include footer
-require_once __DIR__ . '/includes/footer.php';
-
-/**
- * Setup GHL webhooks
- *
- * @return void
- */
-function setup_ghl_webhooks() {
-    try {
-        $ghl_api = ghl_api();
-        
-        // Webhook URL for GHL events
-        $webhook_url = APP_URL . '/api/webhook_handler.php?source=ghl';
-        
-        // Setup webhooks for different events
-        $events = [
-            'contact.created',
-            'contact.updated',
-            'order.created',
-            'order.updated'
-        ];
-        
-        foreach ($events as $event) {
-            // Create webhook for this event
-            $webhook_data = [
-                'name' => 'LaVarti Integration - ' . $event,
-                'url' => $webhook_url,
-                'event' => $event,
-                'isActive' => true
-            ];
-            
-            // Make API request to create webhook
-            // Note: This is a simplified version, as we don't have the actual GHL API for webhook management
-            // In a real application, you would use the GHL API to create webhooks
-            
-            log_activity("GHL Webhook setup for event: {$event}", 'info');
-        }
-        
-        return true;
-    } catch (Exception $e) {
-        log_activity('Error setting up GHL webhooks: ' . $e->getMessage(), 'error');
-        throw $e;
-    }
+    // Auto-remove alert after 2 seconds
+    setTimeout(() => {
+        alertPlaceholder.remove();
+    }, 2000);
 }
 
-/**
- * Setup Pillars webhooks
- *
- * @return void
- */
-function setup_pillars_webhooks() {
-    try {
-        $pillars_api = pillars_api();
-        
-        // Webhook URL for Pillars events
-        $webhook_url = APP_URL . '/api/webhook_handler.php?source=pillars';
-        
-        // Setup webhooks for different events
-        $events = [
-            'commission.created',
-            'commission.updated',
-            'member.sponsorChanged'
-        ];
-        
-        foreach ($events as $event) {
-            // Create webhook for this event
-            $webhook_data = [
-                'name' => 'LaVarti Integration - ' . $event,
-                'url' => $webhook_url,
-                'event' => $event,
-                'isActive' => true
-            ];
-            
-            // Make API request to create webhook
-            // Note: This is a simplified version, as we don't have the actual Pillars API for webhook management
-            // In a real application, you would use the Pillars API to create webhooks
-            
-            log_activity("Pillars Webhook setup for event: {$event}", 'info');
-        }
-        
-        return true;
-    } catch (Exception $e) {
-        log_activity('Error setting up Pillars webhooks: ' . $e->getMessage(), 'error');
-        throw $e;
-    }
+function testWebhook(integration) {
+    // Get the form
+    const form = document.createElement('form');
+    form.method = 'post';
+    form.action = 'webhook_setup.php';
+    
+    // Create hidden input for action
+    const actionInput = document.createElement('input');
+    actionInput.type = 'hidden';
+    actionInput.name = 'action';
+    actionInput.value = `test_${integration}_webhook`;
+    
+    // Add inputs to form
+    form.appendChild(actionInput);
+    
+    // Add form to document and submit
+    document.body.appendChild(form);
+    form.submit();
 }
+</script>
 
-/**
- * Test GHL webhook
- *
- * @return void
- */
-function test_ghl_webhook() {
-    try {
-        // Create a test payload
-        $payload = [
-            'event' => 'contact.created',
-            'contact' => [
-                'id' => 'test_contact_id',
-                'firstName' => 'Test',
-                'lastName' => 'User',
-                'email' => 'test@example.com',
-                'phone' => '1234567890'
-            ]
-        ];
-        
-        // Send test webhook to our handler
-        $webhook_url = APP_URL . '/api/webhook_handler.php?source=ghl';
-        
-        $ch = curl_init($webhook_url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            'Content-Type: application/json'
-        ]);
-        
-        $response = curl_exec($ch);
-        
-        if (curl_errno($ch)) {
-            throw new Exception('cURL error: ' . curl_error($ch));
-        }
-        
-        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        
-        curl_close($ch);
-        
-        if ($http_status >= 400) {
-            throw new Exception('HTTP error: ' . $http_status);
-        }
-        
-        log_activity('GHL webhook test sent successfully', 'info');
-        
-        return true;
-    } catch (Exception $e) {
-        log_activity('Error testing GHL webhook: ' . $e->getMessage(), 'error');
-        throw $e;
-    }
-}
-
-/**
- * Test Pillars webhook
- *
- * @return void
- */
-function test_pillars_webhook() {
-    try {
-        // Create a test payload
-        $payload = [
-            'event' => 'commission.created',
-            'commission' => [
-                'id' => 'test_commission_id',
-                'memberId' => 'test_member_id',
-                'amount' => 25.00,
-                'status' => 'pending',
-                'source' => 'test',
-                'sourceId' => 'test_order_id',
-                'externalId' => 'test_order_external_id'
-            ]
-        ];
-        
-        // Send test webhook to our handler
-        $webhook_url = APP_URL . '/api/webhook_handler.php?source=pillars';
-        
-        $ch = curl_init($webhook_url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            'Content-Type: application/json'
-        ]);
-        
-        $response = curl_exec($ch);
-        
-        if (curl_errno($ch)) {
-            throw new Exception('cURL error: ' . curl_error($ch));
-        }
-        
-        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        
-        curl_close($ch);
-        
-        if ($http_status >= 400) {
-            throw new Exception('HTTP error: ' . $http_status);
-        }
-        
-        log_activity('Pillars webhook test sent successfully', 'info');
-        
-        return true;
-    } catch (Exception $e) {
-        log_activity('Error testing Pillars webhook: ' . $e->getMessage(), 'error');
-        throw $e;
-    }
-}
+<?php include 'includes/admin_footer.php'; ?>

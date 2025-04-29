@@ -2,7 +2,7 @@
 /**
  * Admin Sync History API
  * 
- * Returns the history of synchronization operations
+ * Returns the sync history for integrations
  */
 
 require_once __DIR__ . '/../config.php';
@@ -28,46 +28,68 @@ if (!isset($user['is_admin']) || !$user['is_admin']) {
     exit;
 }
 
+// Get request parameters
+$integration = $_GET['integration'] ?? null;
+$limit = intval($_GET['limit'] ?? 20);
+$page = intval($_GET['page'] ?? 1);
+
+// Validate limit
+if ($limit < 1 || $limit > 100) {
+    $limit = 20;
+}
+
+// Validate page
+if ($page < 1) {
+    $page = 1;
+}
+
+// Calculate offset
+$offset = ($page - 1) * $limit;
+
 try {
-    $sync_history = [];
+    // Build query
+    $params = [];
+    $query = "SELECT * FROM sync_history";
     
-    // Check if the sync_history table exists
-    $table_check = db_query("SELECT * FROM information_schema.tables WHERE table_name = 'sync_history'");
-    $table_exists = db_fetch_one($table_check);
-    
-    if ($table_exists) {
-        // Get sync history
-        $query = "
-            SELECT *
-            FROM sync_history
-            ORDER BY created_at DESC
-            LIMIT 50
-        ";
-        
-        $result = db_query($query);
-        $sync_history = db_fetch_all($result);
-    } else {
-        // Create a sample entry for demonstration purposes
-        $sync_history = [
-            [
-                'id' => 1,
-                'integration' => 'ghl',
-                'action' => 'order_sync',
-                'status' => 'success',
-                'records_processed' => 5,
-                'duration_seconds' => 2.3,
-                'summary' => 'Synchronized 5 orders from GoHighLevel',
-                'details' => '{"items":["Order #123","Order #124","Order #125","Order #126","Order #127"]}',
-                'created_at' => date('Y-m-d H:i:s'),
-                'created_by' => $user['id']
-            ]
-        ];
+    // Add integration filter if provided
+    if ($integration) {
+        $query .= " WHERE integration = ?";
+        $params[] = $integration;
     }
+    
+    // Add order by and limit
+    $query .= " ORDER BY created_at DESC LIMIT ? OFFSET ?";
+    $params[] = $limit;
+    $params[] = $offset;
+    
+    // Execute query
+    $result = db_query($query, $params);
+    $history = db_fetch_all($result);
+    
+    // Get total count for pagination
+    $count_query = "SELECT COUNT(*) as total FROM sync_history";
+    $count_params = [];
+    
+    if ($integration) {
+        $count_query .= " WHERE integration = ?";
+        $count_params[] = $integration;
+    }
+    
+    $count_result = db_query($count_query, $count_params);
+    $count_data = db_fetch_one($count_result);
+    $total = $count_data ? intval($count_data['total']) : 0;
     
     echo json_encode([
         'success' => true,
-        'history' => $sync_history
+        'history' => $history,
+        'pagination' => [
+            'total' => $total,
+            'page' => $page,
+            'limit' => $limit,
+            'pages' => ceil($total / $limit)
+        ]
     ]);
+    
 } catch (Exception $e) {
     http_response_code(500);
     echo json_encode(['success' => false, 'error' => $e->getMessage()]);

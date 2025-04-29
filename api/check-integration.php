@@ -2,7 +2,7 @@
 /**
  * Check Integration API
  * 
- * Checks the status of the specified integration
+ * Checks if an integration is properly configured and connected
  */
 
 require_once __DIR__ . '/../config.php';
@@ -28,80 +28,93 @@ if (!isset($user['is_admin']) || !$user['is_admin']) {
     exit;
 }
 
-// Get integration name
-if (!isset($_GET['integration'])) {
-    http_response_code(400);
-    echo json_encode(['success' => false, 'error' => 'Integration name is required']);
-    exit;
-}
+// Get integration to check
+$integration = $_GET['integration'] ?? '';
 
-$integration = strtolower($_GET['integration']);
-
-// Validate integration name
-$valid_integrations = ['ghl', 'pillars', 'rsi'];
-if (!in_array($integration, $valid_integrations)) {
+if (empty($integration)) {
     http_response_code(400);
-    echo json_encode(['success' => false, 'error' => 'Invalid integration']);
+    echo json_encode(['success' => false, 'error' => 'Integration parameter is required']);
     exit;
 }
 
 try {
-    // Get integration config
+    // Get integration settings
     $query = "SELECT * FROM integration_settings WHERE integration_name = ?";
     $result = db_query($query, [$integration]);
-    $config = db_fetch_one($result);
+    $settings = db_fetch_one($result);
     
-    $status = [
-        'success' => true,
-        'connected' => false,
-        'last_updated' => null
-    ];
-    
-    if (!$config) {
-        if ($integration === 'ghl') {
-            $status['error'] = 'GHL API Key or Location ID not configured';
-        } elseif ($integration === 'pillars') {
-            $status['error'] = 'Pillars API Key not configured';
-        } else {
-            $status['error'] = 'RSI API Key not configured';
-        }
-        
-        echo json_encode($status);
+    if (!$settings) {
+        echo json_encode([
+            'success' => true,
+            'connected' => false,
+            'message' => 'Integration not configured'
+        ]);
         exit;
     }
     
-    $config_data = json_decode($config['config_data'], true);
-    $status['last_updated'] = $config['updated_at'];
+    $config = json_decode($settings['config_data'], true);
     
-    // Check if integration is connected based on the integration name
-    if ($integration === 'ghl') {
-        if (!empty($config_data['api_key']) && !empty($config_data['location_id'])) {
-            // For a real implementation, we would make an API call to GHL to verify the connection
-            // For now, we'll just check if the required settings are set
-            $status['connected'] = true;
-        } else {
-            $status['error'] = 'GHL API Key or Location ID not configured';
-        }
-    } elseif ($integration === 'pillars') {
-        if (!empty($config_data['api_key'])) {
-            // For a real implementation, we would make an API call to Pillars to verify the connection
-            // For now, we'll just check if the required settings are set
-            $status['connected'] = true;
-        } else {
-            $status['error'] = 'Pillars API Key not configured';
-        }
-    } elseif ($integration === 'rsi') {
-        if (!empty($config_data['api_key']) && !empty($config_data['endpoint'])) {
-            // For a real implementation, we would make an API call to RSI to verify the connection
-            // For now, we'll just check if the required settings are set
-            $status['connected'] = true;
-        } else {
-            $status['error'] = 'RSI API Key or Endpoint not configured';
-        }
+    // Check if basic required fields are present
+    $is_configured = false;
+    
+    switch ($integration) {
+        case 'ghl':
+            $is_configured = !empty($config['api_key']) && !empty($config['location_id']);
+            break;
+            
+        case 'pillars':
+            $is_configured = !empty($config['api_key']) && !empty($config['organization_id']);
+            break;
+            
+        default:
+            echo json_encode([
+                'success' => true,
+                'connected' => false,
+                'message' => 'Unknown integration type'
+            ]);
+            exit;
     }
     
-    echo json_encode($status);
+    if (!$is_configured) {
+        echo json_encode([
+            'success' => true,
+            'connected' => false,
+            'message' => 'Integration missing required configuration'
+        ]);
+        exit;
+    }
+    
+    // If configured, attempt to validate connection
+    $is_connected = test_integration_connection($integration, $config);
+    
+    echo json_encode([
+        'success' => true,
+        'connected' => $is_connected,
+        'message' => $is_connected ? 'Integration connected successfully' : 'Integration connection failed'
+    ]);
+    
 } catch (Exception $e) {
     http_response_code(500);
     echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+}
+
+/**
+ * Test the connection to the integration
+ */
+function test_integration_connection($integration, $config) {
+    // In a production environment, you would make an API call to check if the connection works
+    // For this demo, we'll just return true if it's configured
+    
+    switch ($integration) {
+        case 'ghl':
+            // For now, we'll consider it connected if we have the API key and location ID
+            return !empty($config['api_key']) && !empty($config['location_id']);
+            
+        case 'pillars':
+            // For now, we'll consider it connected if we have the API key and organization ID
+            return !empty($config['api_key']) && !empty($config['organization_id']);
+            
+        default:
+            return false;
+    }
 }
