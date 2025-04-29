@@ -46,7 +46,7 @@ try {
     // Build query
     $query = "
         SELECT o.id, o.user_id, o.product_id, o.amount, o.status, o.order_date, o.created_at, 
-               o.updated_at, o.ghl_order_id, o.notes,
+               o.updated_at, o.notes,
                p.name as product_name, p.price as product_price, p.tier_level,
                u.first_name, u.last_name, u.email
         FROM orders o
@@ -84,7 +84,7 @@ try {
     // Count total orders with filters
     $count_query = str_replace(
         "SELECT o.id, o.user_id, o.product_id, o.amount, o.status, o.order_date, o.created_at, 
-               o.updated_at, o.ghl_order_id, o.notes,
+               o.updated_at, o.notes,
                p.name as product_name, p.price as product_price, p.tier_level,
                u.first_name, u.last_name, u.email",
         "SELECT COUNT(*) as count",

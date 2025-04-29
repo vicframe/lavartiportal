@@ -637,10 +637,7 @@ function displayOrderDetails(order) {
                         <th>Email:</th>
                         <td>${order.email}</td>
                     </tr>
-                    <tr>
-                        <th>GHL ID:</th>
-                        <td>${order.ghl_order_id || 'N/A'}</td>
-                    </tr>
+                    <!-- Removed GHL Order ID reference -->
                 </table>
             </div>
         </div>

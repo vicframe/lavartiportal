@@ -44,7 +44,7 @@ try {
     // Build query
     $query = "
         SELECT o.id, o.user_id, o.product_id, o.amount, o.status, o.order_date, o.created_at, 
-               o.ghl_order_id, o.notes,
+               o.notes,
                p.name as product_name, p.price as product_price, p.tier_level,
                u.first_name, u.last_name, u.email
         FROM orders o
@@ -113,7 +113,6 @@ try {
             'Status',
             'Order Date',
             'Created At',
-            'GHL Order ID',
             'Notes'
         ]);
         
@@ -144,7 +143,6 @@ try {
                 ucfirst($order['status']),
                 date('Y-m-d', strtotime($order['order_date'])),
                 date('Y-m-d H:i:s', strtotime($order['created_at'])),
-                $order['ghl_order_id'] ?? 'N/A',
                 $order['notes'] ?? ''
             ]);
         }
