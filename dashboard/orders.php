@@ -17,11 +17,11 @@ $user = get_current_logged_user();
 
 // Get user's orders
 $orders_query = db_query(
-    "SELECT o.*, 
+    "SELECT o.*, p.tier_level, 
             CASE 
-                WHEN o.tier_level = 1 THEN 'Basic'
-                WHEN o.tier_level = 2 THEN 'Premium'
-                WHEN o.tier_level = 3 THEN 'Elite'
+                WHEN p.tier_level = 1 THEN 'Basic'
+                WHEN p.tier_level = 2 THEN 'Premium'
+                WHEN p.tier_level = 3 THEN 'Elite'
                 ELSE 'Unknown'
             END as tier_name,
             CASE 
@@ -31,6 +31,7 @@ $orders_query = db_query(
                 ELSE 'secondary'
             END as status_class
      FROM orders o
+     LEFT JOIN products p ON o.product_id = p.id
      WHERE o.user_id = ?
      ORDER BY o.order_date DESC",
     [$user['id']]

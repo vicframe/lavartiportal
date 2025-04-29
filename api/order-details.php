@@ -33,7 +33,10 @@ if (!$order_id) {
 try {
     // Get order details
     $order_query = db_query(
-        "SELECT * FROM orders WHERE id = ?",
+        "SELECT o.*, p.tier_level, p.name AS product_name, p.description AS product_description 
+         FROM orders o
+         LEFT JOIN products p ON o.product_id = p.id
+         WHERE o.id = ?",
         [$order_id]
     );
     
