@@ -1,6 +1,6 @@
 <?php
 /**
- * Admin Orders Management
+ * Admin Order Management
  */
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../includes/auth.php';
@@ -9,663 +9,786 @@ require_once __DIR__ . '/../includes/database.php';
 // Set page title
 $page_title = 'Order Management';
 
-// Require admin login
-require_login();
-$user = get_current_logged_user();
-
-// Check if user is admin
-if (!isset($user['is_admin']) || !$user['is_admin']) {
-    // Set flash message
-    $_SESSION['flash_message'] = [
-        'type' => 'danger',
-        'message' => 'You do not have permission to access this page.'
-    ];
-    
-    // Redirect to dashboard
-    header('Location: /dashboard');
-    exit;
-}
-
-// Handle single order view
-$single_order = null;
-if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-    $order_id = intval($_GET['id']);
-    
-    // Get order with user details
-    $order_query = db_query(
-        "SELECT o.*, 
-                u.email as user_email, 
-                u.first_name as user_first_name, 
-                u.last_name as user_last_name,
-                CONCAT(u.first_name, ' ', u.last_name) as user_name,
-                p.tier_level,
-                p.name as product_name,
-                CASE 
-                    WHEN p.tier_level = 1 THEN 'Basic'
-                    WHEN p.tier_level = 2 THEN 'Premium'
-                    WHEN p.tier_level = 3 THEN 'Elite'
-                    ELSE 'None'
-                END as tier_name
-         FROM orders o
-         JOIN users u ON o.user_id = u.id
-         LEFT JOIN products p ON o.product_id = p.id
-         WHERE o.id = ?",
-        [$order_id]
-    );
-    
-    $single_order = db_fetch_one($order_query);
-}
-
-// Get orders with pagination
-$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-$limit = 20;
-$offset = ($page - 1) * $limit;
-
-// Filter parameters
-$status_filter = isset($_GET['status']) ? $_GET['status'] : '';
-$search = isset($_GET['search']) ? trim($_GET['search']) : '';
-
-// Build query
-$query_params = [];
-$where_clauses = [];
-
-if ($status_filter) {
-    $where_clauses[] = "o.status = ?";
-    $query_params[] = $status_filter;
-}
-
-if ($search) {
-    $where_clauses[] = "(u.email LIKE ? OR u.first_name LIKE ? OR u.last_name LIKE ? OR o.product_name LIKE ?)";
-    $search_term = "%$search%";
-    $query_params[] = $search_term;
-    $query_params[] = $search_term;
-    $query_params[] = $search_term;
-    $query_params[] = $search_term;
-}
-
-$where_sql = '';
-if (!empty($where_clauses)) {
-    $where_sql = "WHERE " . implode(" AND ", $where_clauses);
-}
-
-// Count total filtered orders
-$count_query = db_query(
-    "SELECT COUNT(*) as total FROM orders o 
-     JOIN users u ON o.user_id = u.id 
-     LEFT JOIN products p ON o.product_id = p.id
-     $where_sql",
-    $query_params
-);
-$count_result = db_fetch_one($count_query);
-$total_orders = $count_result['total'];
-$total_pages = ceil($total_orders / $limit);
-
-// Get orders for current page
-$orders_query_params = array_merge($query_params, [$limit, $offset]);
-$orders_query = db_query(
-    "SELECT o.*, 
-            u.email as user_email, 
-            CONCAT(u.first_name, ' ', u.last_name) as user_name,
-            p.tier_level,
-            p.name as product_name,
-            CASE 
-                WHEN p.tier_level = 1 THEN 'Basic'
-                WHEN p.tier_level = 2 THEN 'Premium'
-                WHEN p.tier_level = 3 THEN 'Elite'
-                ELSE 'None'
-            END as tier_name,
-            CASE 
-                WHEN o.status = 'completed' THEN 'success'
-                WHEN o.status = 'pending' THEN 'warning'
-                WHEN o.status = 'failed' THEN 'danger'
-                ELSE 'secondary'
-            END as status_class
-     FROM orders o
-     JOIN users u ON o.user_id = u.id
-     LEFT JOIN products p ON o.product_id = p.id
-     $where_sql
-     ORDER BY o.created_at DESC
-     LIMIT ? OFFSET ?",
-    $orders_query_params
-);
-
-$orders = db_fetch_all($orders_query);
-
-// Include header
-$custom_css = '<link href="/assets/css/admin.css" rel="stylesheet">';
-require_once __DIR__ . '/../includes/header.php';
+// Include admin header
+require_once __DIR__ . '/../includes/admin_header.php';
 ?>
 
-<!-- Custom CSS for this page -->
-<style>
-    .status-filter {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 15px;
-    }
-    
-    .status-filter .btn {
-        border-radius: 20px;
-        padding: 5px 15px;
-    }
-    
-    .order-details-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-    }
-    
-    .order-details-header .status {
-        font-size: 1rem;
-        padding: 5px 15px;
-        border-radius: 20px;
-    }
-    
-    .order-meta {
-        background-color: #f8f9fa;
-        border-radius: 5px;
-        padding: 15px;
-        margin-bottom: 20px;
-    }
-    
-    .order-meta-row {
-        display: flex;
-        margin-bottom: 10px;
-    }
-    
-    .order-meta-label {
-        flex: 0 0 150px;
-        font-weight: 600;
-    }
-    
-    .order-meta-value {
-        flex: 1;
-    }
-</style>
-
-<div class="container-fluid">
-    <div class="row">
-        <!-- Sidebar -->
-        <div class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
-            <div class="position-sticky pt-3">
-                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                    <span>Admin Menu</span>
-                </h6>
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin">
-                            <i class="fas fa-tachometer-alt me-2"></i>
-                            Overview
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/users.php">
-                            <i class="fas fa-users me-2"></i>
-                            User Management
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/admin/orders.php">
-                            <i class="fas fa-shopping-cart me-2"></i>
-                            Order Management
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/commissions.php">
-                            <i class="fas fa-money-bill-alt me-2"></i>
-                            Commission Management
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/integrations.php">
-                            <i class="fas fa-plug me-2"></i>
-                            Integrations
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/webhook_setup.php">
-                            <i class="fas fa-link me-2"></i>
-                            Webhook Setup
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/logs.php">
-                            <i class="fas fa-clipboard-list me-2"></i>
-                            System Logs
-                        </a>
-                    </li>
-                </ul>
+<!-- Admin Orders Content -->
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">All Orders</h5>
+                <div>
+                    <button type="button" class="btn btn-sm btn-outline-primary me-2" id="refreshOrdersBtn">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown">
+                        Export
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#" id="exportCSV">CSV</a></li>
+                        <li><a class="dropdown-item" href="#" id="exportPDF">PDF</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="order-filters mb-4">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-outline-primary active" data-filter="all">All</button>
+                                <button type="button" class="btn btn-outline-primary" data-filter="pending">Pending</button>
+                                <button type="button" class="btn btn-outline-primary" data-filter="processing">Processing</button>
+                                <button type="button" class="btn btn-outline-primary" data-filter="completed">Completed</button>
+                                <button type="button" class="btn btn-outline-primary" data-filter="failed">Failed</button>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="orderSearch" placeholder="Search orders...">
+                                <button class="btn btn-outline-primary" type="button" id="searchBtn">
+                                    <i class="fas fa-search"></i> Search
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 
-                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                    <span>Quick Links</span>
-                </h6>
-                <ul class="nav flex-column mb-2">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/dashboard">
-                            <i class="fas fa-arrow-left me-2"></i>
-                            Return to Dashboard
-                        </a>
-                    </li>
-                </ul>
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped align-middle" id="ordersTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Customer</th>
+                                <th>Product</th>
+                                <th>Tier</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                            <tr>
+                                <td colspan="8" class="text-center">Loading orders...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <div id="ordersPagination">
+                            <!-- Pagination will be generated here -->
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <div class="d-inline-block">
+                            <select class="form-select form-select-sm" id="ordersPerPage">
+                                <option value="10">10 per page</option>
+                                <option value="25">25 per page</option>
+                                <option value="50">50 per page</option>
+                                <option value="100">100 per page</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        
-        <!-- Main content -->
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <?php if ($single_order): ?>
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Order Details</h1>
-                    <div class="btn-toolbar mb-2 mb-md-0">
-                        <div class="btn-group me-2">
-                            <a href="/admin/orders.php" class="btn btn-sm btn-outline-secondary">
-                                <i class="fas fa-arrow-left me-1"></i> Back to All Orders
-                            </a>
-                        </div>
+    </div>
+</div>
+
+<!-- Order Stats -->
+<div class="row">
+    <div class="col-md-3 mb-4">
+        <div class="stats-card">
+            <div class="icon">
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+            <h3 id="totalOrders">--</h3>
+            <p>Total Orders</p>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+        <div class="stats-card">
+            <div class="icon">
+                <i class="fas fa-dollar-sign"></i>
+            </div>
+            <h3 id="totalRevenue">--</h3>
+            <p>Total Revenue</p>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+        <div class="stats-card">
+            <div class="icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3 id="completedOrders">--</h3>
+            <p>Completed Orders</p>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+        <div class="stats-card">
+            <div class="icon">
+                <i class="fas fa-exclamation-circle"></i>
+            </div>
+            <h3 id="pendingOrders">--</h3>
+            <p>Pending Orders</p>
+        </div>
+    </div>
+</div>
+
+<!-- Order Details Modal -->
+<div class="modal fade" id="orderDetailsModal" tabindex="-1" aria-labelledby="orderDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="orderDetailsModalLabel">Order Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="orderDetailsContent">
+                <div class="text-center p-4">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
                     </div>
+                    <p class="mt-2">Loading order details...</p>
                 </div>
-                
-                <div class="order-details-container">
-                    <div class="order-details-header">
-                        <h3>Order #<?php echo htmlspecialchars($single_order['id']); ?></h3>
-                        <?php
-                        $status_class = 'secondary';
-                        switch ($single_order['status']) {
-                            case 'completed':
-                                $status_class = 'success';
-                                break;
-                            case 'pending':
-                                $status_class = 'warning';
-                                break;
-                            case 'failed':
-                                $status_class = 'danger';
-                                break;
-                        }
-                        ?>
-                        <span class="badge bg-<?php echo $status_class; ?> status">
-                            <?php echo ucfirst(htmlspecialchars($single_order['status'])); ?>
-                        </span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="editOrderBtn">Edit Order</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Order Modal -->
+<div class="modal fade" id="editOrderModal" tabindex="-1" aria-labelledby="editOrderModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editOrderModalLabel">Edit Order</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editOrderForm">
+                    <input type="hidden" id="editOrderId" name="id">
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="editProductId" class="form-label">Product</label>
+                            <select class="form-select" id="editProductId" name="product_id" required>
+                                <!-- Products will be loaded here -->
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="editAmount" class="form-label">Amount</label>
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                <input type="number" class="form-control" id="editAmount" name="amount" step="0.01" required>
+                            </div>
+                        </div>
                     </div>
                     
-                    <div class="row">
+                    <div class="row mb-3">
                         <div class="col-md-6">
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <h5 class="mb-0">Order Information</h5>
-                                </div>
-                                <div class="card-body">
-                                    <div class="order-meta">
-                                        <div class="order-meta-row">
-                                            <div class="order-meta-label">Order ID:</div>
-                                            <div class="order-meta-value"><?php echo htmlspecialchars($single_order['id']); ?></div>
-                                        </div>
-                                        <div class="order-meta-row">
-                                            <div class="order-meta-label">GHL Order ID:</div>
-                                            <div class="order-meta-value"><?php echo htmlspecialchars($single_order['ghl_order_id'] ?? 'N/A'); ?></div>
-                                        </div>
-                                        <div class="order-meta-row">
-                                            <div class="order-meta-label">Product:</div>
-                                            <div class="order-meta-value"><?php echo htmlspecialchars($single_order['product_name']); ?></div>
-                                        </div>
-                                        <div class="order-meta-row">
-                                            <div class="order-meta-label">Tier Level:</div>
-                                            <div class="order-meta-value"><?php echo htmlspecialchars($single_order['tier_name']); ?></div>
-                                        </div>
-                                        <div class="order-meta-row">
-                                            <div class="order-meta-label">Amount:</div>
-                                            <div class="order-meta-value">$<?php echo number_format($single_order['amount'], 2); ?></div>
-                                        </div>
-                                        <div class="order-meta-row">
-                                            <div class="order-meta-label">Order Date:</div>
-                                            <div class="order-meta-value"><?php echo date('F j, Y', strtotime($single_order['order_date'])); ?></div>
-                                        </div>
-                                        <div class="order-meta-row">
-                                            <div class="order-meta-label">Created:</div>
-                                            <div class="order-meta-value"><?php echo date('F j, Y g:i a', strtotime($single_order['created_at'])); ?></div>
-                                        </div>
-                                        <div class="order-meta-row">
-                                            <div class="order-meta-label">Last Updated:</div>
-                                            <div class="order-meta-value"><?php echo date('F j, Y g:i a', strtotime($single_order['updated_at'])); ?></div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="mt-3">
-                                        <button class="btn btn-primary" id="syncOrderBtn" data-order-id="<?php echo $single_order['id']; ?>">
-                                            <i class="fas fa-sync-alt me-1"></i> Sync with GHL
-                                        </button>
-                                        <button class="btn btn-outline-secondary" id="editOrderBtn" data-order-id="<?php echo $single_order['id']; ?>">
-                                            <i class="fas fa-edit me-1"></i> Edit Order
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+                            <label for="editStatus" class="form-label">Status</label>
+                            <select class="form-select" id="editStatus" name="status" required>
+                                <option value="pending">Pending</option>
+                                <option value="processing">Processing</option>
+                                <option value="completed">Completed</option>
+                                <option value="failed">Failed</option>
+                                <option value="refunded">Refunded</option>
+                            </select>
                         </div>
-                        
                         <div class="col-md-6">
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <h5 class="mb-0">Customer Information</h5>
-                                </div>
-                                <div class="card-body">
-                                    <div class="order-meta">
-                                        <div class="order-meta-row">
-                                            <div class="order-meta-label">Customer:</div>
-                                            <div class="order-meta-value">
-                                                <a href="/admin/users.php?id=<?php echo $single_order['user_id']; ?>">
-                                                    <?php echo htmlspecialchars($single_order['user_name']); ?>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="order-meta-row">
-                                            <div class="order-meta-label">Email:</div>
-                                            <div class="order-meta-value">
-                                                <a href="mailto:<?php echo htmlspecialchars($single_order['user_email']); ?>">
-                                                    <?php echo htmlspecialchars($single_order['user_email']); ?>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <h5 class="mb-0">Order Status</h5>
-                                </div>
-                                <div class="card-body">
-                                    <form id="updateStatusForm" method="post" action="/api/admin-update-order-status.php">
-                                        <input type="hidden" name="order_id" value="<?php echo $single_order['id']; ?>">
-                                        
-                                        <div class="mb-3">
-                                            <label for="orderStatus" class="form-label">Status</label>
-                                            <select class="form-select" id="orderStatus" name="status">
-                                                <option value="pending" <?php echo $single_order['status'] === 'pending' ? 'selected' : ''; ?>>Pending</option>
-                                                <option value="processing" <?php echo $single_order['status'] === 'processing' ? 'selected' : ''; ?>>Processing</option>
-                                                <option value="completed" <?php echo $single_order['status'] === 'completed' ? 'selected' : ''; ?>>Completed</option>
-                                                <option value="failed" <?php echo $single_order['status'] === 'failed' ? 'selected' : ''; ?>>Failed</option>
-                                                <option value="refunded" <?php echo $single_order['status'] === 'refunded' ? 'selected' : ''; ?>>Refunded</option>
-                                            </select>
-                                        </div>
-                                        
-                                        <div class="mb-3">
-                                            <label for="statusNote" class="form-label">Status Note (Optional)</label>
-                                            <textarea class="form-control" id="statusNote" name="note" rows="3"></textarea>
-                                        </div>
-                                        
-                                        <button type="submit" class="btn btn-primary">Update Status</button>
-                                    </form>
-                                </div>
-                            </div>
+                            <label for="editOrderDate" class="form-label">Order Date</label>
+                            <input type="date" class="form-control" id="editOrderDate" name="order_date" required>
                         </div>
                     </div>
-                </div>
-            <?php else: ?>
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Order Management</h1>
-                    <div class="btn-toolbar mb-2 mb-md-0">
-                        <div class="btn-group me-2">
-                            <button type="button" class="btn btn-sm btn-outline-secondary" id="refreshOrdersBtn">
-                                <i class="fas fa-sync-alt me-1"></i> Refresh
-                            </button>
-                            <button type="button" class="btn btn-sm btn-outline-primary" id="exportOrdersBtn">
-                                <i class="fas fa-download me-1"></i> Export
-                            </button>
-                        </div>
+                    
+                    <div class="mb-3">
+                        <label for="editNotes" class="form-label">Order Notes</label>
+                        <textarea class="form-control" id="editNotes" name="notes" rows="3"></textarea>
                     </div>
-                </div>
-                
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <div class="status-filter">
-                            <a href="/admin/orders.php" class="btn <?php echo !$status_filter ? 'btn-primary' : 'btn-outline-secondary'; ?>">All</a>
-                            <a href="/admin/orders.php?status=pending" class="btn <?php echo $status_filter === 'pending' ? 'btn-primary' : 'btn-outline-secondary'; ?>">Pending</a>
-                            <a href="/admin/orders.php?status=processing" class="btn <?php echo $status_filter === 'processing' ? 'btn-primary' : 'btn-outline-secondary'; ?>">Processing</a>
-                            <a href="/admin/orders.php?status=completed" class="btn <?php echo $status_filter === 'completed' ? 'btn-primary' : 'btn-outline-secondary'; ?>">Completed</a>
-                            <a href="/admin/orders.php?status=failed" class="btn <?php echo $status_filter === 'failed' ? 'btn-primary' : 'btn-outline-secondary'; ?>">Failed</a>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <form class="d-flex" action="/admin/orders.php" method="get">
-                            <?php if ($status_filter): ?>
-                                <input type="hidden" name="status" value="<?php echo htmlspecialchars($status_filter); ?>">
-                            <?php endif; ?>
-                            <input type="text" class="form-control me-2" name="search" placeholder="Search by email, name or product" value="<?php echo htmlspecialchars($search); ?>">
-                            <button type="submit" class="btn btn-outline-primary">Search</button>
-                        </form>
-                    </div>
-                </div>
-                
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <?php if (empty($orders)): ?>
-                                <div class="alert alert-info">
-                                    <i class="fas fa-info-circle"></i> No orders found matching your criteria.
-                                </div>
-                            <?php else: ?>
-                                <table class="table table-hover table-striped align-middle">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Customer</th>
-                                            <th>Product</th>
-                                            <th>Tier</th>
-                                            <th>Amount</th>
-                                            <th>Date</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach ($orders as $order): ?>
-                                            <tr>
-                                                <td><?php echo $order['id']; ?></td>
-                                                <td>
-                                                    <a href="/admin/users.php?id=<?php echo $order['user_id']; ?>">
-                                                        <?php echo htmlspecialchars($order['user_name']); ?>
-                                                    </a>
-                                                    <div class="small text-muted"><?php echo htmlspecialchars($order['user_email']); ?></div>
-                                                </td>
-                                                <td><?php echo htmlspecialchars($order['product_name']); ?></td>
-                                                <td><?php echo htmlspecialchars($order['tier_name']); ?></td>
-                                                <td>$<?php echo number_format($order['amount'], 2); ?></td>
-                                                <td><?php echo date('M j, Y', strtotime($order['order_date'])); ?></td>
-                                                <td>
-                                                    <span class="badge bg-<?php echo $order['status_class']; ?>">
-                                                        <?php echo ucfirst(htmlspecialchars($order['status'])); ?>
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    <a href="/admin/orders.php?id=<?php echo $order['id']; ?>" class="btn btn-sm btn-primary">
-                                                        <i class="fas fa-eye"></i> View
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
-                                
-                                <?php if ($total_pages > 1): ?>
-                                    <nav aria-label="Orders pagination">
-                                        <ul class="pagination justify-content-center">
-                                            <?php if ($page > 1): ?>
-                                                <li class="page-item">
-                                                    <a class="page-link" href="/admin/orders.php?page=<?php echo $page - 1; ?><?php echo $status_filter ? '&status=' . urlencode($status_filter) : ''; ?><?php echo $search ? '&search=' . urlencode($search) : ''; ?>">
-                                                        <i class="fas fa-chevron-left"></i> Previous
-                                                    </a>
-                                                </li>
-                                            <?php else: ?>
-                                                <li class="page-item disabled">
-                                                    <a class="page-link" href="#"><i class="fas fa-chevron-left"></i> Previous</a>
-                                                </li>
-                                            <?php endif; ?>
-                                            
-                                            <?php
-                                            $start_page = max(1, $page - 2);
-                                            $end_page = min($total_pages, $page + 2);
-                                            
-                                            if ($start_page > 1) {
-                                                echo '<li class="page-item"><a class="page-link" href="/admin/orders.php?page=1' . ($status_filter ? '&status=' . urlencode($status_filter) : '') . ($search ? '&search=' . urlencode($search) : '') . '">1</a></li>';
-                                                if ($start_page > 2) {
-                                                    echo '<li class="page-item disabled"><a class="page-link" href="#">...</a></li>';
-                                                }
-                                            }
-                                            
-                                            for ($i = $start_page; $i <= $end_page; $i++) {
-                                                echo '<li class="page-item ' . ($i == $page ? 'active' : '') . '"><a class="page-link" href="/admin/orders.php?page=' . $i . ($status_filter ? '&status=' . urlencode($status_filter) : '') . ($search ? '&search=' . urlencode($search) : '') . '">' . $i . '</a></li>';
-                                            }
-                                            
-                                            if ($end_page < $total_pages) {
-                                                if ($end_page < $total_pages - 1) {
-                                                    echo '<li class="page-item disabled"><a class="page-link" href="#">...</a></li>';
-                                                }
-                                                echo '<li class="page-item"><a class="page-link" href="/admin/orders.php?page=' . $total_pages . ($status_filter ? '&status=' . urlencode($status_filter) : '') . ($search ? '&search=' . urlencode($search) : '') . '">' . $total_pages . '</a></li>';
-                                            }
-                                            ?>
-                                            
-                                            <?php if ($page < $total_pages): ?>
-                                                <li class="page-item">
-                                                    <a class="page-link" href="/admin/orders.php?page=<?php echo $page + 1; ?><?php echo $status_filter ? '&status=' . urlencode($status_filter) : ''; ?><?php echo $search ? '&search=' . urlencode($search) : ''; ?>">
-                                                        Next <i class="fas fa-chevron-right"></i>
-                                                    </a>
-                                                </li>
-                                            <?php else: ?>
-                                                <li class="page-item disabled">
-                                                    <a class="page-link" href="#">Next <i class="fas fa-chevron-right"></i></a>
-                                                </li>
-                                            <?php endif; ?>
-                                        </ul>
-                                    </nav>
-                                <?php endif; ?>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                </div>
-            <?php endif; ?>
-        </main>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="updateOrderBtn">Update Order</button>
+            </div>
+        </div>
     </div>
 </div>
 
 <script>
+let currentPage = 1;
+let ordersPerPage = 10;
+let currentFilter = 'all';
+let searchQuery = '';
+let orders = [];
+let selectedOrderId = null;
+
 document.addEventListener('DOMContentLoaded', function() {
+    // Load orders
+    loadOrders();
+    
+    // Load order stats
+    loadOrderStats();
+    
     // Refresh orders button
-    const refreshOrdersBtn = document.getElementById('refreshOrdersBtn');
-    if (refreshOrdersBtn) {
-        refreshOrdersBtn.addEventListener('click', function() {
-            window.location.reload();
+    document.getElementById('refreshOrdersBtn').addEventListener('click', function() {
+        loadOrders();
+        loadOrderStats();
+    });
+    
+    // Filter buttons
+    document.querySelectorAll('.order-filters [data-filter]').forEach(button => {
+        button.addEventListener('click', function() {
+            // Remove active class from all buttons
+            document.querySelectorAll('.order-filters [data-filter]').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            // Update filter
+            currentFilter = this.getAttribute('data-filter');
+            currentPage = 1;
+            loadOrders();
         });
+    });
+    
+    // Search button
+    document.getElementById('searchBtn').addEventListener('click', function() {
+        searchQuery = document.getElementById('orderSearch').value.trim();
+        currentPage = 1;
+        loadOrders();
+    });
+    
+    // Press Enter to search
+    document.getElementById('orderSearch').addEventListener('keyup', function(event) {
+        if (event.key === 'Enter') {
+            searchQuery = this.value.trim();
+            currentPage = 1;
+            loadOrders();
+        }
+    });
+    
+    // Orders per page change
+    document.getElementById('ordersPerPage').addEventListener('change', function() {
+        ordersPerPage = parseInt(this.value);
+        currentPage = 1;
+        loadOrders();
+    });
+    
+    // Edit order button in order details modal
+    document.getElementById('editOrderBtn').addEventListener('click', function() {
+        // Close details modal
+        bootstrap.Modal.getInstance(document.getElementById('orderDetailsModal')).hide();
+        
+        // Open edit modal
+        editOrder(selectedOrderId);
+    });
+    
+    // Update order button
+    document.getElementById('updateOrderBtn').addEventListener('click', function() {
+        updateOrder();
+    });
+    
+    // Export CSV
+    document.getElementById('exportCSV').addEventListener('click', function(e) {
+        e.preventDefault();
+        exportOrders('csv');
+    });
+    
+    // Export PDF
+    document.getElementById('exportPDF').addEventListener('click', function(e) {
+        e.preventDefault();
+        exportOrders('pdf');
+    });
+});
+
+function loadOrders() {
+    const tableBody = document.getElementById('ordersTableBody');
+    tableBody.innerHTML = '<tr><td colspan="8" class="text-center"><div class="spinner-border spinner-border-sm text-primary me-2" role="status"></div> Loading orders...</td></tr>';
+    
+    // Build query string
+    let queryParams = `?page=${currentPage}&limit=${ordersPerPage}`;
+    
+    if (currentFilter !== 'all') {
+        queryParams += `&status=${currentFilter}`;
     }
     
-    // Export orders button
-    const exportOrdersBtn = document.getElementById('exportOrdersBtn');
-    if (exportOrdersBtn) {
-        exportOrdersBtn.addEventListener('click', function() {
-            let url = '/api/admin-export-orders.php';
-            const statusFilter = '<?php echo $status_filter; ?>';
-            const search = '<?php echo $search; ?>';
-            
-            if (statusFilter) {
-                url += '?status=' + encodeURIComponent(statusFilter);
-                if (search) {
-                    url += '&search=' + encodeURIComponent(search);
-                }
-            } else if (search) {
-                url += '?search=' + encodeURIComponent(search);
+    if (searchQuery) {
+        queryParams += `&search=${encodeURIComponent(searchQuery)}`;
+    }
+    
+    // Fetch orders
+    fetch(`/api/admin-orders.php${queryParams}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                displayOrders(data.orders);
+                generatePagination(data.totalOrders, data.totalPages);
+                orders = data.orders;
+            } else {
+                tableBody.innerHTML = `<tr><td colspan="8" class="text-center text-danger">Error loading orders: ${data.error}</td></tr>`;
             }
-            
-            window.location.href = url;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            tableBody.innerHTML = '<tr><td colspan="8" class="text-center text-danger">Failed to load orders</td></tr>';
         });
+}
+
+function displayOrders(orders) {
+    const tableBody = document.getElementById('ordersTableBody');
+    
+    if (orders.length === 0) {
+        tableBody.innerHTML = '<tr><td colspan="8" class="text-center">No orders found</td></tr>';
+        return;
     }
     
-    // Update order status form
-    const updateStatusForm = document.getElementById('updateStatusForm');
-    if (updateStatusForm) {
-        updateStatusForm.addEventListener('submit', function(e) {
+    let html = '';
+    
+    orders.forEach(order => {
+        let statusBadge = '';
+        
+        switch (order.status.toLowerCase()) {
+            case 'completed':
+                statusBadge = '<span class="badge bg-success text-uppercase">Completed</span>';
+                break;
+            case 'pending':
+                statusBadge = '<span class="badge bg-warning text-uppercase">Pending</span>';
+                break;
+            case 'processing':
+                statusBadge = '<span class="badge bg-info text-uppercase">Processing</span>';
+                break;
+            case 'failed':
+                statusBadge = '<span class="badge bg-danger text-uppercase">Failed</span>';
+                break;
+            case 'refunded':
+                statusBadge = '<span class="badge bg-secondary text-uppercase">Refunded</span>';
+                break;
+            default:
+                statusBadge = `<span class="badge bg-secondary text-uppercase">${order.status}</span>`;
+        }
+        
+        const tierName = getTierName(order.tier_level);
+        const orderDate = new Date(order.order_date).toLocaleDateString();
+        
+        html += `
+            <tr data-order-id="${order.id}">
+                <td>${order.id}</td>
+                <td>
+                    <a href="/admin/users.php?id=${order.user_id}" class="text-decoration-none">
+                        ${order.first_name} ${order.last_name}
+                    </a>
+                    <div class="small text-muted">${order.email}</div>
+                </td>
+                <td>${order.product_name}</td>
+                <td>${tierName}</td>
+                <td>$${parseFloat(order.amount).toFixed(2)}</td>
+                <td>${orderDate}</td>
+                <td>${statusBadge}</td>
+                <td>
+                    <div class="btn-group">
+                        <button class="btn btn-sm btn-primary view-order-btn" data-order-id="${order.id}">
+                            <i class="fas fa-eye"></i> View
+                        </button>
+                        <button class="btn btn-sm btn-warning edit-order-btn" data-order-id="${order.id}">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `;
+    });
+    
+    tableBody.innerHTML = html;
+    
+    // Add event listeners to buttons
+    document.querySelectorAll('.view-order-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const orderId = this.getAttribute('data-order-id');
+            viewOrder(orderId);
+        });
+    });
+    
+    document.querySelectorAll('.edit-order-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const orderId = this.getAttribute('data-order-id');
+            editOrder(orderId);
+        });
+    });
+}
+
+function generatePagination(totalOrders, totalPages) {
+    const paginationContainer = document.getElementById('ordersPagination');
+    
+    let html = '<nav aria-label="Orders pagination"><ul class="pagination">';
+    
+    // Previous button
+    html += `
+        <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+            <a class="page-link" href="#" data-page="${currentPage - 1}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+    `;
+    
+    // Page numbers
+    for (let i = 1; i <= totalPages; i++) {
+        if (
+            i === 1 ||
+            i === totalPages ||
+            (i >= currentPage - 2 && i <= currentPage + 2)
+        ) {
+            html += `
+                <li class="page-item ${currentPage === i ? 'active' : ''}">
+                    <a class="page-link" href="#" data-page="${i}">${i}</a>
+                </li>
+            `;
+        } else if (
+            i === currentPage - 3 ||
+            i === currentPage + 3
+        ) {
+            html += `
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">...</a>
+                </li>
+            `;
+        }
+    }
+    
+    // Next button
+    html += `
+        <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+            <a class="page-link" href="#" data-page="${currentPage + 1}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    `;
+    
+    html += '</ul></nav>';
+    
+    paginationContainer.innerHTML = html;
+    
+    // Add event listeners to pagination links
+    document.querySelectorAll('.pagination .page-link').forEach(link => {
+        link.addEventListener('click', function(e) {
             e.preventDefault();
             
-            // Show loading
-            const submitBtn = this.querySelector('button[type="submit"]');
-            const originalBtnText = submitBtn.innerHTML;
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating...';
+            if (this.parentElement.classList.contains('disabled')) {
+                return;
+            }
             
-            // Get form data
-            const formData = new FormData(this);
-            
-            // Convert to URL params
-            const params = new URLSearchParams();
-            formData.forEach((value, key) => {
-                params.append(key, value);
-            });
-            
-            // Send request
-            fetch('/api/admin-update-order-status.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: params
-            })
+            const page = parseInt(this.getAttribute('data-page'));
+            if (page > 0 && page <= totalPages) {
+                currentPage = page;
+                loadOrders();
+            }
+        });
+    });
+}
+
+function loadOrderStats() {
+    fetch('/api/admin-order-stats.php')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                updateOrderStats(data.stats);
+            } else {
+                console.error('Error loading order stats:', data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+function updateOrderStats(stats) {
+    document.getElementById('totalOrders').textContent = stats.totalOrders;
+    document.getElementById('totalRevenue').textContent = '$' + parseFloat(stats.totalRevenue).toFixed(2);
+    document.getElementById('completedOrders').textContent = stats.completedOrders;
+    document.getElementById('pendingOrders').textContent = stats.pendingOrders;
+}
+
+function viewOrder(orderId) {
+    const orderDetailsContent = document.getElementById('orderDetailsContent');
+    orderDetailsContent.innerHTML = `
+        <div class="text-center">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2">Loading order details...</p>
+        </div>
+    `;
+    
+    // Show modal
+    const orderDetailsModal = new bootstrap.Modal(document.getElementById('orderDetailsModal'));
+    orderDetailsModal.show();
+    
+    // Store selected order ID for edit button
+    selectedOrderId = orderId;
+    
+    // Find order in cached data
+    const order = orders.find(o => o.id == orderId);
+    
+    if (order) {
+        displayOrderDetails(order);
+    } else {
+        // Fetch order details
+        fetch(`/api/order-details.php?id=${orderId}`)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    showAlert('success', 'Order status updated successfully.');
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 1500);
+                    displayOrderDetails(data.order);
                 } else {
-                    showAlert('danger', 'Error updating order status: ' + data.error);
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = originalBtnText;
+                    orderDetailsContent.innerHTML = `
+                        <div class="alert alert-danger">
+                            Error loading order details: ${data.error}
+                        </div>
+                    `;
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                showAlert('danger', 'Failed to update order status. Please try again.');
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalBtnText;
+                orderDetailsContent.innerHTML = `
+                    <div class="alert alert-danger">
+                        Failed to load order details. Please try again.
+                    </div>
+                `;
             });
-        });
+    }
+}
+
+function displayOrderDetails(order) {
+    const orderDetailsContent = document.getElementById('orderDetailsContent');
+    const tierName = getTierName(order.tier_level);
+    const orderDate = new Date(order.order_date).toLocaleDateString();
+    
+    let statusBadgeClass = '';
+    switch (order.status.toLowerCase()) {
+        case 'completed':
+            statusBadgeClass = 'success';
+            break;
+        case 'pending':
+            statusBadgeClass = 'warning';
+            break;
+        case 'processing':
+            statusBadgeClass = 'info';
+            break;
+        case 'failed':
+            statusBadgeClass = 'danger';
+            break;
+        case 'refunded':
+            statusBadgeClass = 'secondary';
+            break;
+        default:
+            statusBadgeClass = 'secondary';
     }
     
-    // Sync order with GHL
-    const syncOrderBtn = document.getElementById('syncOrderBtn');
-    if (syncOrderBtn) {
-        syncOrderBtn.addEventListener('click', function() {
-            const orderId = this.getAttribute('data-order-id');
-            
-            // Show loading
-            const originalBtnText = this.innerHTML;
-            this.disabled = true;
-            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Syncing...';
-            
-            // Send request
-            fetch(`/api/admin-sync-order.php?id=${orderId}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    showAlert('success', 'Order synchronized successfully with GHL.');
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 1500);
+    orderDetailsContent.innerHTML = `
+        <div class="row">
+            <div class="col-md-6">
+                <h6>Order Information</h6>
+                <table class="table table-sm">
+                    <tr>
+                        <th>Order ID:</th>
+                        <td>${order.id}</td>
+                    </tr>
+                    <tr>
+                        <th>Date:</th>
+                        <td>${orderDate}</td>
+                    </tr>
+                    <tr>
+                        <th>Status:</th>
+                        <td><span class="badge bg-${statusBadgeClass}">${order.status.toUpperCase()}</span></td>
+                    </tr>
+                    <tr>
+                        <th>Amount:</th>
+                        <td>$${parseFloat(order.amount).toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                        <th>Product:</th>
+                        <td>${order.product_name}</td>
+                    </tr>
+                    <tr>
+                        <th>Tier:</th>
+                        <td>${tierName}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <h6>Customer Information</h6>
+                <table class="table table-sm">
+                    <tr>
+                        <th>Name:</th>
+                        <td>${order.first_name} ${order.last_name}</td>
+                    </tr>
+                    <tr>
+                        <th>Email:</th>
+                        <td>${order.email}</td>
+                    </tr>
+                    <tr>
+                        <th>GHL ID:</th>
+                        <td>${order.ghl_order_id || 'N/A'}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="mt-4">
+            <h6>Notes</h6>
+            <div class="card bg-light">
+                <div class="card-body">
+                    ${order.notes || 'No notes for this order.'}
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function editOrder(orderId) {
+    // First, load products for the dropdown
+    fetch('/api/admin-products.php')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Populate product dropdown
+                const productSelect = document.getElementById('editProductId');
+                
+                let options = '';
+                data.products.forEach(product => {
+                    options += `<option value="${product.id}">${product.name} ($${parseFloat(product.price).toFixed(2)})</option>`;
+                });
+                
+                productSelect.innerHTML = options;
+                
+                // Now, find order in cached data or fetch it
+                const order = orders.find(o => o.id == orderId);
+                
+                if (order) {
+                    populateEditForm(order);
                 } else {
-                    showAlert('danger', 'Error syncing order: ' + data.error);
-                    this.disabled = false;
-                    this.innerHTML = originalBtnText;
+                    // Fetch order details
+                    fetch(`/api/order-details.php?id=${orderId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                populateEditForm(data.order);
+                            } else {
+                                showAlert('danger', `Error loading order details: ${data.error}`);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            showAlert('danger', 'Failed to load order details. Please try again.');
+                        });
                 }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                showAlert('danger', 'Failed to sync order. Please try again.');
-                this.disabled = false;
-                this.innerHTML = originalBtnText;
-            });
+                
+                // Show edit modal
+                const editOrderModal = new bootstrap.Modal(document.getElementById('editOrderModal'));
+                editOrderModal.show();
+            } else {
+                showAlert('danger', `Error loading products: ${data.error}`);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showAlert('danger', 'Failed to load products. Please try again.');
         });
+}
+
+function populateEditForm(order) {
+    document.getElementById('editOrderId').value = order.id;
+    document.getElementById('editProductId').value = order.product_id;
+    document.getElementById('editAmount').value = parseFloat(order.amount).toFixed(2);
+    document.getElementById('editStatus').value = order.status;
+    
+    // Format date as YYYY-MM-DD for input
+    const date = new Date(order.order_date);
+    const formattedDate = date.toISOString().split('T')[0];
+    document.getElementById('editOrderDate').value = formattedDate;
+    
+    document.getElementById('editNotes').value = order.notes || '';
+}
+
+function updateOrder() {
+    const form = document.getElementById('editOrderForm');
+    const formData = new FormData(form);
+    
+    // Convert form data to object
+    const orderData = Object.fromEntries(formData.entries());
+    
+    // Send request
+    fetch('/api/admin-update-order.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(orderData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Close modal
+            bootstrap.Modal.getInstance(document.getElementById('editOrderModal')).hide();
+            
+            // Show success message
+            showAlert('success', 'Order updated successfully!');
+            
+            // Reload orders
+            loadOrders();
+            loadOrderStats();
+        } else {
+            showAlert('danger', `Error updating order: ${data.error}`);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showAlert('danger', 'Failed to update order. Please try again.');
+    });
+}
+
+function exportOrders(format) {
+    // Build query string
+    let queryParams = `?format=${format}`;
+    
+    if (currentFilter !== 'all') {
+        queryParams += `&status=${currentFilter}`;
     }
-});
+    
+    if (searchQuery) {
+        queryParams += `&search=${encodeURIComponent(searchQuery)}`;
+    }
+    
+    // Redirect to export endpoint
+    window.location.href = `/api/admin-export-orders.php${queryParams}`;
+}
+
+function getTierName(tierId) {
+    switch (parseInt(tierId)) {
+        case 1:
+            return 'Basic';
+        case 2:
+            return 'Premium';
+        case 3:
+            return 'Elite';
+        default:
+            return 'Unknown';
+    }
+}
 </script>
 
 <?php
-// Include footer
-require_once __DIR__ . '/../includes/footer.php';
+// Include admin footer
+require_once __DIR__ . '/../includes/admin_footer.php';
 ?>
