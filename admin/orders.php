@@ -38,14 +38,17 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 u.first_name as user_first_name, 
                 u.last_name as user_last_name,
                 CONCAT(u.first_name, ' ', u.last_name) as user_name,
+                p.tier_level,
+                p.name as product_name,
                 CASE 
-                    WHEN o.tier_level = 1 THEN 'Basic'
-                    WHEN o.tier_level = 2 THEN 'Premium'
-                    WHEN o.tier_level = 3 THEN 'Elite'
+                    WHEN p.tier_level = 1 THEN 'Basic'
+                    WHEN p.tier_level = 2 THEN 'Premium'
+                    WHEN p.tier_level = 3 THEN 'Elite'
                     ELSE 'None'
                 END as tier_name
          FROM orders o
          JOIN users u ON o.user_id = u.id
+         LEFT JOIN products p ON o.product_id = p.id
          WHERE o.id = ?",
         [$order_id]
     );
@@ -89,6 +92,7 @@ if (!empty($where_clauses)) {
 $count_query = db_query(
     "SELECT COUNT(*) as total FROM orders o 
      JOIN users u ON o.user_id = u.id 
+     LEFT JOIN products p ON o.product_id = p.id
      $where_sql",
     $query_params
 );
@@ -102,10 +106,12 @@ $orders_query = db_query(
     "SELECT o.*, 
             u.email as user_email, 
             CONCAT(u.first_name, ' ', u.last_name) as user_name,
+            p.tier_level,
+            p.name as product_name,
             CASE 
-                WHEN o.tier_level = 1 THEN 'Basic'
-                WHEN o.tier_level = 2 THEN 'Premium'
-                WHEN o.tier_level = 3 THEN 'Elite'
+                WHEN p.tier_level = 1 THEN 'Basic'
+                WHEN p.tier_level = 2 THEN 'Premium'
+                WHEN p.tier_level = 3 THEN 'Elite'
                 ELSE 'None'
             END as tier_name,
             CASE 
@@ -116,6 +122,7 @@ $orders_query = db_query(
             END as status_class
      FROM orders o
      JOIN users u ON o.user_id = u.id
+     LEFT JOIN products p ON o.product_id = p.id
      $where_sql
      ORDER BY o.created_at DESC
      LIMIT ? OFFSET ?",
