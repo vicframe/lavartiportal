@@ -116,7 +116,7 @@ function require_login() {
 }
 
 // Get current user data
-function get_current_user() {
+function get_current_logged_user() {
     if (!is_logged_in()) {
         return null;
     }

@@ -8,7 +8,7 @@ require_once __DIR__ . '/auth.php';
 session_start_safe();
 
 // Get current user if logged in
-$current_user = get_current_user();
+$current_user = get_current_logged_user();
 $is_logged_in = is_logged_in();
 
 // Get any error or success messages
