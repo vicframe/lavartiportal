@@ -1,10 +1,10 @@
 <?php
 require_once __DIR__ . '/includes/auth.php';
 
-// Logout the user
+// Log the user out
 logout_user();
 
-// Redirect to home page
-header('Location: /index.php');
+// Redirect to login page
+header('Location: /login.php?success=You have been successfully logged out.');
 exit;
 ?>

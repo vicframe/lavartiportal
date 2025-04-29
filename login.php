@@ -1,6 +1,14 @@
 <?php
 $page_title = 'Login';
-require_once __DIR__ . '/includes/header.php';
+
+// Include necessary functions but not the header yet
+require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/includes/functions.php';
+require_once __DIR__ . '/includes/database.php';
+require_once __DIR__ . '/includes/auth.php';
+
+// Start session
+session_start_safe();
 
 // Redirect if already logged in
 if (is_logged_in()) {
@@ -33,6 +41,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+
+// Now include the header after all redirects might happen
+require_once __DIR__ . '/includes/header.php';
 ?>
 
 <div class="row justify-content-center">
