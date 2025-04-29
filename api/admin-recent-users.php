@@ -30,7 +30,7 @@ if (!isset($user['is_admin']) || !$user['is_admin']) {
 try {
     // Get recent users
     $users_query = db_query("
-        SELECT id, email, first_name, last_name, tier_level, ghl_id, created_at
+        SELECT id, email, first_name, last_name, tier_id, ghl_id, created_at
         FROM users
         ORDER BY created_at DESC
         LIMIT 10

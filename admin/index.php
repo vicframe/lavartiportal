@@ -4,277 +4,212 @@
  */
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../includes/auth.php';
+require_once __DIR__ . '/../includes/database.php';
 
 // Set page title
 $page_title = 'Admin Dashboard';
 
-// Require admin login
-require_login();
-$user = get_current_logged_user();
-
-// Check if user is admin
-if (!isset($user['is_admin']) || !$user['is_admin']) {
-    // Set flash message
-    $_SESSION['flash_message'] = [
-        'type' => 'danger',
-        'message' => 'You do not have permission to access this page.'
-    ];
-    
-    // Redirect to dashboard
-    header('Location: /dashboard');
-    exit;
-}
-
-// Include header
-$custom_css = '<link href="/assets/css/admin.css" rel="stylesheet">';
-require_once __DIR__ . '/../includes/header.php';
+// Include admin header
+require_once __DIR__ . '/../includes/admin_header.php';
 ?>
 
-<div class="container-fluid">
-    <div class="row">
-        <!-- Sidebar -->
-        <div class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
-            <div class="position-sticky pt-3">
-                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                    <span>Admin Menu</span>
-                </h6>
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/admin">
-                            <i class="fas fa-tachometer-alt me-2"></i>
-                            Overview
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/users.php">
-                            <i class="fas fa-users me-2"></i>
-                            User Management
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/orders.php">
-                            <i class="fas fa-shopping-cart me-2"></i>
-                            Order Management
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/commissions.php">
-                            <i class="fas fa-money-bill-alt me-2"></i>
-                            Commission Management
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/integrations.php">
-                            <i class="fas fa-plug me-2"></i>
-                            Integrations
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/webhook_setup.php">
-                            <i class="fas fa-link me-2"></i>
-                            Webhook Setup
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/logs.php">
-                            <i class="fas fa-clipboard-list me-2"></i>
-                            System Logs
-                        </a>
-                    </li>
-                </ul>
-                
-                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                    <span>Quick Links</span>
-                </h6>
-                <ul class="nav flex-column mb-2">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/dashboard">
-                            <i class="fas fa-arrow-left me-2"></i>
-                            Return to Dashboard
-                        </a>
-                    </li>
-                </ul>
+<!-- Admin Dashboard Content -->
+<div class="row">
+    <!-- Stats Overview -->
+    <div class="row stats-container mb-4">
+        <div class="col-md-3 col-sm-6 mb-4">
+            <div class="stats-card">
+                <div class="icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3 id="totalUsers">1</h3>
+                <p>Total Users</p>
             </div>
         </div>
         
-        <!-- Main content -->
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Admin Dashboard</h1>
-                <div class="btn-toolbar mb-2 mb-md-0">
-                    <div class="btn-group me-2">
-                        <button type="button" class="btn btn-sm btn-outline-secondary" id="refreshStats">
-                            <i class="fas fa-sync-alt me-1"></i> Refresh
-                        </button>
+        <div class="col-md-3 col-sm-6 mb-4">
+            <div class="stats-card">
+                <div class="icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <h3 id="totalOrders">3</h3>
+                <p>Total Orders</p>
+            </div>
+        </div>
+        
+        <div class="col-md-3 col-sm-6 mb-4">
+            <div class="stats-card">
+                <div class="icon">
+                    <i class="fas fa-dollar-sign"></i>
+                </div>
+                <h3 id="totalRevenue">$590.00</h3>
+                <p>Total Revenue</p>
+            </div>
+        </div>
+        
+        <div class="col-md-3 col-sm-6 mb-4">
+            <div class="stats-card">
+                <div class="icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3 id="totalCommissions">$10.00</h3>
+                <p>Total Commissions</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <!-- Recent Orders -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Recent Orders</h5>
+                    <a href="/admin/orders.php" class="btn btn-sm btn-outline-primary">View All</a>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>User</th>
+                                    <th>Product</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentOrdersTable">
+                                <!-- Orders will be loaded here -->
+                                <tr>
+                                    <td colspan="5" class="text-center">Loading recent orders...</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-            
-            <!-- Stats Overview -->
-            <div class="row stats-container mb-4">
-                <div class="col-md-3 col-sm-6 mb-4">
-                    <div class="stat-card">
-                        <div class="icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div class="details">
-                            <h3 class="value" id="totalUsers">--</h3>
-                            <p class="label">Total Users</p>
-                        </div>
-                    </div>
+        </div>
+        
+        <!-- Recent Users -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Recent Users</h5>
+                    <a href="/admin/users.php" class="btn btn-sm btn-outline-primary">View All</a>
                 </div>
-                
-                <div class="col-md-3 col-sm-6 mb-4">
-                    <div class="stat-card">
-                        <div class="icon">
-                            <i class="fas fa-shopping-cart"></i>
-                        </div>
-                        <div class="details">
-                            <h3 class="value" id="totalOrders">--</h3>
-                            <p class="label">Total Orders</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-md-3 col-sm-6 mb-4">
-                    <div class="stat-card">
-                        <div class="icon">
-                            <i class="fas fa-dollar-sign"></i>
-                        </div>
-                        <div class="details">
-                            <h3 class="value" id="totalRevenue">--</h3>
-                            <p class="label">Total Revenue</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-md-3 col-sm-6 mb-4">
-                    <div class="stat-card">
-                        <div class="icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <div class="details">
-                            <h3 class="value" id="totalCommissions">--</h3>
-                            <p class="label">Total Commissions</p>
-                        </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Tier</th>
+                                    <th>Date Joined</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentUsersTable">
+                                <!-- Users will be loaded here -->
+                                <tr>
+                                    <td colspan="4" class="text-center">Loading recent users...</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-            
-            <div class="row">
-                <!-- Recent Orders -->
-                <div class="col-md-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-header">
-                            <h5 class="mb-0">Recent Orders</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="recent-orders-table">
-                                <table class="table table-sm table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Order ID</th>
-                                            <th>User</th>
-                                            <th>Product</th>
-                                            <th>Amount</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="recentOrdersTable">
-                                        <!-- Orders will be loaded here -->
-                                        <tr>
-                                            <td colspan="5" class="text-center">Loading recent orders...</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="text-end mt-3">
-                                <a href="/admin/orders.php" class="btn btn-sm btn-outline-primary">View All Orders</a>
-                            </div>
-                        </div>
-                    </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <!-- Integration Status -->
+        <div class="col-md-12 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Integration Status</h5>
                 </div>
-                
-                <!-- Recent Users -->
-                <div class="col-md-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-header">
-                            <h5 class="mb-0">Recent Users</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="recent-users-table">
-                                <table class="table table-sm table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Tier</th>
-                                            <th>Date Joined</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="recentUsersTable">
-                                        <!-- Users will be loaded here -->
-                                        <tr>
-                                            <td colspan="4" class="text-center">Loading recent users...</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="text-end mt-3">
-                                <a href="/admin/users.php" class="btn btn-sm btn-outline-primary">View All Users</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row">
-                <!-- Integration Status -->
-                <div class="col-md-12 mb-4">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="mb-0">Integration Status</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="integration-status">
-                                        <h6>GoHighLevel Integration</h6>
-                                        <div class="status-indicator mb-3">
-                                            <div class="status-icon" id="ghlStatus">
-                                                <i class="fas fa-question-circle"></i>
-                                            </div>
-                                            <div class="status-text" id="ghlStatusText">
-                                                Checking status...
-                                            </div>
-                                        </div>
-                                        <button class="btn btn-sm btn-outline-primary" id="checkGhlStatus">
-                                            <i class="fas fa-sync-alt me-1"></i> Check Connection
-                                        </button>
-                                    </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="integration-item">
+                                <div class="integration-icon">
+                                    <i class="fas fa-cogs" id="ghlIcon"></i>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="integration-status">
-                                        <h6>Pillars Integration</h6>
-                                        <div class="status-indicator mb-3">
-                                            <div class="status-icon" id="pillarsStatus">
-                                                <i class="fas fa-question-circle"></i>
-                                            </div>
-                                            <div class="status-text" id="pillarsStatusText">
-                                                Checking status...
-                                            </div>
-                                        </div>
-                                        <button class="btn btn-sm btn-outline-primary" id="checkPillarsStatus">
-                                            <i class="fas fa-sync-alt me-1"></i> Check Connection
-                                        </button>
+                                <div class="integration-details">
+                                    <p class="integration-name">GoHighLevel Integration</p>
+                                    <span class="integration-status-badge" id="ghlStatusBadge">Checking...</span>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary ms-auto" id="checkGhlStatus">
+                                    <i class="fas fa-sync-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <div class="integration-item">
+                                <div class="integration-icon">
+                                    <i class="fas fa-building" id="pillarsIcon"></i>
+                                </div>
+                                <div class="integration-details">
+                                    <p class="integration-name">Pillars Integration</p>
+                                    <span class="integration-status-badge" id="pillarsStatusBadge">Checking...</span>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary ms-auto" id="checkPillarsStatus">
+                                    <i class="fas fa-sync-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- System Status -->
+    <div class="row">
+        <div class="col-md-12 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">System Status</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <div class="card bg-light">
+                                <div class="card-body text-center">
+                                    <h6 class="mb-2">Database</h6>
+                                    <div class="status-indicator">
+                                        <span class="badge bg-success">Connected</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        
+                        <div class="col-md-4 mb-3">
+                            <div class="card bg-light">
+                                <div class="card-body text-center">
+                                    <h6 class="mb-2">Webhook Status</h6>
+                                    <div class="status-indicator" id="webhookStatus">
+                                        <span class="badge bg-info">See Setup Page</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 mb-3">
+                            <div class="card bg-light">
+                                <div class="card-body text-center">
+                                    <h6 class="mb-2">System Version</h6>
+                                    <div class="version-info">
+                                        <span>v1.0.0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </main>
+        </div>
     </div>
 </div>
 
@@ -282,11 +217,6 @@ require_once __DIR__ . '/../includes/header.php';
 document.addEventListener('DOMContentLoaded', function() {
     // Load admin dashboard data
     loadAdminDashboardData();
-    
-    // Refresh stats button
-    document.getElementById('refreshStats').addEventListener('click', function() {
-        loadAdminDashboardData();
-    });
     
     // Check GHL status button
     document.getElementById('checkGhlStatus').addEventListener('click', function() {
@@ -300,9 +230,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function loadAdminDashboardData() {
-    // Show loading
-    showLoading();
-    
     // Fetch dashboard stats
     fetch('/api/admin-stats.php')
         .then(response => response.json())
@@ -320,9 +247,6 @@ function loadAdminDashboardData() {
         .catch(error => {
             console.error('Error:', error);
             showAlert('danger', 'Failed to load dashboard data. Please try again.');
-        })
-        .finally(() => {
-            hideLoading();
         });
 }
 
@@ -383,10 +307,10 @@ function displayRecentOrders(orders) {
         
         html += `
             <tr>
-                <td><a href="/admin/orders.php?id=${order.id}">${order.id}</a></td>
-                <td>${order.user_name}</td>
+                <td>${order.id}</td>
+                <td>${order.user_name || 'Unknown'}</td>
                 <td>${order.product_name}</td>
-                <td>${formatCurrency(order.amount)}</td>
+                <td>$${parseFloat(order.amount).toFixed(2)}</td>
                 <td><span class="badge bg-${statusClass}">${order.status}</span></td>
             </tr>
         `;
@@ -424,28 +348,33 @@ function displayRecentUsers(users) {
     let html = '';
     
     users.forEach(user => {
-        let tierBadge = '';
+        let tierName = 'None';
         
-        switch (user.tier_level) {
+        switch (parseInt(user.tier_id)) {
             case 1:
-                tierBadge = '<span class="badge bg-secondary">Basic</span>';
+                tierName = 'Basic';
                 break;
             case 2:
-                tierBadge = '<span class="badge bg-primary">Premium</span>';
+                tierName = 'Premium';
                 break;
             case 3:
-                tierBadge = '<span class="badge bg-warning text-dark">Elite</span>';
+                tierName = 'Elite';
                 break;
-            default:
-                tierBadge = '<span class="badge bg-light text-dark">None</span>';
         }
+        
+        const name = `${user.first_name} ${user.last_name}`;
+        const joinDate = new Date(user.created_at).toLocaleDateString('en-US', { 
+            year: 'numeric', 
+            month: 'short', 
+            day: 'numeric' 
+        });
         
         html += `
             <tr>
-                <td><a href="/admin/users.php?id=${user.id}">${user.first_name} ${user.last_name}</a></td>
+                <td>${name}</td>
                 <td>${user.email}</td>
-                <td>${tierBadge}</td>
-                <td>${formatDate(user.created_at)}</td>
+                <td>${tierName}</td>
+                <td>${joinDate}</td>
             </tr>
         `;
     });
@@ -454,43 +383,50 @@ function displayRecentUsers(users) {
 }
 
 function checkIntegrationStatus(integration) {
-    const statusIcon = document.getElementById(`${integration}Status`);
-    const statusText = document.getElementById(`${integration}StatusText`);
+    const statusBadge = document.getElementById(`${integration}StatusBadge`);
+    const statusIcon = document.getElementById(`${integration}Icon`);
     
-    // Update status to checking
-    statusIcon.innerHTML = '<i class="fas fa-sync fa-spin"></i>';
-    statusText.textContent = 'Checking connection...';
-    
-    fetch(`/api/check-integration.php?integration=${integration}`)
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                statusIcon.innerHTML = '<i class="fas fa-check-circle text-success"></i>';
-                statusText.innerHTML = `Connected <span class="text-muted">(API Key: ${maskApiKey(data.api_key)})</span>`;
-            } else {
-                statusIcon.innerHTML = '<i class="fas fa-times-circle text-danger"></i>';
-                statusText.textContent = data.error || 'Connection failed';
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            statusIcon.innerHTML = '<i class="fas fa-exclamation-triangle text-warning"></i>';
-            statusText.textContent = 'Connection check failed';
-        });
+    if (statusBadge && statusIcon) {
+        // Set checking state
+        statusBadge.textContent = 'Checking...';
+        statusBadge.className = 'integration-status-badge';
+        statusIcon.className = 'fas fa-spinner fa-spin';
+        
+        // Fetch integration status
+        fetch(`/api/check-integration.php?integration=${integration}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    if (data.connected) {
+                        statusBadge.textContent = 'Connected';
+                        statusBadge.className = 'integration-status-badge connected';
+                        statusIcon.className = integration === 'ghl' ? 'fas fa-cogs' : 'fas fa-building';
+                    } else {
+                        statusBadge.textContent = 'Disconnected';
+                        statusBadge.className = 'integration-status-badge disconnected';
+                        statusIcon.className = 'fas fa-exclamation-circle';
+                    }
+                } else {
+                    statusBadge.textContent = 'Status Error';
+                    statusBadge.className = 'integration-status-badge disconnected';
+                    statusIcon.className = 'fas fa-exclamation-triangle';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                statusBadge.textContent = 'Check Failed';
+                statusBadge.className = 'integration-status-badge disconnected';
+                statusIcon.className = 'fas fa-times-circle';
+            });
+    }
 }
 
-function maskApiKey(key) {
-    if (!key) return '';
-    
-    // Show only first 4 and last 4 characters
-    const len = key.length;
-    if (len <= 8) return key;
-    
-    return key.substring(0, 4) + '•'.repeat(len - 8) + key.substring(len - 4);
+function formatCurrency(amount) {
+    return '$' + parseFloat(amount).toFixed(2);
 }
 </script>
 
 <?php
-// Include footer
-require_once __DIR__ . '/../includes/footer.php';
+// Include admin footer
+require_once __DIR__ . '/../includes/admin_footer.php';
 ?>
