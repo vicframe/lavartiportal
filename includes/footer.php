@@ -1,47 +1,25 @@
+        </div>
     </main>
     
-    <footer class="bg-light py-4 mt-5">
+    <footer class="footer mt-auto py-3 bg-light">
         <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h5>LaVarti Systems</h5>
-                    <p>Unified platform for storefront, affiliate management, and tiered membership access.</p>
+            <div class="d-flex justify-content-between align-items-center">
+                <span class="text-muted">&copy; <?php echo date('Y'); ?> <?php echo APP_NAME; ?>. All rights reserved.</span>
+                <div>
+                    <a href="#" class="text-muted text-decoration-none me-3">Privacy Policy</a>
+                    <a href="#" class="text-muted text-decoration-none me-3">Terms of Service</a>
+                    <a href="#" class="text-muted text-decoration-none">Contact Us</a>
                 </div>
-                <div class="col-md-3">
-                    <h5>Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="/">Home</a></li>
-                        <?php if (is_logged_in()): ?>
-                        <li><a href="/dashboard/index.php">Dashboard</a></li>
-                        <li><a href="/dashboard/products.php">Products</a></li>
-                        <li><a href="/dashboard/affiliate.php">Affiliate Program</a></li>
-                        <?php else: ?>
-                        <li><a href="/login.php">Login</a></li>
-                        <?php endif; ?>
-                    </ul>
-                </div>
-                <div class="col-md-3">
-                    <h5>Support</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="/contact.php">Contact Us</a></li>
-                        <li><a href="/faq.php">FAQ</a></li>
-                        <li><a href="/terms.php">Terms of Service</a></li>
-                        <li><a href="/privacy.php">Privacy Policy</a></li>
-                    </ul>
-                </div>
-            </div>
-            <hr>
-            <div class="text-center">
-                <p>&copy; <?php echo date('Y'); ?> LaVarti Systems. All rights reserved.</p>
             </div>
         </div>
     </footer>
     
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    
     <!-- Custom JS -->
     <script src="/assets/js/main.js"></script>
     
-    <?php if (isset($extra_js) && $extra_js): ?>
-    <script src="<?php echo $extra_js; ?>"></script>
-    <?php endif; ?>
+    <?php if (isset($page_scripts)) echo $page_scripts; ?>
 </body>
 </html>

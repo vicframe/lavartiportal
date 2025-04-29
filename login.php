@@ -1,66 +1,90 @@
 <?php
-$page_title = 'Login';
-
-// Include necessary functions but not the header yet
+/**
+ * Login page
+ */
 require_once __DIR__ . '/config.php';
-require_once __DIR__ . '/includes/functions.php';
-require_once __DIR__ . '/includes/database.php';
 require_once __DIR__ . '/includes/auth.php';
 
-// Start session
-session_start_safe();
+// Set page title
+$page_title = 'Login';
 
-// Redirect if already logged in
+// Check if user is already logged in
 if (is_logged_in()) {
-    header('Location: /dashboard/index.php');
+    // Redirect to dashboard
+    $redirect_url = isset($_SESSION['redirect_after_login']) ? $_SESSION['redirect_after_login'] : '/dashboard';
+    unset($_SESSION['redirect_after_login']);
+    
+    header("Location: $redirect_url");
     exit;
 }
 
-$email = '';
-$error = '';
-
 // Process login form submission
+$error = '';
+$email = '';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = sanitize_input($_POST['email'] ?? '');
+    $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
+    $remember = isset($_POST['remember']) && $_POST['remember'] === 'on';
     
-    if (empty($email)) {
-        $error = 'Email is required.';
-    } elseif (empty($password)) {
-        $error = 'Password is required.';
+    // Validate input
+    if (empty($email) || empty($password)) {
+        $error = 'Please enter your email and password';
     } else {
-        // Attempt authentication
-        $auth_result = authenticate_user($email, $password);
+        // Attempt to log in
+        $user = login($email, $password, $remember);
         
-        if ($auth_result) {
-            // Redirect to dashboard on successful login
-            header('Location: /dashboard/index.php');
+        if ($user) {
+            // Login successful
+            $redirect_url = isset($_SESSION['redirect_after_login']) ? $_SESSION['redirect_after_login'] : '/dashboard';
+            unset($_SESSION['redirect_after_login']);
+            
+            header("Location: $redirect_url");
             exit;
         } else {
-            $error = 'Invalid email or password.';
+            // Login failed
+            $error = 'Invalid email or password';
         }
     }
 }
-
-// Now include the header after all redirects might happen
-require_once __DIR__ . '/includes/header.php';
 ?>
-
-<div class="row justify-content-center">
-    <div class="col-md-6 col-lg-5">
-        <div class="card shadow">
-            <div class="card-header bg-primary text-white">
-                <h4 class="mb-0">Login to LaVarti Systems</h4>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo $page_title; ?> - <?php echo APP_NAME; ?></title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h2><?php echo APP_NAME; ?></h2>
             </div>
-            <div class="card-body">
-                <?php if (!empty($error)): ?>
-                <div class="alert alert-danger"><?php echo $error; ?></div>
+            
+            <div class="auth-body">
+                <h3 class="text-center mb-4">Sign In</h3>
+                
+                <?php if ($error) : ?>
+                    <div class="alert alert-danger"><?php echo htmlspecialchars($error); ?></div>
                 <?php endif; ?>
                 
-                <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+                <form method="post" action="" id="login-form">
                     <div class="mb-3">
                         <label for="email" class="form-label">Email Address</label>
-                        <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required>
+                        <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required autofocus>
                     </div>
                     
                     <div class="mb-3">
@@ -74,16 +98,25 @@ require_once __DIR__ . '/includes/header.php';
                     </div>
                     
                     <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-primary">Login</button>
+                        <button type="submit" class="btn btn-primary">Sign In</button>
                     </div>
                 </form>
                 
-                <hr>
-                
-                <p class="mb-0 text-center">Don't have an account? <a href="/dashboard/products.php">Choose a membership</a> to get started.</p>
+                <div class="text-center mt-3">
+                    <p><a href="#" class="text-decoration-none">Forgot password?</a></p>
+                </div>
+            </div>
+            
+            <div class="auth-footer">
+                <p class="mb-0">Don't have an account? <a href="#" class="text-decoration-none">Sign up</a></p>
             </div>
         </div>
     </div>
-</div>
-
-<?php require_once __DIR__ . '/includes/footer.php'; ?>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="/assets/js/main.js"></script>
+</body>
+</html>

@@ -1,163 +1,181 @@
 <?php
+/**
+ * Homepage
+ */
+require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/includes/auth.php';
+
+// Set page title
 $page_title = 'Home';
+
+// Check for referral parameter
+$ref = isset($_GET['ref']) ? $_GET['ref'] : null;
+
+if ($ref) {
+    // Store referral ID in session
+    $_SESSION['referral'] = $ref;
+}
+
+// Include header
 require_once __DIR__ . '/includes/header.php';
 ?>
 
-<div class="jumbotron bg-light p-5 rounded">
-    <h1 class="display-4">Welcome to LaVarti Systems</h1>
-    <p class="lead">Your all-in-one portal for managing storefront, affiliate relationships, and tiered membership benefits.</p>
-    <hr class="my-4">
-    <p>Join our platform to access exclusive content, earn commissions, and grow your business.</p>
-    
-    <?php if (!is_logged_in()): ?>
-    <div class="mt-4">
-        <a href="/login.php" class="btn btn-primary btn-lg me-2">Login</a>
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 hero-content">
+                <h1>Travel More, Earn More</h1>
+                <p class="lead mb-4">Join our travel community and earn commissions by sharing exclusive travel deals with your network.</p>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                    <a href="/login.php" class="btn btn-primary btn-lg px-4 me-md-2">Get Started</a>
+                    <a href="#features" class="btn btn-outline-light btn-lg px-4">Learn More</a>
+                </div>
+            </div>
+            <div class="col-lg-6 d-none d-lg-block">
+                <img src="/assets/img/hero-img.svg" alt="Travel illustration" class="img-fluid">
+            </div>
+        </div>
     </div>
-    <?php else: ?>
-    <div class="mt-4">
-        <a href="/dashboard/index.php" class="btn btn-primary btn-lg me-2">Go to Dashboard</a>
-        <a href="/dashboard/products.php" class="btn btn-outline-primary btn-lg">View Products</a>
-    </div>
-    <?php endif; ?>
-</div>
+</section>
 
-<div class="row mt-5">
-    <div class="col-md-4 mb-4">
-        <div class="card h-100">
-            <div class="card-body text-center">
-                <i class="fas fa-shopping-cart fa-3x text-primary mb-3"></i>
-                <h3 class="card-title">Storefront</h3>
-                <p class="card-text">Access our marketplace of products and services tailored to your needs.</p>
+<section class="py-5" id="features">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-4">Why Choose Us</h2>
+            <p class="lead text-muted">We offer the best travel affiliate program in the industry</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="feature-card shadow-sm rounded p-4">
+                    <div class="feature-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Exclusive Travel Deals</h3>
+                    <p>Access to special rates and packages not available to the general public.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="feature-card shadow-sm rounded p-4">
+                    <div class="feature-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <h3>Competitive Commissions</h3>
+                    <p>Earn up to 15% commission on every booking made through your referral link.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="feature-card shadow-sm rounded p-4">
+                    <div class="feature-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>Powerful Tools</h3>
+                    <p>Track your performance, manage your team, and grow your business with our platform.</p>
+                </div>
             </div>
         </div>
     </div>
-    
-    <div class="col-md-4 mb-4">
-        <div class="card h-100">
-            <div class="card-body text-center">
-                <i class="fas fa-handshake fa-3x text-primary mb-3"></i>
-                <h3 class="card-title">Affiliate Program</h3>
-                <p class="card-text">Earn commissions by referring others to our platform and products.</p>
-            </div>
-        </div>
-    </div>
-    
-    <div class="col-md-4 mb-4">
-        <div class="card h-100">
-            <div class="card-body text-center">
-                <i class="fas fa-crown fa-3x text-primary mb-3"></i>
-                <h3 class="card-title">Tiered Memberships</h3>
-                <p class="card-text">Gain access to exclusive content and benefits based on your membership level.</p>
-            </div>
-        </div>
-    </div>
-</div>
+</section>
 
-<div class="row mt-5">
-    <div class="col-12">
-        <h2 class="text-center mb-4">Membership Tiers</h2>
-    </div>
-    
-    <div class="col-md-4 mb-4">
-        <div class="card pricing-card h-100">
-            <div class="card-header bg-primary text-white text-center">
-                <h3>Basic</h3>
-                <h2 class="mb-0">$25<small>/month</small></h2>
-            </div>
-            <div class="card-body">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Access to basic resources</li>
-                    <li class="list-group-item">Entry-level affiliate commission rates</li>
-                    <li class="list-group-item">Basic community access</li>
-                    <li class="list-group-item">Standard support</li>
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h2>Join Our Community</h2>
+                <p class="lead">Start your journey with us today and experience the benefits of our travel affiliate program.</p>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><i class="fas fa-check text-primary me-2"></i> Easy sign-up process</li>
+                    <li class="mb-2"><i class="fas fa-check text-primary me-2"></i> Comprehensive training materials</li>
+                    <li class="mb-2"><i class="fas fa-check text-primary me-2"></i> Active community support</li>
+                    <li class="mb-2"><i class="fas fa-check text-primary me-2"></i> Regular payouts</li>
                 </ul>
+                <a href="/login.php" class="btn btn-primary mt-3">Get Started Now</a>
             </div>
-            <div class="card-footer bg-white text-center">
-                <a href="/dashboard/products.php" class="btn btn-outline-primary">Join Now</a>
-            </div>
-        </div>
-    </div>
-    
-    <div class="col-md-4 mb-4">
-        <div class="card pricing-card h-100">
-            <div class="card-header bg-primary text-white text-center">
-                <h3>Premium</h3>
-                <h2 class="mb-0">$65<small>/month</small></h2>
-            </div>
-            <div class="card-body">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Access to premium resources</li>
-                    <li class="list-group-item">Enhanced affiliate commission rates</li>
-                    <li class="list-group-item">Premium community access</li>
-                    <li class="list-group-item">Priority support</li>
-                    <li class="list-group-item">Additional training materials</li>
-                </ul>
-            </div>
-            <div class="card-footer bg-white text-center">
-                <a href="/dashboard/products.php" class="btn btn-outline-primary">Join Now</a>
+            <div class="col-md-6">
+                <img src="/assets/img/community.svg" alt="Community" class="img-fluid">
             </div>
         </div>
     </div>
-    
-    <div class="col-md-4 mb-4">
-        <div class="card pricing-card h-100">
-            <div class="card-header bg-primary text-white text-center">
-                <h3>Elite</h3>
-                <h2 class="mb-0">$500<small>/month</small></h2>
-            </div>
-            <div class="card-body">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Access to all resources</li>
-                    <li class="list-group-item">Highest affiliate commission rates</li>
-                    <li class="list-group-item">VIP community access</li>
-                    <li class="list-group-item">Dedicated support</li>
-                    <li class="list-group-item">Exclusive training and events</li>
-                    <li class="list-group-item">Travel benefits and rewards</li>
-                </ul>
-            </div>
-            <div class="card-footer bg-white text-center">
-                <a href="/dashboard/products.php" class="btn btn-outline-primary">Join Now</a>
-            </div>
-        </div>
-    </div>
-</div>
+</section>
 
-<div class="row mt-5">
-    <div class="col-12">
-        <h2 class="text-center mb-4">How It Works</h2>
-    </div>
-    
-    <div class="col-md-3 mb-4 text-center">
-        <div class="rounded-circle bg-light p-4 d-inline-block mb-3">
-            <i class="fas fa-user-plus fa-3x text-primary"></i>
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2>Membership Tiers</h2>
+            <p class="lead text-muted">Choose the plan that fits your needs</p>
         </div>
-        <h4>1. Sign Up</h4>
-        <p>Create your account and choose your membership tier.</p>
-    </div>
-    
-    <div class="col-md-3 mb-4 text-center">
-        <div class="rounded-circle bg-light p-4 d-inline-block mb-3">
-            <i class="fas fa-sign-in-alt fa-3x text-primary"></i>
+        
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-header text-center">
+                        <h3 class="my-0 fw-normal">Basic</h3>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="card-title pricing-card-title text-center">$25 <small class="text-muted">/ mo</small></h2>
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Essential travel benefits</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Basic affiliate tools</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Standard commission rates</li>
+                            <li class="mb-2 text-muted"><i class="fas fa-times text-danger me-2"></i> Advanced training materials</li>
+                            <li class="mb-2 text-muted"><i class="fas fa-times text-danger me-2"></i> VIP support</li>
+                        </ul>
+                        <div class="d-grid gap-2">
+                            <a href="/login.php" class="btn btn-outline-primary">Sign Up Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow border-primary">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h3 class="my-0 fw-normal">Premium</h3>
+                        <span class="badge bg-warning text-dark">Most Popular</span>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="card-title pricing-card-title text-center">$65 <small class="text-muted">/ mo</small></h2>
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Enhanced travel benefits</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Full affiliate toolkit</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Higher commission rates</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Advanced training materials</li>
+                            <li class="mb-2 text-muted"><i class="fas fa-times text-danger me-2"></i> VIP support</li>
+                        </ul>
+                        <div class="d-grid gap-2">
+                            <a href="/login.php" class="btn btn-primary">Sign Up Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-header text-center">
+                        <h3 class="my-0 fw-normal">Elite</h3>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="card-title pricing-card-title text-center">$500 <small class="text-muted">/ mo</small></h2>
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> VIP travel benefits</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Premium affiliate tools</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Highest commission rates</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Exclusive training materials</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> 24/7 VIP support</li>
+                        </ul>
+                        <div class="d-grid gap-2">
+                            <a href="/login.php" class="btn btn-outline-primary">Sign Up Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <h4>2. Access Portal</h4>
-        <p>Log in to your personalized dashboard.</p>
     </div>
-    
-    <div class="col-md-3 mb-4 text-center">
-        <div class="rounded-circle bg-light p-4 d-inline-block mb-3">
-            <i class="fas fa-share-alt fa-3x text-primary"></i>
-        </div>
-        <h4>3. Share & Refer</h4>
-        <p>Invite others using your affiliate link.</p>
-    </div>
-    
-    <div class="col-md-3 mb-4 text-center">
-        <div class="rounded-circle bg-light p-4 d-inline-block mb-3">
-            <i class="fas fa-dollar-sign fa-3x text-primary"></i>
-        </div>
-        <h4>4. Earn Rewards</h4>
-        <p>Get commissions and unlock travel benefits.</p>
-    </div>
-</div>
+</section>
 
-<?php require_once __DIR__ . '/includes/footer.php'; ?>
+<?php
+// Include footer
+require_once __DIR__ . '/includes/footer.php';
+?>
