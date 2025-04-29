@@ -130,9 +130,9 @@ switch ($stats['membership_tier']) {
         break;
 }
 
-// Include header
+// Include dashboard header
 $custom_css = '<link href="/assets/css/dashboard.css" rel="stylesheet">';
-require_once __DIR__ . '/../includes/header.php';
+require_once __DIR__ . '/../includes/dashboard_header.php';
 ?>
 
 <div class="dashboard-container">
@@ -480,4 +480,7 @@ function formatTimeAgo($datetime) {
         return $years . ' year' . ($years > 1 ? 's' : '') . ' ago';
     }
 }
+
+// Include dashboard footer
+require_once __DIR__ . '/../includes/dashboard_footer.php';
 ?>
