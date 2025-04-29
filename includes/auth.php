@@ -3,6 +3,9 @@
  * Authentication and authorization functions
  */
 
+// Load configuration
+require_once __DIR__ . '/../config.php';
+
 // Start the session if not already started
 function session_start_safe() {
     if (session_status() == PHP_SESSION_NONE) {

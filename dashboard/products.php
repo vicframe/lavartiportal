@@ -1,5 +1,10 @@
 <?php
 $page_title = 'Products';
+
+// Include all necessary files
+require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/../includes/functions.php';
+require_once __DIR__ . '/../includes/database.php';
 require_once __DIR__ . '/../includes/auth.php';
 
 // Require login to access this page
@@ -9,7 +14,6 @@ require_login();
 $user = get_current_logged_user();
 
 // Get all available products
-require_once __DIR__ . '/../includes/functions.php';
 $products = get_all_products();
 
 // Include header

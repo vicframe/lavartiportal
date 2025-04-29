@@ -1,5 +1,10 @@
 <?php
 $page_title = 'Dashboard';
+
+// Include all necessary files
+require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/../includes/functions.php';
+require_once __DIR__ . '/../includes/database.php';
 require_once __DIR__ . '/../includes/auth.php';
 
 // Require login to access this page
