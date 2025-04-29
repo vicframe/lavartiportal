@@ -1,99 +1,77 @@
 <?php
 /**
- * Order Details API
- * 
- * Returns detailed information about a specific order
+ * API Endpoint for Order Details
  */
-
-require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../includes/auth.php';
 require_once __DIR__ . '/../includes/database.php';
+require_once __DIR__ . '/../includes/functions.php';
 
-// Set content type to JSON
-header('Content-Type: application/json');
-
-// Require login
+// Ensure user is logged in
 if (!is_logged_in()) {
-    http_response_code(401);
-    echo json_encode(['success' => false, 'error' => 'Authentication required']);
+    header('Content-Type: application/json');
+    echo json_encode([
+        'success' => false,
+        'error' => 'Authentication required'
+    ]);
     exit;
 }
 
-$user = get_current_logged_user();
-
-// Get order ID from request
-$order_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
-
-if (!$order_id) {
-    http_response_code(400);
-    echo json_encode(['success' => false, 'error' => 'Order ID is required']);
+// Check for order ID
+if (!isset($_GET['id']) || empty($_GET['id'])) {
+    header('Content-Type: application/json');
+    echo json_encode([
+        'success' => false,
+        'error' => 'Order ID is required'
+    ]);
     exit;
 }
+
+// Get parameters
+$order_id = $_GET['id'];
+$user_id = $_SESSION['user_id'];
+
+// Prepare response
+$response = [
+    'success' => false,
+    'error' => 'Order not found'
+];
 
 try {
-    // Get order details
+    // Query the database for the order
     $order_query = db_query(
-        "SELECT o.*, p.tier_level, p.name AS product_name, p.description AS product_description 
+        "SELECT o.*, p.tier_level, p.product_name,
+                CASE 
+                    WHEN p.tier_level = 1 THEN 'Basic'
+                    WHEN p.tier_level = 2 THEN 'Premium'
+                    WHEN p.tier_level = 3 THEN 'Elite'
+                    ELSE 'Unknown'
+                END as tier_name
          FROM orders o
          LEFT JOIN products p ON o.product_id = p.id
-         WHERE o.id = ?",
-        [$order_id]
+         WHERE o.id = ? AND o.user_id = ?",
+        [$order_id, $user_id]
     );
     
-    $order = db_fetch_one($order_query);
+    $order = db_fetch_assoc($order_query);
     
-    if (!$order) {
-        http_response_code(404);
-        echo json_encode(['success' => false, 'error' => 'Order not found']);
-        exit;
+    if ($order) {
+        $response = [
+            'success' => true,
+            'order' => $order
+        ];
     }
     
-    // Check if user has access to this order
-    // Regular users can only see their own orders, admins can see all orders
-    $is_admin = isset($user['is_admin']) && $user['is_admin'];
-    
-    if (!$is_admin && $order['user_id'] != $user['id']) {
-        http_response_code(403);
-        echo json_encode(['success' => false, 'error' => 'You do not have permission to view this order']);
-        exit;
-    }
-    
-    // If admin is viewing another user's order, get user information
-    if ($is_admin && $order['user_id'] != $user['id']) {
-        $order_user_query = db_query(
-            "SELECT id, email, first_name, last_name FROM users WHERE id = ?",
-            [$order['user_id']]
-        );
-        
-        $order_user = db_fetch_one($order_user_query);
-        
-        if ($order_user) {
-            $order['user'] = $order_user;
-        }
-    }
-    
-    // Get GHL order details if available
-    if (!empty($order['ghl_order_id'])) {
-        try {
-            require_once __DIR__ . '/ghl_api.php';
-            $ghl_api = ghl_api();
-            $ghl_order = $ghl_api->get_order($order['ghl_order_id']);
-            
-            if ($ghl_order) {
-                $order['ghl_order'] = $ghl_order;
-            }
-        } catch (Exception $e) {
-            // Log error but continue
-            error_log('Failed to get GHL order details: ' . $e->getMessage());
-        }
-    }
-    
-    // Return order details
-    echo json_encode([
-        'success' => true,
-        'order' => $order
-    ]);
 } catch (Exception $e) {
-    http_response_code(500);
-    echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+    // Log the error
+    error_log('Error fetching order details: ' . $e->getMessage());
+    
+    $response = [
+        'success' => false,
+        'error' => 'An error occurred while fetching order details'
+    ];
 }
+
+// Return the JSON response
+header('Content-Type: application/json');
+echo json_encode($response);
+?>

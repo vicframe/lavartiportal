@@ -39,9 +39,9 @@ $orders_query = db_query(
 
 $orders = db_fetch_all($orders_query);
 
-// Include header
+// Include dashboard header
 $custom_css = '<link href="/assets/css/dashboard.css" rel="stylesheet">';
-require_once __DIR__ . '/../includes/header.php';
+require_once __DIR__ . '/../includes/dashboard_header.php';
 ?>
 
 <div class="dashboard-container">
@@ -341,6 +341,6 @@ function displayOrderDetails(order) {
 </script>
 
 <?php
-// Include footer
-require_once __DIR__ . '/../includes/footer.php';
+// Include dashboard footer
+require_once __DIR__ . '/../includes/dashboard_footer.php';
 ?>
