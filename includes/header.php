@@ -2,13 +2,15 @@
 /**
  * Header template
  */
+require_once __DIR__ . '/auth.php';
+
 if (!isset($page_title)) {
     $page_title = APP_NAME;
 }
 
 // Check if user is logged in
 $current_user = null;
-if (is_logged_in()) {
+if (function_exists('is_logged_in') && is_logged_in()) {
     $current_user = get_current_logged_user();
 }
 ?>

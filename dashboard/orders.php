@@ -1,12 +1,14 @@
 <?php
 $page_title = 'My Orders';
+require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/../includes/auth.php';
 require_once __DIR__ . '/../includes/header.php';
 
 // Require login for this page
 require_login();
 
 // Get user information
-$user = get_current_user();
+$user = get_current_logged_user();
 
 // Get all orders for the user
 $orders = get_user_orders($user['id']);

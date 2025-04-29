@@ -1,89 +1,46 @@
 /**
  * Main JavaScript file for LaVarti Systems
  */
-$(document).ready(function() {
+
+document.addEventListener('DOMContentLoaded', function() {
     // Initialize Bootstrap tooltips
-    $('[data-bs-toggle="tooltip"]').tooltip();
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
     
     // Initialize Bootstrap popovers
-    $('[data-bs-toggle="popover"]').popover();
+    const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+    popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl);
+    });
     
-    // Form validation
-    $('form.needs-validation').each(function() {
-        $(this).on('submit', function(event) {
-            if (!this.checkValidity()) {
-                event.preventDefault();
-                event.stopPropagation();
-            }
-            $(this).addClass('was-validated');
+    // Handle custom file inputs
+    const fileInputs = document.querySelectorAll('.custom-file-input');
+    fileInputs.forEach(function(input) {
+        input.addEventListener('change', function() {
+            const label = this.nextElementSibling;
+            const fileName = this.files[0].name;
+            label.textContent = fileName;
         });
     });
     
-    // AJAX form submissions
-    $('.ajax-form').each(function() {
-        $(this).on('submit', function(e) {
+    // Add auto-dismiss to alerts after 5 seconds
+    const alerts = document.querySelectorAll('.alert:not(.alert-persistent)');
+    alerts.forEach(function(alert) {
+        setTimeout(function() {
+            const bsAlert = new bootstrap.Alert(alert);
+            bsAlert.close();
+        }, 5000);
+    });
+    
+    // Handle form submission with AJAX
+    const ajaxForms = document.querySelectorAll('form[data-ajax="true"]');
+    ajaxForms.forEach(function(form) {
+        form.addEventListener('submit', function(e) {
             e.preventDefault();
-            
-            const form = $(this);
-            const url = form.attr('action');
-            const method = form.attr('method') || 'POST';
-            const formData = new FormData(this);
-            
-            // Get the submit button and loading text
-            const submitBtn = form.find('[type="submit"]');
-            const originalBtnText = submitBtn.html();
-            const loadingText = submitBtn.data('loading-text') || 'Loading...';
-            
-            // Show loading state
-            submitBtn.html(loadingText).prop('disabled', true);
-            
-            $.ajax({
-                url: url,
-                type: method,
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    if (response.success) {
-                        if (response.message) {
-                            showAlert('success', response.message);
-                        }
-                        
-                        if (response.redirect) {
-                            setTimeout(function() {
-                                window.location.href = response.redirect;
-                            }, 1500);
-                        } else {
-                            submitBtn.html(originalBtnText).prop('disabled', false);
-                            
-                            // Execute success callback if defined
-                            if (typeof form.data('success-callback') === 'function') {
-                                form.data('success-callback')(response);
-                            }
-                        }
-                    } else {
-                        if (response.message) {
-                            showAlert('danger', response.message);
-                        } else {
-                            showAlert('danger', 'An error occurred. Please try again.');
-                        }
-                        submitBtn.html(originalBtnText).prop('disabled', false);
-                    }
-                },
-                error: function(xhr, status, error) {
-                    showAlert('danger', 'An error occurred: ' + error);
-                    submitBtn.html(originalBtnText).prop('disabled', false);
-                }
-            });
+            handleFormSubmit(form);
         });
-    });
-    
-    // Handle logout confirmation
-    $('.confirm-logout').on('click', function(e) {
-        e.preventDefault();
-        if (confirm('Are you sure you want to log out?')) {
-            window.location.href = $(this).attr('href');
-        }
     });
 });
 
@@ -98,122 +55,135 @@ function formatCurrency(amount) {
  * Format date to readable format
  */
 function formatDate(dateString) {
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    });
+    return date.toLocaleDateString('en-US', options);
 }
 
 /**
  * Show loading state
  */
 function showLoading(message = 'Loading...') {
-    if ($('#loading-overlay').length === 0) {
-        $('body').append(`
-            <div id="loading-overlay">
+    const loadingHtml = `
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="loading-spinner">
                 <div class="spinner-border text-primary" role="status">
                     <span class="visually-hidden">Loading...</span>
                 </div>
-                <div id="loading-message">${message}</div>
+                <p class="mt-2">${message}</p>
             </div>
-        `);
-    } else {
-        $('#loading-message').text(message);
-        $('#loading-overlay').show();
+        </div>
+    `;
+    
+    // Add overlay if it doesn't exist
+    if (!document.getElementById('loadingOverlay')) {
+        document.body.insertAdjacentHTML('beforeend', loadingHtml);
     }
+    
+    document.getElementById('loadingOverlay').style.display = 'flex';
 }
 
 /**
  * Hide loading state
  */
 function hideLoading() {
-    $('#loading-overlay').hide();
+    const overlay = document.getElementById('loadingOverlay');
+    if (overlay) {
+        overlay.style.display = 'none';
+    }
 }
 
 /**
  * Show alert message
  */
 function showAlert(type, message, duration = 5000) {
-    // Create alert container if it doesn't exist
-    if ($('#alert-container').length === 0) {
-        $('body').append('<div id="alert-container"></div>');
-    }
-    
-    // Generate unique ID for this alert
-    const alertId = 'alert-' + Date.now();
-    
-    // Create alert element
     const alertHtml = `
-        <div id="${alertId}" class="alert alert-${type} alert-dismissible fade show" role="alert">
+        <div class="alert alert-${type} alert-dismissible fade show" role="alert">
             ${message}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     `;
     
-    // Add alert to container
-    $('#alert-container').append(alertHtml);
-    
-    // Auto close after duration
-    if (duration > 0) {
-        setTimeout(function() {
-            $(`#${alertId}`).alert('close');
-        }, duration);
+    // Create alert container if it doesn't exist
+    let alertContainer = document.getElementById('alertContainer');
+    if (!alertContainer) {
+        alertContainer = document.createElement('div');
+        alertContainer.id = 'alertContainer';
+        alertContainer.className = 'alert-container';
+        document.body.prepend(alertContainer);
     }
+    
+    // Add alert to container
+    alertContainer.insertAdjacentHTML('beforeend', alertHtml);
+    
+    // Auto-dismiss after duration
+    const alerts = alertContainer.querySelectorAll('.alert');
+    const latestAlert = alerts[alerts.length - 1];
+    
+    setTimeout(function() {
+        const bsAlert = new bootstrap.Alert(latestAlert);
+        bsAlert.close();
+    }, duration);
 }
 
 /**
  * Handle form submission with custom callbacks
  */
 function handleFormSubmit(formElement, successCallback, errorCallback) {
-    const form = $(formElement);
-    const url = form.attr('action');
-    const method = form.attr('method') || 'POST';
-    const formData = new FormData(formElement);
-    
-    // Show loading state
+    // Show loading
     showLoading('Processing...');
     
-    $.ajax({
-        url: url,
-        type: method,
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function(response) {
-            hideLoading();
-            
-            if (response.success) {
-                if (typeof successCallback === 'function') {
-                    successCallback(response);
-                } else if (response.message) {
-                    showAlert('success', response.message);
-                }
+    // Collect form data
+    const formData = new FormData(formElement);
+    
+    // Send AJAX request
+    fetch(formElement.action, {
+        method: formElement.method,
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Hide loading
+        hideLoading();
+        
+        if (data.success) {
+            // Success
+            if (typeof successCallback === 'function') {
+                successCallback(data);
+            } else {
+                // Default success behavior
+                showAlert('success', data.message || 'Operation completed successfully');
                 
-                if (response.redirect) {
+                // Redirect if specified
+                if (data.redirect) {
                     setTimeout(function() {
-                        window.location.href = response.redirect;
-                    }, 1500);
-                }
-            } else {
-                if (typeof errorCallback === 'function') {
-                    errorCallback(response);
-                } else if (response.message) {
-                    showAlert('danger', response.message);
-                } else {
-                    showAlert('danger', 'An error occurred. Please try again.');
+                        window.location.href = data.redirect;
+                    }, 1000);
                 }
             }
-        },
-        error: function(xhr, status, error) {
-            hideLoading();
-            
+        } else {
+            // Error
             if (typeof errorCallback === 'function') {
-                errorCallback({ success: false, message: error });
+                errorCallback(data);
             } else {
-                showAlert('danger', 'An error occurred: ' + error);
+                // Default error behavior
+                showAlert('danger', data.error || 'An error occurred');
             }
+        }
+    })
+    .catch(error => {
+        // Hide loading
+        hideLoading();
+        
+        // Handle error
+        if (typeof errorCallback === 'function') {
+            errorCallback({ error: 'Request failed' });
+        } else {
+            // Default error behavior
+            showAlert('danger', 'Request failed: ' + error.message);
         }
     });
 }
