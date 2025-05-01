@@ -34,9 +34,17 @@ if (php_sapi_name() === 'cli') {
     define('APP_URL', 'http://localhost:5000');
     define('BASE_PATH', '');
 } else {
-    // Determine the base directory
-    $script_name = dirname($_SERVER['SCRIPT_NAME']);
-    $base_path = $script_name === '/' ? '' : $script_name;
+    // Manual override for base path (comment out to use auto-detection)
+    // $manual_base_path = '/lavartiportal'; // Example: '/your-subdirectory'
+    
+    if (isset($manual_base_path)) {
+        // Use manually specified base path
+        $base_path = $manual_base_path;
+    } else {
+        // Auto-detect base directory
+        $script_name = dirname($_SERVER['SCRIPT_NAME']);
+        $base_path = $script_name === '/' ? '' : $script_name;
+    }
     
     // If application is in a subdirectory, the base path will be something like '/lavartiportal'
     define('BASE_PATH', $base_path);
