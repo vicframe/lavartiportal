@@ -137,16 +137,8 @@ function is_valid_email($email) {
     return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
 }
 
-/**
- * Redirect to a URL
- *
- * @param string $url The URL to redirect to
- * @return void
- */
-function redirect($url) {
-    header('Location: ' . $url);
-    exit;
-}
+// Note: redirect() function is now defined in config.php
+// with improved URL handling for subdirectory installations
 
 /**
  * Set flash message in session

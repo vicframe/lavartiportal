@@ -28,7 +28,7 @@ if (function_exists('is_logged_in') && is_logged_in()) {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
     <!-- Custom CSS -->
-    <link href="/assets/css/styles.css" rel="stylesheet">
+    <link href="<?php echo asset_url('assets/css/styles.css'); ?>" rel="stylesheet">
     <?php if (isset($custom_css)) echo $custom_css; ?>
     
     <!-- jQuery -->

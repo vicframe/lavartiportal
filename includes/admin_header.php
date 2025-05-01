@@ -23,7 +23,7 @@ if (!isset($current_user['is_admin']) || !$current_user['is_admin']) {
     ];
     
     // Redirect to dashboard
-    header('Location: /dashboard');
+    header('Location: ' . url('dashboard'));
     exit;
 }
 ?>
@@ -41,8 +41,8 @@ if (!isset($current_user['is_admin']) || !$current_user['is_admin']) {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
     <!-- Custom CSS -->
-    <link href="/assets/css/styles.css" rel="stylesheet">
-    <link href="/assets/css/admin.css" rel="stylesheet">
+    <link href="<?php echo asset_url('assets/css/styles.css'); ?>" rel="stylesheet">
+    <link href="<?php echo asset_url('assets/css/admin.css'); ?>" rel="stylesheet">
     <?php if (isset($custom_css)) echo $custom_css; ?>
     
     <!-- jQuery -->
@@ -53,32 +53,32 @@ if (!isset($current_user['is_admin']) || !$current_user['is_admin']) {
         <!-- Admin sidebar -->
         <div class="admin-sidebar">
             <div class="admin-logo">
-                <a href="/admin">
+                <a href="<?php echo url('admin'); ?>">
                     LaVarti Admin
                 </a>
             </div>
             
             <ul class="admin-menu">
                 <li>
-                    <a href="/admin" class="<?php echo basename($_SERVER['PHP_SELF']) === 'index.php' ? 'active' : ''; ?>">
+                    <a href="<?php echo url('admin'); ?>" class="<?php echo basename($_SERVER['PHP_SELF']) === 'index.php' ? 'active' : ''; ?>">
                         <i class="fas fa-tachometer-alt"></i> Dashboard
                     </a>
                 </li>
                 
                 <li>
-                    <a href="/admin/users.php" class="<?php echo basename($_SERVER['PHP_SELF']) === 'users.php' ? 'active' : ''; ?>">
+                    <a href="<?php echo url('admin/users.php'); ?>" class="<?php echo basename($_SERVER['PHP_SELF']) === 'users.php' ? 'active' : ''; ?>">
                         <i class="fas fa-users"></i> User Management
                     </a>
                 </li>
                 
                 <li>
-                    <a href="/admin/orders.php" class="<?php echo basename($_SERVER['PHP_SELF']) === 'orders.php' ? 'active' : ''; ?>">
+                    <a href="<?php echo url('admin/orders.php'); ?>" class="<?php echo basename($_SERVER['PHP_SELF']) === 'orders.php' ? 'active' : ''; ?>">
                         <i class="fas fa-shopping-cart"></i> Order Management
                     </a>
                 </li>
                 
                 <li>
-                    <a href="/admin/commissions.php" class="<?php echo basename($_SERVER['PHP_SELF']) === 'commissions.php' ? 'active' : ''; ?>">
+                    <a href="<?php echo url('admin/commissions.php'); ?>" class="<?php echo basename($_SERVER['PHP_SELF']) === 'commissions.php' ? 'active' : ''; ?>">
                         <i class="fas fa-money-bill-alt"></i> Commission Management
                     </a>
                 </li>
@@ -86,25 +86,25 @@ if (!isset($current_user['is_admin']) || !$current_user['is_admin']) {
                 <h6>System</h6>
                 
                 <li>
-                    <a href="/admin/integrations.php" class="<?php echo basename($_SERVER['PHP_SELF']) === 'integrations.php' ? 'active' : ''; ?>">
+                    <a href="<?php echo url('admin/integrations.php'); ?>" class="<?php echo basename($_SERVER['PHP_SELF']) === 'integrations.php' ? 'active' : ''; ?>">
                         <i class="fas fa-plug"></i> Integrations
                     </a>
                 </li>
                 
                 <li>
-                    <a href="/webhook_setup.php" class="<?php echo basename($_SERVER['PHP_SELF']) === 'webhook_setup.php' ? 'active' : ''; ?>">
+                    <a href="<?php echo url('webhook_setup.php'); ?>" class="<?php echo basename($_SERVER['PHP_SELF']) === 'webhook_setup.php' ? 'active' : ''; ?>">
                         <i class="fas fa-link"></i> Webhook Setup
                     </a>
                 </li>
                 
                 <li>
-                    <a href="/admin/settings.php" class="<?php echo basename($_SERVER['PHP_SELF']) === 'settings.php' ? 'active' : ''; ?>">
+                    <a href="<?php echo url('admin/settings.php'); ?>" class="<?php echo basename($_SERVER['PHP_SELF']) === 'settings.php' ? 'active' : ''; ?>">
                         <i class="fas fa-cog"></i> Settings
                     </a>
                 </li>
                 
                 <li>
-                    <a href="/admin/logs.php" class="<?php echo basename($_SERVER['PHP_SELF']) === 'logs.php' ? 'active' : ''; ?>">
+                    <a href="<?php echo url('admin/logs.php'); ?>" class="<?php echo basename($_SERVER['PHP_SELF']) === 'logs.php' ? 'active' : ''; ?>">
                         <i class="fas fa-clipboard-list"></i> System Logs
                     </a>
                 </li>
@@ -112,13 +112,13 @@ if (!isset($current_user['is_admin']) || !$current_user['is_admin']) {
                 <h6>Navigation</h6>
                 
                 <li>
-                    <a href="/dashboard">
+                    <a href="<?php echo url('dashboard'); ?>">
                         <i class="fas fa-home"></i> User Dashboard
                     </a>
                 </li>
                 
                 <li>
-                    <a href="/logout.php">
+                    <a href="<?php echo url('logout.php'); ?>">
                         <i class="fas fa-sign-out-alt"></i> Logout
                     </a>
                 </li>
@@ -142,10 +142,10 @@ if (!isset($current_user['is_admin']) || !$current_user['is_admin']) {
                             </div>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                            <li><a class="dropdown-item" href="/dashboard/account.php"><i class="fas fa-user-circle me-2"></i> My Account</a></li>
-                            <li><a class="dropdown-item" href="/admin/settings.php"><i class="fas fa-cog me-2"></i> Admin Settings</a></li>
+                            <li><a class="dropdown-item" href="<?php echo url('dashboard/account.php'); ?>"><i class="fas fa-user-circle me-2"></i> My Account</a></li>
+                            <li><a class="dropdown-item" href="<?php echo url('admin/settings.php'); ?>"><i class="fas fa-cog me-2"></i> Admin Settings</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/logout.php"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+                            <li><a class="dropdown-item" href="<?php echo url('logout.php'); ?>"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
                         </ul>
                     </div>
                 </div>

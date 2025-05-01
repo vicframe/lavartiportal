@@ -29,11 +29,21 @@ date_default_timezone_set('America/New_York');
 define('APP_NAME', 'LaVarti Travel');
 define('APP_VERSION', '1.0.0');
 
-// Set APP_URL safely whether called from web or CLI
+// Set APP_URL and BASE_PATH safely whether called from web or CLI
 if (php_sapi_name() === 'cli') {
     define('APP_URL', 'http://localhost:5000');
+    define('BASE_PATH', '');
 } else {
-    define('APP_URL', (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST']);
+    // Determine the base directory
+    $script_name = dirname($_SERVER['SCRIPT_NAME']);
+    $base_path = $script_name === '/' ? '' : $script_name;
+    
+    // If application is in a subdirectory, the base path will be something like '/lavartiportal'
+    define('BASE_PATH', $base_path);
+    
+    // Set the full application URL
+    define('APP_URL', (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . 
+           '://' . $_SERVER['HTTP_HOST'] . BASE_PATH);
 }
 
 define('SESSION_LIFETIME', 86400); // 24 hours
@@ -106,12 +116,40 @@ function url($path) {
 }
 
 /**
+ * Get URL relative to the application root
+ * 
+ * @param string $path The path
+ * @return string The URL
+ */
+function relative_url($path) {
+    return BASE_PATH . '/' . ltrim($path, '/');
+}
+
+/**
  * Get current URL with query string
  *
  * @return string The current URL
  */
 function current_url() {
-    return APP_URL . $_SERVER['REQUEST_URI'];
+    // Get the request URI without the base path
+    $request_uri = $_SERVER['REQUEST_URI'];
+    if (BASE_PATH && strpos($request_uri, BASE_PATH) === 0) {
+        $request_uri = substr($request_uri, strlen(BASE_PATH));
+    }
+    
+    return APP_URL . $request_uri;
+}
+
+/**
+ * Redirect to a URL
+ *
+ * @param string $path The path to redirect to
+ * @return void
+ */
+function redirect($path) {
+    $url = url($path);
+    header("Location: {$url}");
+    exit;
 }
 
 /**
