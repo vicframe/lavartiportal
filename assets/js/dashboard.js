@@ -58,8 +58,12 @@ $(document).ready(function() {
  * Load recent activity data via AJAX
  */
 function loadRecentActivity(page = 1) {
+    // Get base URL from the page
+    const baseUrl = document.querySelector('meta[name="base-url"]').getAttribute('content') || '';
+    const apiUrl = baseUrl + '/api/activity.php';
+    
     $.ajax({
-        url: '/api/activity.php',
+        url: apiUrl,
         type: 'GET',
         data: { page: page },
         dataType: 'json',
@@ -111,8 +115,12 @@ function displayActivity(activities) {
  * Load dashboard statistics via AJAX
  */
 function loadDashboardStats() {
+    // Get base URL from the page
+    const baseUrl = document.querySelector('meta[name="base-url"]').getAttribute('content') || '';
+    const apiUrl = baseUrl + '/api/dashboard-stats.php';
+    
     $.ajax({
-        url: '/api/dashboard-stats.php',
+        url: apiUrl,
         type: 'GET',
         dataType: 'json',
         success: function(response) {

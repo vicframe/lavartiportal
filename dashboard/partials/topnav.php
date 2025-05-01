@@ -108,7 +108,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function loadNotifications() {
-    fetch('/api/notifications.php')
+    // Use the relative_url helper to get the correct URL with base path
+    const apiUrl = '<?php echo relative_url("api/notifications.php"); ?>';
+    
+    fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -199,7 +202,9 @@ function getNotificationIcon(type) {
 }
 
 function markNotificationAsRead(notificationId) {
-    fetch('/api/mark-notification-read.php', {
+    const apiUrl = '<?php echo relative_url("api/mark-notification-read.php"); ?>';
+    
+    fetch(apiUrl, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -225,7 +230,9 @@ function markNotificationAsRead(notificationId) {
 }
 
 function markAllNotificationsAsRead() {
-    fetch('/api/mark-all-notifications-read.php', {
+    const apiUrl = '<?php echo relative_url("api/mark-all-notifications-read.php"); ?>';
+    
+    fetch(apiUrl, {
         method: 'POST'
     })
     .then(response => response.json())
