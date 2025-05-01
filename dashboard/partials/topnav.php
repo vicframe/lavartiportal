@@ -14,7 +14,7 @@ $is_admin = isset($current_user['is_admin']) && $current_user['is_admin'];
     <div class="right">
         <?php if ($is_admin): ?>
         <div class="top-nav-item">
-            <a href="/admin" class="btn btn-outline-primary btn-sm">
+            <a href="<?php echo url('admin'); ?>" class="btn btn-outline-primary btn-sm">
                 <i class="fas fa-toolbox me-1"></i> Admin Panel
             </a>
         </div>
@@ -37,7 +37,7 @@ $is_admin = isset($current_user['is_admin']) && $current_user['is_admin'];
                     </div>
                 </div>
                 <div class="notification-footer">
-                    <a href="/dashboard/notifications.php">View all notifications</a>
+                    <a href="<?php echo url('dashboard/notifications.php'); ?>">View all notifications</a>
                 </div>
             </div>
         </div>
@@ -61,22 +61,22 @@ $is_admin = isset($current_user['is_admin']) && $current_user['is_admin'];
                 
                 <div class="dropdown-divider"></div>
                 
-                <a class="dropdown-item" href="/dashboard/account.php">
+                <a class="dropdown-item" href="<?php echo url('dashboard/account.php'); ?>">
                     <i class="fas fa-user-circle me-2"></i> My Account
                 </a>
-                <a class="dropdown-item" href="/dashboard/orders.php">
+                <a class="dropdown-item" href="<?php echo url('dashboard/orders.php'); ?>">
                     <i class="fas fa-shopping-cart me-2"></i> My Orders
                 </a>
                 
                 <?php if ($is_admin): ?>
-                <a class="dropdown-item" href="/admin">
+                <a class="dropdown-item" href="<?php echo url('admin'); ?>">
                     <i class="fas fa-toolbox me-2"></i> Admin Panel
                 </a>
                 <?php endif; ?>
                 
                 <div class="dropdown-divider"></div>
                 
-                <a class="dropdown-item" href="/logout.php">
+                <a class="dropdown-item" href="<?php echo url('logout.php'); ?>">
                     <i class="fas fa-sign-out-alt me-2"></i> Logout
                 </a>
             </div>

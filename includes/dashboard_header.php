@@ -19,7 +19,7 @@ if (function_exists('is_logged_in') && is_logged_in()) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="base-url" content="<?php echo BASE_PATH; ?>">
+    <meta name="base-url" content="<?php echo BASE_URL; ?>">
     <title><?php echo $page_title; ?> - <?php echo APP_NAME; ?></title>
     
     <!-- Bootstrap CSS -->

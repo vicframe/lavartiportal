@@ -133,11 +133,19 @@ function handleFormSubmit(formElement, successCallback, errorCallback) {
     // Show loading
     showLoading('Processing...');
     
+    // Get base URL from the page
+    const baseUrl = document.querySelector('meta[name="base-url"]')?.getAttribute('content') || '';
+    
     // Collect form data
     const formData = new FormData(formElement);
     
+    // Use form action as-is if it starts with http, otherwise prepend baseUrl
+    const actionUrl = formElement.action.startsWith('http') ? 
+        formElement.action : 
+        baseUrl + formElement.action.replace(/^\/+/, '/');
+    
     // Send AJAX request
-    fetch(formElement.action, {
+    fetch(actionUrl, {
         method: formElement.method,
         body: formData,
         headers: {
@@ -160,7 +168,11 @@ function handleFormSubmit(formElement, successCallback, errorCallback) {
                 // Redirect if specified
                 if (data.redirect) {
                     setTimeout(function() {
-                        window.location.href = data.redirect;
+                        // Handle relative URL redirects by prepending base URL if needed
+                        const redirectUrl = data.redirect.startsWith('http') ? 
+                            data.redirect : 
+                            baseUrl + data.redirect.replace(/^\/+/, '/');
+                        window.location.href = redirectUrl;
                     }, 1000);
                 }
             }

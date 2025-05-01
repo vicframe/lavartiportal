@@ -21,6 +21,9 @@ if (function_exists('is_logged_in') && is_logged_in()) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $page_title; ?> - <?php echo APP_NAME; ?></title>
     
+    <!-- Base URL for JavaScript -->
+    <meta name="base-url" content="<?php echo BASE_URL; ?>">
+    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     
@@ -28,7 +31,7 @@ if (function_exists('is_logged_in') && is_logged_in()) {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
     <!-- Custom CSS -->
-    <link href="/assets/css/styles.css" rel="stylesheet">
+    <link href="<?php echo asset_url('assets/css/styles.css'); ?>" rel="stylesheet">
     <?php if (isset($custom_css)) echo $custom_css; ?>
     
     <!-- jQuery -->
@@ -39,7 +42,7 @@ if (function_exists('is_logged_in') && is_logged_in()) {
         <div class="container">
             <div class="d-flex justify-content-between align-items-center">
                 <div>
-                    <h1 class="h3 mb-0"><a href="/" class="text-white text-decoration-none"><?php echo APP_NAME; ?></a></h1>
+                    <h1 class="h3 mb-0"><a href="<?php echo url(''); ?>" class="text-white text-decoration-none"><?php echo APP_NAME; ?></a></h1>
                 </div>
                 
                 <div>
@@ -49,14 +52,14 @@ if (function_exists('is_logged_in') && is_logged_in()) {
                                 <i class="fas fa-user me-1"></i> <?php echo htmlspecialchars($current_user['first_name']); ?>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                <li><a class="dropdown-item" href="/dashboard"><i class="fas fa-tachometer-alt me-2"></i> Dashboard</a></li>
-                                <li><a class="dropdown-item" href="/dashboard/account.php"><i class="fas fa-user-cog me-2"></i> My Account</a></li>
+                                <li><a class="dropdown-item" href="<?php echo url('dashboard'); ?>"><i class="fas fa-tachometer-alt me-2"></i> Dashboard</a></li>
+                                <li><a class="dropdown-item" href="<?php echo url('dashboard/account.php'); ?>"><i class="fas fa-user-cog me-2"></i> My Account</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="/logout.php"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+                                <li><a class="dropdown-item" href="<?php echo url('logout.php'); ?>"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
                             </ul>
                         </div>
                     <?php else: ?>
-                        <a href="/login.php" class="btn btn-outline-light">Sign In</a>
+                        <a href="<?php echo url('login.php'); ?>" class="btn btn-outline-light">Sign In</a>
                     <?php endif; ?>
                 </div>
             </div>

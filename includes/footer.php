@@ -18,7 +18,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     
     <!-- Custom JS -->
-    <script src="/assets/js/main.js"></script>
+    <script src="<?php echo asset_url('assets/js/main.js'); ?>"></script>
     
     <?php if (isset($page_scripts)) echo $page_scripts; ?>
 </body>
