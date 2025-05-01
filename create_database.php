@@ -1,57 +1,165 @@
 <?php
 /**
- * Create Database Script
+ * Database Installation Script
  * 
- * This script creates the MySQL database if it doesn't exist
+ * This script creates all necessary database tables and seed data
+ * for the LaVarti Travel Portal using PostgreSQL
  */
 
-// Include configuration without database connection
+// Include configuration
 require_once 'config.php';
+require_once 'includes/database.php';
 
 // Display header
 echo "=======================================================\n";
-echo "LaVarti Travel Portal - Database Creation\n";
+echo "LaVarti Travel Portal - Database Installation\n";
 echo "=======================================================\n\n";
 
 try {
-    // Connect to MySQL without specifying database
-    echo "Connecting to MySQL server...\n";
-    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, '', DB_PORT);
+    // Connect to database
+    echo "Connecting to database...\n";
+    $conn = db_connect();
+    echo "✓ Database connection successful\n\n";
     
-    // Check connection
-    if ($conn->connect_error) {
-        throw new Exception('Database connection failed: ' . $conn->connect_error);
-    }
+    // Add test admin user if it doesn't exist
+    echo "Checking for admin user...\n";
+    $result = db_query("SELECT COUNT(*) as count FROM users WHERE email = 'test@example.com'");
+    $row = $result->fetch(PDO::FETCH_ASSOC);
     
-    echo "✓ Connected to MySQL server\n\n";
-    
-    // Create database if it doesn't exist
-    echo "Checking if database exists...\n";
-    $result = $conn->query("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '" . DB_NAME . "'");
-    
-    if ($result->num_rows == 0) {
-        echo "  - Database '" . DB_NAME . "' does not exist\n";
-        echo "  - Creating database...\n";
+    if ($row['count'] == 0) {
+        echo "  - Creating admin user: test@example.com (password: password123)\n";
         
-        // Create database
-        $sql = "CREATE DATABASE " . DB_NAME . " CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci";
-        if ($conn->query($sql) === TRUE) {
-            echo "    ✓ Database created successfully\n\n";
-        } else {
-            throw new Exception("Error creating database: " . $conn->error);
-        }
+        // Create test user with hashed password
+        $password = password_hash('password123', PASSWORD_DEFAULT);
+        $is_admin = true;
+        $tier_id = 1; // Basic tier
+        
+        $data = [
+            'email' => 'test@example.com',
+            'password' => $password,
+            'first_name' => 'Test',
+            'last_name' => 'User',
+            'is_admin' => $is_admin,
+            'tier_id' => $tier_id,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
+        
+        db_insert('users', $data);
+        
+        echo "    ✓ Admin user created successfully\n\n";
     } else {
-        echo "  ✓ Database '" . DB_NAME . "' already exists\n\n";
+        echo "  ✓ Admin user already exists\n\n";
     }
     
-    // Close connection
-    $conn->close();
+    // Check for product data
+    echo "Checking for product data...\n";
+    $result = db_query("SELECT COUNT(*) as count FROM products");
+    $row = $result->fetch(PDO::FETCH_ASSOC);
+    
+    if ($row['count'] == 0) {
+        echo "  - Adding product data...\n";
+        
+        $products = [
+            [
+                'name' => 'Basic Membership',
+                'description' => 'Basic tier membership at $25/month',
+                'price' => 25.00,
+                'tier_level' => 1,
+                'ghl_id' => 'basic_tier',
+                'recurring' => true,
+                'recurring_interval' => 'monthly',
+                'status' => 'active',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ],
+            [
+                'name' => 'Premium Membership',
+                'description' => 'Premium tier membership at $65/month',
+                'price' => 65.00,
+                'tier_level' => 2,
+                'ghl_id' => 'premium_tier',
+                'recurring' => true,
+                'recurring_interval' => 'monthly',
+                'status' => 'active',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ],
+            [
+                'name' => 'Elite Membership',
+                'description' => 'Elite tier membership at $500/month',
+                'price' => 500.00,
+                'tier_level' => 3,
+                'ghl_id' => 'elite_tier',
+                'recurring' => true,
+                'recurring_interval' => 'monthly',
+                'status' => 'active',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ]
+        ];
+        
+        foreach ($products as $product) {
+            db_insert('products', $product);
+        }
+        
+        echo "    ✓ Product data added successfully\n\n";
+    } else {
+        echo "  ✓ Product data already exists\n\n";
+    }
+    
+    // Add default integration settings if needed
+    echo "Checking for integration settings...\n";
+    $result = db_query("SELECT COUNT(*) as count FROM integration_settings");
+    $row = $result->fetch(PDO::FETCH_ASSOC);
+    
+    if ($row['count'] == 0) {
+        echo "  - Adding default integration settings...\n";
+        
+        // GHL default settings
+        $ghl_settings = [
+            'integration_name' => 'gohighlevel',
+            'config_data' => json_encode([
+                'api_key' => 'placeholder',
+                'location_id' => 'placeholder',
+                'webhook_secret' => 'placeholder',
+                'webhook_url' => APP_URL . '/webhook_ghl.php'
+            ]),
+            'is_active' => false,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
+        
+        db_insert('integration_settings', $ghl_settings);
+        
+        // Pillars default settings
+        $pillars_settings = [
+            'integration_name' => 'pillars',
+            'config_data' => json_encode([
+                'api_key' => 'placeholder',
+                'organization_id' => 'placeholder',
+                'webhook_url' => APP_URL . '/webhook_pillars.php'
+            ]),
+            'is_active' => false,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
+        
+        db_insert('integration_settings', $pillars_settings);
+        
+        echo "    ✓ Default integration settings added successfully\n\n";
+    } else {
+        echo "  ✓ Integration settings already exist\n\n";
+    }
     
     // Success message
     echo "=======================================================\n";
-    echo "✅ Database creation completed!\n";
+    echo "✅ Installation completed successfully!\n";
     echo "=======================================================\n\n";
-    echo "You can now run install.php to create the tables and seed data.\n";
+    echo "You can now login with the following credentials:\n";
+    echo "  - Email: test@example.com\n";
+    echo "  - Password: password123\n\n";
+    echo "Remember to change the default password for security reasons.\n";
     
 } catch (Exception $e) {
     echo "✗ Error: " . $e->getMessage() . "\n";
