@@ -123,7 +123,7 @@ require_once __DIR__ . '/includes/header.php';
                             <li class="mb-2 text-muted"><i class="fas fa-times text-danger me-2"></i> VIP support</li>
                         </ul>
                         <div class="d-grid gap-2">
-                            <a href="/login.php" class="btn btn-outline-primary">Sign Up Now</a>
+                            <a href="<?php echo url('login.php'); ?>" class="btn btn-outline-primary">Sign Up Now</a>
                         </div>
                     </div>
                 </div>
@@ -145,7 +145,7 @@ require_once __DIR__ . '/includes/header.php';
                             <li class="mb-2 text-muted"><i class="fas fa-times text-danger me-2"></i> VIP support</li>
                         </ul>
                         <div class="d-grid gap-2">
-                            <a href="/login.php" class="btn btn-primary">Sign Up Now</a>
+                            <a href="<?php echo url('login.php'); ?>" class="btn btn-primary">Sign Up Now</a>
                         </div>
                     </div>
                 </div>
@@ -166,7 +166,7 @@ require_once __DIR__ . '/includes/header.php';
                             <li class="mb-2"><i class="fas fa-check text-success me-2"></i> 24/7 VIP support</li>
                         </ul>
                         <div class="d-grid gap-2">
-                            <a href="/login.php" class="btn btn-outline-primary">Sign Up Now</a>
+                            <a href="<?php echo url('login.php'); ?>" class="btn btn-outline-primary">Sign Up Now</a>
                         </div>
                     </div>
                 </div>

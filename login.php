@@ -11,7 +11,7 @@ $page_title = 'Login';
 // Check if user is already logged in
 if (is_logged_in()) {
     // Redirect to dashboard
-    $redirect_url = isset($_SESSION['redirect_after_login']) ? $_SESSION['redirect_after_login'] : '/dashboard';
+    $redirect_url = isset($_SESSION['redirect_after_login']) ? $_SESSION['redirect_after_login'] : url('dashboard');
     unset($_SESSION['redirect_after_login']);
     
     header("Location: $redirect_url");
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         if ($user) {
             // Login successful
-            $redirect_url = isset($_SESSION['redirect_after_login']) ? $_SESSION['redirect_after_login'] : '/dashboard';
+            $redirect_url = isset($_SESSION['redirect_after_login']) ? $_SESSION['redirect_after_login'] : url('dashboard');
             unset($_SESSION['redirect_after_login']);
             
             header("Location: $redirect_url");
@@ -62,7 +62,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
     <!-- Custom CSS -->
-    <link href="/assets/css/styles.css" rel="stylesheet">
+    <link href="<?php echo asset_url('assets/css/styles.css'); ?>" rel="stylesheet">
+    <!-- Base URL for JavaScript -->
+    <meta name="base-url" content="<?php echo BASE_URL; ?>">
     
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -122,6 +124,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     
     <!-- Custom JS -->
-    <script src="/assets/js/main.js"></script>
+    <script src="<?php echo asset_url('assets/js/main.js'); ?>"></script>
 </body>
 </html>
