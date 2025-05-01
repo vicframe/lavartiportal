@@ -34,10 +34,10 @@ if (php_sapi_name() === 'cli') {
     define('APP_URL', 'http://localhost:5000');
     define('BASE_PATH', '');
 } else {
-    // Manual override for base path (comment out to use auto-detection)
-    // $manual_base_path = '/lavartiportal'; // Example: '/your-subdirectory'
+    // Manual override for base path - uncomment and set for subdirectory installations
+    $manual_base_path = ''; // Set to '' for root directory or '/your-subdirectory' for subdirectory installation
     
-    if (isset($manual_base_path)) {
+    if (isset($manual_base_path) && $manual_base_path !== false) {
         // Use manually specified base path
         $base_path = $manual_base_path;
     } else {
@@ -46,12 +46,19 @@ if (php_sapi_name() === 'cli') {
         $base_path = $script_name === '/' ? '' : $script_name;
     }
     
+    // For debugging - log detected path values
+    error_log('Script name: ' . $_SERVER['SCRIPT_NAME']);
+    error_log('Detected base path: ' . $base_path);
+    
     // If application is in a subdirectory, the base path will be something like '/lavartiportal'
     define('BASE_PATH', $base_path);
     
     // Set the full application URL
     define('APP_URL', (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . 
            '://' . $_SERVER['HTTP_HOST'] . BASE_PATH);
+    
+    // Log the final APP_URL value
+    error_log('APP_URL set to: ' . APP_URL);
 }
 
 define('SESSION_LIFETIME', 86400); // 24 hours

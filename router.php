@@ -4,8 +4,11 @@
  * This simulates .htaccess functionality since PHP's server doesn't use .htaccess
  */
 
-// Define base path for subdirectory installation
-$base_path = '';  // Change this if installed in a subdirectory, e.g. '/lavartiportal'
+// Include core configuration
+require_once __DIR__ . '/config.php';
+
+// Use the BASE_PATH constant from config.php
+$base_path = BASE_PATH;
 
 // Get the requested URI and remove base path if present
 $uri = $_SERVER['REQUEST_URI'];
