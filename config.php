@@ -56,6 +56,13 @@ if (!file_exists(LOG_DIR)) {
     mkdir(LOG_DIR, 0755, true);
 }
 
+// Database configuration
+define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
+define('DB_NAME', getenv('DB_NAME') ?: 'lavartiportal');
+define('DB_USER', getenv('DB_USER') ?: 'root');
+define('DB_PASS', getenv('DB_PASS') ?: '');
+define('DB_PORT', getenv('DB_PORT') ?: 3306);
+
 // API Keys (should be stored securely in environment variables)
 define('GHL_API_KEY', getenv('GHL_API_KEY'));
 define('PILLARS_API_KEY', getenv('PILLARS_API_KEY'));
