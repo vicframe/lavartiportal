@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <!-- Custom CSS -->
     <link href="<?php echo asset_url('assets/css/styles.css'); ?>" rel="stylesheet">
     <!-- Base URL for JavaScript -->
-    <meta name="base-url" content="<?php echo BASE_URL; ?>">
+    <meta name="base-url" content="<?php echo APP_URL; ?>">
     
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
