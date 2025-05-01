@@ -207,10 +207,10 @@ function process_ghl_contact($data, $is_update = false) {
                 email, first_name, last_name, password, ghl_id, phone, created_at, updated_at
             ) VALUES (
                 ?, ?, ?, ?, ?, ?, NOW(), NOW()
-            ) RETURNING id
+            )
         ";
         
-        $result = db_query($query, [
+        $stmt = db_query($query, [
             $email,
             $first_name,
             $last_name,
@@ -219,11 +219,11 @@ function process_ghl_contact($data, $is_update = false) {
             $phone
         ]);
         
-        $new_user = db_fetch_one($result);
+        $new_user_id = $stmt->insert_id;
         
         return [
             'action' => 'created',
-            'user_id' => $new_user['id'],
+            'user_id' => $new_user_id,
             'ghl_id' => $ghl_id
         ];
     }
@@ -319,10 +319,10 @@ function process_ghl_opportunity($data) {
                 user_id, product_id, amount, status, order_date, ghl_order_id, created_at, updated_at
             ) VALUES (
                 ?, ?, ?, ?, ?, ?, NOW(), NOW()
-            ) RETURNING id
+            )
         ";
         
-        $result = db_query($query, [
+        $stmt = db_query($query, [
             $user['id'],
             $product_id,
             $value,
@@ -331,16 +331,16 @@ function process_ghl_opportunity($data) {
             $ghl_opportunity_id
         ]);
         
-        $new_order = db_fetch_one($result);
+        $new_order_id = $stmt->insert_id;
         
         // If order is completed, process commissions
         if ($order_status === 'completed') {
-            process_order_commissions($new_order['id']);
+            process_order_commissions($new_order_id);
         }
         
         return [
             'action' => 'created',
-            'order_id' => $new_order['id'],
+            'order_id' => $new_order_id,
             'ghl_order_id' => $ghl_opportunity_id,
             'status' => $order_status
         ];
@@ -445,25 +445,25 @@ function process_order_commissions($order_id) {
         // Create commission record for sponsor
         $query = "
             INSERT INTO commissions (
-                user_id, order_id, amount, type, status, commission_date, created_at, updated_at
+                user_id, order_id, amount, commission_type, status, commission_date, created_at, updated_at
             ) VALUES (
                 ?, ?, ?, 'direct', 'pending', ?, NOW(), NOW()
-            ) RETURNING id
+            )
         ";
         
-        $result = db_query($query, [
+        $stmt = db_query($query, [
             $user['sponsor_id'],
             $order_id,
             $commission_amount,
             $order['order_date']
         ]);
         
-        $commission = db_fetch_one($result);
+        $commission_id = $stmt->insert_id;
         
-        file_put_contents($log_file, date('Y-m-d H:i:s') . " - Direct commission created: {$commission['id']} for sponsor ID: {$user['sponsor_id']}, amount: {$commission_amount}\n\n", FILE_APPEND);
+        file_put_contents($log_file, date('Y-m-d H:i:s') . " - Direct commission created: {$commission_id} for sponsor ID: {$user['sponsor_id']}, amount: {$commission_amount}\n\n", FILE_APPEND);
         
         // Send commission to Pillars for processing
-        sync_commission_to_pillars($commission['id']);
+        sync_commission_to_pillars($commission_id);
     }
     
     // Check for override commissions (sponsor's sponsor)
@@ -481,25 +481,25 @@ function process_order_commissions($order_id) {
             // Create override commission for sponsor's sponsor
             $query = "
                 INSERT INTO commissions (
-                    user_id, order_id, amount, type, status, commission_date, created_at, updated_at
+                    user_id, order_id, amount, commission_type, status, commission_date, created_at, updated_at
                 ) VALUES (
                     ?, ?, ?, 'override', 'pending', ?, NOW(), NOW()
-                ) RETURNING id
+                )
             ";
             
-            $result = db_query($query, [
+            $stmt = db_query($query, [
                 $sponsor['sponsor_id'],
                 $order_id,
                 $override_amount,
                 $order['order_date']
             ]);
             
-            $commission = db_fetch_one($result);
+            $commission_id = $stmt->insert_id;
             
-            file_put_contents($log_file, date('Y-m-d H:i:s') . " - Override commission created: {$commission['id']} for sponsor's sponsor ID: {$sponsor['sponsor_id']}, amount: {$override_amount}\n\n", FILE_APPEND);
+            file_put_contents($log_file, date('Y-m-d H:i:s') . " - Override commission created: {$commission_id} for sponsor's sponsor ID: {$sponsor['sponsor_id']}, amount: {$override_amount}\n\n", FILE_APPEND);
             
             // Send override commission to Pillars for processing
-            sync_commission_to_pillars($commission['id']);
+            sync_commission_to_pillars($commission_id);
         }
     }
     
@@ -591,7 +591,7 @@ function log_sync_history($data) {
             )
         ";
         
-        db_query($query, [
+        $stmt = db_query($query, [
             $data['integration'],
             $data['action'],
             $data['status'],
