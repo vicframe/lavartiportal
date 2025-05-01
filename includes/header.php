@@ -22,7 +22,7 @@ if (function_exists('is_logged_in') && is_logged_in()) {
     <title><?php echo $page_title; ?> - <?php echo APP_NAME; ?></title>
     
     <!-- Base URL for JavaScript -->
-    <meta name="base-url" content="<?php echo BASE_URL; ?>">
+    <meta name="base-url" content="<?php echo APP_URL; ?>">
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">

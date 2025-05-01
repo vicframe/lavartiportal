@@ -2,8 +2,8 @@
 RewriteEngine On
 
 # Set base directory path
-# Uncomment and update the line below if installed in a subdirectory
-# RewriteBase /lavartiportal
+# This line is now active for subdirectory installation
+RewriteBase /lavartiportal
 
 # Prevent direct access to PHP files in the includes directory
 RewriteRule ^includes/?$ - [F,L]

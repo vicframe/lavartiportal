@@ -35,7 +35,7 @@ if (php_sapi_name() === 'cli') {
     define('BASE_PATH', '');
 } else {
     // Manual override for base path - uncomment and set for subdirectory installations
-    $manual_base_path = ''; // Set to '' for root directory or '/your-subdirectory' for subdirectory installation
+    $manual_base_path = '/lavartiportal'; // Set to '' for root directory or '/your-subdirectory' for subdirectory installation
     
     if (isset($manual_base_path) && $manual_base_path !== false) {
         // Use manually specified base path
