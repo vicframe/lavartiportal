@@ -14,7 +14,15 @@ require_login();
 $user = get_current_logged_user();
 $is_admin = isset($user['is_admin']) && $user['is_admin'];
 $user_id = $user['id'];
+?>
 
+<!-- ✅ This is now properly outside PHP -->
+<form action="/portal/rsi_redirect.php" method="post">
+  <button type="submit" class="btn btn-primary">Click RSI</button>
+</form>
+
+
+<?php
 // Get user's statistics
 $stats = [
     'orders_count' => 0,
@@ -26,9 +34,9 @@ $stats = [
 
 // Get order stats
 $orders_query = db_query(
-    "SELECT COUNT(*) as count, COALESCE(SUM(amount), 0) as total 
+    "SELECT COUNT(*) as count, COALESCE(SUM(total_amount), 0) as total 
      FROM orders 
-     WHERE user_id = ? AND status = 'completed'",
+     WHERE user_id = ? ",
     [$user_id]
 );
 $orders_result = db_fetch_one($orders_query);
@@ -129,9 +137,61 @@ switch ($stats['membership_tier']) {
         ];
         break;
 }
-
 // Include dashboard header
-$custom_css = '<link href="/assets/css/dashboard.css" rel="stylesheet">';
+$query = "
+    SELECT 
+        o.id AS order_id,
+        o.user_id, 
+        o.product_id, 
+        o.total_amount, 
+        o.status, 
+        o.order_date, 
+        o.created_at, 
+        o.updated_at,
+        
+        p.name AS product_name,
+        p.name AS item_name, 
+        p.price AS product_price, 
+        p.tier_level,
+        
+        CASE 
+            WHEN p.tier_level = 1 THEN 'Basic'
+            WHEN p.tier_level = 2 THEN 'Premium'
+            WHEN p.tier_level = 3 THEN 'Elite'
+            ELSE 'Unknown'
+        END AS tier_name,
+        
+        CASE 
+            WHEN o.status = 'completed' THEN 'success'
+            WHEN o.status = 'pending' THEN 'warning'
+            WHEN o.status = 'failed' THEN 'danger'
+            ELSE 'secondary'
+        END AS status_class,
+        
+        u.first_name, 
+        u.last_name, 
+        u.email, 
+        u.is_admin,
+        
+        i.id AS item_id,
+        p.name AS item_name,
+        i.quantity AS item_quantity,
+        i.sku AS item_sku,
+        i.price AS item_price
+    FROM orders o
+    LEFT JOIN order_items i ON o.id = i.order_id
+    LEFT JOIN products p ON o.product_id = p.id
+    LEFT JOIN users u ON o.user_id = u.id
+    WHERE o.user_id = ?
+    ORDER BY o.id DESC
+    LIMIT 1
+";
+//p.name AS item_name, from i.name AS item_name,
+
+// Execute query
+$order_result = db_query($query, [$user_id]);
+$order = db_fetch_one($order_result);
+$custom_css = '<link href="' . asset_url('/assets/css/dashboard.css') . '" rel="stylesheet">';
 require_once __DIR__ . '/../includes/dashboard_header.php';
 ?>
 
@@ -153,7 +213,7 @@ require_once __DIR__ . '/../includes/dashboard_header.php';
                 
                 <?php if ($stats['membership_tier'] === 0): ?>
                 <div class="upgrade-cta">
-                    <a href="/dashboard/membership.php" class="btn btn-primary">
+                    <a href="https://dashlifetravel.com/pass-us-travel-2446" class="btn btn-primary">
                         <i class="fas fa-crown me-1"></i> Upgrade Membership
                     </a>
                 </div>
@@ -187,7 +247,11 @@ require_once __DIR__ . '/../includes/dashboard_header.php';
                         <i class="fas fa-crown"></i>
                     </div>
                     <div class="details">
-                        <h3 class="value"><?php echo $tier_info['name']; ?></h3>
+                        <h3>
+                        <?php 
+                        echo (is_array($order) && isset($order['item_name'])) ? $order['item_name'] : '';
+                        ?>
+                        </h3>
                         <p class="label">Membership Tier</p>
                     </div>
                 </div>
@@ -204,58 +268,92 @@ require_once __DIR__ . '/../includes/dashboard_header.php';
             </div>
             
             <div class="row">
-                <!-- Membership section -->
-                <div class="col-md-8 mb-4">
+                <!-- Recent orders -->
+                <div class="col-md-6 mb-4">
                     <div class="card h-100">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <h2 class="card-title">Your Membership</h2>
-                            <a href="/dashboard/membership.php" class="btn btn-sm btn-outline-primary">
-                                Manage Membership
+                            <h2 class="card-title">Recent Orders</h2>
+                            <a href="https://thephoenixlb.com/lavartiportal/dashboard/orders.php" class="btn btn-sm btn-outline-primary">
+                                View All
                             </a>
                         </div>
                         <div class="card-body">
-                            <div class="membership-status">
-                                <div class="membership-info">
-                                    <div class="tier-badge bg-<?php echo $tier_info['color']; ?>">
-                                        <?php echo $tier_info['name']; ?>
-                                    </div>
-                                    <p class="tier-description">
-                                        <?php echo $tier_info['description']; ?>
-                                    </p>
+                            <?php
+                            // Get recent orders
+                            $recent_orders_query = db_query(
+                                            "SELECT 
+                                                o.id AS order_id,
+                                                o.created_at AS order_date,
+                                                o.total_amount as amount,
+                                                o.status,
+                                                o.created_at,
+                                                i.id AS item_id,
+                                                i.name AS product_name,
+                                                i.quantity,
+                                                i.price
+                                             FROM orders o
+                                             LEFT JOIN order_items i ON o.id = i.order_id
+                                             WHERE o.user_id = ?
+                                             ORDER BY o.created_at DESC
+                                             LIMIT 3",
+                                            [$user_id]
+                                        );
+                            $recent_orders = db_fetch_all($recent_orders_query);
+                            
+                            // print_r($recent_orders);
+                            ?>
+                            
+                            <?php if (empty($recent_orders)): ?>
+                                <div class="empty-state">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    <p>No orders yet</p>
+                                    <a href="/products.php" class="btn btn-primary btn-sm">Browse Products</a>
                                 </div>
-                                
-                                <div class="membership-features">
-                                    <h3>Benefits</h3>
-                                    <ul class="features-list">
-                                        <?php if (empty($tier_info['features'])): ?>
-                                            <li class="empty">No active membership benefits</li>
-                                        <?php else: ?>
-                                            <?php foreach ($tier_info['features'] as $feature): ?>
-                                                <li>
-                                                    <i class="fas fa-check"></i>
-                                                    <span><?php echo $feature; ?></span>
-                                                </li>
-                                            <?php endforeach; ?>
-                                        <?php endif; ?>
-                                    </ul>
-                                    
-                                    <?php if ($stats['membership_tier'] < 3): ?>
-                                    <a href="/dashboard/membership.php" class="action-button">
-                                        <?php if ($stats['membership_tier'] === 0): ?>
-                                            Get Started
-                                        <?php else: ?>
-                                            Upgrade Membership
-                                        <?php endif; ?>
-                                    </a>
-                                    <?php endif; ?>
+                            <?php else: ?>
+                                <div class="recent-orders">
+                                    <?php foreach ($recent_orders as $order): ?>
+                                        <?php
+                                        $status_class = 'secondary';
+                                        switch ($order['status']) {
+                                            case 'completed':
+                                                $status_class = 'success';
+                                                break;
+                                            case 'pending':
+                                                $status_class = 'warning';
+                                                break;
+                                            case 'failed':
+                                                $status_class = 'danger';
+                                                break;
+                                        }
+                                        ?>
+                                        <div class="order-item">
+                                            <div class="order-info">
+                                                <div class="order-name">
+                                                    <?php echo $order['product_name']; ?>
+                                                </div>
+                                                <div class="order-date">
+                                                    <?php echo date('M j, Y', strtotime($order['created_at'])); ?>
+                                                </div>
+                                            </div>
+                                            <div class="order-details">
+                                                <div class="order-amount">
+                                                    $<?php echo number_format($order['amount'], 2); ?>
+                                                </div>
+                                                <div class="order-status">
+                                                    <span class="badge bg-<?php echo $status_class; ?>">
+                                                        <?php echo ucfirst($order['status']); ?>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php endforeach; ?>
                                 </div>
-                            </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Affiliate section -->
-                <div class="col-md-4 mb-4">
+                <div class="col-md-6 mb-4">
                     <div class="card h-100">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h2 class="card-title">Affiliate Program</h2>
@@ -292,114 +390,152 @@ require_once __DIR__ . '/../includes/dashboard_header.php';
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="row">
-                <!-- Recent orders -->
-                <div class="col-md-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                            <h2 class="card-title">Recent Orders</h2>
-                            <a href="/dashboard/orders.php" class="btn btn-sm btn-outline-primary">
-                                View All
-                            </a>
+
+                                </div> <!-- end of affiliate card column -->
+
+                <!-- 🔽 Paste RSI block here -->
+                <?php
+                $rsiInfo = getRsiRedirectInfo($order);
+                if ($rsiInfo):
+                ?>
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <strong>🎫 RSI Travel Portal Access</strong>
                         </div>
                         <div class="card-body">
-                            <?php
-                            // Get recent orders
-                            $recent_orders_query = db_query(
-                                "SELECT * FROM orders 
-                                 WHERE user_id = ? 
-                                 ORDER BY created_at DESC 
-                                 LIMIT 3",
-                                [$user_id]
-                            );
-                            $recent_orders = db_fetch_all($recent_orders_query);
-                            ?>
-                            
-                            <?php if (empty($recent_orders)): ?>
-                                <div class="empty-state">
-                                    <i class="fas fa-shopping-cart"></i>
-                                    <p>No orders yet</p>
-                                    <a href="/products.php" class="btn btn-primary btn-sm">Browse Products</a>
-                                </div>
-                            <?php else: ?>
-                                <div class="recent-orders">
-                                    <?php foreach ($recent_orders as $order): ?>
-                                        <?php
-                                        $status_class = 'secondary';
-                                        switch ($order['status']) {
-                                            case 'completed':
-                                                $status_class = 'success';
-                                                break;
-                                            case 'pending':
-                                                $status_class = 'warning';
-                                                break;
-                                            case 'failed':
-                                                $status_class = 'danger';
-                                                break;
-                                        }
-                                        ?>
-                                        <div class="order-item">
-                                            <div class="order-info">
-                                                <div class="order-name">
-                                                    <?php echo htmlspecialchars($order['product_name']); ?>
-                                                </div>
-                                                <div class="order-date">
-                                                    <?php echo date('M j, Y', strtotime($order['created_at'])); ?>
-                                                </div>
-                                            </div>
-                                            <div class="order-details">
-                                                <div class="order-amount">
-                                                    $<?php echo number_format($order['amount'], 2); ?>
-                                                </div>
-                                                <div class="order-status">
-                                                    <span class="badge bg-<?php echo $status_class; ?>">
-                                                        <?php echo ucfirst($order['status']); ?>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    <?php endforeach; ?>
-                                </div>
-                            <?php endif; ?>
+                            <p><strong>Product:</strong> <?= $rsiInfo['product']; ?></p>
+                            <p><strong>Organization ID:</strong> <?= $rsiInfo['org_id']; ?></p>
+                            <a href="<?= $rsiInfo['url']; ?>" class="btn btn-primary" target="_blank">
+                                Access Your Travel Portal
+                            </a>
                         </div>
                     </div>
-                </div>
-                
+                <?php endif; ?>
+
                 <!-- Recent activity -->
-                <div class="col-md-6 mb-4">
-                    <div class="recent-activity">
-                        <h2>Recent Activity</h2>
+                <!--<div class="col-md-6 mb-4">-->
+                <!--    <div class="recent-activity">-->
+                <!--        <h2>Recent Activity</h2>-->
                         
-                        <?php if (empty($activities)): ?>
-                            <div class="empty-state">
-                                <i class="fas fa-history"></i>
-                                <p>No recent activity</p>
-                            </div>
-                        <?php else: ?>
-                            <?php foreach ($activities as $activity): ?>
-                                <div class="activity-item">
-                                    <div class="activity-icon">
-                                        <i class="fas <?php echo getActivityIcon($activity['type']); ?>"></i>
-                                    </div>
-                                    <div class="activity-details">
-                                        <h3><?php echo htmlspecialchars($activity['description']); ?></h3>
-                                        <p>
-                                            <?php if ($activity['amount'] > 0): ?>
-                                                $<?php echo number_format($activity['amount'], 2); ?>
-                                            <?php endif; ?>
-                                        </p>
-                                    </div>
-                                    <div class="activity-time">
-                                        <?php echo formatTimeAgo($activity['created_at']); ?>
-                                    </div>
-                                </div>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    </div>
-                </div>
+                <!--        <?php if (empty($activities)): ?>-->
+                <!--            <div class="empty-state">-->
+                <!--                <i class="fas fa-history"></i>-->
+                <!--                <p>No recent activity</p>-->
+                <!--            </div>-->
+                <!--        <?php else: ?>-->
+                <!--            <?php foreach ($activities as $activity): ?>-->
+                <!--                <div class="activity-item">-->
+                <!--                    <div class="activity-icon">-->
+                <!--                        <i class="fas <?php echo getActivityIcon($activity['type']); ?>"></i>-->
+                <!--                    </div>-->
+                <!--                    <div class="activity-details">-->
+                <!--                        <h3><?php echo htmlspecialchars($activity['description']); ?></h3>-->
+                <!--                        <p>-->
+                <!--                            <?php if ($activity['amount'] > 0): ?>-->
+                <!--                                $<?php echo number_format($activity['amount'], 2); ?>-->
+                <!--                            <?php endif; ?>-->
+                <!--                        </p>-->
+                <!--                    </div>-->
+                <!--                    <div class="activity-time">-->
+                <!--                        <?php echo formatTimeAgo($activity['created_at']); ?>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+                <!--            <?php endforeach; ?>-->
+                <!--        <?php endif; ?>-->
+                <!--    </div>-->
+                <!--</div>-->
             </div>
+            <div class="row">
+                <!-- Membership section -->
+                <!--<div class="col-md-8 mb-4">-->
+                <!--    <div class="card h-100">-->
+                <!--        <div class="card-header d-flex justify-content-between align-items-center">-->
+                <!--            <h2 class="card-title">Your Membership</h2>-->
+                <!--            <a href="/dashboard/membership.php" class="btn btn-sm btn-outline-primary">-->
+                <!--                Manage Membership-->
+                <!--            </a>-->
+                <!--        </div>-->
+                <!--        <div class="card-body">-->
+                <!--            <div class="membership-status">-->
+                <!--                <div class="membership-info">-->
+                <!--                    <div class="tier-badge bg-<?php echo $tier_info['color']; ?>">-->
+                <!--                        <?php echo $tier_info['name']; ?>-->
+                <!--                    </div>-->
+                <!--                    <p class="tier-description">-->
+                <!--                        <?php echo $tier_info['description']; ?>-->
+                <!--                    </p>-->
+                <!--                </div>-->
+                                
+                <!--                <div class="membership-features">-->
+                <!--                    <h3>Benefits</h3>-->
+                <!--                    <ul class="features-list">-->
+                <!--                        <?php if (empty($tier_info['features'])): ?>-->
+                <!--                            <li class="empty">No active membership benefits</li>-->
+                <!--                        <?php else: ?>-->
+                <!--                            <?php foreach ($tier_info['features'] as $feature): ?>-->
+                <!--                                <li>-->
+                <!--                                    <i class="fas fa-check"></i>-->
+                <!--                                    <span><?php echo $feature; ?></span>-->
+                <!--                                </li>-->
+                <!--                            <?php endforeach; ?>-->
+                <!--                        <?php endif; ?>-->
+                <!--                    </ul>-->
+                                    
+                <!--                    <?php if ($stats['membership_tier'] < 3): ?>-->
+                <!--                    <a href="/dashboard/membership.php" class="action-button">-->
+                <!--                        <?php if ($stats['membership_tier'] === 0): ?>-->
+                <!--                            Get Started-->
+                <!--                        <?php else: ?>-->
+                <!--                            Upgrade Membership-->
+                <!--                        <?php endif; ?>-->
+                <!--                    </a>-->
+                <!--                    <?php endif; ?>-->
+                <!--                </div>-->
+                <!--            </div>-->
+                <!--        </div>-->
+                <!--    </div>-->
+                <!--</div>-->
+                
+                <!-- Affiliate section -->
+                <!--<div class="col-md-4 mb-4">-->
+                <!--    <div class="card h-100">-->
+                <!--        <div class="card-header d-flex justify-content-between align-items-center">-->
+                <!--            <h2 class="card-title">Affiliate Program</h2>-->
+                <!--            <a href="/dashboard/affiliate.php" class="btn btn-sm btn-outline-primary">-->
+                <!--                View Details-->
+                <!--            </a>-->
+                <!--        </div>-->
+                <!--        <div class="card-body">-->
+                <!--            <div class="affiliate-stats">-->
+                <!--                <div class="stat">-->
+                <!--                    <h3>$<?php echo number_format($stats['affiliate_commissions'], 2); ?></h3>-->
+                <!--                    <p>Total Commissions</p>-->
+                <!--                </div>-->
+                                
+                <!--                <div class="stat">-->
+                <!--                    <h3><?php echo $stats['referrals_count']; ?></h3>-->
+                <!--                    <p>Referred Members</p>-->
+                <!--                </div>-->
+                <!--            </div>-->
+                            
+                <!--            <div class="card-title">-->
+                <!--                <i class="fas fa-link"></i>-->
+                <!--                <h3>Your Affiliate Link</h3>-->
+                <!--            </div>-->
+                            
+                <!--            <div class="copy-input">-->
+                <!--                <input type="text" value="<?php echo APP_URL; ?>/?ref=<?php echo $user_id; ?>" id="affiliateLink" readonly>-->
+                <!--                <button id="copyLinkBtn">Copy</button>-->
+                <!--            </div>-->
+                            
+                <!--            <a href="/dashboard/affiliate.php" class="action-button">-->
+                <!--                Promote & Earn-->
+                <!--            </a>-->
+                <!--        </div>-->
+                <!--    </div>-->
+                <!--</div>-->
+            </div>
+            
         </div>
     </div>
 </div>

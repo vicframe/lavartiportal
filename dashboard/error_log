@@ -1,0 +1,989 @@
+[02-May-2025 14:20:21 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[02-May-2025 14:20:21 America/New_York] Detected base path: /lavartiportal
+[02-May-2025 14:20:21 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[02-May-2025 14:20:25 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[02-May-2025 14:20:25 America/New_York] Detected base path: /lavartiportal
+[02-May-2025 14:20:25 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[02-May-2025 14:20:26 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[02-May-2025 14:20:26 America/New_York] Detected base path: /lavartiportal
+[02-May-2025 14:20:26 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[02-May-2025 14:20:28 America/New_York] Script name: /lavartiportal/dashboard/account.php
+[02-May-2025 14:20:28 America/New_York] Detected base path: /lavartiportal
+[02-May-2025 14:20:28 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[02-May-2025 14:20:28 America/New_York] PHP Warning:  Undefined array key "phone" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/account.php on line 63
+[02-May-2025 14:20:28 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/account.php on line 63
+[02-May-2025 14:22:39 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[02-May-2025 14:22:39 America/New_York] Detected base path: /lavartiportal
+[02-May-2025 14:22:39 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[02-May-2025 14:22:55 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[02-May-2025 14:22:55 America/New_York] Detected base path: /lavartiportal
+[02-May-2025 14:22:55 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[02-May-2025 14:22:58 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[02-May-2025 14:22:58 America/New_York] Detected base path: /lavartiportal
+[02-May-2025 14:22:58 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[02-May-2025 14:23:02 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[02-May-2025 14:23:02 America/New_York] Detected base path: /lavartiportal
+[02-May-2025 14:23:02 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[02-May-2025 14:23:14 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[02-May-2025 14:23:14 America/New_York] Detected base path: /lavartiportal
+[02-May-2025 14:23:14 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[02-May-2025 18:03:43 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[02-May-2025 18:03:43 America/New_York] Detected base path: /lavartiportal
+[02-May-2025 18:03:43 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[02-May-2025 18:03:48 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[02-May-2025 18:03:48 America/New_York] Detected base path: /lavartiportal
+[02-May-2025 18:03:48 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[02-May-2025 18:03:50 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[02-May-2025 18:03:50 America/New_York] Detected base path: /lavartiportal
+[02-May-2025 18:03:50 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[02-May-2025 18:03:51 America/New_York] Script name: /lavartiportal/dashboard/affiliate.php
+[02-May-2025 18:03:51 America/New_York] Detected base path: /lavartiportal
+[02-May-2025 18:03:51 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[02-May-2025 18:03:53 America/New_York] Script name: /lavartiportal/dashboard/account.php
+[02-May-2025 18:03:53 America/New_York] Detected base path: /lavartiportal
+[02-May-2025 18:03:53 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[02-May-2025 18:03:53 America/New_York] PHP Warning:  Undefined array key "phone" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/account.php on line 63
+[02-May-2025 18:03:53 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/account.php on line 63
+[02-May-2025 21:35:24 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[02-May-2025 21:35:24 America/New_York] Detected base path: /lavartiportal
+[02-May-2025 21:35:24 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[02-May-2025 21:44:33 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[02-May-2025 21:44:33 America/New_York] Detected base path: /lavartiportal
+[02-May-2025 21:44:33 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-May-2025 12:26:17 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[03-May-2025 12:26:17 America/New_York] Detected base path: /lavartiportal
+[03-May-2025 12:26:17 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-May-2025 12:35:13 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[05-May-2025 12:35:13 America/New_York] Detected base path: /lavartiportal
+[05-May-2025 12:35:13 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-May-2025 12:35:15 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[05-May-2025 12:35:15 America/New_York] Detected base path: /lavartiportal
+[05-May-2025 12:35:15 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-May-2025 12:35:19 America/New_York] Script name: /lavartiportal/dashboard/affiliate.php
+[05-May-2025 12:35:19 America/New_York] Detected base path: /lavartiportal
+[05-May-2025 12:35:19 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-May-2025 12:35:23 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[05-May-2025 12:35:23 America/New_York] Detected base path: /lavartiportal
+[05-May-2025 12:35:23 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-May-2025 13:04:02 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[05-May-2025 13:04:02 America/New_York] Detected base path: /lavartiportal
+[05-May-2025 13:04:02 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-May-2025 13:04:18 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[05-May-2025 13:04:18 America/New_York] Detected base path: /lavartiportal
+[05-May-2025 13:04:18 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[06-May-2025 23:13:23 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[06-May-2025 23:13:23 America/New_York] Detected base path: /lavartiportal
+[06-May-2025 23:13:23 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[06-May-2025 23:17:20 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[06-May-2025 23:17:20 America/New_York] Detected base path: /lavartiportal
+[06-May-2025 23:17:20 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[07-May-2025 07:09:33 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[07-May-2025 07:09:33 America/New_York] Detected base path: /lavartiportal
+[07-May-2025 07:09:33 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[07-May-2025 07:45:21 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[07-May-2025 07:45:21 America/New_York] Detected base path: /lavartiportal
+[07-May-2025 07:45:21 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[07-May-2025 07:45:24 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[07-May-2025 07:45:24 America/New_York] Detected base path: /lavartiportal
+[07-May-2025 07:45:24 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[07-May-2025 07:45:26 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[07-May-2025 07:45:26 America/New_York] Detected base path: /lavartiportal
+[07-May-2025 07:45:26 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[07-May-2025 07:45:34 America/New_York] Script name: /lavartiportal/dashboard/affiliate.php
+[07-May-2025 07:45:34 America/New_York] Detected base path: /lavartiportal
+[07-May-2025 07:45:34 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[07-May-2025 10:22:20 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[07-May-2025 10:22:20 America/New_York] Detected base path: /lavartiportal
+[07-May-2025 10:22:20 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[07-May-2025 10:22:36 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[07-May-2025 10:22:36 America/New_York] Detected base path: /lavartiportal
+[07-May-2025 10:22:36 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[07-May-2025 11:14:02 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[07-May-2025 11:14:02 America/New_York] Detected base path: /lavartiportal
+[07-May-2025 11:14:02 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[07-May-2025 11:14:13 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[07-May-2025 11:14:13 America/New_York] Detected base path: /lavartiportal
+[07-May-2025 11:14:13 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[07-May-2025 11:14:16 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[07-May-2025 11:14:16 America/New_York] Detected base path: /lavartiportal
+[07-May-2025 11:14:16 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[07-May-2025 11:14:19 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[07-May-2025 11:14:19 America/New_York] Detected base path: /lavartiportal
+[07-May-2025 11:14:19 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[07-May-2025 11:32:24 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[07-May-2025 11:32:24 America/New_York] Detected base path: /lavartiportal
+[07-May-2025 11:32:24 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[07-May-2025 11:32:26 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[07-May-2025 11:32:26 America/New_York] Detected base path: /lavartiportal
+[07-May-2025 11:32:26 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[07-May-2025 12:27:03 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[07-May-2025 12:27:03 America/New_York] Detected base path: /lavartiportal
+[07-May-2025 12:27:03 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[07-May-2025 12:27:06 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[07-May-2025 12:27:06 America/New_York] Detected base path: /lavartiportal
+[07-May-2025 12:27:06 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[07-May-2025 12:27:42 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[07-May-2025 12:27:42 America/New_York] Detected base path: /lavartiportal
+[07-May-2025 12:27:42 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[07-May-2025 12:29:07 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[07-May-2025 12:29:07 America/New_York] Detected base path: /lavartiportal
+[07-May-2025 12:29:07 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[07-May-2025 17:45:50 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[07-May-2025 17:45:50 America/New_York] Detected base path: /lavartiportal
+[07-May-2025 17:45:50 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[07-May-2025 17:45:57 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[07-May-2025 17:45:57 America/New_York] Detected base path: /lavartiportal
+[07-May-2025 17:45:57 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[07-May-2025 17:46:15 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[07-May-2025 17:46:15 America/New_York] Detected base path: /lavartiportal
+[07-May-2025 17:46:15 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[07-May-2025 19:03:22 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[07-May-2025 19:03:22 America/New_York] Detected base path: /lavartiportal
+[07-May-2025 19:03:22 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[07-May-2025 20:17:45 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[07-May-2025 20:17:45 America/New_York] Detected base path: /lavartiportal
+[07-May-2025 20:17:45 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[07-May-2025 20:18:18 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[07-May-2025 20:18:18 America/New_York] Detected base path: /lavartiportal
+[07-May-2025 20:18:18 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[07-May-2025 20:18:21 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[07-May-2025 20:18:21 America/New_York] Detected base path: /lavartiportal
+[07-May-2025 20:18:21 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[07-May-2025 20:18:40 America/New_York] Script name: /lavartiportal/dashboard/affiliate.php
+[07-May-2025 20:18:40 America/New_York] Detected base path: /lavartiportal
+[07-May-2025 20:18:40 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[08-May-2025 11:40:04 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[08-May-2025 11:40:04 America/New_York] Detected base path: /lavartiportal
+[08-May-2025 11:40:04 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[16-May-2025 07:27:43 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[16-May-2025 07:27:43 America/New_York] Detected base path: /lavartiportal
+[16-May-2025 07:27:43 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[16-May-2025 07:27:45 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[16-May-2025 07:27:45 America/New_York] Detected base path: /lavartiportal
+[16-May-2025 07:27:45 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[16-May-2025 07:28:39 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[16-May-2025 07:28:39 America/New_York] Detected base path: /lavartiportal
+[16-May-2025 07:28:39 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[16-May-2025 09:02:02 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[16-May-2025 09:02:02 America/New_York] Detected base path: /lavartiportal
+[16-May-2025 09:02:02 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[16-May-2025 09:02:13 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[16-May-2025 09:02:13 America/New_York] Detected base path: /lavartiportal
+[16-May-2025 09:02:13 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[16-May-2025 11:03:10 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[16-May-2025 11:03:10 America/New_York] Detected base path: /lavartiportal
+[16-May-2025 11:03:10 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[16-May-2025 11:03:14 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[16-May-2025 11:03:14 America/New_York] Detected base path: /lavartiportal
+[16-May-2025 11:03:14 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[16-May-2025 11:03:24 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[16-May-2025 11:03:24 America/New_York] Detected base path: /lavartiportal
+[16-May-2025 11:03:24 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[18-May-2025 20:34:58 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[18-May-2025 20:34:58 America/New_York] Detected base path: /lavartiportal
+[18-May-2025 20:34:58 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[19-May-2025 11:03:41 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[19-May-2025 11:03:41 America/New_York] Detected base path: /lavartiportal
+[19-May-2025 11:03:41 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[19-May-2025 11:03:43 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[19-May-2025 11:03:43 America/New_York] Detected base path: /lavartiportal
+[19-May-2025 11:03:43 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[19-May-2025 11:04:13 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[19-May-2025 11:04:13 America/New_York] Detected base path: /lavartiportal
+[19-May-2025 11:04:13 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[27-May-2025 15:52:54 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[27-May-2025 15:52:54 America/New_York] Detected base path: /lavartiportal
+[27-May-2025 15:52:54 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[27-May-2025 15:59:52 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[27-May-2025 15:59:52 America/New_York] Detected base path: /lavartiportal
+[27-May-2025 15:59:52 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[27-May-2025 16:05:20 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[27-May-2025 16:05:20 America/New_York] Detected base path: /lavartiportal
+[27-May-2025 16:05:20 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[27-May-2025 16:05:35 America/New_York] Script name: /lavartiportal/dashboard/affiliate.php
+[27-May-2025 16:05:35 America/New_York] Detected base path: /lavartiportal
+[27-May-2025 16:05:35 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[27-May-2025 16:05:59 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[27-May-2025 16:05:59 America/New_York] Detected base path: /lavartiportal
+[27-May-2025 16:05:59 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[27-May-2025 16:06:25 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[27-May-2025 16:06:25 America/New_York] Detected base path: /lavartiportal
+[27-May-2025 16:06:25 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[27-May-2025 16:06:50 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[27-May-2025 16:06:50 America/New_York] Detected base path: /lavartiportal
+[27-May-2025 16:06:50 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[27-May-2025 16:56:27 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[27-May-2025 16:56:27 America/New_York] Detected base path: /lavartiportal
+[27-May-2025 16:56:27 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[27-May-2025 16:57:17 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[27-May-2025 16:57:17 America/New_York] Detected base path: /lavartiportal
+[27-May-2025 16:57:17 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[27-May-2025 16:57:18 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[27-May-2025 16:57:18 America/New_York] Detected base path: /lavartiportal
+[27-May-2025 16:57:18 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[27-May-2025 16:57:25 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[27-May-2025 16:57:25 America/New_York] Detected base path: /lavartiportal
+[27-May-2025 16:57:25 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[27-May-2025 16:58:27 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[27-May-2025 16:58:27 America/New_York] Detected base path: /lavartiportal
+[27-May-2025 16:58:27 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[27-May-2025 16:58:30 America/New_York] Script name: /lavartiportal/dashboard/affiliate.php
+[27-May-2025 16:58:30 America/New_York] Detected base path: /lavartiportal
+[27-May-2025 16:58:30 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[27-May-2025 17:02:29 America/New_York] Script name: /lavartiportal/dashboard/affiliate.php
+[27-May-2025 17:02:29 America/New_York] Detected base path: /lavartiportal
+[27-May-2025 17:02:29 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[27-May-2025 17:02:37 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[27-May-2025 17:02:37 America/New_York] Detected base path: /lavartiportal
+[27-May-2025 17:02:37 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[27-May-2025 17:02:38 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[27-May-2025 17:02:38 America/New_York] Detected base path: /lavartiportal
+[27-May-2025 17:02:38 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[27-May-2025 17:03:02 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[27-May-2025 17:03:02 America/New_York] Detected base path: /lavartiportal
+[27-May-2025 17:03:02 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[27-May-2025 17:03:04 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[27-May-2025 17:03:04 America/New_York] Detected base path: /lavartiportal
+[27-May-2025 17:03:04 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[27-May-2025 17:03:10 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[27-May-2025 17:03:10 America/New_York] Detected base path: /lavartiportal
+[27-May-2025 17:03:10 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[27-May-2025 17:03:19 America/New_York] Script name: /lavartiportal/dashboard/affiliate.php
+[27-May-2025 17:03:19 America/New_York] Detected base path: /lavartiportal
+[27-May-2025 17:03:19 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[27-May-2025 18:31:27 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[27-May-2025 18:31:27 America/New_York] Detected base path: /lavartiportal
+[27-May-2025 18:31:27 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[27-May-2025 18:31:28 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[27-May-2025 18:31:28 America/New_York] Detected base path: /lavartiportal
+[27-May-2025 18:31:28 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[27-May-2025 18:49:30 America/New_York] Script name: /lavartiportal/dashboard/affiliate.php
+[27-May-2025 18:49:30 America/New_York] Detected base path: /lavartiportal
+[27-May-2025 18:49:30 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[27-May-2025 18:49:41 America/New_York] Script name: /lavartiportal/dashboard/affiliate.php
+[27-May-2025 18:49:41 America/New_York] Detected base path: /lavartiportal
+[27-May-2025 18:49:41 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[27-May-2025 18:49:47 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[27-May-2025 18:49:47 America/New_York] Detected base path: /lavartiportal
+[27-May-2025 18:49:47 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[27-May-2025 18:49:50 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[27-May-2025 18:49:50 America/New_York] Detected base path: /lavartiportal
+[27-May-2025 18:49:50 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[28-May-2025 04:02:19 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[28-May-2025 04:02:19 America/New_York] Detected base path: /lavartiportal
+[28-May-2025 04:02:19 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[28-May-2025 04:02:30 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[28-May-2025 04:02:30 America/New_York] Detected base path: /lavartiportal
+[28-May-2025 04:02:30 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[28-May-2025 11:26:46 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[28-May-2025 11:26:46 America/New_York] Detected base path: /lavartiportal
+[28-May-2025 11:26:46 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[28-May-2025 11:26:55 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[28-May-2025 11:26:55 America/New_York] Detected base path: /lavartiportal
+[28-May-2025 11:26:55 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[28-May-2025 11:37:18 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[28-May-2025 11:37:18 America/New_York] Detected base path: /lavartiportal
+[28-May-2025 11:37:18 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[28-May-2025 11:37:37 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[28-May-2025 11:37:37 America/New_York] Detected base path: /lavartiportal
+[28-May-2025 11:37:37 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[28-May-2025 11:37:40 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[28-May-2025 11:37:40 America/New_York] Detected base path: /lavartiportal
+[28-May-2025 11:37:40 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[28-May-2025 11:38:18 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[28-May-2025 11:38:18 America/New_York] Detected base path: /lavartiportal
+[28-May-2025 11:38:18 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 06:44:44 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[03-Jun-2025 06:44:44 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 06:44:44 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 06:46:27 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[03-Jun-2025 06:46:27 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 06:46:27 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 06:46:34 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[03-Jun-2025 06:46:34 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 06:46:34 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 06:53:03 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[03-Jun-2025 06:53:03 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 06:53:03 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 07:57:09 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[03-Jun-2025 07:57:09 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 07:57:09 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 07:57:09 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 345
+[03-Jun-2025 07:57:09 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 345
+[03-Jun-2025 07:57:09 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 353
+[03-Jun-2025 07:57:09 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 353
+[03-Jun-2025 07:57:09 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 345
+[03-Jun-2025 07:57:09 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 345
+[03-Jun-2025 07:57:09 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 353
+[03-Jun-2025 07:57:09 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 353
+[03-Jun-2025 07:57:09 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 345
+[03-Jun-2025 07:57:09 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 345
+[03-Jun-2025 07:57:09 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 353
+[03-Jun-2025 07:57:09 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 353
+[03-Jun-2025 07:57:15 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[03-Jun-2025 07:57:15 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 07:57:15 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 07:57:15 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 87
+[03-Jun-2025 07:57:15 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 87
+[03-Jun-2025 07:57:15 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 88
+[03-Jun-2025 07:57:15 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 88
+[03-Jun-2025 07:57:15 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 87
+[03-Jun-2025 07:57:15 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 87
+[03-Jun-2025 07:57:15 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 88
+[03-Jun-2025 07:57:15 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 88
+[03-Jun-2025 07:57:15 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 87
+[03-Jun-2025 07:57:15 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 87
+[03-Jun-2025 07:57:15 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 88
+[03-Jun-2025 07:57:15 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 88
+[03-Jun-2025 07:57:18 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[03-Jun-2025 07:57:18 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 07:57:18 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 07:57:25 America/New_York] Script name: /lavartiportal/dashboard/affiliate.php
+[03-Jun-2025 07:57:25 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 07:57:25 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 08:01:10 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[03-Jun-2025 08:01:10 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 08:01:10 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 08:01:10 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 345
+[03-Jun-2025 08:01:10 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 345
+[03-Jun-2025 08:01:10 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 353
+[03-Jun-2025 08:01:10 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 353
+[03-Jun-2025 08:01:10 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 345
+[03-Jun-2025 08:01:10 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 345
+[03-Jun-2025 08:01:10 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 353
+[03-Jun-2025 08:01:10 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 353
+[03-Jun-2025 08:01:10 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 345
+[03-Jun-2025 08:01:10 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 345
+[03-Jun-2025 08:01:10 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 353
+[03-Jun-2025 08:01:10 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 353
+[03-Jun-2025 08:01:19 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[03-Jun-2025 08:01:19 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 08:01:19 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 08:01:19 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 345
+[03-Jun-2025 08:01:19 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 345
+[03-Jun-2025 08:01:19 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 353
+[03-Jun-2025 08:01:19 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 353
+[03-Jun-2025 08:01:19 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 345
+[03-Jun-2025 08:01:19 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 345
+[03-Jun-2025 08:01:19 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 353
+[03-Jun-2025 08:01:19 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 353
+[03-Jun-2025 08:01:19 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 345
+[03-Jun-2025 08:01:19 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 345
+[03-Jun-2025 08:01:19 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 353
+[03-Jun-2025 08:01:19 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 353
+[03-Jun-2025 08:01:34 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[03-Jun-2025 08:01:34 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 08:01:34 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 08:01:34 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 345
+[03-Jun-2025 08:01:34 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 345
+[03-Jun-2025 08:01:34 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 353
+[03-Jun-2025 08:01:34 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 353
+[03-Jun-2025 08:01:34 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 345
+[03-Jun-2025 08:01:34 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 345
+[03-Jun-2025 08:01:34 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 353
+[03-Jun-2025 08:01:34 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 353
+[03-Jun-2025 08:01:34 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 345
+[03-Jun-2025 08:01:34 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 345
+[03-Jun-2025 08:01:34 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 353
+[03-Jun-2025 08:01:34 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 353
+[03-Jun-2025 08:02:03 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[03-Jun-2025 08:02:03 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 08:02:03 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 08:02:03 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 345
+[03-Jun-2025 08:02:03 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 345
+[03-Jun-2025 08:02:03 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 353
+[03-Jun-2025 08:02:03 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 353
+[03-Jun-2025 08:02:03 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 345
+[03-Jun-2025 08:02:03 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 345
+[03-Jun-2025 08:02:03 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 353
+[03-Jun-2025 08:02:03 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 353
+[03-Jun-2025 08:02:03 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 345
+[03-Jun-2025 08:02:03 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 345
+[03-Jun-2025 08:02:03 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 353
+[03-Jun-2025 08:02:03 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 353
+[03-Jun-2025 08:07:42 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[03-Jun-2025 08:07:42 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 08:07:42 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 08:07:42 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 345
+[03-Jun-2025 08:07:42 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 345
+[03-Jun-2025 08:07:42 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 353
+[03-Jun-2025 08:07:42 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 353
+[03-Jun-2025 08:07:42 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 345
+[03-Jun-2025 08:07:42 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 345
+[03-Jun-2025 08:07:42 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 353
+[03-Jun-2025 08:07:42 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 353
+[03-Jun-2025 08:07:42 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 345
+[03-Jun-2025 08:07:42 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 345
+[03-Jun-2025 08:07:42 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 353
+[03-Jun-2025 08:07:42 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 353
+[03-Jun-2025 08:11:21 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[03-Jun-2025 08:11:21 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 08:11:21 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 08:11:21 America/New_York] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'i.product_name' in 'SELECT' in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/includes/database.php:54
+Stack trace:
+#0 /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/includes/database.php(54): mysqli->prepare()
+#1 /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php(309): db_query()
+#2 {main}
+  thrown in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/includes/database.php on line 54
+[03-Jun-2025 08:11:39 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[03-Jun-2025 08:11:39 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 08:11:39 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 08:11:39 America/New_York] PHP Warning:  Undefined array key "status" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 340
+[03-Jun-2025 08:11:39 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 355
+[03-Jun-2025 08:11:39 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 355
+[03-Jun-2025 08:11:39 America/New_York] PHP Warning:  Undefined array key "created_at" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 358
+[03-Jun-2025 08:11:39 America/New_York] PHP Deprecated:  strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 358
+[03-Jun-2025 08:11:39 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 363
+[03-Jun-2025 08:11:39 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 363
+[03-Jun-2025 08:11:39 America/New_York] PHP Warning:  Undefined array key "status" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 367
+[03-Jun-2025 08:11:39 America/New_York] PHP Deprecated:  ucfirst(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 367
+[03-Jun-2025 08:11:39 America/New_York] PHP Warning:  Undefined array key "status" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 340
+[03-Jun-2025 08:11:39 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 355
+[03-Jun-2025 08:11:39 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 355
+[03-Jun-2025 08:11:39 America/New_York] PHP Warning:  Undefined array key "created_at" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 358
+[03-Jun-2025 08:11:39 America/New_York] PHP Deprecated:  strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 358
+[03-Jun-2025 08:11:39 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 363
+[03-Jun-2025 08:11:39 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 363
+[03-Jun-2025 08:11:39 America/New_York] PHP Warning:  Undefined array key "status" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 367
+[03-Jun-2025 08:11:39 America/New_York] PHP Deprecated:  ucfirst(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 367
+[03-Jun-2025 08:11:39 America/New_York] PHP Warning:  Undefined array key "status" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 340
+[03-Jun-2025 08:11:39 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 355
+[03-Jun-2025 08:11:39 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 355
+[03-Jun-2025 08:11:39 America/New_York] PHP Warning:  Undefined array key "created_at" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 358
+[03-Jun-2025 08:11:39 America/New_York] PHP Deprecated:  strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 358
+[03-Jun-2025 08:11:39 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 363
+[03-Jun-2025 08:11:39 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 363
+[03-Jun-2025 08:11:39 America/New_York] PHP Warning:  Undefined array key "status" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 367
+[03-Jun-2025 08:11:39 America/New_York] PHP Deprecated:  ucfirst(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 367
+[03-Jun-2025 08:13:48 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[03-Jun-2025 08:13:48 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 08:13:48 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 08:13:48 America/New_York] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'i.status' in 'SELECT' in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/includes/database.php:54
+Stack trace:
+#0 /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/includes/database.php(54): mysqli->prepare()
+#1 /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php(309): db_query()
+#2 {main}
+  thrown in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/includes/database.php on line 54
+[03-Jun-2025 08:14:34 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[03-Jun-2025 08:14:34 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 08:14:34 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 08:14:34 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 356
+[03-Jun-2025 08:14:34 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 356
+[03-Jun-2025 08:14:34 America/New_York] PHP Warning:  Undefined array key "created_at" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 359
+[03-Jun-2025 08:14:34 America/New_York] PHP Deprecated:  strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 359
+[03-Jun-2025 08:14:34 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 364
+[03-Jun-2025 08:14:34 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 364
+[03-Jun-2025 08:14:34 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 356
+[03-Jun-2025 08:14:34 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 356
+[03-Jun-2025 08:14:34 America/New_York] PHP Warning:  Undefined array key "created_at" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 359
+[03-Jun-2025 08:14:34 America/New_York] PHP Deprecated:  strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 359
+[03-Jun-2025 08:14:34 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 364
+[03-Jun-2025 08:14:34 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 364
+[03-Jun-2025 08:14:34 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 356
+[03-Jun-2025 08:14:34 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 356
+[03-Jun-2025 08:14:34 America/New_York] PHP Warning:  Undefined array key "created_at" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 359
+[03-Jun-2025 08:14:34 America/New_York] PHP Deprecated:  strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 359
+[03-Jun-2025 08:14:34 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 364
+[03-Jun-2025 08:14:34 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 364
+[03-Jun-2025 08:14:56 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[03-Jun-2025 08:14:56 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 08:14:56 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 08:14:56 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 357
+[03-Jun-2025 08:14:56 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 357
+[03-Jun-2025 08:14:56 America/New_York] PHP Warning:  Undefined array key "created_at" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 360
+[03-Jun-2025 08:14:56 America/New_York] PHP Deprecated:  strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 360
+[03-Jun-2025 08:14:56 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 365
+[03-Jun-2025 08:14:56 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 365
+[03-Jun-2025 08:14:56 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 357
+[03-Jun-2025 08:14:56 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 357
+[03-Jun-2025 08:14:56 America/New_York] PHP Warning:  Undefined array key "created_at" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 360
+[03-Jun-2025 08:14:56 America/New_York] PHP Deprecated:  strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 360
+[03-Jun-2025 08:14:56 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 365
+[03-Jun-2025 08:14:56 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 365
+[03-Jun-2025 08:14:56 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 357
+[03-Jun-2025 08:14:56 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 357
+[03-Jun-2025 08:14:56 America/New_York] PHP Warning:  Undefined array key "created_at" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 360
+[03-Jun-2025 08:14:56 America/New_York] PHP Deprecated:  strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 360
+[03-Jun-2025 08:14:56 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 365
+[03-Jun-2025 08:14:57 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 365
+[03-Jun-2025 08:15:32 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[03-Jun-2025 08:15:32 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 08:15:32 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 08:15:32 America/New_York] PHP Warning:  Undefined array key "created_at" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 360
+[03-Jun-2025 08:15:32 America/New_York] PHP Deprecated:  strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 360
+[03-Jun-2025 08:15:32 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 365
+[03-Jun-2025 08:15:32 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 365
+[03-Jun-2025 08:15:32 America/New_York] PHP Warning:  Undefined array key "created_at" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 360
+[03-Jun-2025 08:15:32 America/New_York] PHP Deprecated:  strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 360
+[03-Jun-2025 08:15:32 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 365
+[03-Jun-2025 08:15:32 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 365
+[03-Jun-2025 08:15:32 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 357
+[03-Jun-2025 08:15:32 America/New_York] PHP Warning:  Undefined array key "created_at" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 360
+[03-Jun-2025 08:15:32 America/New_York] PHP Deprecated:  strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 360
+[03-Jun-2025 08:15:32 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 365
+[03-Jun-2025 08:15:32 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 365
+[03-Jun-2025 08:16:01 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[03-Jun-2025 08:16:01 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 08:16:01 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 08:16:01 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 366
+[03-Jun-2025 08:16:01 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 366
+[03-Jun-2025 08:16:01 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 366
+[03-Jun-2025 08:16:01 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 366
+[03-Jun-2025 08:16:01 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 358
+[03-Jun-2025 08:16:01 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 366
+[03-Jun-2025 08:16:01 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 366
+[03-Jun-2025 08:16:21 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[03-Jun-2025 08:16:21 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 08:16:21 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 08:16:21 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 358
+[03-Jun-2025 08:16:57 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[03-Jun-2025 08:16:57 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 08:16:57 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 08:17:07 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[03-Jun-2025 08:17:07 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 08:17:07 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 08:17:18 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[03-Jun-2025 08:17:18 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 08:17:18 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 08:17:38 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[03-Jun-2025 08:17:38 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 08:17:38 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 08:17:40 America/New_York] Script name: /lavartiportal/dashboard/affiliate.php
+[03-Jun-2025 08:17:40 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 08:17:40 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 10:01:35 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[03-Jun-2025 10:01:35 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 10:01:35 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 12:27:25 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[03-Jun-2025 12:27:25 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 12:27:25 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 12:29:57 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[03-Jun-2025 12:29:57 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 12:29:57 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 12:30:28 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[03-Jun-2025 12:30:28 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 12:30:28 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 12:30:36 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[03-Jun-2025 12:30:36 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 12:30:36 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 12:30:36 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 87
+[03-Jun-2025 12:30:36 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 87
+[03-Jun-2025 12:30:36 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 88
+[03-Jun-2025 12:30:36 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 88
+[03-Jun-2025 12:30:36 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 87
+[03-Jun-2025 12:30:36 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 87
+[03-Jun-2025 12:30:36 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 88
+[03-Jun-2025 12:30:36 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 88
+[03-Jun-2025 12:30:36 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 87
+[03-Jun-2025 12:30:36 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 87
+[03-Jun-2025 12:30:36 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 88
+[03-Jun-2025 12:30:36 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 88
+[03-Jun-2025 12:30:39 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[03-Jun-2025 12:30:39 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 12:30:39 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[04-Jun-2025 07:52:34 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[04-Jun-2025 07:52:34 America/New_York] Detected base path: /lavartiportal
+[04-Jun-2025 07:52:34 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[04-Jun-2025 07:53:01 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[04-Jun-2025 07:53:01 America/New_York] Detected base path: /lavartiportal
+[04-Jun-2025 07:53:01 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[04-Jun-2025 07:53:32 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[04-Jun-2025 07:53:32 America/New_York] Detected base path: /lavartiportal
+[04-Jun-2025 07:53:32 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[04-Jun-2025 07:53:39 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[04-Jun-2025 07:53:39 America/New_York] Detected base path: /lavartiportal
+[04-Jun-2025 07:53:39 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[04-Jun-2025 07:53:39 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 87
+[04-Jun-2025 07:53:39 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 87
+[04-Jun-2025 07:53:39 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 88
+[04-Jun-2025 07:53:39 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 88
+[04-Jun-2025 07:53:39 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 87
+[04-Jun-2025 07:53:39 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 87
+[04-Jun-2025 07:53:39 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 88
+[04-Jun-2025 07:53:39 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 88
+[04-Jun-2025 07:53:39 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 87
+[04-Jun-2025 07:53:39 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 87
+[04-Jun-2025 07:53:39 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 88
+[04-Jun-2025 07:53:39 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 88
+[04-Jun-2025 07:53:43 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[04-Jun-2025 07:53:43 America/New_York] Detected base path: /lavartiportal
+[04-Jun-2025 07:53:43 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[04-Jun-2025 07:53:58 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[04-Jun-2025 07:53:58 America/New_York] Detected base path: /lavartiportal
+[04-Jun-2025 07:53:58 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[04-Jun-2025 07:53:58 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 87
+[04-Jun-2025 07:53:58 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 87
+[04-Jun-2025 07:53:58 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 88
+[04-Jun-2025 07:53:58 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 88
+[04-Jun-2025 07:53:58 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 87
+[04-Jun-2025 07:53:58 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 87
+[04-Jun-2025 07:53:58 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 88
+[04-Jun-2025 07:53:58 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 88
+[04-Jun-2025 07:53:58 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 87
+[04-Jun-2025 07:53:58 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 87
+[04-Jun-2025 07:53:58 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 88
+[04-Jun-2025 07:53:58 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 88
+[04-Jun-2025 07:54:00 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[04-Jun-2025 07:54:00 America/New_York] Detected base path: /lavartiportal
+[04-Jun-2025 07:54:00 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[04-Jun-2025 07:54:06 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[04-Jun-2025 07:54:06 America/New_York] Detected base path: /lavartiportal
+[04-Jun-2025 07:54:06 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[04-Jun-2025 11:04:59 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[04-Jun-2025 11:04:59 America/New_York] Detected base path: /lavartiportal
+[04-Jun-2025 11:04:59 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[04-Jun-2025 11:05:27 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[04-Jun-2025 11:05:27 America/New_York] Detected base path: /lavartiportal
+[04-Jun-2025 11:05:27 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 06:40:15 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[05-Jun-2025 06:40:15 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 06:40:15 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 06:40:24 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[05-Jun-2025 06:40:24 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 06:40:24 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 06:40:35 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[05-Jun-2025 06:40:35 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 06:40:35 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 06:40:35 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 87
+[05-Jun-2025 06:40:35 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 87
+[05-Jun-2025 06:40:35 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 88
+[05-Jun-2025 06:40:35 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 88
+[05-Jun-2025 06:40:35 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 87
+[05-Jun-2025 06:40:35 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 87
+[05-Jun-2025 06:40:35 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 88
+[05-Jun-2025 06:40:35 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 88
+[05-Jun-2025 06:40:35 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 87
+[05-Jun-2025 06:40:35 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 87
+[05-Jun-2025 06:40:35 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 88
+[05-Jun-2025 06:40:35 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 88
+[05-Jun-2025 06:40:37 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[05-Jun-2025 06:40:37 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 06:40:37 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 06:42:54 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[05-Jun-2025 06:42:54 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 06:42:54 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 06:47:15 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[05-Jun-2025 06:47:15 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 06:47:15 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 06:47:29 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[05-Jun-2025 06:47:29 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 06:47:29 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:00:55 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[05-Jun-2025 07:00:55 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:00:55 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:01:03 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[05-Jun-2025 07:01:03 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:01:03 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:01:05 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[05-Jun-2025 07:01:05 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:01:05 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:01:05 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 87
+[05-Jun-2025 07:01:05 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 87
+[05-Jun-2025 07:01:05 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 88
+[05-Jun-2025 07:01:05 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 88
+[05-Jun-2025 07:01:05 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 87
+[05-Jun-2025 07:01:05 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 87
+[05-Jun-2025 07:01:05 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 88
+[05-Jun-2025 07:01:05 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 88
+[05-Jun-2025 07:01:05 America/New_York] PHP Warning:  Undefined array key "product_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 87
+[05-Jun-2025 07:01:05 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 87
+[05-Jun-2025 07:01:05 America/New_York] PHP Warning:  Undefined array key "amount" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 88
+[05-Jun-2025 07:01:05 America/New_York] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 88
+[05-Jun-2025 07:01:48 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[05-Jun-2025 07:01:48 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:01:48 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:03:52 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[05-Jun-2025 07:03:52 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:03:52 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:03:52 America/New_York] PHP Warning:  Undefined variable $user_id in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 48
+[05-Jun-2025 07:06:40 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[05-Jun-2025 07:06:40 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:06:40 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:06:40 America/New_York] PHP Warning:  Undefined array key "id" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 97
+[05-Jun-2025 07:06:40 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 97
+[05-Jun-2025 07:06:40 America/New_York] PHP Warning:  Undefined array key "id" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 107
+[05-Jun-2025 07:06:40 America/New_York] PHP Warning:  Undefined array key "id" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 97
+[05-Jun-2025 07:06:40 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 97
+[05-Jun-2025 07:06:40 America/New_York] PHP Warning:  Undefined array key "id" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 107
+[05-Jun-2025 07:06:40 America/New_York] PHP Warning:  Undefined array key "id" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 97
+[05-Jun-2025 07:06:40 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 97
+[05-Jun-2025 07:06:40 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 98
+[05-Jun-2025 07:06:40 America/New_York] PHP Warning:  Undefined array key "id" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 107
+[05-Jun-2025 07:11:42 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[05-Jun-2025 07:11:42 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:11:42 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:11:42 America/New_York] PHP Warning:  Undefined array key "id" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 97
+[05-Jun-2025 07:11:42 America/New_York] PHP Warning:  Undefined array key "id" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 107
+[05-Jun-2025 07:11:42 America/New_York] PHP Warning:  Undefined array key "id" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 97
+[05-Jun-2025 07:11:42 America/New_York] PHP Warning:  Undefined array key "id" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 107
+[05-Jun-2025 07:11:42 America/New_York] PHP Warning:  Undefined array key "id" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 97
+[05-Jun-2025 07:11:42 America/New_York] PHP Warning:  Undefined array key "id" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 107
+[05-Jun-2025 07:12:15 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[05-Jun-2025 07:12:15 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:12:15 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:12:15 America/New_York] PHP Warning:  Undefined array key "id" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 107
+[05-Jun-2025 07:12:15 America/New_York] PHP Warning:  Undefined array key "id" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 107
+[05-Jun-2025 07:12:15 America/New_York] PHP Warning:  Undefined array key "id" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 107
+[05-Jun-2025 07:12:32 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[05-Jun-2025 07:12:32 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:12:32 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:13:38 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[05-Jun-2025 07:13:38 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:13:38 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:16:11 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[05-Jun-2025 07:16:11 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:16:11 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:16:27 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[05-Jun-2025 07:16:27 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:16:27 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:17:46 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[05-Jun-2025 07:17:46 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:17:46 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:20:36 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[05-Jun-2025 07:20:36 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:20:36 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:21:43 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[05-Jun-2025 07:21:43 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:21:43 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:21:43 America/New_York] PHP Warning:  Undefined array key "item_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 98
+[05-Jun-2025 07:21:43 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 98
+[05-Jun-2025 07:21:43 America/New_York] PHP Warning:  Undefined array key "item_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 98
+[05-Jun-2025 07:21:43 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 98
+[05-Jun-2025 07:21:43 America/New_York] PHP Warning:  Undefined array key "item_name" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 98
+[05-Jun-2025 07:21:43 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/orders.php on line 98
+[05-Jun-2025 07:22:02 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[05-Jun-2025 07:22:02 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:22:02 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:22:22 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[05-Jun-2025 07:22:22 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:22:22 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:22:44 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[05-Jun-2025 07:22:44 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:22:44 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:22:51 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[05-Jun-2025 07:22:51 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:22:51 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:23:12 America/New_York] Script name: /lavartiportal/dashboard/affiliate.php
+[05-Jun-2025 07:23:12 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:23:12 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:23:16 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[05-Jun-2025 07:23:16 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:23:16 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:23:19 America/New_York] Script name: /lavartiportal/dashboard/affiliate.php
+[05-Jun-2025 07:23:19 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:23:19 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:23:54 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[05-Jun-2025 07:23:54 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:23:54 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:23:55 America/New_York] Script name: /lavartiportal/dashboard/account.php
+[05-Jun-2025 07:23:55 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:23:55 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:24:11 America/New_York] Script name: /lavartiportal/dashboard/affiliate.php
+[05-Jun-2025 07:24:11 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:24:11 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:24:32 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[05-Jun-2025 07:24:32 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:24:32 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:24:53 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[05-Jun-2025 07:24:53 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:24:53 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:42:44 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[05-Jun-2025 07:42:44 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:42:44 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:43:24 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[05-Jun-2025 07:43:24 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:43:24 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:44:41 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[05-Jun-2025 07:44:41 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:44:41 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:49:33 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[05-Jun-2025 07:49:33 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:49:33 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:49:33 America/New_York] PHP Warning:  Undefined variable $user_id in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/membership.php on line 114
+[05-Jun-2025 07:50:22 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[05-Jun-2025 07:50:22 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:50:22 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:50:39 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[05-Jun-2025 07:50:39 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:50:39 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:51:14 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[05-Jun-2025 07:51:14 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:51:14 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:51:14 America/New_York] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/membership.php on line 144
+[05-Jun-2025 07:51:27 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[05-Jun-2025 07:51:27 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:51:27 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:52:04 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[05-Jun-2025 07:52:04 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:52:04 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:52:54 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[05-Jun-2025 07:52:54 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:52:54 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:53:27 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[05-Jun-2025 07:53:27 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:53:27 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:54:01 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[05-Jun-2025 07:54:01 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:54:01 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:54:09 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[05-Jun-2025 07:54:09 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:54:09 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:54:22 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[05-Jun-2025 07:54:22 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:54:22 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:54:37 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[05-Jun-2025 07:54:37 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:54:37 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:54:54 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[05-Jun-2025 07:54:54 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:54:54 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:57:00 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[05-Jun-2025 07:57:00 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:57:00 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:57:22 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[05-Jun-2025 07:57:22 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:57:22 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 07:58:19 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[05-Jun-2025 07:58:19 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 07:58:19 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 08:22:29 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[05-Jun-2025 08:22:29 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 08:22:29 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 08:23:40 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[05-Jun-2025 08:23:40 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 08:23:40 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 08:23:59 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[05-Jun-2025 08:23:59 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 08:23:59 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 08:24:36 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[05-Jun-2025 08:24:36 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 08:24:36 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 08:25:19 America/New_York] Script name: /lavartiportal/dashboard/affiliate.php
+[05-Jun-2025 08:25:19 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 08:25:19 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 08:31:42 America/New_York] Script name: /lavartiportal/dashboard/affiliate.php
+[05-Jun-2025 08:31:42 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 08:31:42 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 08:31:45 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[05-Jun-2025 08:31:45 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 08:31:45 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 08:32:34 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[05-Jun-2025 08:32:34 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 08:32:34 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 08:32:38 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[05-Jun-2025 08:32:38 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 08:32:38 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 08:33:04 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[05-Jun-2025 08:33:04 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 08:33:04 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 08:33:08 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[05-Jun-2025 08:33:08 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 08:33:08 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 08:33:12 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[05-Jun-2025 08:33:12 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 08:33:12 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 08:33:47 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[05-Jun-2025 08:33:47 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 08:33:47 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 08:36:00 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[05-Jun-2025 08:36:00 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 08:36:00 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 08:36:03 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[05-Jun-2025 08:36:03 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 08:36:03 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 08:36:24 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[05-Jun-2025 08:36:24 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 08:36:24 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 08:37:40 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[05-Jun-2025 08:37:40 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 08:37:40 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 08:37:44 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[05-Jun-2025 08:37:44 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 08:37:44 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 08:38:01 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[05-Jun-2025 08:38:01 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 08:38:01 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 08:38:03 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[05-Jun-2025 08:38:03 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 08:38:03 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 08:38:19 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[05-Jun-2025 08:38:19 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 08:38:19 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 08:39:07 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[05-Jun-2025 08:39:07 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 08:39:07 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 08:39:57 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[05-Jun-2025 08:39:57 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 08:39:57 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 08:42:49 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[05-Jun-2025 08:42:49 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 08:42:49 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 08:43:38 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[05-Jun-2025 08:43:38 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 08:43:38 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 08:43:47 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[05-Jun-2025 08:43:47 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 08:43:47 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 11:31:43 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[05-Jun-2025 11:31:43 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 11:31:43 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 11:31:43 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/partials/sidebar.php on line 84
+[05-Jun-2025 11:31:43 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 240
+[05-Jun-2025 11:31:51 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[05-Jun-2025 11:31:51 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 11:31:51 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 11:31:58 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[05-Jun-2025 11:31:58 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 11:31:58 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 11:31:58 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/partials/sidebar.php on line 84
+[05-Jun-2025 11:36:37 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[05-Jun-2025 11:36:37 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 11:36:37 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 11:36:41 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[05-Jun-2025 11:36:41 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 11:36:41 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 11:36:48 America/New_York] Script name: /lavartiportal/dashboard/membership.php
+[05-Jun-2025 11:36:48 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 11:36:48 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 11:36:53 America/New_York] Script name: /lavartiportal/dashboard/orders.php
+[05-Jun-2025 11:36:53 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 11:36:53 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 11:36:57 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[05-Jun-2025 11:36:57 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 11:36:57 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 15:35:38 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[05-Jun-2025 15:35:38 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 15:35:38 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 15:35:49 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[05-Jun-2025 15:35:49 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 15:35:49 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 15:35:49 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/partials/sidebar.php on line 84
+[05-Jun-2025 15:35:49 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 240
+[10-Jun-2025 07:30:01 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[10-Jun-2025 07:30:01 America/New_York] Detected base path: /lavartiportal
+[10-Jun-2025 07:30:01 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[10-Jun-2025 07:30:01 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/partials/sidebar.php on line 84
+[10-Jun-2025 07:30:01 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 240
+[10-Jun-2025 07:42:04 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[10-Jun-2025 07:42:04 America/New_York] Detected base path: /lavartiportal
+[10-Jun-2025 07:42:04 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[10-Jun-2025 07:42:04 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/partials/sidebar.php on line 84
+[10-Jun-2025 07:42:04 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 240
+[10-Jun-2025 07:48:08 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[10-Jun-2025 07:48:08 America/New_York] Detected base path: /lavartiportal
+[10-Jun-2025 07:48:08 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[10-Jun-2025 07:48:08 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 240
+[10-Jun-2025 07:48:27 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[10-Jun-2025 07:48:27 America/New_York] Detected base path: /lavartiportal
+[10-Jun-2025 07:48:27 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[10-Jun-2025 07:48:27 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 240
+[10-Jun-2025 08:24:03 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[10-Jun-2025 08:24:03 America/New_York] Detected base path: /lavartiportal
+[10-Jun-2025 08:24:03 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[10-Jun-2025 08:24:03 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/dashboard/index.php on line 240
+[10-Jun-2025 08:28:12 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[10-Jun-2025 08:28:12 America/New_York] Detected base path: /lavartiportal
+[10-Jun-2025 08:28:12 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[10-Jun-2025 08:28:24 America/New_York] Script name: /lavartiportal/dashboard/index.php
+[10-Jun-2025 08:28:24 America/New_York] Detected base path: /lavartiportal
+[10-Jun-2025 08:28:24 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal

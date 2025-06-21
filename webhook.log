@@ -1,0 +1,28 @@
+[2025-05-28 15:02:29] User created: ID 15 email testing_products@gmail.com
+[2025-05-28 15:02:29] ❌ User ID missing after creation.
+[2025-05-28 15:02:58] User created: ID 16 email testing_products@gmail.com
+[2025-05-28 15:02:58] ❌ User ID missing after creation.
+[2025-05-28 15:04:06] User created: ID 17 email testing_products@gmail.com
+[2025-05-28 15:04:06] Order created: ID 12346 for User ID 17
+[2025-05-28 15:11:16] User found: ID 17 email testing_products@gmail.com
+[2025-05-28 15:11:16] Order created: ID 12347 for User ID 17
+[2025-05-28 15:29:04] User found: ID 17 email testing_products@gmail.com
+[2025-05-28 15:29:04] Order created: ID 12348 for User ID 17
+[2025-05-28 16:19:46] User found: ID 17 email testing_products@gmail.com
+[2025-05-28 16:19:46] Order created: ID 12349 for User ID 17
+[2025-05-28 16:19:46] Item 683656ce9ad15530eb3b6754 added to order 12349
+[2025-05-28 20:58:15] User created: ID 18 email johnwayneboston@gmail.com
+[2025-05-28 20:58:15] Order created: ID 12350 for User ID 18
+[2025-05-28 20:58:15] Item 683656ce9ad15530eb3b6754 added to order 12350
+[2025-05-29 00:50:04] User found: ID 18 email johnwayneboston@gmail.com
+[2025-05-29 00:50:04] Order created: ID 12351 for User ID 18
+[2025-05-29 00:50:04] Item 683656ce9ad15530eb3b6754 added to order 12351
+[2025-05-29 00:50:04] Item 68365ca9eddfe147d4a281c9 added to order 12351
+[2025-06-03 11:23:17] User found: ID 17 email testing_products@gmail.com
+[2025-06-03 11:23:17] Order created: ID 12352 for User ID 17
+[2025-06-03 11:23:17] Item 683656ce9ad15530eb3b6754 added to order 12352
+[2025-06-03 11:23:17] Item 68365ca9eddfe147d4a281c9 added to order 12352
+[2025-06-05 11:09:09] User found: ID 17 email testing_products@gmail.com
+[2025-06-05 11:09:09] Order created: ID 12353 for User ID 17
+[2025-06-05 11:09:09] Item 683656ce9ad15530eb3b6754 added to order 12353
+[2025-06-05 11:09:09] Item 68365ca9eddfe147d4a281c9 added to order 12353

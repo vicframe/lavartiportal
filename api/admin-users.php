@@ -50,7 +50,7 @@ try {
     // Get users with pagination
     $users_query = db_query("
         SELECT id, email, first_name, last_name, tier_id, ghl_id, is_admin, phone, 
-               created_at, updated_at, sponsor_id, replicated_site, pillars_id
+               created_at, updated_at, sponsor_id, pillars_id
         FROM users
         ORDER BY created_at DESC
         LIMIT ? OFFSET ?

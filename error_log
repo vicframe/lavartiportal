@@ -1,0 +1,241 @@
+[28-May-2025 11:26:51 America/New_York] Script name: /lavartiportal/index.php
+[28-May-2025 11:26:51 America/New_York] Detected base path: /lavartiportal
+[28-May-2025 11:26:51 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[28-May-2025 11:26:52 America/New_York] Script name: /lavartiportal/login.php
+[28-May-2025 11:26:52 America/New_York] Detected base path: /lavartiportal
+[28-May-2025 11:26:52 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[28-May-2025 11:26:54 America/New_York] Script name: /lavartiportal/login.php
+[28-May-2025 11:26:54 America/New_York] Detected base path: /lavartiportal
+[28-May-2025 11:26:54 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[28-May-2025 11:26:54 America/New_York] Attempting password verify: email=test@example.com, password hash=$2y$10$PUVTPH.4wGHUyXavzBjyfu/fvB8kcBO0PGiJ17P6ZdDdQnUN306eq
+[28-May-2025 11:26:54 America/New_York] Failed to store remember token: FUNCTION lavartiportal.to_regclass does not exist
+[28-May-2025 15:29:04 UTC] PHP Warning:  Undefined array key "orderId" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php on line 103
+[28-May-2025 16:19:46 UTC] PHP Warning:  Undefined array key "orderId" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php on line 103
+[28-May-2025 20:58:15 UTC] PHP Warning:  Undefined array key "orderId" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php on line 103
+[29-May-2025 00:50:04 UTC] PHP Warning:  Undefined array key "orderId" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php on line 103
+[29-May-2025 16:25:14 UTC] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php:84
+Stack trace:
+#0 /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php(84): mysqli_stmt->bind_param()
+#1 /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php(364): findOrCreateUser()
+#2 {main}
+  thrown in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php on line 84
+[29-May-2025 16:30:27 UTC] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php:84
+Stack trace:
+#0 /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php(84): mysqli_stmt->bind_param()
+#1 /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php(364): findOrCreateUser()
+#2 {main}
+  thrown in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php on line 84
+[29-May-2025 16:40:28 UTC] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php:84
+Stack trace:
+#0 /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php(84): mysqli_stmt->bind_param()
+#1 /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php(364): findOrCreateUser()
+#2 {main}
+  thrown in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php on line 84
+[29-May-2025 16:55:30 UTC] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php:84
+Stack trace:
+#0 /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php(84): mysqli_stmt->bind_param()
+#1 /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php(364): findOrCreateUser()
+#2 {main}
+  thrown in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php on line 84
+[29-May-2025 17:15:44 UTC] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php:84
+Stack trace:
+#0 /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php(84): mysqli_stmt->bind_param()
+#1 /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php(364): findOrCreateUser()
+#2 {main}
+  thrown in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php on line 84
+[03-Jun-2025 06:44:33 America/New_York] Script name: /lavartiportal/index.php
+[03-Jun-2025 06:44:33 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 06:44:33 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 06:44:41 America/New_York] Script name: /lavartiportal/login.php
+[03-Jun-2025 06:44:41 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 06:44:41 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 06:44:43 America/New_York] Script name: /lavartiportal/login.php
+[03-Jun-2025 06:44:43 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 06:44:43 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 06:44:43 America/New_York] Attempting password verify: email=test@example.com, password hash=$2y$10$PUVTPH.4wGHUyXavzBjyfu/fvB8kcBO0PGiJ17P6ZdDdQnUN306eq
+[03-Jun-2025 06:44:43 America/New_York] Failed to store remember token: FUNCTION lavartiportal.to_regclass does not exist
+[03-Jun-2025 11:23:17 UTC] PHP Warning:  Undefined array key "orderId" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php on line 104
+[03-Jun-2025 07:42:47 America/New_York] Script name: /lavartiportal/webhook_setup.php
+[03-Jun-2025 07:42:47 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 07:42:47 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 07:42:51 America/New_York] Script name: /lavartiportal/webhook_setup.php
+[03-Jun-2025 07:42:51 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 07:42:51 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 07:43:01 America/New_York] Script name: /lavartiportal/webhook_setup.php
+[03-Jun-2025 07:43:01 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 07:43:01 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 07:56:49 America/New_York] Script name: /lavartiportal/index.php
+[03-Jun-2025 07:56:49 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 07:56:49 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 07:56:51 America/New_York] Script name: /lavartiportal/login.php
+[03-Jun-2025 07:56:51 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 07:56:51 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 07:57:09 America/New_York] Script name: /lavartiportal/login.php
+[03-Jun-2025 07:57:09 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 07:57:09 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 07:57:09 America/New_York] Attempting password verify: email=testing_products@gmail.com, password hash=$2y$10$c5mHV42g6W8SV8QWcOF8xuJbZQgPcyTvRwM2AWly/3R/X35gRUMMa
+[03-Jun-2025 07:57:09 America/New_York] Failed to store remember token: FUNCTION lavartiportal.to_regclass does not exist
+[03-Jun-2025 10:01:44 America/New_York] Script name: /lavartiportal/index.php
+[03-Jun-2025 10:01:44 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 10:01:44 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 11:21:26 America/New_York] Script name: /lavartiportal/index.php
+[03-Jun-2025 11:21:26 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 11:21:26 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 11:40:55 America/New_York] Script name: /lavartiportal/index.php
+[03-Jun-2025 11:40:55 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 11:40:55 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 12:14:55 America/New_York] Script name: /lavartiportal/index.php
+[03-Jun-2025 12:14:55 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 12:14:55 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 12:27:11 America/New_York] Script name: /lavartiportal/index.php
+[03-Jun-2025 12:27:11 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 12:27:11 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 12:27:13 America/New_York] Script name: /lavartiportal/login.php
+[03-Jun-2025 12:27:13 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 12:27:13 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 12:27:15 America/New_York] Script name: /lavartiportal/login.php
+[03-Jun-2025 12:27:15 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 12:27:15 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 12:27:24 America/New_York] Script name: /lavartiportal/login.php
+[03-Jun-2025 12:27:24 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 12:27:24 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 12:27:24 America/New_York] Attempting password verify: email=test@example.com, password hash=$2y$10$PUVTPH.4wGHUyXavzBjyfu/fvB8kcBO0PGiJ17P6ZdDdQnUN306eq
+[03-Jun-2025 12:27:24 America/New_York] Failed to store remember token: FUNCTION lavartiportal.to_regclass does not exist
+[03-Jun-2025 12:30:13 America/New_York] Script name: /lavartiportal/index.php
+[03-Jun-2025 12:30:13 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 12:30:13 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 12:30:15 America/New_York] Script name: /lavartiportal/login.php
+[03-Jun-2025 12:30:15 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 12:30:15 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 12:30:28 America/New_York] Script name: /lavartiportal/login.php
+[03-Jun-2025 12:30:28 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 12:30:28 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[03-Jun-2025 12:30:28 America/New_York] Attempting password verify: email=testing_products@gmail.com, password hash=$2y$10$c5mHV42g6W8SV8QWcOF8xuJbZQgPcyTvRwM2AWly/3R/X35gRUMMa
+[03-Jun-2025 12:30:28 America/New_York] Failed to store remember token: FUNCTION lavartiportal.to_regclass does not exist
+[03-Jun-2025 13:12:07 America/New_York] Script name: /lavartiportal/index.php
+[03-Jun-2025 13:12:07 America/New_York] Detected base path: /lavartiportal
+[03-Jun-2025 13:12:07 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[04-Jun-2025 07:52:23 America/New_York] Script name: /lavartiportal/index.php
+[04-Jun-2025 07:52:23 America/New_York] Detected base path: /lavartiportal
+[04-Jun-2025 07:52:23 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[04-Jun-2025 07:52:25 America/New_York] Script name: /lavartiportal/login.php
+[04-Jun-2025 07:52:25 America/New_York] Detected base path: /lavartiportal
+[04-Jun-2025 07:52:25 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[04-Jun-2025 07:52:34 America/New_York] Script name: /lavartiportal/login.php
+[04-Jun-2025 07:52:34 America/New_York] Detected base path: /lavartiportal
+[04-Jun-2025 07:52:34 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[04-Jun-2025 07:52:34 America/New_York] Attempting password verify: email=test@example.com, password hash=$2y$10$PUVTPH.4wGHUyXavzBjyfu/fvB8kcBO0PGiJ17P6ZdDdQnUN306eq
+[04-Jun-2025 07:52:34 America/New_York] Failed to store remember token: FUNCTION lavartiportal.to_regclass does not exist
+[04-Jun-2025 07:53:27 America/New_York] Script name: /lavartiportal/index.php
+[04-Jun-2025 07:53:27 America/New_York] Detected base path: /lavartiportal
+[04-Jun-2025 07:53:27 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[04-Jun-2025 07:53:29 America/New_York] Script name: /lavartiportal/login.php
+[04-Jun-2025 07:53:29 America/New_York] Detected base path: /lavartiportal
+[04-Jun-2025 07:53:29 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[04-Jun-2025 07:53:32 America/New_York] Script name: /lavartiportal/login.php
+[04-Jun-2025 07:53:32 America/New_York] Detected base path: /lavartiportal
+[04-Jun-2025 07:53:32 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[04-Jun-2025 07:53:32 America/New_York] Attempting password verify: email=testing_products@gmail.com, password hash=$2y$10$c5mHV42g6W8SV8QWcOF8xuJbZQgPcyTvRwM2AWly/3R/X35gRUMMa
+[04-Jun-2025 07:53:32 America/New_York] Failed to store remember token: FUNCTION lavartiportal.to_regclass does not exist
+[05-Jun-2025 06:40:04 America/New_York] Script name: /lavartiportal/index.php
+[05-Jun-2025 06:40:04 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 06:40:04 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 06:40:07 America/New_York] Script name: /lavartiportal/login.php
+[05-Jun-2025 06:40:07 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 06:40:07 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 06:40:14 America/New_York] Script name: /lavartiportal/login.php
+[05-Jun-2025 06:40:14 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 06:40:14 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 06:40:14 America/New_York] Attempting password verify: email=test@example.com, password hash=$2y$10$PUVTPH.4wGHUyXavzBjyfu/fvB8kcBO0PGiJ17P6ZdDdQnUN306eq
+[05-Jun-2025 06:40:14 America/New_York] Failed to store remember token: FUNCTION lavartiportal.to_regclass does not exist
+[05-Jun-2025 06:40:17 America/New_York] Script name: /lavartiportal/index.php
+[05-Jun-2025 06:40:17 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 06:40:17 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 06:40:19 America/New_York] Script name: /lavartiportal/login.php
+[05-Jun-2025 06:40:19 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 06:40:19 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 06:40:23 America/New_York] Script name: /lavartiportal/login.php
+[05-Jun-2025 06:40:23 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 06:40:23 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 06:40:23 America/New_York] Attempting password verify: email=testing_products@gmail.com, password hash=$2y$10$c5mHV42g6W8SV8QWcOF8xuJbZQgPcyTvRwM2AWly/3R/X35gRUMMa
+[05-Jun-2025 06:40:24 America/New_York] Failed to store remember token: FUNCTION lavartiportal.to_regclass does not exist
+[05-Jun-2025 11:09:09 UTC] PHP Warning:  Undefined array key "orderId" in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php on line 104
+[05-Jun-2025 11:31:26 America/New_York] Script name: /lavartiportal/index.php
+[05-Jun-2025 11:31:26 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 11:31:26 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 11:31:31 America/New_York] Script name: /lavartiportal/login.php
+[05-Jun-2025 11:31:31 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 11:31:31 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 11:31:42 America/New_York] Script name: /lavartiportal/login.php
+[05-Jun-2025 11:31:42 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 11:31:42 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 11:31:42 America/New_York] Attempting password verify: email=test@example.com, password hash=$2y$10$PUVTPH.4wGHUyXavzBjyfu/fvB8kcBO0PGiJ17P6ZdDdQnUN306eq
+[05-Jun-2025 11:31:42 America/New_York] Failed to store remember token: FUNCTION lavartiportal.to_regclass does not exist
+[05-Jun-2025 11:36:29 America/New_York] Script name: /lavartiportal/index.php
+[05-Jun-2025 11:36:29 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 11:36:29 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 11:36:31 America/New_York] Script name: /lavartiportal/login.php
+[05-Jun-2025 11:36:31 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 11:36:31 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 11:36:36 America/New_York] Script name: /lavartiportal/login.php
+[05-Jun-2025 11:36:36 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 11:36:36 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 11:36:36 America/New_York] Attempting password verify: email=testing_products@gmail.com, password hash=$2y$10$c5mHV42g6W8SV8QWcOF8xuJbZQgPcyTvRwM2AWly/3R/X35gRUMMa
+[05-Jun-2025 11:36:36 America/New_York] Failed to store remember token: FUNCTION lavartiportal.to_regclass does not exist
+[05-Jun-2025 19:30:09 UTC] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php:84
+Stack trace:
+#0 /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php(84): mysqli_stmt->bind_param()
+#1 /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php(364): findOrCreateUser()
+#2 {main}
+  thrown in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php on line 84
+[05-Jun-2025 19:35:10 UTC] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php:84
+Stack trace:
+#0 /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php(84): mysqli_stmt->bind_param()
+#1 /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php(364): findOrCreateUser()
+#2 {main}
+  thrown in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php on line 84
+[05-Jun-2025 15:35:44 America/New_York] Script name: /lavartiportal/index.php
+[05-Jun-2025 15:35:44 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 15:35:44 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 15:35:46 America/New_York] Script name: /lavartiportal/login.php
+[05-Jun-2025 15:35:46 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 15:35:46 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 15:35:49 America/New_York] Script name: /lavartiportal/login.php
+[05-Jun-2025 15:35:49 America/New_York] Detected base path: /lavartiportal
+[05-Jun-2025 15:35:49 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[05-Jun-2025 15:35:49 America/New_York] Attempting password verify: email=test@example.com, password hash=$2y$10$PUVTPH.4wGHUyXavzBjyfu/fvB8kcBO0PGiJ17P6ZdDdQnUN306eq
+[05-Jun-2025 15:35:49 America/New_York] Failed to store remember token: FUNCTION lavartiportal.to_regclass does not exist
+[05-Jun-2025 19:45:20 UTC] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php:84
+Stack trace:
+#0 /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php(84): mysqli_stmt->bind_param()
+#1 /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php(364): findOrCreateUser()
+#2 {main}
+  thrown in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php on line 84
+[05-Jun-2025 20:01:56 UTC] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php:84
+Stack trace:
+#0 /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php(84): mysqli_stmt->bind_param()
+#1 /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php(364): findOrCreateUser()
+#2 {main}
+  thrown in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php on line 84
+[05-Jun-2025 20:21:58 UTC] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php:84
+Stack trace:
+#0 /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php(84): mysqli_stmt->bind_param()
+#1 /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php(364): findOrCreateUser()
+#2 {main}
+  thrown in /home/nhyhunzz2bh2/public_html/thephoenixlb.com/lavartiportal/test_webhook.php on line 84
+[10-Jun-2025 07:29:54 America/New_York] Script name: /lavartiportal/index.php
+[10-Jun-2025 07:29:54 America/New_York] Detected base path: /lavartiportal
+[10-Jun-2025 07:29:54 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[10-Jun-2025 07:29:57 America/New_York] Script name: /lavartiportal/login.php
+[10-Jun-2025 07:29:57 America/New_York] Detected base path: /lavartiportal
+[10-Jun-2025 07:29:57 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[10-Jun-2025 07:30:00 America/New_York] Script name: /lavartiportal/login.php
+[10-Jun-2025 07:30:00 America/New_York] Detected base path: /lavartiportal
+[10-Jun-2025 07:30:00 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[10-Jun-2025 07:30:00 America/New_York] Attempting password verify: email=test@example.com, password hash=$2y$10$PUVTPH.4wGHUyXavzBjyfu/fvB8kcBO0PGiJ17P6ZdDdQnUN306eq
+[10-Jun-2025 07:30:00 America/New_York] Script name: /lavartiportal/login.php
+[10-Jun-2025 07:30:00 America/New_York] Detected base path: /lavartiportal
+[10-Jun-2025 07:30:00 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[10-Jun-2025 07:41:58 America/New_York] Script name: /lavartiportal/index.php
+[10-Jun-2025 07:41:58 America/New_York] Detected base path: /lavartiportal
+[10-Jun-2025 07:41:58 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal

@@ -32,7 +32,7 @@ define('APP_VERSION', '1.0.0');
 // Set APP_URL and BASE_PATH safely whether called from web or CLI
 if (php_sapi_name() === 'cli') {
     define('APP_URL', 'http://localhost:5000');
-    define('BASE_PATH', '');
+    define('BASE_PATH', '/lavartiportal/');
 } else {
     // Manual override for base path - uncomment and set for subdirectory installations
     $manual_base_path = '/lavartiportal'; // Set to '' for root directory or '/your-subdirectory' for subdirectory installation
@@ -51,12 +51,13 @@ if (php_sapi_name() === 'cli') {
     error_log('Detected base path: ' . $base_path);
     
     // If application is in a subdirectory, the base path will be something like '/lavartiportal'
-    define('BASE_PATH', $base_path);
+    define('BASE_PATH', '/lavartiportal');
     
     // Set the full application URL
     define('APP_URL', (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . 
            '://' . $_SERVER['HTTP_HOST'] . BASE_PATH);
     
+    // define('APP_URL', '/lavartiportal');
     // Log the final APP_URL value
     error_log('APP_URL set to: ' . APP_URL);
 }
@@ -74,8 +75,12 @@ if (!file_exists(LOG_DIR)) {
 // Database configuration
 define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
 define('DB_NAME', getenv('DB_NAME') ?: 'lavartiportal');
-define('DB_USER', getenv('DB_USER') ?: 'root');
-define('DB_PASS', getenv('DB_PASS') ?: '');
+//define('DB_USER', getenv('DB_USER') ?: 'lavartiportal_user');
+//define('DB_PASS', getenv('DB_PASS') ?: 'bK({bzO){g7#');
+define('DB_USER', 'root');
+define('DB_PASS', '');
+
+
 define('DB_PORT', getenv('DB_PORT') ?: 3306);
 
 // API Keys (should be stored securely in environment variables)
@@ -86,7 +91,7 @@ define('PILLARS_API_KEY', getenv('PILLARS_API_KEY'));
 require_once __DIR__ . '/includes/functions.php';
 
 // Include database functions
-require_once __DIR__ . '/includes/database.php';
+//require_once __DIR__ . '/includes/database.php';
 
 /**
  * Get URI path

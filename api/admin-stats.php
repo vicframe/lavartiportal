@@ -39,7 +39,7 @@ try {
     $total_orders = $orders_result['count'];
     
     // Get total revenue
-    $revenue_query = db_query("SELECT COALESCE(SUM(amount), 0) as total FROM orders");
+    $revenue_query = db_query("SELECT COALESCE(SUM(total_amount), 0) as total FROM orders");
     $revenue_result = db_fetch_one($revenue_query);
     $total_revenue = $revenue_result['total'];
     
@@ -47,7 +47,8 @@ try {
     $commissions_query = db_query("SELECT COALESCE(SUM(amount), 0) as total FROM commissions");
     $commissions_result = db_fetch_one($commissions_query);
     $total_commissions = $commissions_result['total'];
-    
+    header("Access-Control-Allow-Origin: *");
+    header("Content-Type: application/json");
     // Return stats
     echo json_encode([
         'success' => true,

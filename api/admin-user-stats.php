@@ -27,17 +27,15 @@ if (!isset($user['is_admin']) || !$user['is_admin']) {
     exit;
 }
 
-try {
+// try {
     // Get total users count
     $total_query = db_query("SELECT COUNT(*) as count FROM users");
     $total_result = db_fetch_one($total_query);
     $total_users = $total_result['count'];
     
     // Get new users (last 30 days)
-    $new_users_query = db_query("
-        SELECT COUNT(*) as count FROM users
-        WHERE created_at >= NOW() - INTERVAL '30 days'
-    ");
+    $new_users_query = db_query("SELECT COUNT(*) as count FROM users
+    WHERE created_at >= NOW() - INTERVAL 30 DAY");
     $new_users_result = db_fetch_one($new_users_query);
     $new_users = $new_users_result['count'];
     
@@ -85,7 +83,7 @@ try {
             'eliteTierCount' => $elite_tier_count
         ]
     ]);
-} catch (Exception $e) {
-    http_response_code(500);
-    echo json_encode(['success' => false, 'error' => $e->getMessage()]);
-}
+// } catch (Exception $e) {
+//     http_response_code(500);
+//     echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+// }

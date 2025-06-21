@@ -33,15 +33,49 @@ try {
     
     // Build query
     $query = "
-        SELECT o.id, o.user_id, o.product_id, o.amount, o.status, o.order_date, o.created_at, 
-               o.updated_at, o.notes,
-               p.name as product_name, p.price as product_price, p.tier_level,
-               u.first_name, u.last_name, u.email, u.is_admin
-        FROM orders o
-        LEFT JOIN products p ON o.product_id = p.id
-        LEFT JOIN users u ON o.user_id = u.id
-        WHERE o.id = ?
-    ";
+       SELECT 
+    o.id AS order_id,
+    o.user_id, 
+    o.product_id, 
+    o.total_amount, 
+    o.status, 
+    o.order_date, 
+    o.created_at, 
+    o.updated_at,
+    
+    p.name AS product_name, 
+    p.price AS product_price, 
+    p.tier_level,
+    
+    -- Optional CASE fields
+    CASE 
+        WHEN p.tier_level = 1 THEN 'Basic'
+        WHEN p.tier_level = 2 THEN 'Premium'
+        WHEN p.tier_level = 3 THEN 'Elite'
+        ELSE 'Unknown'
+    END AS tier_name,
+    
+    CASE 
+        WHEN o.status = 'completed' THEN 'success'
+        WHEN o.status = 'pending' THEN 'warning'
+        WHEN o.status = 'failed' THEN 'danger'
+        ELSE 'secondary'
+    END AS status_class,
+    
+    u.first_name, 
+    u.last_name, 
+    u.email, 
+    u.is_admin,
+    
+    i.id AS item_id,
+    i.name AS item_name,
+    i.quantity AS item_quantity,
+    i.price AS item_price
+FROM orders o
+LEFT JOIN order_items i ON o.id = i.order_id
+LEFT JOIN products p ON o.product_id = p.id
+LEFT JOIN users u ON o.user_id = u.id
+WHERE o.id = ?";
     
     // Execute query
     $order_result = db_query($query, [$order_id]);

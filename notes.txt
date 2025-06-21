@@ -1,0 +1,357 @@
+RSI API DOCUMENTATION
+
+Need a place on the top right side of the home page to login into umair’s portal.  
+
+Need a button on umairs portal that says “access Travel Portal” which will then go to the RSI side. 
+
+Purpose: To integrate the Passport Lite, Passport and Passport Travel Agent products between IDSTC/Flight and RSI using a SSO process.  By so doing, the user will have the ability to automatically access (providing they are an actively paying member) the RSI product booking engine or travel agent portals based on the product SKU they have purchased.  
+
+Note: As this is a new API provided by RSI, this API needs to replace the current API used for the existing Travology product.  
+
+RSI PRODUCT ORGANIZATIONS
+There are 3 product organizations in the RSI system with each organization being identified by an Organization ID.  The calls need to reference the Org ID along with subsequent Package IDs for the specific product type.  
+OrganizationID
+Passport Lite = 803
+Passport (Dashlife/Travology) = 793
+Passport Travel Agent = 826
+
+For NEW Enrollments only – applies for both Members (Customers) and Affiliates (Consultants)
+If the enrollment/join SKU has the product classification identifier “Passport Lite” then the following code is used to add the new member to the RSI system using the createupdate method.  
+OrganizationID
+Passport Lite = 803
+Passport (Dashlife/Travology) = 793
+Passport Travel Agent = 826
+
+Note: You do not need to include the package Id for the initial add member to RSI system for the createupdate method.
+POST the new member to  https://middleware.accessrsi.com/api/members/createupdate/<organizationID>/jwt
+JWT encrypt body for createupdate method example
+{
+  "id": "<Your Identifier for this customer>",
+  "firstName": "Test",
+  "lastName": "User",
+  "email": "test2251@mail.com",
+  "phone1": "221499",
+  "address1": "123 Anywhere Place",
+  "city": "Any City",
+  "state": "FL",
+  "postalCode": "12345",
+  "country": "USA"
+}
+A. Create/Update member method 
+POST 
+URL: https://middleware.accessrsi.com/api/members/createupdate/803 /jwt
+BODY: x-www-form-urlencoded Key: value Value: JWT encrypted body from above
+RESPONSE: 
+{
+    "rsiId": 1776489,
+    "message": "Success"
+}
+
+POSTMAN Example
+POST /api/members/createupdate/793/jwt HTTP/1.1
+Host: middleware.accessrsi.com
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 362
+
+value=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InhveG9vbzExeG9vb3hvIiwiZmlyc3ROYW1lIjoiVGVzdCIsImxhc3ROYW1lIjoiVXNlciIsImVtYWlsIjoidGVzdDIyNTFAbWFpbC5jb20iLCJwaG9uZTEiOiIyMjE0OTkiLCJhZGRyZXNzMSI6IjEyMyBBbnl3aGVyZSBQbGFjZSIsImNpdHkiOiJBbnkgQ2l0eSIsInN0YXRlIjoiRkwiLCJwb3N0YWxDb2RlIjoiMTIzNDUiLCJjb3VudHJ5IjoiVVNBIn0.-L_-pnrOJqhht_ya5R7oHfYggl4QfxFfmlFdCjc7nXU
+
+STANDARD LOGIN TO ACCESS THE BENEFITS (AFTER ACCOUNT IS CREATED)
+All three login bypass urls the secret key is: %#c@r#vRS022 so for sk=<MD5(%#c@r#vRS022 and your member identifier)>
+
+Passport Lite:
+https://passportlite.thedash.life/index.php?uid=<your identifier for the member>&sk=<MD 5 hash(Your secret key + your identifier)>
+
+Passport (DashLife):
+https://sso.thedash.life/index.php?uid=<your identifier for the member>&sk=<MD 5 hash(Your secret key + your identifier)>
+
+Passport Travel Agent:
+https://travelagent.thedash.life/index.php?uid=<your identifier for the member>&sk=<MD 5 hash(Your secret key + your identifier)>
+
+
+CHANGING/UPGRADING TO A DIFFERENT PRODUCT
+For the package update api method (memberchangepackage) you will need the new package Id to update to and the current organization Id that member is under.
+
+Passport Lite to Passport (DashLife):
+SKU will have the product classification: Passport (DashLife)
+The upgrade Dash life package ID: 1477 
+Current organizationID: 803
+
+Passport Lite to Passport Travel Agent:
+SKU will have the product classification: Travel Agent
+The upgrade Dash life package ID: 1677 
+Current organizationID: 803
+
+Passport (DashLife) to Passport Lite:
+SKU will have the product classification: Passport Lite
+The upgrade Dash life package ID: 1621
+Current organizationID: 793
+
+Passport (DashLife) to Passport Travel Agent:
+SKU will have the product classification: Travel Agent
+The upgrade Dash life package ID: 1677 
+Current organizationID: 793
+
+Passport Travel Agent to Passport (DashLife):
+SKU will have the product classification: Travel Agent
+The upgrade Dash life package ID: 1477 
+Current organizationID: 826
+
+Passport Travel Agent to Passport Lite:
+SKU will have the product classification: Travel Agent
+The upgrade Dash life package ID: 1621
+Current organizationID: 826
+
+The update package api method has 2 calls.
+1. POST: API to get the bearer token to place in the header of the second call.
+2. PUT: API to change the package. Make sure you put the bearer token in the header of this call.
+
+
+1. POST to get bearer token
+URL: https://authorize.accessrsi.com/connect/token
+BODY:client_id=levarti&client_secret=!l@cebVTk#&grant_type=password&username=levarti@login.com&password=$b@e001$!!#
+RESPONSE (Grab the access_token to use in the header of the next call): 
+{
+    "access_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImUwYmQ2YmI1MTI4ZmNlYmRlMjBmMTYxYjYwM2Y4OGJmIiwidHlwIjoiSldUIn0.eyJuYmYiOjE3MjgwNjg1NzksImV4cCI6MTcyODA3MjE3OSwiaXNzIjoiaHR0cHM6Ly9hdXRob3JpemUuYWNjZXNzcnNpLmNvbSIsImF1ZCI6Imh0dHBzOi8vYXV0aG9yaXplLmFjY2Vzc3JzaS5jb20vcmVzb3VyY2VzIiwiY2xpZW50X2lkIjoibGV2YXJ0aSIsInN1YiI6IjEwIiwiYXV0aF90aW1lIjoxNzI4MDY4NTc5LCJpZHAiOiJsb2NhbCIsInNjb3BlIjpbImFwaTEiXSwiYW1yIjpbInB3ZCJdfQ.ju9UJoJjHljhdoqfuM9HBtQeb4thXaSCMFKGfdhfDBO6mWAvXNeVHj8E0JwT1aw7OvZWeElKnUNZdO5WdkZIBOIIfyK0PoppTdQCGgLym7Or3Ni9ZLmgPgzgWY5d_Nnf6X705mKplUpC3_deGVTDN7XbjGlS2YlanaiHD6GvmDKJ80ndmyxKEaOVYZjaZiGAm7PoAloYZpGTxIbEMX5OYu13ljM6QfMhCeOLdT-BhZ-Qi1q3uiHG72UKf_2jbQvkR55ZTHiqgOKyB1KrIOGYYWJVU2NMi56qdMsZBuR872w5t73DtfEgxgRqvuuFn2wYzTlW3TqSNZQJkVozXeQ5PQ",
+    "expires_in": 3600,
+    "token_type": "Bearer"
+}
+
+POSTMAN EXAMPLE
+POST /connect/token HTTP/1.1
+Host: authorize.accessrsi.com
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 110
+
+client_id=levarti&client_secret=!l@cebVTk#&grant_type=password&username=levarti@login.com&password=$b@e001$!!#
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+2. PUT to update package
+URL: https://svc.accessrsi.com/membermanagerapi/memberchangepackage/<Current Org Id the member belongs to before upgrade>
+HEADER: Key: Authorization Value: Bearer <Whatever the access_token you got in the previous call>
+BODY: (If you are saving the rsiId we give you in the response to the createupdate method use "rsiId": <Whatever the RSI Id we returned to you> and you can leave off the organizationId in the url. If you are using your own identifier the "id" field is required and the organization Id is required in the url.
+Example using your own identifier 
+URL: https://svc.accessrsi.com/membermanagerapi/memberchangepackage/803 
+Body:
+{
+    "id": "<Your Identifier for this customer>",
+    "packageId": 1677 (New package id to upgrade the member to. This example package id belongs to Org Id 826, the travel agent org)
+}
+
+Example using the RSIId we provide in the createupdate method
+URL: https://svc.accessrsi.com/membermanagerapi/memberchangepackage/
+Body: 
+{
+    "rsiId": 12345, 
+    "packageId": 1677
+}
+RESPONSE: 
+{
+  "isSuccess": true,
+  "rsiId": 1751986
+}
+
+POSTMAN Example
+PUT /membermanagerapi/memberchangepackage/803 HTTP/1.1
+Host: svc.accessrsi.com
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjQxYzA1NDk2NmE1NmM0YzY1NGQ0NGNiNmVlODRlMWYwIiwidHlwIjoiSldUIn0.eyJuYmYiOjE3MjgwNjY3MDIsImV4cCI6MTcyODA3MDMwMiwiaXNzIjoiaHR0cHM6Ly9hdXRob3JpemUuYWNjZXNzcnNpLmNvbSIsImF1ZCI6Imh0dHBzOi8vYXV0aG9yaXplLmFjY2Vzc3JzaS5jb20vcmVzb3VyY2VzIiwiY2xpZW50X2lkIjoiYXJpc3RhcnRyYXZlbC5jbHViIiwic3ViIjoiMjUiLCJhdXRoX3RpbWUiOjE3MjgwNjY3MDIsImlkcCI6ImxvY2FsIiwic2NvcGUiOlsiYXBpMSJdLCJhbXIiOlsicHdkIl19.QXXwyqS_Ldnnz9zFscT5eAb3VgOtbasBlriZ1DHKeed0LwaTse5eTzR2FmurQ5tje09Au9UHWArZIcuEEB4Z3-iHyetkl3Mr_yk5wNC_J3I30YKqGkJY0qf-h846o1mMSsqbKWpABBabrRrnUXx-O2_yVWR4_XqZ0FsOcvbn0NnNBDJCLqYOxM_kcqQ01dEWdHr5QjPhl26XDuv8mnE5FNWff1COvWM-dphpAfLJBw1OfLcOEhDqm4iSMRfKaK_D2rVhJrKiF7jwUzA93Ulh1iLCXOQX2qNcXY4VX5VibBiFsb9AUrbrM-Aj8VfSl9GQzv9rFsDiLPnJiuX2yO1kvA
+Content-Type: application/json
+Content-Length: 54
+
+{
+    "id": "<Your Identifier for this customer>",
+    "packageId": 1677
+} 
+-- 
+
+DEACTIVATING A MEMBER
+According to the RSI API, all members will continue to stay active each month unless we notify RSI that the member has not been paying their monthly subscription.  
+Stage 1:
+In the Flight backoffice, when a member clicks on the link to access their travel portal access (Passport Lite, Passport (Dashlife), Passport Travel Agent), the Flight system needs to check if they have purchased that corresponding SKU (with the corresponding product classification) within the past 45 days.  
+Product Classifications:
+Passport Lite: Passport Lite
+Passport (DashLife/Travology): Passport (DashLife)
+Passport Travel Agent: Travel Agent
+
+Stage 2 (Separate billable project):
+Flight will develop a daily check to see if the person has purchased in the current day plus the previous 44 days.  If not, then Flight will deactivate the account through the RSI API.  
+
+To deactivate a member:
+POST TO: https://middleware.accessrsi.com/api/members/createupdate/<Org Id the member is in>/jwt
+JWT Encrypt Body
+{
+   "id": "<Your Identifier for this customer>",
+   "isActive": false;
+   "blockReason": "<Reason the member is blocked.  Only add if isActive is set to false>"
+} 
+
+Notice to Member/Affiliate (Customer/Consultant) if they try to click on a Travel Portal link in the backoffice and have not purchased in the past 45 days.  
+
+If the member/Affiliate clicks to access a travel portal from the backoffice (Passport Lite, Passport Dashlife, Passport Travel Agent) and the account does not have an active purchase the current day plus the previous 44 days, then the following error needs to be displayed: 
+"Oops! It looks like you don’t have access to this travel portal just. No worries—reach out to our friendly customer support team at support@golevarti.com or give us a call at 1-727-618-2790, and 
+
+
+Below are the cloudflare credentials for golevarti.com site:
+
+ 
+
+UN: dave@strykeconsulting.com
+
+PW: Levarti2023!
+
+Select the levarti@isdstc.com profile
+
+ 
+
+Dave
+
+
+dave@strykeconsulting.com
+Access Travel Portal
+
+David Price 7:30 PM
+PW: Levarti123!
+
+
+
+(http.request.full_uri wildcard "http://*")
+
+
+Use expression builder
+(http.request.full_uri wildcard "http://*")
+Then...
+URL redirect
+Type
+Dynamic
+Expression
+wildcard_replace(http.request.full_uri, "http://*", "https://${1}")
+Status code 301
+
+add_action('template_redirect', function () {
+    if ( is_admin() ) return;
+
+    $request_uri = trim($_SERVER['REQUEST_URI'], '/');
+
+    // If root homepage
+    if ( $request_uri === '' ) {
+        wp_redirect('https://dashlifetravel.com/', 301);
+        exit;
+    }
+
+    // If vanity affiliate like /jake, /maria, etc
+    if ( preg_match('/^[a-zA-Z0-9_-]+$/', $request_uri) ) {
+        wp_redirect('https://dashlifetravel.com/?ref=' . urlencode($request_uri), 301);
+        exit;
+    }
+
+    // Otherwise, let WordPress handle it
+});
+
+
+
+
+
+
+add_action('template_redirect', function() {
+    if ( !is_admin() && is_front_page() ) {
+        wp_redirect('https://dashlifetravel.com/', 301);
+        exit;
+    }
+});
+
+update
+
+handle /src value return now
+
+add_action('init', function () {
+    if ( is_admin() ) return;
+
+    $uri = trim($_SERVER['REQUEST_URI'], '/');
+
+    // Homepage → just redirect to main
+    if ($uri === '') {
+        wp_redirect('https://dashlifetravel.com', 301);
+        exit;
+    }
+
+    // Affiliate URLs like /jake → redirect to sale page with scr param
+    if ( preg_match('/^[a-zA-Z0-9_-]+$/', $uri) ) {
+        wp_redirect('https://dashlifetravel.com/sale?scr=' . urlencode($uri), 301);
+        exit;
+    }
+}, 0); // Run before themes/plugins
+
+
+
+<button id="redirectButton" style="background-color:#143fd4;color:white;padding:20px 40px;border:none;border-radius:50px;font-size:18px;cursor:pointer;">
+  Yes! Show me the savings!<br>join the #dashlife
+</button>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const btn = document.getElementById("redirectButton");
+    const params = new URLSearchParams(window.location.search);
+    const src = params.get("src") || "organic";
+    const checkoutBase = "https://dashlifetravel.com/pass-us-travel-2446";
+
+    btn.addEventListener("click", function () {
+      window.location.href = `${checkoutBase}?src=${encodeURIComponent(src)}`;
+    });
+  });
+</script>*/
+
+
+
+https://dashlifetravel.com/special-4010-3507?src=
+
+
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const src = params.get("src") || "direct";
+
+  const form = document.querySelector("form");
+  if (form) {
+    form.addEventListener("submit", function () {
+      setTimeout(() => {
+        window.location.href = `https://dashlifetravel.com/special-4010-3507?src=${src}`;
+      }, 200);
+    });
+  }
+</script>
+
+
+//fallback 
+<script>
+  // Fallback for missing src param
+  const urlParams = new URLSearchParams(window.location.search);
+  const src = urlParams.get('src') || 'direct';
+
+  // Optional: populate hidden field as backup
+  const hiddenField = document.querySelector('input[name="website"]');
+  if (hiddenField && !hiddenField.value) {
+    hiddenField.value = src;
+  }
+</script>
+
+
+
+//tracking code footer 
+
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const src = urlParams.get('src') || 'direct';
+
+  // Save to localStorage for next page if needed
+  localStorage.setItem('src', src);
+
+  // Optional: auto-fill hidden input with src
+  const hiddenField = document.querySelector('input[name="website"]');
+  if (hiddenField) hiddenField.value = src;
+
+  // Handle buttons without hardcoding
+  const buttons = document.querySelectorAll('a[data-append-src]');
+  buttons.forEach(btn => {
+    btn.href = `${btn.href}?src=${src}`;
+  });
+</script>

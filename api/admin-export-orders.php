@@ -43,8 +43,7 @@ try {
     
     // Build query
     $query = "
-        SELECT o.id, o.user_id, o.product_id, o.amount, o.status, o.order_date, o.created_at, 
-               o.notes,
+        SELECT o.id, o.user_id, o.product_id, o.total_amount, o.status, o.order_date, o.created_at,
                p.name as product_name, p.price as product_price, p.tier_level,
                u.first_name, u.last_name, u.email
         FROM orders o
@@ -139,7 +138,7 @@ try {
                 $order['email'],
                 $order['product_name'],
                 $tierName,
-                $order['amount'],
+                $order['total_amount'],
                 ucfirst($order['status']),
                 date('Y-m-d', strtotime($order['order_date'])),
                 date('Y-m-d H:i:s', strtotime($order['created_at'])),
@@ -189,7 +188,7 @@ try {
                 <td>' . $order['id'] . '</td>
                 <td>' . $order['first_name'] . ' ' . $order['last_name'] . '<br><small>' . $order['email'] . '</small></td>
                 <td>' . $order['product_name'] . '</td>
-                <td>$' . number_format($order['amount'], 2) . '</td>
+                <td>$' . number_format($order['total_amount'], 2) . '</td>
                 <td>' . $statusUpper . '</td>
                 <td>' . $orderDate . '</td>
             </tr>';

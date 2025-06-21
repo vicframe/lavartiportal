@@ -1,379 +1,444 @@
 <?php
 /**
- * Database functions using MySQLi
+ * FINAL MySQLi Database Implementation
+ * NO PostgreSQL Functions, NO JSON fields
  */
 
-// Database connection instance
-$db_conn = null;
+// Global database connection
+$mysqli = null;
 
 /**
- * Connect to the database
- * 
- * @return mysqli Database connection
+ * Get database connection
  */
 function db_connect() {
-    global $db_conn;
+    global $mysqli;
     
-    if ($db_conn === null) {
-        // Database configuration
-        $db_host = 'localhost';
-        $db_user = 'root';
-        $db_pass = '';
-        $db_name = 'lavartiportal';
-        
+    if ($mysqli === null) {
         // Create connection
-        $db_conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
+        $mysqli = new mysqli('localhost', 'lavartiportal_user', 'bK({bzO){g7#', 'lavartiportal');
         
         // Check connection
-        if ($db_conn->connect_error) {
-            error_log("Connection failed: " . $db_conn->connect_error);
-            die("Database connection failed. Please check your configuration.");
+        if ($mysqli->connect_error) {
+            die('Database connection failed: ' . $mysqli->connect_error);
         }
-        
-        // Set character set
-        $db_conn->set_charset("utf8mb4");
     }
     
-    return $db_conn;
+    return $mysqli;
 }
 
 /**
- * Execute a query
- * 
- * @param string $sql SQL query
- * @return mysqli_result|bool Query result
+ * Execute a SQL query without placeholders
  */
-function db_query($sql) {
+function db_execute($sql) {
     $conn = db_connect();
     $result = $conn->query($sql);
     
-    if ($result === false) {
-        error_log("Query error: " . $conn->error . " - SQL: " . $sql);
-        throw new Exception("Database query error: " . $conn->error);
+    if (!$result && $conn->errno) {
+        throw new Exception("Database query failed: " . $conn->error);
     }
     
     return $result;
 }
 
 /**
- * Prepare and execute a statement
- * 
- * @param string $sql SQL query
- * @param string $types Parameter types (e.g., 'ssi' for string, string, integer)
- * @param array $params Parameters to bind
- * @return mysqli_stmt Prepared statement
+ * Execute a SQL query with parameters
  */
-function db_prepare($sql, $types = '', $params = []) {
+function db_query($sql, $params = []) {
+    // No parameters, just run the query directly
+    if (empty($params)) {
+        return db_execute($sql);
+    }
+    
+    // With parameters, use prepared statement
     $conn = db_connect();
     $stmt = $conn->prepare($sql);
     
-    if ($stmt === false) {
-        error_log("Prepare error: " . $conn->error . " - SQL: " . $sql);
-        throw new Exception("Database prepare error: " . $conn->error);
+    if (!$stmt) {
+        throw new Exception("Database prepare failed: " . $conn->error);
     }
     
     if (!empty($params)) {
-        // Dynamically bind parameters
-        $bindParams = array();
-        $bindParams[] = $types;
-        
-        for ($i = 0; $i < count($params); $i++) {
-            $bindParams[] = &$params[$i];
+        // Build types string
+        $types = '';
+        foreach ($params as $param) {
+            if (is_int($param)) {
+                $types .= 'i'; // integer
+            } elseif (is_float($param)) {
+                $types .= 'd'; // double
+            } else {
+                $types .= 's'; // string
+            }
         }
         
-        call_user_func_array(array($stmt, 'bind_param'), $bindParams);
+        // Bind parameters
+        $stmt->bind_param($types, ...$params);
     }
     
-    $result = $stmt->execute();
+    // Execute the statement
+    $stmt->execute();
     
-    if ($result === false) {
-        error_log("Execute error: " . $stmt->error . " - SQL: " . $sql);
-        throw new Exception("Database execute error: " . $stmt->error);
-    }
-    
-    return $stmt;
+    // Return result set
+    return $stmt->get_result();
 }
 
 /**
- * Insert data into a table
- * 
- * @param string $table Table name
- * @param array $data Associative array of column => value
- * @return int Inserted ID
+ * Fetch all rows
+ */
+function db_fetch_all($result) {
+    if (!$result) {
+        return [];
+    }
+    
+    if ($result instanceof mysqli_stmt) {
+        $result = $result->get_result();
+    }
+    
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
+
+/**
+ * Fetch one row
+ */
+function db_fetch_one($result) {
+    if (!$result) {
+        return null;
+    }
+    
+    if ($result instanceof mysqli_stmt) {
+        $result = $result->get_result();
+    }
+    
+    return $result->fetch_assoc();
+}
+
+/**
+ * Insert data
  */
 function db_insert($table, $data) {
     $conn = db_connect();
     
-    $columns = array_keys($data);
-    $values = array_values($data);
+    // Build column names and placeholders
+    $columns = implode(', ', array_keys($data));
+    $placeholders = rtrim(str_repeat('?, ', count($data)), ', ');
     
-    $placeholder = '';
+    // Create SQL
+    $sql = "INSERT INTO `$table` ($columns) VALUES ($placeholders)";
+    
+    // Prepare statement
+    $stmt = $conn->prepare($sql);
+    
+    if (!$stmt) {
+        throw new Exception("Database insert failed: " . $conn->error);
+    }
+    
+    // Build types string
     $types = '';
-    
+    $values = array_values($data);
     foreach ($values as $value) {
-        $placeholder .= '?,';
-        
         if (is_int($value)) {
-            $types .= 'i';
+            $types .= 'i'; // integer
         } elseif (is_float($value)) {
-            $types .= 'd';
-        } elseif (is_bool($value)) {
-            $types .= 'i';
-            // Convert boolean to integer (0 or 1)
-            $key = array_search($value, $values);
-            $values[$key] = $value ? 1 : 0;
+            $types .= 'd'; // double
         } else {
-            $types .= 's';
+            $types .= 's'; // string
         }
     }
     
-    $placeholder = rtrim($placeholder, ',');
+    // Bind parameters
+    $stmt->bind_param($types, ...$values);
     
-    $sql = "INSERT INTO $table (" . implode(',', $columns) . ") VALUES ($placeholder)";
+    // Execute
+    $stmt->execute();
     
-    $stmt = db_prepare($sql, $types, $values);
-    $insertId = $stmt->insert_id;
+    // Get insert ID
+    $id = $conn->insert_id;
+    
+    // Close statement
     $stmt->close();
     
-    return $insertId;
+    return $id;
 }
 
 /**
- * Update data in a table
- * 
- * @param string $table Table name
- * @param array $data Associative array of column => value to update
- * @param array $where Associative array of column => value for WHERE clause
- * @return int Number of affected rows
+ * Update data
  */
 function db_update($table, $data, $where) {
     $conn = db_connect();
     
-    $set = '';
-    $whereClause = '';
-    $values = [];
-    $types = '';
-    
+    // Build SET clause
+    $set = [];
     foreach ($data as $column => $value) {
-        $set .= "$column = ?,";
-        $values[] = $value;
-        
-        if (is_int($value)) {
-            $types .= 'i';
-        } elseif (is_float($value)) {
-            $types .= 'd';
-        } elseif (is_bool($value)) {
-            $types .= 'i';
-            // Convert boolean to integer (0 or 1)
-            $key = array_search($value, $values);
-            $values[$key] = $value ? 1 : 0;
-        } else {
-            $types .= 's';
-        }
+        $set[] = "`$column` = ?";
     }
+    $set = implode(', ', $set);
     
-    $set = rtrim($set, ',');
-    
+    // Build WHERE clause
+    $whereClause = [];
     foreach ($where as $column => $value) {
-        $whereClause .= "$column = ? AND ";
-        $values[] = $value;
-        
+        $whereClause[] = "`$column` = ?";
+    }
+    $whereClause = implode(' AND ', $whereClause);
+    
+    // Create SQL
+    $sql = "UPDATE `$table` SET $set WHERE $whereClause";
+    
+    // Prepare statement
+    $stmt = $conn->prepare($sql);
+    
+    if (!$stmt) {
+        throw new Exception("Database update failed: " . $conn->error);
+    }
+    
+    // Build types string and merge params
+    $types = '';
+    $values = array_merge(array_values($data), array_values($where));
+    foreach ($values as $value) {
         if (is_int($value)) {
-            $types .= 'i';
+            $types .= 'i'; // integer
         } elseif (is_float($value)) {
-            $types .= 'd';
-        } elseif (is_bool($value)) {
-            $types .= 'i';
-            // Convert boolean to integer (0 or 1)
-            $key = array_search($value, $values);
-            $values[$key] = $value ? 1 : 0;
+            $types .= 'd'; // double
         } else {
-            $types .= 's';
+            $types .= 's'; // string
         }
     }
     
-    $whereClause = rtrim($whereClause, ' AND ');
+    // Bind parameters
+    $stmt->bind_param($types, ...$values);
     
-    $sql = "UPDATE $table SET $set WHERE $whereClause";
+    // Execute
+    $stmt->execute();
     
-    $stmt = db_prepare($sql, $types, $values);
-    $affectedRows = $stmt->affected_rows;
+    // Get affected rows
+    $affected = $stmt->affected_rows;
+    
+    // Close statement
     $stmt->close();
     
-    return $affectedRows;
+    return $affected;
 }
 
 /**
- * Delete data from a table
- * 
- * @param string $table Table name
- * @param array $where Associative array of column => value for WHERE clause
- * @return int Number of affected rows
+ * Delete data
  */
 function db_delete($table, $where) {
     $conn = db_connect();
     
-    $whereClause = '';
-    $values = [];
-    $types = '';
-    
+    // Build WHERE clause
+    $whereClause = [];
     foreach ($where as $column => $value) {
-        $whereClause .= "$column = ? AND ";
-        $values[] = $value;
-        
+        $whereClause[] = "`$column` = ?";
+    }
+    $whereClause = implode(' AND ', $whereClause);
+    
+    // Create SQL
+    $sql = "DELETE FROM `$table` WHERE $whereClause";
+    
+    // Prepare statement
+    $stmt = $conn->prepare($sql);
+    
+    if (!$stmt) {
+        throw new Exception("Database delete failed: " . $conn->error);
+    }
+    
+    // Build types string
+    $types = '';
+    $values = array_values($where);
+    foreach ($values as $value) {
         if (is_int($value)) {
-            $types .= 'i';
+            $types .= 'i'; // integer
         } elseif (is_float($value)) {
-            $types .= 'd';
-        } elseif (is_bool($value)) {
-            $types .= 'i';
-            // Convert boolean to integer (0 or 1)
-            $key = array_search($value, $values);
-            $values[$key] = $value ? 1 : 0;
+            $types .= 'd'; // double
         } else {
-            $types .= 's';
+            $types .= 's'; // string
         }
     }
     
-    $whereClause = rtrim($whereClause, ' AND ');
+    // Bind parameters
+    $stmt->bind_param($types, ...$values);
     
-    $sql = "DELETE FROM $table WHERE $whereClause";
+    // Execute
+    $stmt->execute();
     
-    $stmt = db_prepare($sql, $types, $values);
-    $affectedRows = $stmt->affected_rows;
+    // Get affected rows
+    $affected = $stmt->affected_rows;
+    
+    // Close statement
     $stmt->close();
     
-    return $affectedRows;
+    return $affected;
 }
 
 /**
- * Get a single row from a table
- * 
- * @param string $table Table name
- * @param array $where Associative array of column => value for WHERE clause
- * @param string $columns Columns to select (default: *)
- * @return array|null Row data or null if not found
+ * Transaction functions
  */
-function db_get_row($table, $where, $columns = '*') {
+function db_begin_transaction() {
+    return db_connect()->begin_transaction();
+}
+
+function db_commit() {
+    return db_connect()->commit();
+}
+
+function db_rollback() {
+    return db_connect()->rollback();
+}
+
+// Initialize database
+function setup_database() {
+    // Connect to MySQL without database
+    $conn = new mysqli('localhost', 'root', '');
+    
+    // Create database if not exists
+    $conn->query("CREATE DATABASE IF NOT EXISTS `lavartiportal`");
+    
+    // Close connection
+    $conn->close();
+    
+    // Connect to the database
     $conn = db_connect();
     
-    $whereClause = '';
-    $values = [];
-    $types = '';
-    
-    foreach ($where as $column => $value) {
-        $whereClause .= "$column = ? AND ";
-        $values[] = $value;
+    // Create tables if they don't exist
+    // NOTE: Removed all JSON fields and PostgreSQL specific syntax
+    $tables = [
+        'users' => "CREATE TABLE IF NOT EXISTS `users` (
+            `id` INT AUTO_INCREMENT PRIMARY KEY,
+            `email` VARCHAR(255) NOT NULL UNIQUE,
+            `password` VARCHAR(255) NOT NULL,
+            `first_name` VARCHAR(100) NOT NULL,
+            `last_name` VARCHAR(100) NOT NULL,
+            `phone` VARCHAR(20),
+            `tier_id` INT DEFAULT 0,
+            `is_admin` TINYINT(1) DEFAULT 0,
+            `sponsor_id` INT NULL,
+            `replicated_site` VARCHAR(255),
+            `ghl_id` VARCHAR(255),
+            `pillars_id` VARCHAR(255),
+            `status` VARCHAR(50) DEFAULT 'active',
+            `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )",
         
-        if (is_int($value)) {
-            $types .= 'i';
-        } elseif (is_float($value)) {
-            $types .= 'd';
-        } elseif (is_bool($value)) {
-            $types .= 'i';
-            // Convert boolean to integer (0 or 1)
-            $key = array_search($value, $values);
-            $values[$key] = $value ? 1 : 0;
-        } else {
-            $types .= 's';
-        }
+        'products' => "CREATE TABLE IF NOT EXISTS `products` (
+            `id` INT AUTO_INCREMENT PRIMARY KEY,
+            `name` VARCHAR(255) NOT NULL,
+            `description` TEXT,
+            `price` DECIMAL(10, 2) NOT NULL,
+            `tier_level` INT NOT NULL DEFAULT 0,
+            `ghl_id` VARCHAR(255),
+            `recurring` TINYINT(1) DEFAULT 0,
+            `recurring_interval` VARCHAR(50) DEFAULT 'monthly',
+            `status` VARCHAR(50) DEFAULT 'active',
+            `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )",
+        
+        'orders' => "CREATE TABLE IF NOT EXISTS `orders` (
+            `id` INT AUTO_INCREMENT PRIMARY KEY,
+            `user_id` INT NOT NULL,
+            `product_id` INT,
+            `amount` DECIMAL(10, 2) NOT NULL DEFAULT 0,
+            `product_name` VARCHAR(255),
+            `status` VARCHAR(50) NOT NULL DEFAULT 'pending',
+            `order_date` DATE,
+            `ghl_id` VARCHAR(255),
+            `pillars_id` VARCHAR(255),
+            `sync_status` VARCHAR(50) DEFAULT 'pending',
+            `error_message` TEXT,
+            `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )",
+        
+        'order_items' => "CREATE TABLE IF NOT EXISTS `order_items` (
+            `id` INT AUTO_INCREMENT PRIMARY KEY,
+            `order_id` INT NOT NULL,
+            `product_id` INT,
+            `product_name` VARCHAR(255) NOT NULL,
+            `quantity` INT NOT NULL DEFAULT 1,
+            `price` DECIMAL(10, 2) NOT NULL,
+            `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )",
+        
+        'commissions' => "CREATE TABLE IF NOT EXISTS `commissions` (
+            `id` INT AUTO_INCREMENT PRIMARY KEY,
+            `user_id` INT NOT NULL,
+            `order_id` INT,
+            `amount` DECIMAL(10, 2) NOT NULL,
+            `type` VARCHAR(50) NOT NULL DEFAULT 'direct',
+            `status` VARCHAR(50) NOT NULL DEFAULT 'pending',
+            `external_id` VARCHAR(255),
+            `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )",
+        
+        'integration_settings' => "CREATE TABLE IF NOT EXISTS `integration_settings` (
+            `id` INT AUTO_INCREMENT PRIMARY KEY,
+            `integration_name` VARCHAR(50) NOT NULL,
+            `api_key` VARCHAR(255),
+            `secret_key` VARCHAR(255),
+            `webhook_url` VARCHAR(255),
+            `webhook_secret` VARCHAR(255),
+            `location_id` VARCHAR(255),
+            `organization_id` VARCHAR(255),
+            `settings_json` TEXT,
+            `is_active` TINYINT(1) DEFAULT 1,
+            `last_sync_at` TIMESTAMP NULL,
+            `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )",
+        
+        'sync_history' => "CREATE TABLE IF NOT EXISTS `sync_history` (
+            `id` INT AUTO_INCREMENT PRIMARY KEY,
+            `integration` VARCHAR(50) NOT NULL,
+            `action` VARCHAR(100) NOT NULL,
+            `status` VARCHAR(50) NOT NULL,
+            `records_processed` INT DEFAULT 0,
+            `summary` TEXT,
+            `details` TEXT,
+            `duration_seconds` DECIMAL(10, 3) DEFAULT 0,
+            `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )",
+        
+        'system_settings' => "CREATE TABLE IF NOT EXISTS `system_settings` (
+            `id` INT AUTO_INCREMENT PRIMARY KEY,
+            `setting_key` VARCHAR(100) NOT NULL UNIQUE,
+            `setting_value` TEXT,
+            `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )"
+    ];
+    
+    foreach ($tables as $name => $sql) {
+        $conn->query($sql);
     }
     
-    $whereClause = rtrim($whereClause, ' AND ');
+    // Add test user if doesn't exist
+    $result = $conn->query("SELECT * FROM `users` WHERE `email` = 'test@example.com'");
     
-    $sql = "SELECT $columns FROM $table WHERE $whereClause LIMIT 1";
-    
-    $stmt = db_prepare($sql, $types, $values);
-    $result = $stmt->get_result();
-    $row = $result->fetch_assoc();
-    $stmt->close();
-    
-    return $row;
+    if ($result->num_rows == 0) {
+        $password = password_hash('password123', PASSWORD_DEFAULT);
+        $stmt = $conn->prepare("INSERT INTO `users` (`email`, `password`, `first_name`, `last_name`, `is_admin`) VALUES (?, ?, 'Test', 'User', 1)");
+        $email = 'test@example.com';
+        $stmt->bind_param("ss", $email, $password);
+        $stmt->execute();
+    }
 }
 
-/**
- * Get multiple rows from a table
- * 
- * @param string $table Table name
- * @param array $where Associative array of column => value for WHERE clause
- * @param string $columns Columns to select (default: *)
- * @param string $orderBy ORDER BY clause (default: '')
- * @param int $limit LIMIT clause (default: 0 = no limit)
- * @param int $offset OFFSET clause (default: 0)
- * @return array Array of rows
- */
-function db_get_rows($table, $where = [], $columns = '*', $orderBy = '', $limit = 0, $offset = 0) {
-    $conn = db_connect();
-    
-    $whereClause = '';
-    $values = [];
-    $types = '';
-    
-    if (!empty($where)) {
-        $whereClause = 'WHERE ';
-        
-        foreach ($where as $column => $value) {
-            $whereClause .= "$column = ? AND ";
-            $values[] = $value;
-            
-            if (is_int($value)) {
-                $types .= 'i';
-            } elseif (is_float($value)) {
-                $types .= 'd';
-            } elseif (is_bool($value)) {
-                $types .= 'i';
-                // Convert boolean to integer (0 or 1)
-                $key = array_search($value, $values);
-                $values[$key] = $value ? 1 : 0;
-            } else {
-                $types .= 's';
+// Create database and tables
+setup_database();
+
+// Fix for XAMPP compatibility
+if (!function_exists('getallheaders')) {
+    function getallheaders() {
+        $headers = [];
+        foreach ($_SERVER as $name => $value) {
+            if (substr($name, 0, 5) === 'HTTP_') {
+                $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
             }
         }
-        
-        $whereClause = rtrim($whereClause, ' AND ');
+        return $headers;
     }
-    
-    $sql = "SELECT $columns FROM $table $whereClause";
-    
-    if (!empty($orderBy)) {
-        $sql .= " ORDER BY $orderBy";
-    }
-    
-    if ($limit > 0) {
-        $sql .= " LIMIT $limit";
-    }
-    
-    if ($offset > 0) {
-        $sql .= " OFFSET $offset";
-    }
-    
-    if (empty($where)) {
-        $result = db_query($sql);
-    } else {
-        $stmt = db_prepare($sql, $types, $values);
-        $result = $stmt->get_result();
-    }
-    
-    $rows = [];
-    
-    while ($row = $result->fetch_assoc()) {
-        $rows[] = $row;
-    }
-    
-    if (isset($stmt)) {
-        $stmt->close();
-    }
-    
-    return $rows;
 }
 
-/**
- * Escape a string for use in a query
- * 
- * @param string $str String to escape
- * @return string Escaped string
- */
-function db_escape($str) {
-    $conn = db_connect();
-    return $conn->real_escape_string($str);
-}
+// Success message
+echo "<!-- Final MySQLi database functions loaded successfully -->\n";
+?>

@@ -34,7 +34,7 @@ try {
     $total_orders = $total_result['count'];
     
     // Get total revenue
-    $revenue_query = db_query("SELECT SUM(amount) as total FROM orders");
+    $revenue_query = db_query("SELECT SUM(total_amount) as total FROM orders");
     $revenue_result = db_fetch_one($revenue_query);
     $total_revenue = $revenue_result['total'] ?: 0;
     

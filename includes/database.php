@@ -1,529 +1,448 @@
 <?php
 /**
- * Database connection and functions
+ * FINAL MySQLi Database Implementation
+ * NO PostgreSQL Functions, NO JSON fields
  */
 
-// Database connection instance
-static $db_conn = null;
+// Global database connection
+$mysqli = null;
 
 /**
  * Get database connection
- *
- * @return PDO The database connection
  */
 function db_connect() {
-    global $db_conn;
+    global $mysqli;
     
-    if ($db_conn === null) {
-        try {
-            // Get database credentials from environment variables
-            $db_url = getenv('DATABASE_URL');
-            
-            // Check if environment variables are set
-            if (!$db_url) {
-                throw new Exception('Database configuration not found in environment variables');
+    if ($mysqli === null) {
+        // Create connection
+       // $mysqli = new mysqli('localhost', 'lavartiportal_user', 'dSMXNhI-cQ7+', 'lavartiportal');
+        
+       $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+
+        // Check connection
+        if ($mysqli->connect_error) {
+            die('Database connection failed: ' . $mysqli->connect_error);
+        }
+    }
+    
+    return $mysqli;
+}
+
+/**
+ * Execute a SQL query without placeholders
+ */
+function db_execute($sql) {
+    $conn = db_connect();
+    $result = $conn->query($sql);
+    
+    if (!$result && $conn->errno) {
+        throw new Exception("Database query failed: " . $conn->error);
+    }
+    
+    return $result;
+}
+
+/**
+ * Execute a SQL query with parameters
+ */
+function db_query($sql, $params = []) {
+    // No parameters, just run the query directly
+    if (empty($params)) {
+        return db_execute($sql);
+    }
+    
+    // With parameters, use prepared statement
+    $conn = db_connect();
+    $stmt = $conn->prepare($sql);
+    
+    if (!$stmt) {
+        throw new Exception("Database prepare failed: " . $conn->error);
+    }
+    
+    if (!empty($params)) {
+        // Build types string
+        $types = '';
+        foreach ($params as $param) {
+            if (is_int($param)) {
+                $types .= 'i'; // integer
+            } elseif (is_float($param)) {
+                $types .= 'd'; // double
+            } else {
+                $types .= 's'; // string
             }
-            
-            // Parse the DATABASE_URL
-            $url = parse_url($db_url);
-            $db_host = $url['host'];
-            $db_port = isset($url['port']) ? $url['port'] : 5432;
-            $db_name = ltrim($url['path'], '/');
-            $db_user = $url['user'];
-            $db_pass = $url['pass'];
-            
-            // Create DSN
-            $dsn = "pgsql:host=$db_host;port=$db_port;dbname=$db_name;sslmode=require";
-            
-            // Connection options
-            $options = [
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                PDO::ATTR_EMULATE_PREPARES => false
-            ];
-            
-            // Create PDO instance
-            $db_conn = new PDO($dsn, $db_user, $db_pass, $options);
-            
-            // Check if required tables exist, create if not
-            ensure_tables_exist($db_conn);
-            
-        } catch (PDOException $e) {
-            // Log error
-            error_log('Database connection failed: ' . $e->getMessage());
-            
-            throw new Exception('Database connection failed. Please check your configuration.');
+        }
+        
+        // Bind parameters
+        $stmt->bind_param($types, ...$params);
+    }
+    
+    // Execute the statement
+    $stmt->execute();
+    
+    // Return result set
+    return $stmt->get_result();
+}
+
+/**
+ * Fetch all rows
+ */
+function db_fetch_all($result) {
+    if (!$result) {
+        return [];
+    }
+    
+    if ($result instanceof mysqli_stmt) {
+        $result = $result->get_result();
+    }
+    
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
+
+/**
+ * Fetch one row
+ */
+function db_fetch_one($result) {
+    if (!$result) {
+        return null;
+    }
+    
+    if ($result instanceof mysqli_stmt) {
+        $result = $result->get_result();
+    }
+    
+    return $result->fetch_assoc();
+}
+
+/**
+ * Insert data
+ */
+function db_insert($table, $data) {
+    $conn = db_connect();
+    print_r($table);
+    // Build column names and placeholders
+    $columns = implode(', ', array_keys($data));
+    $placeholders = rtrim(str_repeat('?, ', count($data)), ', ');
+    
+    // Create SQL
+    $sql = "INSERT INTO `$table` ($columns) VALUES ($placeholders)";
+    
+    // Prepare statement
+    $stmt = $conn->prepare($sql);
+    
+    if (!$stmt) {
+        throw new Exception("Database insert failed: " . $conn->error);
+    }
+    
+    // Build types string
+    $types = '';
+    $values = array_values($data);
+    foreach ($values as $value) {
+        if (is_int($value)) {
+            $types .= 'i'; // integer
+        } elseif (is_float($value)) {
+            $types .= 'd'; // double
+        } else {
+            $types .= 's'; // string
         }
     }
     
-    return $db_conn;
+    // Bind parameters
+    $stmt->bind_param($types, ...$values);
+    
+    // Execute
+    $stmt->execute();
+    
+    // Get insert ID
+    $id = $conn->insert_id;
+    
+    // Close statement
+    $stmt->close();
+    
+    return $id;
 }
 
 /**
- * Execute a SQL query
- *
- * @param string $sql The SQL query
- * @param array $params The query parameters
- * @return PDOStatement The prepared statement
+ * Update data
  */
-function db_query($sql, array $params = []) {
-    try {
-        $conn = db_connect();
-        $stmt = $conn->prepare($sql);
-        $stmt->execute($params);
-        return $stmt;
-    } catch (PDOException $e) {
-        error_log('Query execution failed: ' . $e->getMessage() . ' - SQL: ' . $sql);
-        throw new Exception('Database query failed: ' . $e->getMessage());
+function db_update($table, $data, $where) {
+    $conn = db_connect();
+    
+    // Build SET clause
+    $set = [];
+    foreach ($data as $column => $value) {
+        $set[] = "`$column` = ?";
     }
-}
-
-/**
- * Insert a record into a table
- *
- * @param string $table The table name
- * @param array $data The data to insert
- * @return int The inserted record ID
- */
-function db_insert($table, array $data) {
-    try {
-        $conn = db_connect();
-        
-        $columns = array_keys($data);
-        $placeholders = array_fill(0, count($columns), '?');
-        
-        $sql = "INSERT INTO $table (" . implode(', ', $columns) . ") VALUES (" . implode(', ', $placeholders) . ") RETURNING id";
-        
-        $stmt = $conn->prepare($sql);
-        $stmt->execute(array_values($data));
-        
-        return $stmt->fetchColumn();
-    } catch (PDOException $e) {
-        error_log('Insert failed: ' . $e->getMessage());
-        throw new Exception('Database insert failed: ' . $e->getMessage());
+    $set = implode(', ', $set);
+    
+    // Build WHERE clause
+    $whereClause = [];
+    foreach ($where as $column => $value) {
+        $whereClause[] = "`$column` = ?";
     }
-}
-
-/**
- * Update a record in a table
- *
- * @param string $table The table name
- * @param array $data The data to update
- * @param array $where The where conditions
- * @return int The number of affected rows
- */
-function db_update($table, array $data, array $where) {
-    try {
-        $conn = db_connect();
-        
-        $set = [];
-        foreach ($data as $column => $value) {
-            $set[] = "$column = ?";
+    $whereClause = implode(' AND ', $whereClause);
+    
+    // Create SQL
+    $sql = "UPDATE `$table` SET $set WHERE $whereClause";
+    
+    // Prepare statement
+    $stmt = $conn->prepare($sql);
+    
+    if (!$stmt) {
+        throw new Exception("Database update failed: " . $conn->error);
+    }
+    
+    // Build types string and merge params
+    $types = '';
+    $values = array_merge(array_values($data), array_values($where));
+    foreach ($values as $value) {
+        if (is_int($value)) {
+            $types .= 'i'; // integer
+        } elseif (is_float($value)) {
+            $types .= 'd'; // double
+        } else {
+            $types .= 's'; // string
         }
-        
-        $whereClause = [];
-        foreach ($where as $column => $value) {
-            $whereClause[] = "$column = ?";
-        }
-        
-        $sql = "UPDATE $table SET " . implode(', ', $set) . " WHERE " . implode(' AND ', $whereClause);
-        
-        $stmt = $conn->prepare($sql);
-        $stmt->execute(array_merge(array_values($data), array_values($where)));
-        
-        return $stmt->rowCount();
-    } catch (PDOException $e) {
-        error_log('Update failed: ' . $e->getMessage());
-        throw new Exception('Database update failed: ' . $e->getMessage());
     }
+    
+    // Bind parameters
+    $stmt->bind_param($types, ...$values);
+    
+    // Execute
+    $stmt->execute();
+    
+    // Get affected rows
+    $affected = $stmt->affected_rows;
+    
+    // Close statement
+    $stmt->close();
+    
+    return $affected;
 }
 
 /**
- * Delete a record from a table
- *
- * @param string $table The table name
- * @param array $where The where conditions
- * @return int The number of affected rows
+ * Delete data
  */
-function db_delete($table, array $where) {
-    try {
-        $conn = db_connect();
-        
-        $whereClause = [];
-        foreach ($where as $column => $value) {
-            $whereClause[] = "$column = ?";
-        }
-        
-        $sql = "DELETE FROM $table WHERE " . implode(' AND ', $whereClause);
-        
-        $stmt = $conn->prepare($sql);
-        $stmt->execute(array_values($where));
-        
-        return $stmt->rowCount();
-    } catch (PDOException $e) {
-        error_log('Delete failed: ' . $e->getMessage());
-        throw new Exception('Database delete failed: ' . $e->getMessage());
+function db_delete($table, $where) {
+    $conn = db_connect();
+    
+    // Build WHERE clause
+    $whereClause = [];
+    foreach ($where as $column => $value) {
+        $whereClause[] = "`$column` = ?";
     }
+    $whereClause = implode(' AND ', $whereClause);
+    
+    // Create SQL
+    $sql = "DELETE FROM `$table` WHERE $whereClause";
+    
+    // Prepare statement
+    $stmt = $conn->prepare($sql);
+    
+    if (!$stmt) {
+        throw new Exception("Database delete failed: " . $conn->error);
+    }
+    
+    // Build types string
+    $types = '';
+    $values = array_values($where);
+    foreach ($values as $value) {
+        if (is_int($value)) {
+            $types .= 'i'; // integer
+        } elseif (is_float($value)) {
+            $types .= 'd'; // double
+        } else {
+            $types .= 's'; // string
+        }
+    }
+    
+    // Bind parameters
+    $stmt->bind_param($types, ...$values);
+    
+    // Execute
+    $stmt->execute();
+    
+    // Get affected rows
+    $affected = $stmt->affected_rows;
+    
+    // Close statement
+    $stmt->close();
+    
+    return $affected;
 }
 
 /**
- * Fetch all rows from a statement
- *
- * @param PDOStatement $stmt The prepared statement
- * @return array The result rows
- */
-function db_fetch_all($stmt) {
-    return $stmt->fetchAll();
-}
-
-/**
- * Fetch a single row from a statement
- *
- * @param PDOStatement $stmt The prepared statement
- * @return array|false The result row or false if no rows
- */
-function db_fetch_one($stmt) {
-    return $stmt->fetch();
-}
-
-/**
- * Begin a transaction
- *
- * @return bool Success status
+ * Transaction functions
  */
 function db_begin_transaction() {
-    return db_connect()->beginTransaction();
+    return db_connect()->begin_transaction();
 }
 
-/**
- * Commit a transaction
- *
- * @return bool Success status
- */
 function db_commit() {
     return db_connect()->commit();
 }
 
-/**
- * Rollback a transaction
- *
- * @return bool Success status
- */
 function db_rollback() {
-    return db_connect()->rollBack();
+    return db_connect()->rollback();
 }
 
-/**
- * Ensure required tables exist in the database
- *
- * @param PDO $conn The database connection
- * @return void
- */
-function ensure_tables_exist($conn) {
-    // Check if tables exist
+// Initialize database
+function setup_database() {
+    // Connect to MySQL without database
+    //$conn =new mysqli('localhost', 'lavartiportal_user', 'dSMXNhI-cQ7+', 'lavartiportal');
+    
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS);
+
+    // Create database if not exists
+    $conn->query("CREATE DATABASE IF NOT EXISTS `lavartiportal`");
+    
+    // Close connection
+    $conn->close();
+    
+    // Connect to the database
+    $conn = db_connect();
+    
+    // Create tables if they don't exist
+    // NOTE: Removed all JSON fields and PostgreSQL specific syntax
     $tables = [
-        'users',
-        'orders',
-        'order_items',
-        'commissions',
-        'products',
-        'integration_settings',
-        'sync_history',
-        'system_settings'
+        'users' => "CREATE TABLE IF NOT EXISTS `users` (
+            `id` INT AUTO_INCREMENT PRIMARY KEY,
+            `email` VARCHAR(255) NOT NULL UNIQUE,
+            `password` VARCHAR(255) NOT NULL,
+            `first_name` VARCHAR(100) NOT NULL,
+            `last_name` VARCHAR(100) NOT NULL,
+            `phone` VARCHAR(20),
+            `tier_id` INT DEFAULT 0,
+            `is_admin` TINYINT(1) DEFAULT 0,
+            `sponsor_id` INT NULL,
+            `replicated_site` VARCHAR(255),
+            `ghl_id` VARCHAR(255),
+            `pillars_id` VARCHAR(255),
+            `status` VARCHAR(50) DEFAULT 'active',
+            `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )",
+        
+        'products' => "CREATE TABLE IF NOT EXISTS `products` (
+            `id` INT AUTO_INCREMENT PRIMARY KEY,
+            `name` VARCHAR(255) NOT NULL,
+            `description` TEXT,
+            `price` DECIMAL(10, 2) NOT NULL,
+            `tier_level` INT NOT NULL DEFAULT 0,
+            `ghl_id` VARCHAR(255),
+            `recurring` TINYINT(1) DEFAULT 0,
+            `recurring_interval` VARCHAR(50) DEFAULT 'monthly',
+            `status` VARCHAR(50) DEFAULT 'active',
+            `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )",
+        
+        'orders' => "CREATE TABLE IF NOT EXISTS `orders` (
+            `id` INT AUTO_INCREMENT PRIMARY KEY,
+            `user_id` INT NOT NULL,
+            `product_id` INT,
+            `amount` DECIMAL(10, 2) NOT NULL DEFAULT 0,
+            `product_name` VARCHAR(255),
+            `status` VARCHAR(50) NOT NULL DEFAULT 'pending',
+            `order_date` DATE,
+            `ghl_id` VARCHAR(255),
+            `pillars_id` VARCHAR(255),
+            `sync_status` VARCHAR(50) DEFAULT 'pending',
+            `error_message` TEXT,
+            `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )",
+        
+        'order_items' => "CREATE TABLE IF NOT EXISTS `order_items` (
+            `id` INT AUTO_INCREMENT PRIMARY KEY,
+            `order_id` INT NOT NULL,
+            `product_id` INT,
+            `product_name` VARCHAR(255) NOT NULL,
+            `quantity` INT NOT NULL DEFAULT 1,
+            `price` DECIMAL(10, 2) NOT NULL,
+            `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )",
+        
+        'commissions' => "CREATE TABLE IF NOT EXISTS `commissions` (
+            `id` INT AUTO_INCREMENT PRIMARY KEY,
+            `user_id` INT NOT NULL,
+            `order_id` INT,
+            `amount` DECIMAL(10, 2) NOT NULL,
+            `type` VARCHAR(50) NOT NULL DEFAULT 'direct',
+            `status` VARCHAR(50) NOT NULL DEFAULT 'pending',
+            `external_id` VARCHAR(255),
+            `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )",
+        
+        'integration_settings' => "CREATE TABLE IF NOT EXISTS `integration_settings` (
+            `id` INT AUTO_INCREMENT PRIMARY KEY,
+            `integration_name` VARCHAR(50) NOT NULL,
+            `api_key` VARCHAR(255),
+            `secret_key` VARCHAR(255),
+            `webhook_url` VARCHAR(255),
+            `webhook_secret` VARCHAR(255),
+            `location_id` VARCHAR(255),
+            `organization_id` VARCHAR(255),
+            `settings_json` TEXT,
+            `is_active` TINYINT(1) DEFAULT 1,
+            `last_sync_at` TIMESTAMP NULL,
+            `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )",
+        
+        'sync_history' => "CREATE TABLE IF NOT EXISTS `sync_history` (
+            `id` INT AUTO_INCREMENT PRIMARY KEY,
+            `integration` VARCHAR(50) NOT NULL,
+            `action` VARCHAR(100) NOT NULL,
+            `status` VARCHAR(50) NOT NULL,
+            `records_processed` INT DEFAULT 0,
+            `summary` TEXT,
+            `details` TEXT,
+            `duration_seconds` DECIMAL(10, 3) DEFAULT 0,
+            `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )",
+        
+        'system_settings' => "CREATE TABLE IF NOT EXISTS `system_settings` (
+            `id` INT AUTO_INCREMENT PRIMARY KEY,
+            `setting_key` VARCHAR(100) NOT NULL UNIQUE,
+            `setting_value` TEXT,
+            `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )"
     ];
     
-    $existing_tables = [];
-    
-    // Get existing tables
-    $table_query = $conn->query("SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname = 'public'");
-    while ($row = $table_query->fetch(PDO::FETCH_ASSOC)) {
-        $existing_tables[] = $row['tablename'];
+    foreach ($tables as $name => $sql) {
+        $conn->query($sql);
     }
     
-    // Create missing tables
-    $missing_tables = array_diff($tables, $existing_tables);
+    // Add test user if doesn't exist
+    $result = $conn->query("SELECT * FROM `users` WHERE `email` = 'test@example.com'");
     
-    if (!empty($missing_tables)) {
-        // Start transaction
-        $conn->beginTransaction();
-        
-        try {
-            foreach ($missing_tables as $table) {
-                create_table($conn, $table);
+    if ($result->num_rows == 0) {
+        $password = password_hash('password123', PASSWORD_DEFAULT);
+        $stmt = $conn->prepare("INSERT INTO `users` (`email`, `password`, `first_name`, `last_name`, `is_admin`) VALUES (?, ?, 'Test', 'User', 1)");
+        $email = 'test@example.com';
+        $stmt->bind_param("ss", $email, $password);
+        $stmt->execute();
+    }
+}
+
+// Create database and tables
+setup_database();
+
+// Fix for XAMPP compatibility
+if (!function_exists('getallheaders')) {
+    function getallheaders() {
+        $headers = [];
+        foreach ($_SERVER as $name => $value) {
+            if (substr($name, 0, 5) === 'HTTP_') {
+                $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
             }
-            
-            // Commit transaction
-            $conn->commit();
-        } catch (PDOException $e) {
-            // Rollback transaction
-            $conn->rollBack();
-            
-            error_log('Table creation failed: ' . $e->getMessage());
-            throw new Exception('Database initialization failed: ' . $e->getMessage());
         }
+        return $headers;
     }
 }
 
-/**
- * Create a table in the database
- *
- * @param PDO $conn The database connection
- * @param string $table The table name
- * @return void
- */
-function create_table($conn, $table) {
-    $create_sql = '';
-    
-    switch ($table) {
-        case 'users':
-            $create_sql = "
-                CREATE TABLE users (
-                    id SERIAL PRIMARY KEY,
-                    email VARCHAR(255) NOT NULL UNIQUE,
-                    password VARCHAR(255) NOT NULL,
-                    first_name VARCHAR(100) NOT NULL,
-                    last_name VARCHAR(100) NOT NULL,
-                    phone VARCHAR(20),
-                    tier_id INTEGER DEFAULT 0,
-                    is_admin BOOLEAN DEFAULT FALSE,
-                    sponsor_id INTEGER,
-                    replicated_site VARCHAR(255),
-                    ghl_id VARCHAR(255),
-                    pillars_id VARCHAR(255),
-                    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                    FOREIGN KEY (sponsor_id) REFERENCES users(id) ON DELETE SET NULL
-                )
-            ";
-            break;
-            
-        case 'orders':
-            $create_sql = "
-                CREATE TABLE orders (
-                    id SERIAL PRIMARY KEY,
-                    user_id INTEGER NOT NULL,
-                    product_id INTEGER,
-                    amount DECIMAL(10, 2) NOT NULL DEFAULT 0,
-                    product_name VARCHAR(255),
-                    status VARCHAR(50) NOT NULL DEFAULT 'pending',
-                    order_date DATE,
-                    ghl_id VARCHAR(255),
-                    pillars_id VARCHAR(255),
-                    sync_status VARCHAR(50) DEFAULT 'pending',
-                    error_message TEXT,
-                    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-                )
-            ";
-            break;
-            
-        case 'order_items':
-            $create_sql = "
-                CREATE TABLE order_items (
-                    id SERIAL PRIMARY KEY,
-                    order_id INTEGER NOT NULL,
-                    product_id INTEGER,
-                    name VARCHAR(255) NOT NULL,
-                    price DECIMAL(10, 2) NOT NULL,
-                    quantity INTEGER NOT NULL DEFAULT 1,
-                    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
-                )
-            ";
-            break;
-            
-        case 'commissions':
-            $create_sql = "
-                CREATE TABLE commissions (
-                    id SERIAL PRIMARY KEY,
-                    user_id INTEGER NOT NULL,
-                    order_id INTEGER,
-                    amount DECIMAL(10, 2) NOT NULL,
-                    commission_type VARCHAR(50) DEFAULT 'direct',
-                    status VARCHAR(50) NOT NULL DEFAULT 'pending',
-                    processed_date TIMESTAMP NULL,
-                    commission_date TIMESTAMP NULL,
-                    external_id VARCHAR(255),
-                    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-                    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE SET NULL
-                )
-            ";
-            break;
-            
-        case 'products':
-            $create_sql = "
-                CREATE TABLE products (
-                    id SERIAL PRIMARY KEY,
-                    name VARCHAR(255) NOT NULL,
-                    description TEXT,
-                    price DECIMAL(10, 2) NOT NULL,
-                    tier_level INTEGER NOT NULL DEFAULT 0,
-                    ghl_id VARCHAR(255),
-                    recurring BOOLEAN DEFAULT FALSE,
-                    recurring_interval VARCHAR(50) DEFAULT 'monthly',
-                    status VARCHAR(50) DEFAULT 'active',
-                    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-                )
-            ";
-            break;
-            
-        case 'integration_settings':
-            $create_sql = "
-                CREATE TABLE integration_settings (
-                    id SERIAL PRIMARY KEY,
-                    integration_name VARCHAR(50) NOT NULL,
-                    config_data JSONB NOT NULL,
-                    is_active BOOLEAN DEFAULT TRUE,
-                    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-                )
-            ";
-            break;
-            
-        case 'sync_history':
-            $create_sql = "
-                CREATE TABLE sync_history (
-                    id SERIAL PRIMARY KEY,
-                    integration VARCHAR(50) NOT NULL,
-                    action VARCHAR(100) NOT NULL,
-                    status VARCHAR(20) NOT NULL,
-                    records_processed INTEGER DEFAULT 0,
-                    duration_seconds FLOAT DEFAULT 0,
-                    summary TEXT,
-                    details JSONB,
-                    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                    created_by INTEGER,
-                    FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE SET NULL
-                )
-            ";
-            break;
-            
-        case 'system_settings':
-            $create_sql = "
-                CREATE TABLE system_settings (
-                    id SERIAL PRIMARY KEY,
-                    setting_key VARCHAR(100) NOT NULL UNIQUE,
-                    value TEXT NOT NULL,
-                    description TEXT,
-                    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-                )
-            ";
-            break;
-    }
-    
-    if (!empty($create_sql)) {
-        $conn->exec($create_sql);
-        
-        // Insert seed data if needed
-        if ($table == 'products') {
-            seed_products($conn);
-        } else if ($table == 'users') {
-            seed_admin_user($conn);
-        }
-    }
-}
-
-/**
- * Seed products table with initial data
- *
- * @param PDO $conn The database connection
- * @return void
- */
-function seed_products($conn) {
-    $products = [
-        [
-            'name' => 'Basic Membership',
-            'description' => 'Basic tier membership at $25/month',
-            'price' => 25.00,
-            'tier_level' => 1,
-            'ghl_id' => 'basic_tier',
-            'recurring' => true,
-            'recurring_interval' => 'monthly',
-            'status' => 'active'
-        ],
-        [
-            'name' => 'Premium Membership',
-            'description' => 'Premium tier membership at $65/month',
-            'price' => 65.00,
-            'tier_level' => 2,
-            'ghl_id' => 'premium_tier',
-            'recurring' => true,
-            'recurring_interval' => 'monthly',
-            'status' => 'active'
-        ],
-        [
-            'name' => 'Elite Membership',
-            'description' => 'Elite tier membership at $500/month',
-            'price' => 500.00,
-            'tier_level' => 3,
-            'ghl_id' => 'elite_tier',
-            'recurring' => true,
-            'recurring_interval' => 'monthly',
-            'status' => 'active'
-        ]
-    ];
-    
-    $sql = "
-        INSERT INTO products (name, description, price, tier_level, ghl_id, recurring, recurring_interval, status)
-        VALUES (:name, :description, :price, :tier_level, :ghl_id, :recurring, :recurring_interval, :status)
-    ";
-    
-    $stmt = $conn->prepare($sql);
-    
-    foreach ($products as $product) {
-        $stmt->bindParam(':name', $product['name']);
-        $stmt->bindParam(':description', $product['description']);
-        $stmt->bindParam(':price', $product['price']);
-        $stmt->bindParam(':tier_level', $product['tier_level']);
-        $stmt->bindParam(':ghl_id', $product['ghl_id']);
-        $stmt->bindParam(':recurring', $product['recurring'], PDO::PARAM_BOOL);
-        $stmt->bindParam(':recurring_interval', $product['recurring_interval']);
-        $stmt->bindParam(':status', $product['status']);
-        $stmt->execute();
-    }
-}
-
-/**
- * Seed users table with admin user
- *
- * @param PDO $conn The database connection
- * @return void
- */
-function seed_admin_user($conn) {
-    // Check if a test user exists
-    $sql = "SELECT COUNT(*) FROM users WHERE email = 'test@example.com'";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute();
-    $user_count = $stmt->fetchColumn();
-    
-    if ($user_count == 0) {
-        // Create test user
-        $test_user = [
-            'email' => 'test@example.com',
-            'password' => password_hash('password123', PASSWORD_DEFAULT),
-            'first_name' => 'Test',
-            'last_name' => 'User',
-            'is_admin' => true,
-            'tier_id' => 1 // Basic tier
-        ];
-        
-        $sql = "
-            INSERT INTO users (email, password, first_name, last_name, is_admin, tier_id)
-            VALUES (:email, :password, :first_name, :last_name, :is_admin, :tier_id)
-        ";
-        
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':email', $test_user['email']);
-        $stmt->bindParam(':password', $test_user['password']);
-        $stmt->bindParam(':first_name', $test_user['first_name']);
-        $stmt->bindParam(':last_name', $test_user['last_name']);
-        $stmt->bindParam(':is_admin', $test_user['is_admin'], PDO::PARAM_BOOL);
-        $stmt->bindParam(':tier_id', $test_user['tier_id']);
-        $stmt->execute();
-    }
-}
+// Success message
+// echo "<!-- Final MySQLi database functions loaded successfully -->\n";
+?>

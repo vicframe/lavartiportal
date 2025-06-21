@@ -1,5 +1,5 @@
 /**
- * Dashboard functionality
+ * Dashboard functionality ,,,this where we add
  */
 $(document).ready(function() {
     // Toggle sidebar on mobile

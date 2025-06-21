@@ -330,7 +330,7 @@ function loadOrders() {
     }
     
     // Fetch orders
-    fetch(`/api/admin-orders.php${queryParams}`)
+    fetch(`https://thephoenixlb.com/lavartiportal/api/admin-orders.php${queryParams}`)
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -394,7 +394,7 @@ function displayOrders(orders) {
                 </td>
                 <td>${order.product_name}</td>
                 <td>${tierName}</td>
-                <td>$${parseFloat(order.amount).toFixed(2)}</td>
+                <td>$${parseFloat(order.total_amount).toFixed(2)}</td>
                 <td>${orderDate}</td>
                 <td>${statusBadge}</td>
                 <td>
@@ -499,7 +499,7 @@ function generatePagination(totalOrders, totalPages) {
 }
 
 function loadOrderStats() {
-    fetch('/api/admin-order-stats.php')
+    fetch('https://thephoenixlb.com/lavartiportal/api/admin-order-stats.php')
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -545,7 +545,7 @@ function viewOrder(orderId) {
         displayOrderDetails(order);
     } else {
         // Fetch order details
-        fetch(`/api/order-details.php?id=${orderId}`)
+        fetch(`https://thephoenixlb.com/lavartiportal/api/order-details.php?id=${orderId}`)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -614,7 +614,7 @@ function displayOrderDetails(order) {
                     </tr>
                     <tr>
                         <th>Amount:</th>
-                        <td>$${parseFloat(order.amount).toFixed(2)}</td>
+                        <td>$${parseFloat(order.total_amount).toFixed(2)}</td>
                     </tr>
                     <tr>
                         <th>Product:</th>
@@ -655,7 +655,7 @@ function displayOrderDetails(order) {
 
 function editOrder(orderId) {
     // First, load products for the dropdown
-    fetch('/api/admin-products.php')
+    fetch('https://thephoenixlb.com/lavartiportal/api/admin-products.php')
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -676,7 +676,7 @@ function editOrder(orderId) {
                     populateEditForm(order);
                 } else {
                     // Fetch order details
-                    fetch(`/api/order-details.php?id=${orderId}`)
+                    fetch(`https://thephoenixlb.com/lavartiportal/api/order-details.php?id=${orderId}`)
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
@@ -707,7 +707,7 @@ function editOrder(orderId) {
 function populateEditForm(order) {
     document.getElementById('editOrderId').value = order.id;
     document.getElementById('editProductId').value = order.product_id;
-    document.getElementById('editAmount').value = parseFloat(order.amount).toFixed(2);
+    document.getElementById('editAmount').value = parseFloat(order.total_amount).toFixed(2);
     document.getElementById('editStatus').value = order.status;
     
     // Format date as YYYY-MM-DD for input
@@ -726,7 +726,7 @@ function updateOrder() {
     const orderData = Object.fromEntries(formData.entries());
     
     // Send request
-    fetch('/api/admin-update-order.php', {
+    fetch('https://thephoenixlb.com/lavartiportal/api/admin-update-order.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -754,7 +754,7 @@ function updateOrder() {
         showAlert('danger', 'Failed to update order. Please try again.');
     });
 }
-
+ 
 function exportOrders(format) {
     // Build query string
     let queryParams = `?format=${format}`;
@@ -768,7 +768,7 @@ function exportOrders(format) {
     }
     
     // Redirect to export endpoint
-    window.location.href = `/api/admin-export-orders.php${queryParams}`;
+    window.location.href = `https://thephoenixlb.com/lavartiportal/api/admin-export-orders.php${queryParams}`;
 }
 
 function getTierName(tierId) {

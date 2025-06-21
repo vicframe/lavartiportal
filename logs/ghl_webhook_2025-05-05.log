@@ -1,0 +1,15 @@
+2025-05-05 12:56:36 - GHL Webhook Received:
+{"id":5943,"fullName":"Positive Disruption","enrollDate":"2023-11-07","profileImage":null,"webAlias":"Excel","status":{"id":null,"name":"Affiliate","statusClass":"default"},"emailAddress":"wellnesswealth90@yahoo.com","customerType":{"id":null,"name":"Affiliate PL"},"language":"English","customData":{"sku":"PASSLITE-US-AFF-SUB","displayName":"Passport Lite Monthly Renewal (Affiliate)","portalAccess":"Passport Lite","birthDate":"2003-05-13","enrollerId":3020,"company":"Positive Disruption LLC"},"phoneNumbers":[{"type":"mobile","number":"4407990606"}],"addresses":[{"type":"primary","line1":"PO Box 470136","line2":null,"line3":null,"city":"Broadview Hts","stateCode":"Ohio","zip":"44147","countryCode":"United States"}]}
+
+2025-05-05 12:56:36 - Error: Missing event type
+
+2025-05-05 13:00:28 - GHL Webhook Received:
+{"id":5943,"fullName":"Positive Disruption","enrollDate":"2023-11-07","profileImage":null,"webAlias":"Excel","status":{"id":null,"name":"Affiliate","statusClass":"default"},"emailAddress":"wellnesswealth90@yahoo.com","customerType":{"id":null,"name":"Affiliate PL"},"language":"English","customData":{"sku":"PASSLITE-US-AFF-SUB","displayName":"Passport Lite Monthly Renewal (Affiliate)","portalAccess":"Passport Lite","birthDate":"2003-05-13","enrollerId":3020,"company":"Positive Disruption LLC"},"phoneNumbers":[{"type":"mobile","number":"4407990606"}],"addresses":[{"type":"primary","line1":"PO Box 470136","line2":null,"line3":null,"city":"Broadview Hts","stateCode":"Ohio","zip":"44147","countryCode":"United States"}]}
+
+2025-05-05 13:00:28 - Error: Missing event type
+
+2025-05-05 13:00:44 - GHL Webhook Received:
+{"id":5943,"fullName":"Positive Disruption","enrollDate":"2023-11-07","profileImage":null,"webAlias":"Excel","status":{"id":null,"name":"Affiliate","statusClass":"default"},"emailAddress":"wellnesswealth90@yahoo.com","customerType":{"id":null,"name":"Affiliate PL"},"language":"English","customData":{"sku":"PASSLITE-US-AFF-SUB","displayName":"Passport Lite Monthly Renewal (Affiliate)","portalAccess":"Passport Lite","birthDate":"2003-05-13","enrollerId":3020,"company":"Positive Disruption LLC"},"phoneNumbers":[{"type":"mobile","number":"4407990606"}],"addresses":[{"type":"primary","line1":"PO Box 470136","line2":null,"line3":null,"city":"Broadview Hts","stateCode":"Ohio","zip":"44147","countryCode":"United States"}]}
+
+2025-05-05 13:00:44 - Error: Missing event type
+

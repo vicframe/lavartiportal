@@ -17,24 +17,35 @@ $user = get_current_logged_user();
 
 // Get user's orders
 $orders_query = db_query(
-    "SELECT o.*, p.tier_level, 
-            CASE 
-                WHEN p.tier_level = 1 THEN 'Basic'
-                WHEN p.tier_level = 2 THEN 'Premium'
-                WHEN p.tier_level = 3 THEN 'Elite'
-                ELSE 'Unknown'
-            END as tier_name,
-            CASE 
-                WHEN o.status = 'completed' THEN 'success'
-                WHEN o.status = 'pending' THEN 'warning'
-                WHEN o.status = 'failed' THEN 'danger'
-                ELSE 'secondary'
-            END as status_class
+    "SELECT 
+        o.id AS order_id,
+        o.created_at AS order_date,
+        o.total_amount AS amount,
+        o.status,
+        i.id AS item_id,
+        i.name AS product_name,
+        i.quantity,
+        i.price,
+        p.tier_level,
+        CASE 
+            WHEN p.tier_level = 1 THEN 'Basic'
+            WHEN p.tier_level = 2 THEN 'Premium'
+            WHEN p.tier_level = 3 THEN 'Elite'
+            ELSE 'Unknown'
+        END AS tier_name,
+        CASE 
+            WHEN o.status = 'completed' THEN 'success'
+            WHEN o.status = 'pending' THEN 'warning'
+            WHEN o.status = 'failed' THEN 'danger'
+            ELSE 'secondary'
+        END AS status_class
      FROM orders o
-     LEFT JOIN products p ON o.product_id = p.id
+     LEFT JOIN order_items i ON o.id = i.order_id
+     LEFT JOIN products p ON i.product_id = p.id
      WHERE o.user_id = ?
-     ORDER BY o.order_date DESC",
-    [$user['id']]
+     ORDER BY o.created_at DESC
+     LIMIT 3",
+     [$user['id']]
 );
 
 $orders = db_fetch_all($orders_query);
@@ -83,7 +94,7 @@ require_once __DIR__ . '/../includes/dashboard_header.php';
                                 <tbody>
                                     <?php foreach ($orders as $order): ?>
                                         <tr>
-                                            <td><?php echo htmlspecialchars($order['id']); ?></td>
+                                            <td><?php echo htmlspecialchars($order['order_id']); ?></td>
                                             <td><?php echo htmlspecialchars($order['product_name']); ?></td>
                                             <td>$<?php echo number_format($order['amount'], 2); ?></td>
                                             <td><?php echo date('M j, Y', strtotime($order['order_date'])); ?></td>
@@ -93,7 +104,7 @@ require_once __DIR__ . '/../includes/dashboard_header.php';
                                                 </span>
                                             </td>
                                             <td>
-                                                <button class="btn btn-sm btn-primary view-order-btn" data-order-id="<?php echo $order['id']; ?>">
+                                                <button class="btn btn-sm btn-primary view-order-btn" data-order-id="<?php echo $order['order_id']; ?>">
                                                     <i class="fas fa-eye"></i> View
                                                 </button>
                                             </td>
@@ -231,7 +242,7 @@ function loadOrderDetails(orderId) {
     `;
     
     // Fetch order details
-    fetch(`/api/order-details.php?id=${orderId}`)
+    fetch(`https://thephoenixlb.com/lavartiportal/api/order-details.php?id=${orderId}`)
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -296,7 +307,7 @@ function displayOrderDetails(order) {
                     <table class="table table-sm">
                         <tr>
                             <th>Order ID:</th>
-                            <td>${order.id}</td>
+                            <td>${order.order_id}</td>
                         </tr>
                         <tr>
                             <th>Date:</th>
@@ -317,7 +328,7 @@ function displayOrderDetails(order) {
                     <table class="table table-sm">
                         <tr>
                             <th>Product:</th>
-                            <td>${order.product_name}</td>
+                            <td>${order.item_name}</td>
                         </tr>
                         <tr>
                             <th>Membership Tier:</th>
@@ -325,7 +336,7 @@ function displayOrderDetails(order) {
                         </tr>
                         <tr>
                             <th>Amount:</th>
-                            <td>$${parseFloat(order.amount).toFixed(2)}</td>
+                            <td>$${parseFloat(order.total_amount).toFixed(2)}</td>
                         </tr>
                     </table>
                 </div>

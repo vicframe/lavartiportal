@@ -8,7 +8,7 @@ function rsi_get_client() {
     return new RSIApiClient();
 }
 
-// RSI API Client Class
+// RSI API Client Class 
 class RSIApiClient {
     private $api_key;
     private $base_url;

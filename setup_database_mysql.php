@@ -136,7 +136,8 @@ try {
         // GHL default settings
         $ghl_settings = [
             'integration_name' => 'gohighlevel',
-            'config_data' => json_encode([
+            //'config_data' => json_encode([
+            'settings_json' => json_encode([
                 'api_key' => 'placeholder',
                 'location_id' => 'placeholder',
                 'webhook_secret' => 'placeholder',
@@ -150,8 +151,9 @@ try {
         // Pillars default settings
         $pillars_settings = [
             'integration_name' => 'pillars',
-            'config_data' => json_encode([
-                'api_key' => 'placeholder',
+            //'config_data' => json_encode([
+            'settings_json' => json_encode([
+            'api_key' => 'placeholder',
                 'organization_id' => 'placeholder',
                 'webhook_url' => 'http://localhost/lavartiportal/webhook_pillars.php'
             ]),

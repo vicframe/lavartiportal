@@ -24,7 +24,97 @@ foreach ($products as $product) {
         break;
     }
 }
+function formatOrderDate($datetime) {
+    $date = new DateTime($datetime);
+    return $date->format('F j, Y'); // e.g. "April 20, 2025"
+}
+$orders_query = db_query(
+    "SELECT 
+        o.id AS order_id,
+        o.created_at AS order_date,
+        o.total_amount AS amount,
+        o.status,
+        i.id AS item_id,
+        i.name AS product_name,
+        i.quantity,
+        i.price,
+        p.tier_level,
+        CASE 
+            WHEN p.tier_level = 1 THEN 'Basic'
+            WHEN p.tier_level = 2 THEN 'Premium'
+            WHEN p.tier_level = 3 THEN 'Elite'
+            ELSE 'Unknown'
+        END AS tier_name,
+        CASE 
+            WHEN o.status = 'completed' THEN 'success'
+            WHEN o.status = 'pending' THEN 'warning'
+            WHEN o.status = 'failed' THEN 'danger'
+            ELSE 'secondary'
+        END AS status_class
+     FROM orders o
+     LEFT JOIN order_items i ON o.id = i.order_id
+     LEFT JOIN products p ON i.product_id = p.id
+     WHERE o.user_id = ?
+     ORDER BY o.created_at DESC
+     LIMIT 3",
+     [$user['id']]
+);
 
+$orders = db_fetch_all($orders_query);
+
+
+$query = "
+    SELECT 
+        o.id AS order_id,
+        o.user_id, 
+        o.product_id, 
+        o.total_amount, 
+        o.status, 
+        o.order_date, 
+        o.created_at, 
+        o.updated_at,
+        
+        p.name AS product_name, 
+        p.price AS product_price, 
+        p.tier_level,
+        
+        CASE 
+            WHEN p.tier_level = 1 THEN 'Basic'
+            WHEN p.tier_level = 2 THEN 'Premium'
+            WHEN p.tier_level = 3 THEN 'Elite'
+            ELSE 'Unknown'
+        END AS tier_name,
+        
+        CASE 
+            WHEN o.status = 'completed' THEN 'success'
+            WHEN o.status = 'pending' THEN 'warning'
+            WHEN o.status = 'failed' THEN 'danger'
+            ELSE 'secondary'
+        END AS status_class,
+        
+        u.first_name, 
+        u.last_name, 
+        u.email, 
+        u.is_admin,
+        
+        i.id AS item_id,
+        i.name AS item_name,
+        i.quantity AS item_quantity,
+        i.sku AS item_sku,
+        i.price AS item_price
+    FROM orders o
+    LEFT JOIN order_items i ON o.id = i.order_id
+    LEFT JOIN products p ON o.product_id = p.id
+    LEFT JOIN users u ON o.user_id = u.id
+    WHERE o.user_id = ?
+    ORDER BY o.id DESC
+    LIMIT 1
+";
+
+// Execute query
+$order_result = db_query($query, [$user['id']]);
+$order = db_fetch_one($order_result);
+// print_r($order);
 // Set custom styles for the dashboard
 $custom_css = '<link href="/assets/css/dashboard.css" rel="stylesheet">';
 require_once __DIR__ . '/../includes/dashboard_header.php';
@@ -52,20 +142,22 @@ require_once __DIR__ . '/../includes/dashboard_header.php';
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <h3><?php echo htmlspecialchars(get_tier_name($user['tier_id'])); ?> Membership</h3>
-                            <p class="text-muted">Active since: <?php echo date('F j, Y', strtotime($user['created_at'])); ?></p>
+                            <h3><?php echo  $order['item_name']; ?> </h3>
                             
                             <div class="mb-3">
-                                <strong>Price:</strong> <?php echo $current_product ? format_currency($current_product['price']) . '/month' : 'N/A'; ?>
+                                <strong>Sku:</strong> <?php echo $order['item_sku'] ? $order['item_sku'] . '' : 'N/A'; ?>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Price:</strong> <?php echo $order['item_price'] ? format_currency($order['item_price']) . '' : 'N/A'; ?>
                             </div>
                             
                             <div class="mb-3">
-                                <strong>Next Billing Date:</strong> <?php echo date('F j, Y', strtotime('+1 month')); ?>
+                                <!--<strong>Next Billing Date:</strong> <?php echo date('F j, Y', strtotime('+1 month')); ?>-->
                             </div>
                             
-                            <div class="mb-3">
-                                <strong>Payment Method:</strong> •••• •••• •••• 4242
-                            </div>
+                            <!--<div class="mb-3">-->
+                            <!--    <strong>Payment Method:</strong> •••• •••• •••• 4242-->
+                            <!--</div>-->
                         </div>
                         
                         <div class="col-md-6">
@@ -94,8 +186,8 @@ require_once __DIR__ . '/../includes/dashboard_header.php';
                     </div>
                     
                     <div class="mt-4">
-                        <a href="/dashboard/store.php" class="btn btn-primary">Change Plan</a>
-                        <button class="btn btn-outline-secondary">Update Payment Method</button>
+                        <a href="https://dashlifetravel.com/pass-us-travel-2446" class="btn btn-primary">Change Plan</a>
+                        <!--<button class="btn btn-outline-secondary">Update Payment Method</button>-->
                     </div>
                 </div>
             </div>
@@ -117,78 +209,21 @@ require_once __DIR__ . '/../includes/dashboard_header.php';
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- Sample data - would be populated from database -->
-                                <tr>
-                                    <td>April 20, 2025</td>
-                                    <td>Premium Membership - Monthly</td>
-                                    <td><span class="badge bg-success">Paid</span></td>
-                                    <td>$65.00</td>
-                                </tr>
-                                <tr>
-                                    <td>March 20, 2025</td>
-                                    <td>Premium Membership - Monthly</td>
-                                    <td><span class="badge bg-success">Paid</span></td>
-                                    <td>$65.00</td>
-                                </tr>
-                                <tr>
-                                    <td>February 20, 2025</td>
-                                    <td>Basic Membership - Monthly</td>
-                                    <td><span class="badge bg-success">Paid</span></td>
-                                    <td>$25.00</td>
-                                </tr>
+                            
+                            <?php foreach ($orders as $order): ?>
+                                        <tr>
+                                            <td><?php echo formatOrderDate($order['order_date']); ?></td>
+                                            <td><?php echo htmlspecialchars($order['product_name']); ?></td>
+                                            <td><span class="badge bg-success">Paid</span></td>
+                                            <td>$<?php echo number_format($order['price'], 2); ?></td>
+                                        </tr>
+                            <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
             
-            <!-- Download Receipts -->
-            <div class="card mb-4">
-                <div class="card-header">
-                    <h5>Download Receipts</h5>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Invoice #</th>
-                                    <th>Date</th>
-                                    <th>Amount</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Sample data - would be populated from database -->
-                                <tr>
-                                    <td>INV-2025-042</td>
-                                    <td>April 20, 2025</td>
-                                    <td>$65.00</td>
-                                    <td>
-                                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-download me-1"></i> PDF</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>INV-2025-032</td>
-                                    <td>March 20, 2025</td>
-                                    <td>$65.00</td>
-                                    <td>
-                                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-download me-1"></i> PDF</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>INV-2025-022</td>
-                                    <td>February 20, 2025</td>
-                                    <td>$25.00</td>
-                                    <td>
-                                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-download me-1"></i> PDF</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>

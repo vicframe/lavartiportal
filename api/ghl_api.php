@@ -6,7 +6,7 @@
  */
 
 class GHL_API {
-    private $api_key;
+    private $api_key; 
     private $location_id;
     private $api_base_url = 'https://rest.gohighlevel.com/v1/';
 

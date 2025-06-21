@@ -4,7 +4,7 @@
  * 
  * Provides methods to interact with the Pillars API
  */
-
+ 
 class Pillars_API {
     private $api_key;
     private $api_base_url = 'https://api.pillars.com/v1/'; // Example URL, replace with actual Pillars API URL

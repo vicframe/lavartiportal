@@ -343,7 +343,7 @@ function loadUsers() {
     tableBody.innerHTML = '<tr><td colspan="7" class="text-center"><div class="spinner-border spinner-border-sm text-primary me-2" role="status"></div> Loading users...</td></tr>';
     
     // Fetch users
-    fetch(`/api/admin-users.php?page=${currentPage}&limit=${usersPerPage}`)
+    fetch(`https://thephoenixlb.com/lavartiportal/api/admin-users.php?page=${currentPage}&limit=${usersPerPage}`)
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -474,7 +474,7 @@ function generatePagination(totalUsers, totalPages) {
 }
 
 function loadUserStats() {
-    fetch('/api/admin-user-stats.php')
+    fetch('https://thephoenixlb.com/lavartiportal/api/admin-user-stats.php')
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -541,7 +541,7 @@ function viewUser(userId) {
         displayUserDetails(user);
     } else {
         // Fetch user details
-        fetch(`/api/admin-user-details.php?id=${userId}`)
+        fetch(`https://thephoenixlb.com/lavartiportal/api/admin-user-details.php?id=${userId}`)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -634,7 +634,7 @@ function editUser(userId) {
         editUserModal.show();
     } else {
         // Fetch user details
-        fetch(`/api/admin-user-details.php?id=${userId}`)
+        fetch(`https://thephoenixlb.com/lavartiportal/api/admin-user-details.php?id=${userId}`)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -674,7 +674,7 @@ function saveUser() {
     userData.is_admin = formData.has('is_admin') ? 1 : 0;
     
     // Send request
-    fetch('/api/admin-create-user.php', {
+    fetch('https://thephoenixlb.com/lavartiportal/api/admin-create-user.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -720,7 +720,7 @@ function updateUser() {
     }
     
     // Send request
-    fetch('/api/admin-update-user.php', {
+    fetch('https://thephoenixlb.com/lavartiportal/api/admin-update-user.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -751,7 +751,7 @@ function updateUser() {
 
 function deleteUser(userId) {
     // Send request
-    fetch('/api/admin-delete-user.php', {
+    fetch('https://thephoenixlb.com/lavartiportal/api/admin-delete-user.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

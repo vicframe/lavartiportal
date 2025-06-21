@@ -231,7 +231,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function loadAdminDashboardData() {
     // Fetch dashboard stats
-    fetch('/api/admin-stats.php')
+    
+    // Get base URL from the page
+    // const baseUrl = document.querySelector('meta[name="base-url"]').getAttribute('content') || '';
+    const apiUrl ='https://thephoenixlb.com/lavartiportal/api/admin-stats.php';
+    fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -258,7 +262,7 @@ function updateDashboardStats(stats) {
 }
 
 function loadRecentOrders() {
-    fetch('/api/admin-recent-orders.php')
+    fetch('https://thephoenixlb.com/lavartiportal/api/admin-recent-orders.php')
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -310,7 +314,7 @@ function displayRecentOrders(orders) {
                 <td>${order.id}</td>
                 <td>${order.user_name || 'Unknown'}</td>
                 <td>${order.product_name}</td>
-                <td>$${parseFloat(order.amount).toFixed(2)}</td>
+                <td>$${parseFloat(order.total_amount).toFixed(2)}</td>
                 <td><span class="badge bg-${statusClass}">${order.status}</span></td>
             </tr>
         `;
@@ -320,7 +324,7 @@ function displayRecentOrders(orders) {
 }
 
 function loadRecentUsers() {
-    fetch('/api/admin-recent-users.php')
+    fetch('https://thephoenixlb.com/lavartiportal/api/admin-recent-users.php')
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -393,7 +397,7 @@ function checkIntegrationStatus(integration) {
         statusIcon.className = 'fas fa-spinner fa-spin';
         
         // Fetch integration status
-        fetch(`/api/check-integration.php?integration=${integration}`)
+        fetch(`https://thephoenixlb.com/lavartiportal/api/check-integration.php?integration=${integration}`)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {

@@ -1,607 +1,313 @@
 <?php
-/**
- * GoHighLevel Webhook Handler
- * 
- * This script handles incoming webhooks from GoHighLevel (GHL)
- * It processes events like new orders, new customers, etc.
- */
+// webhook_ghl.php
 
-require_once __DIR__ . '/config.php';
-require_once __DIR__ . '/includes/database.php';
-require_once __DIR__ . '/includes/functions.php';
+function getDBConnection() {
+    $host = 'localhost';
+    $user = 'lavartiportal_user';
+    $pass = 'dSMXNhI-cQ7+';
+    $dbname = 'lavartiportal';
 
-// Set content type to JSON for all responses
-header('Content-Type: application/json');
+    $mysqli = new mysqli($host, $user, $pass, $dbname);
 
-// Log webhook received
-$webhook_data = file_get_contents('php://input');
-$headers = getallheaders();
-
-// Create logs directory if it doesn't exist
-if (!file_exists(__DIR__ . '/logs')) {
-    mkdir(__DIR__ . '/logs', 0755, true);
-}
-
-// Log raw webhook data for debugging
-$log_file = __DIR__ . '/logs/ghl_webhook_' . date('Y-m-d') . '.log';
-file_put_contents($log_file, date('Y-m-d H:i:s') . " - GHL Webhook Received:\n" . $webhook_data . "\n\n", FILE_APPEND);
-
-// Parse webhook data
-$data = json_decode($webhook_data, true);
-
-// Validate webhook data
-if (!$data) {
-    file_put_contents($log_file, date('Y-m-d H:i:s') . " - Error: Invalid JSON payload\n\n", FILE_APPEND);
-    http_response_code(400);
-    echo json_encode(['success' => false, 'error' => 'Invalid JSON payload']);
-    exit;
-}
-
-// Verify webhook signature if available
-$verified = verify_ghl_webhook($headers, $webhook_data);
-if (!$verified) {
-    file_put_contents($log_file, date('Y-m-d H:i:s') . " - Error: Invalid webhook signature\n\n", FILE_APPEND);
-    http_response_code(401);
-    echo json_encode(['success' => false, 'error' => 'Invalid webhook signature']);
-    exit;
-}
-
-// Get event type from data
-$event_type = isset($data['event']) ? $data['event'] : null;
-
-if (!$event_type) {
-    file_put_contents($log_file, date('Y-m-d H:i:s') . " - Error: Missing event type\n\n", FILE_APPEND);
-    http_response_code(400);
-    echo json_encode(['success' => false, 'error' => 'Missing event type']);
-    exit;
-}
-
-// Process based on event type
-try {
-    $start_time = microtime(true);
-    $sync_result = [
-        'integration' => 'ghl',
-        'action' => $event_type,
-        'status' => 'success',
-        'records_processed' => 0,
-        'summary' => '',
-        'details' => []
-    ];
-
-    switch ($event_type) {
-        case 'contact.created':
-            // Process new contact
-            $result = process_ghl_contact($data);
-            $sync_result['records_processed'] = 1;
-            $sync_result['summary'] = 'GHL contact created';
-            $sync_result['details'] = $result;
-            break;
-            
-        case 'contact.updated':
-            // Process updated contact
-            $result = process_ghl_contact($data, true);
-            $sync_result['records_processed'] = 1;
-            $sync_result['summary'] = 'GHL contact updated';
-            $sync_result['details'] = $result;
-            break;
-            
-        case 'opportunity.created':
-        case 'opportunity.updated':
-            // Process opportunity (order)
-            $result = process_ghl_opportunity($data);
-            $sync_result['records_processed'] = 1;
-            $sync_result['summary'] = 'GHL opportunity ' . ($event_type === 'opportunity.created' ? 'created' : 'updated');
-            $sync_result['details'] = $result;
-            break;
-            
-        default:
-            // Unhandled event type
-            file_put_contents($log_file, date('Y-m-d H:i:s') . " - Warning: Unhandled event type: {$event_type}\n\n", FILE_APPEND);
-            $sync_result['status'] = 'ignored';
-            $sync_result['summary'] = "Unhandled event type: {$event_type}";
+    if ($mysqli->connect_error) {
+        error_log("[" . date('Y-m-d H:i:s') . "] DB Connection failed: " . $mysqli->connect_error . "\n", 3, "webhook.log");
+        die('Database connection error');
     }
-    
-    // Calculate duration
-    $duration = microtime(true) - $start_time;
-    $sync_result['duration_seconds'] = round($duration, 3);
-    
-    // Log sync result to database
-    log_sync_history($sync_result);
-    
-    // Return success response
-    echo json_encode(['success' => true, 'message' => "Processed {$event_type} event"]);
-    
-} catch (Exception $e) {
-    // Log error
-    file_put_contents($log_file, date('Y-m-d H:i:s') . " - Error processing {$event_type}: " . $e->getMessage() . "\n" . $e->getTraceAsString() . "\n\n", FILE_APPEND);
-    
-    // Log sync failure
-    $sync_result = [
-        'integration' => 'ghl',
-        'action' => $event_type,
-        'status' => 'error',
-        'records_processed' => 0,
-        'summary' => 'Error processing GHL webhook: ' . $e->getMessage(),
-        'details' => ['error' => $e->getMessage()]
-    ];
-    log_sync_history($sync_result);
-    
-    // Return error response
-    http_response_code(500);
-    echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+
+    $mysqli->set_charset("utf8mb4");
+    return $mysqli;
 }
 
-/**
- * Verifies the GHL webhook signature
- */
-function verify_ghl_webhook($headers, $payload) {
-    // In a production environment, you would verify the webhook signature
-    // with the GHL signature in the headers using the webhook secret
-    
-    // For now, we'll assume it's valid
-    return true;
+function logMessage($msg) {
+    $date = date('Y-m-d H:i:s');
+    file_put_contents('webhook.log', "[$date] $msg\n", FILE_APPEND);
 }
 
-/**
- * Process a GHL contact (customer)
- */
-function process_ghl_contact($data, $is_update = false) {
-    global $log_file;
-    
-    // Extract contact data
-    $contact = $data['contact'] ?? null;
-    
-    if (!$contact) {
-        file_put_contents($log_file, date('Y-m-d H:i:s') . " - Error: Missing contact data\n\n", FILE_APPEND);
-        throw new Exception('Missing contact data');
+function findOrCreateUser($mysqli, $email, $data) {
+    // Create new user
+    $defaultPassword = password_hash(generateTemporaryPassword(), PASSWORD_DEFAULT);
+    $stmt = $mysqli->prepare("SELECT id, email FROM users WHERE email = ?");
+    if (!$stmt) {
+        logMessage("Prepare failed in findOrCreateUser: " . $mysqli->error);
+        return false;
     }
-    
-    // Extract required fields
-    $ghl_id = $contact['id'] ?? null;
-    $email = $contact['email'] ?? null;
-    $first_name = $contact['firstName'] ?? '';
-    $last_name = $contact['lastName'] ?? '';
-    $phone = $contact['phone'] ?? null;
-    
-    if (!$ghl_id || !$email) {
-        file_put_contents($log_file, date('Y-m-d H:i:s') . " - Error: Missing required contact fields\n\n", FILE_APPEND);
-        throw new Exception('Missing required contact fields (id or email)');
-    }
-    
-    // Check if user already exists with this email
-    $user_query = db_query("SELECT * FROM users WHERE email = ?", [$email]);
-    $user = db_fetch_one($user_query);
-    
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $user = $result->fetch_assoc();
+    $stmt->close();
+
     if ($user) {
-        // User exists, update with GHL data
-        $query = "
-            UPDATE users 
-            SET 
-                ghl_id = ?,
-                first_name = ?,
-                last_name = ?,
-                phone = ?,
-                updated_at = NOW()
-            WHERE id = ?
-        ";
-        
-        db_query($query, [
-            $ghl_id,
-            $first_name,
-            $last_name,
-            $phone,
-            $user['id']
-        ]);
-        
-        return [
-            'action' => 'updated',
-            'user_id' => $user['id'],
-            'ghl_id' => $ghl_id
-        ];
-    } else if (!$is_update) {
-        // User doesn't exist, create new user
-        $password = password_hash(generate_random_password(), PASSWORD_DEFAULT);
-        
-        $query = "
-            INSERT INTO users (
-                email, first_name, last_name, password, ghl_id, phone, created_at, updated_at
-            ) VALUES (
-                ?, ?, ?, ?, ?, ?, NOW(), NOW()
-            )
-        ";
-        
-        $stmt = db_query($query, [
-            $email,
-            $first_name,
-            $last_name,
-            $password,
-            $ghl_id,
-            $phone
-        ]);
-        
-        $new_user_id = $stmt->insert_id;
-        
-        return [
-            'action' => 'created',
-            'user_id' => $new_user_id,
-            'ghl_id' => $ghl_id
-        ];
+        logMessage("User found: ID {$user['id']} email $email");
+        // return $user;
+         return ['user_id' => $user['id'], 'email' => $email];
     }
-    
-    return [
-        'action' => 'skipped',
-        'reason' => 'User not found for update request'
+
+    $stmt = $mysqli->prepare("INSERT INTO users (email,password) VALUES (?,?)");
+    if (!$stmt) {
+        logMessage("Prepare failed in user insert: " . $mysqli->error);
+        return false;
+    }
+    $stmt->bind_param("ss", $email,$defaultPassword);
+    $stmt->execute();
+    $userId = $stmt->insert_id;
+    $stmt->close();
+
+    logMessage("User created: ID $userId email $email");
+
+    return ['user_id' => $userId, 'email' => $email];
+}
+
+function createOrder($mysqli, $userId, $orderId, $orderDate, $total, $status,$order) {
+    $stmt = $mysqli->prepare("SELECT id FROM orders WHERE id = ?");
+    if (!$stmt) {
+        logMessage("Prepare failed in createOrder check: " . $mysqli->error);
+        return false;
+    }
+    $stmt->bind_param("i", $orderId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $exists = $result->fetch_assoc();
+    $stmt->close();
+
+    if ($exists) {
+        logMessage("Order already exists: order_id $orderId");
+        return false;
+    }
+    $subTotal=$order['subTotal'];
+    $total=$order['total'];
+    $orderDate=$order['orderDate'];
+    // $invoiceDate=$order['invoiceDate'];
+    $order_number=$order['id'];
+    $stmt = $mysqli->prepare("INSERT INTO orders (user_id, order_number, total_amount, sub_total, order_date, status) VALUES (?, ?, ?, ?, ?, ?)");
+    if (!$stmt) {
+        logMessage("Prepare failed in order insert: " . $mysqli->error);
+        return false;
+    }
+    $stmt->bind_param("isssds", $userId, $order_number, $total, $subTotal, $orderDate, $status);
+    $stmt->execute();
+    $newOrderId = $stmt->insert_id;
+    $stmt->close();
+
+    logMessage("Order created: ID $newOrderId for User ID $userId");
+
+    return $newOrderId;
+}
+function saveaddress($mysqli, $userId, $order_id,$address) {
+    $type=$address['type'];
+    $line1=$address['line1'];
+    $city=$address['city'];
+    $stateCode=$address['stateCode'];
+    $zip=$address['zip'];
+    $countryCode=$address['countryCode'];
+    $stmt = $mysqli->prepare("INSERT INTO customer_address (order_id, user_id, type, line1, city, stateCode, zip, countryCode) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    if (!$stmt) {
+        logMessage("Prepare failed in order insert: " . $mysqli->error);
+        return false;
+    }
+    $stmt->bind_param("iissssss", $order_id, $userId, $type, $line1, $city, $stateCode, $zip, $countryCode);
+    $stmt->execute();
+    $addressId = $stmt->insert_id;
+    $stmt->close();
+
+    logMessage("Addresss created: ID $newOrderId for User ID $userId");
+
+    return $addressId;
+}
+function saveOrderItems($mysqli, $orderId, $items) {
+    foreach ($items as $item) {
+        $stmt = $mysqli->prepare("SELECT id FROM order_items WHERE order_id = ? AND item_id = ?");
+        if (!$stmt) {
+            logMessage("Prepare failed in saveOrderItems select: " . $mysqli->error);
+            continue;
+        }
+        $stmt->bind_param("ii", $orderId, $item['id']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $exists = $result->fetch_assoc();
+        $stmt->close();
+
+        if ($exists) {
+            logMessage("Item {$item['id']} already exists in order $orderId");
+            continue;
+        }
+
+        $stmt = $mysqli->prepare("INSERT INTO order_items (order_id, sku, name, description, quantity, price,volume) VALUES (?, ?, ?, ?, ?, ?)");
+        if (!$stmt) {
+            logMessage("Prepare failed in saveOrderItems insert: " . $mysqli->error);
+            continue;
+        }
+        $stmt->bind_param(
+            "iissdi",
+            $orderId,
+            $item['id'],
+            $item['sku'],
+            $item['name'],
+            $item['description'],
+            $item['price'],
+            $item['quantity'],
+            $item['volume']
+        );
+        $stmt->execute();
+        $stmt->close();
+        logMessage("Item {$item['id']} added to order $orderId");
+    }
+}
+function sendToPillars($data) {
+    $pillarsUrl = 'https://api.yourpillars.com/endpoint'; // Replace with your actual Pillars API URL
+    $apiKey = 'YOUR_PILLARS_API_KEY'; // Replace with your Pillars API key
+
+    $payload = [
+        'order_id' => $data['id'],
+        'customer_id' => $data['customerId'],
+        'order_date' => $data['orderDate'],
+        'email' => $data['emailAddress'],
+        'total' => $data['total'],
+        'status' => $data['status'],
+        'customer_type' => $data['customerType']['name'] ?? null,
+        'items' => $data['items'] ?? [],
+        'addresses' => $data['addresses'] ?? [],
+        'custom_data' => $data['customData'] ?? [],
     ];
-}
 
-/**
- * Process a GHL opportunity (order)
- */
-function process_ghl_opportunity($data) {
-    global $log_file;
-    
-    // Extract opportunity data
-    $opportunity = $data['opportunity'] ?? null;
-    
-    if (!$opportunity) {
-        file_put_contents($log_file, date('Y-m-d H:i:s') . " - Error: Missing opportunity data\n\n", FILE_APPEND);
-        throw new Exception('Missing opportunity data');
-    }
-    
-    // Extract required fields
-    $ghl_opportunity_id = $opportunity['id'] ?? null;
-    $contact_id = $opportunity['contactId'] ?? null;
-    $title = $opportunity['title'] ?? '';
-    $status = $opportunity['status'] ?? '';
-    $value = $opportunity['monetaryValue'] ?? 0;
-    $created_at = $opportunity['createdAt'] ?? null;
-    
-    if (!$ghl_opportunity_id || !$contact_id) {
-        file_put_contents($log_file, date('Y-m-d H:i:s') . " - Error: Missing required opportunity fields\n\n", FILE_APPEND);
-        throw new Exception('Missing required opportunity fields (id or contactId)');
-    }
-    
-    // Find user by GHL contact ID
-    $user_query = db_query("SELECT * FROM users WHERE ghl_id = ?", [$contact_id]);
-    $user = db_fetch_one($user_query);
-    
-    if (!$user) {
-        file_put_contents($log_file, date('Y-m-d H:i:s') . " - Error: User not found for GHL contact ID: {$contact_id}\n\n", FILE_APPEND);
-        throw new Exception("User not found for GHL contact ID: {$contact_id}");
-    }
-    
-    // Map GHL status to our order status
-    $order_status = map_ghl_status_to_order_status($status);
-    
-    // Determine product based on opportunity title or other fields
-    $product_id = determine_product_from_opportunity($opportunity);
-    
-    // Check if this order already exists
-    $order_query = db_query("SELECT * FROM orders WHERE ghl_order_id = ?", [$ghl_opportunity_id]);
-    $order = db_fetch_one($order_query);
-    
-    if ($order) {
-        // Order exists, update it
-        $query = "
-            UPDATE orders 
-            SET 
-                product_id = ?,
-                amount = ?,
-                status = ?,
-                updated_at = NOW()
-            WHERE id = ?
-        ";
-        
-        db_query($query, [
-            $product_id,
-            $value,
-            $order_status,
-            $order['id']
-        ]);
-        
-        // If order status changed to completed, process commissions
-        if ($order_status === 'completed' && $order['status'] !== 'completed') {
-            process_order_commissions($order['id']);
-        }
-        
-        return [
-            'action' => 'updated',
-            'order_id' => $order['id'],
-            'ghl_order_id' => $ghl_opportunity_id,
-            'status' => $order_status
-        ];
-    } else {
-        // New order, create it
-        $order_date = $created_at ? date('Y-m-d', strtotime($created_at)) : date('Y-m-d');
-        
-        $query = "
-            INSERT INTO orders (
-                user_id, product_id, amount, status, order_date, ghl_order_id, created_at, updated_at
-            ) VALUES (
-                ?, ?, ?, ?, ?, ?, NOW(), NOW()
-            )
-        ";
-        
-        $stmt = db_query($query, [
-            $user['id'],
-            $product_id,
-            $value,
-            $order_status,
-            $order_date,
-            $ghl_opportunity_id
-        ]);
-        
-        $new_order_id = $stmt->insert_id;
-        
-        // If order is completed, process commissions
-        if ($order_status === 'completed') {
-            process_order_commissions($new_order_id);
-        }
-        
-        return [
-            'action' => 'created',
-            'order_id' => $new_order_id,
-            'ghl_order_id' => $ghl_opportunity_id,
-            'status' => $order_status
-        ];
-    }
-}
+    $ch = curl_init($pillarsUrl);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Content-Type: application/json',
+        'Authorization: Bearer ' . $apiKey
+    ]);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
 
-/**
- * Maps GHL opportunity status to our order status
- */
-function map_ghl_status_to_order_status($ghl_status) {
-    $status_map = [
-        'new' => 'pending',
-        'working' => 'processing',
-        'qualified' => 'processing',
-        'won' => 'completed',
-        'lost' => 'failed'
-    ];
-    
-    $ghl_status = strtolower($ghl_status);
-    
-    return isset($status_map[$ghl_status]) ? $status_map[$ghl_status] : 'pending';
-}
+    $response = curl_exec($ch);
+    $error = curl_error($ch);
+    curl_close($ch);
 
-/**
- * Determines product ID based on opportunity details
- */
-function determine_product_from_opportunity($opportunity) {
-    global $log_file;
-    
-    // Get opportunity title
-    $title = $opportunity['title'] ?? '';
-    $pipeline = $opportunity['pipeline'] ?? '';
-    $value = $opportunity['monetaryValue'] ?? 0;
-    
-    // Look for product with matching name
-    $query = "SELECT * FROM products WHERE LOWER(name) LIKE ? OR LOWER(name) LIKE ?";
-    $result = db_query($query, ['%' . strtolower($title) . '%', '%' . strtolower($pipeline) . '%']);
-    $product = db_fetch_one($result);
-    
-    if ($product) {
-        return $product['id'];
+    if ($error) {
+        logMessage("Pillars API request failed: $error");
+        return false;
     }
-    
-    // If no product found by name, try to match by price
-    if ($value > 0) {
-        $query = "SELECT * FROM products WHERE ABS(price - ?) < 1 ORDER BY ABS(price - ?) LIMIT 1";
-        $result = db_query($query, [$value, $value]);
-        $product = db_fetch_one($result);
-        
-        if ($product) {
-            return $product['id'];
-        }
-    }
-    
-    // If still no product found, get the default product
-    $query = "SELECT * FROM products ORDER BY id ASC LIMIT 1";
-    $result = db_query($query);
-    $product = db_fetch_one($result);
-    
-    if ($product) {
-        file_put_contents($log_file, date('Y-m-d H:i:s') . " - Warning: Could not determine specific product, using default ID {$product['id']}\n\n", FILE_APPEND);
-        return $product['id'];
-    }
-    
-    // If no products in database
-    file_put_contents($log_file, date('Y-m-d H:i:s') . " - Error: No products found in database\n\n", FILE_APPEND);
-    throw new Exception('No products found in database');
-}
 
-/**
- * Process commissions for an order
- */
-function process_order_commissions($order_id) {
-    global $log_file;
-    
-    // Get order details
-    $order_query = db_query("SELECT * FROM orders WHERE id = ?", [$order_id]);
-    $order = db_fetch_one($order_query);
-    
-    if (!$order) {
-        file_put_contents($log_file, date('Y-m-d H:i:s') . " - Error: Order not found ID: {$order_id}\n\n", FILE_APPEND);
-        throw new Exception("Order not found ID: {$order_id}");
-    }
-    
-    // Get user details
-    $user_query = db_query("SELECT * FROM users WHERE id = ?", [$order['user_id']]);
-    $user = db_fetch_one($user_query);
-    
-    if (!$user) {
-        file_put_contents($log_file, date('Y-m-d H:i:s') . " - Error: User not found ID: {$order['user_id']}\n\n", FILE_APPEND);
-        throw new Exception("User not found ID: {$order['user_id']}");
-    }
-    
-    // Get direct commission settings
-    $direct_commission_rate = get_system_setting('direct_commission_rate', 10);
-    
-    // Calculate direct commission amount
-    $commission_amount = $order['amount'] * ($direct_commission_rate / 100);
-    
-    // If user has a sponsor, create commission for them
-    if (!empty($user['sponsor_id'])) {
-        // Create commission record for sponsor
-        $query = "
-            INSERT INTO commissions (
-                user_id, order_id, amount, commission_type, status, commission_date, created_at, updated_at
-            ) VALUES (
-                ?, ?, ?, 'direct', 'pending', ?, NOW(), NOW()
-            )
-        ";
-        
-        $stmt = db_query($query, [
-            $user['sponsor_id'],
-            $order_id,
-            $commission_amount,
-            $order['order_date']
-        ]);
-        
-        $commission_id = $stmt->insert_id;
-        
-        file_put_contents($log_file, date('Y-m-d H:i:s') . " - Direct commission created: {$commission_id} for sponsor ID: {$user['sponsor_id']}, amount: {$commission_amount}\n\n", FILE_APPEND);
-        
-        // Send commission to Pillars for processing
-        sync_commission_to_pillars($commission_id);
-    }
-    
-    // Check for override commissions (sponsor's sponsor)
-    if (!empty($user['sponsor_id'])) {
-        $sponsor_query = db_query("SELECT * FROM users WHERE id = ?", [$user['sponsor_id']]);
-        $sponsor = db_fetch_one($sponsor_query);
-        
-        if ($sponsor && !empty($sponsor['sponsor_id'])) {
-            // Get override commission settings
-            $override_commission_rate = get_system_setting('override_commission_rate', 5);
-            
-            // Calculate override commission amount
-            $override_amount = $order['amount'] * ($override_commission_rate / 100);
-            
-            // Create override commission for sponsor's sponsor
-            $query = "
-                INSERT INTO commissions (
-                    user_id, order_id, amount, commission_type, status, commission_date, created_at, updated_at
-                ) VALUES (
-                    ?, ?, ?, 'override', 'pending', ?, NOW(), NOW()
-                )
-            ";
-            
-            $stmt = db_query($query, [
-                $sponsor['sponsor_id'],
-                $order_id,
-                $override_amount,
-                $order['order_date']
-            ]);
-            
-            $commission_id = $stmt->insert_id;
-            
-            file_put_contents($log_file, date('Y-m-d H:i:s') . " - Override commission created: {$commission_id} for sponsor's sponsor ID: {$sponsor['sponsor_id']}, amount: {$override_amount}\n\n", FILE_APPEND);
-            
-            // Send override commission to Pillars for processing
-            sync_commission_to_pillars($commission_id);
-        }
-    }
-    
+    logMessage("Pillars API response: $response");
     return true;
 }
+function generateTemporaryPassword() {
+    return substr(md5(uniqid(rand(), true)), 0, 10);
+}
+function piller_customer_creation(){
+$url = 'https://api.pillarshub.com/api/v1/Customers';
 
-/**
- * Send commission data to Pillars
- */
-function sync_commission_to_pillars($commission_id) {
-    global $log_file;
-    
-    // Get commission details
-    $commission_query = db_query("
-        SELECT c.*, o.order_date, o.ghl_order_id, o.product_id, o.amount as order_amount,
-               u.email, u.first_name, u.last_name, u.pillars_id
-        FROM commissions c
-        JOIN orders o ON c.order_id = o.id
-        JOIN users u ON c.user_id = u.id
-        WHERE c.id = ?
-    ", [$commission_id]);
-    
-    $commission = db_fetch_one($commission_query);
-    
-    if (!$commission) {
-        file_put_contents($log_file, date('Y-m-d H:i:s') . " - Error: Commission not found ID: {$commission_id}\n\n", FILE_APPEND);
-        throw new Exception("Commission not found ID: {$commission_id}");
-    }
-    
-    // Prepare Pillars API request
-    // In a real implementation, you would make an API call to Pillars to create/update the commission
-    
-    // For now, just mark commission as synced
-    $query = "UPDATE commissions SET status = 'approved', updated_at = NOW() WHERE id = ?";
-    db_query($query, [$commission_id]);
-    
-    file_put_contents($log_file, date('Y-m-d H:i:s') . " - Commission synced to Pillars ID: {$commission_id}\n\n", FILE_APPEND);
-    
-    return true;
+$payload = json_encode([
+    "id" => "7005",
+    "firstName" => "Stephanie",
+    "middleName" => "Golka",
+    "lastName" => "Stephanie Golka",
+    "signupDate" => "2025-04-27T18:12:25Z",
+    "emailAddress" => "stephaniegolka@yahoo.com",
+    "phoneNumbers" => [
+        ["type" => "mobile", "number" => "7809653128"]
+    ],
+    "addresses" => [
+        [
+            "type" => "primary",
+            "line1" => "1197, 5328 Calgary Trail NW",
+            "city" => "Edmonton",
+            "stateCode" => "AB",
+            "zip" => "T6H4J8",
+            "countryCode" => "CA"
+        ]
+    ],
+    "language" => "English",
+    "customData" => "ANNUAL - Passport (New Affiliate)"
+]);
+
+$headers = [
+    'Authorization: gfgfgfgfgfgfgfggfgfg',
+    'Accept: application/json',
+    'Content-Type: application/*+json',
+];
+
+$ch = curl_init($url);
+
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+$response = curl_exec($ch);
+
+if (curl_errno($ch)) {
+    echo 'Error:' . curl_error($ch);
+} else {
+    echo $response;
 }
 
-/**
- * Get a system setting value with default
- */
-function get_system_setting($key, $default = null) {
-    $query = db_query("SELECT value FROM system_settings WHERE setting_key = ?", [$key]);
-    $result = db_fetch_one($query);
-    
-    if ($result) {
-        return $result['value'];
-    }
-    
-    return $default;
-}
+curl_close($ch);
 
-/**
- * Generate a random password
- */
-function generate_random_password($length = 12) {
-    $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+';
-    $password = '';
-    
-    for ($i = 0; $i < $length; $i++) {
-        $password .= $chars[rand(0, strlen($chars) - 1)];
-    }
-    
-    return $password;
 }
+function handleWebhook() {
+    $mysqli = getDBConnection();
 
-/**
- * Log sync history to database
- */
-function log_sync_history($data) {
-    global $log_file;
-    
-    try {
-        // Convert details to JSON if it's an array
-        if (is_array($data['details'])) {
-            $details = json_encode($data['details']);
-        } else {
-            $details = $data['details'];
+    $json = file_get_contents('php://input');
+    $data = json_decode($json, true);
+
+    if (!$data) {
+        logMessage("Invalid JSON input");
+        http_response_code(400);
+        echo json_encode(['error' => 'Invalid JSON']);
+        exit;
+    }
+
+    if (empty($data['emailAddress'])) {
+        logMessage("Missing emailAddress in webhook");
+        http_response_code(400);
+        echo json_encode(['error' => 'Email address is required']);
+        exit;
+    }
+
+    $user = findOrCreateUser($mysqli, $data['emailAddress'],$data);
+    if (!$user) {
+        logMessage("Failed to find or create user");
+        http_response_code(500);
+        echo json_encode(['error' => 'User error']);
+        exit;
+    }
+
+    $orderId = createOrder(
+        $mysqli,
+        $user['user_id'],
+        $data['id'],
+        $data['orderDate'],
+        $data['total'],
+        $data['status'],
+        $data['orders']
+    );
+
+    if (!$orderId) {
+        http_response_code(200);
+        echo json_encode(['status' => 'order exists or failed']);
+        exit;
+    }
+
+    if (!empty($data['addresses'])) {
+        foreach ($data['addresses'] as $address) {
+            if ($address['type'] === 'primary') {
+              saveaddress($mysqli, $user['user_id'], $orderId,$address);
+                break;
+            }
         }
-        
-        $query = "
-            INSERT INTO sync_history (
-                integration, action, status, records_processed, duration_seconds, summary, details, created_at
-            ) VALUES (
-                ?, ?, ?, ?, ?, ?, ?, NOW()
-            )
-        ";
-        
-        $stmt = db_query($query, [
-            $data['integration'],
-            $data['action'],
-            $data['status'],
-            $data['records_processed'],
-            $data['duration_seconds'] ?? 0,
-            $data['summary'],
-            $details
-        ]);
-        
-    } catch (Exception $e) {
-        file_put_contents($log_file, date('Y-m-d H:i:s') . " - Error logging sync history: " . $e->getMessage() . "\n\n", FILE_APPEND);
     }
+
+    if (!empty($data['orders']['lineItems'])) {
+        saveOrderItems($mysqli, $orderId, $data['orders']['lineItems']);
+    }
+
+    $pillarsSuccess = sendToPillars($data);
+    if (!$pillarsSuccess) {
+        logMessage("Failed to send data to Pillars API for order ID {$data['id']}");
+    }
+
+    http_response_code(200);
+    echo json_encode(['status' => 'success']);
 }
+handleWebhook();
