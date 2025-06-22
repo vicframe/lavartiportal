@@ -62,6 +62,10 @@ require_once __DIR__ . '/../includes/dashboard_header.php';
                                     <label for="phone" class="form-label">Phone Number</label>
                                     <input type="tel" class="form-control" id="phone" name="phone" value="<?php echo htmlspecialchars($user['phone']); ?>">
                                 </div>
+                                <div class="mb-3">
+                                    <label for="src_url" class="form-label">Src Url</label>
+                                    <input type="text" class="form-control" id="src_url" name="src_url" value="<?php echo htmlspecialchars($user['src_url']); ?>">
+                                </div>
                                 
                                 <button type="submit" class="btn btn-primary">Save Changes</button>
                             </form>
@@ -218,18 +222,55 @@ require_once __DIR__ . '/../includes/dashboard_header.php';
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Add event listeners for forms
-    const profileForm = document.getElementById('profile-form');
-    const passwordForm = document.getElementById('password-form');
-    const notificationForm = document.getElementById('notification-form');
-    
-    if (profileForm) {
+    //const profileForm = document.getElementById('profile-form');
+    //const passwordForm = document.getElementById('password-form');
+    //const notificationForm = document.getElementById('notification-form');
+    const postData = async (formId, action) => {
+        const form = document.getElementById(formId);
+        const formData = new FormData(form);
+        formData.append('action', action);
+
+        const response = await fetch('/dashboard/update_account.php', {
+            method: 'POST',
+            body: formData
+        });
+
+        const result = await response.json();
+        alert(result.message);
+    };
+
+       document.getElementById('profile-form')?.addEventListener('submit', function (e) {
+        e.preventDefault();
+        postData('profile-form', 'update_profile');
+    });
+
+    document.getElementById('password-form')?.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const newPassword = document.getElementById('new_password').value;
+        const confirmPassword = document.getElementById('confirm_password').value;
+
+        if (newPassword !== confirmPassword) {
+            alert('Passwords do not match!');
+            return;
+        }
+
+        postData('password-form', 'update_password');
+    });
+    document.getElementById('notification-form')?.addEventListener('submit', function (e) {
+        e.preventDefault();
+        postData('notification-form', 'update_notifications');
+    });
+
+
+   /* if (profileForm) {
         profileForm.addEventListener('submit', function(e) {
             e.preventDefault();
             // In real implementation, this would send data via AJAX
             alert('Profile information updated successfully!');
         });
-    }
+    }*/
     
+    /*
     if (passwordForm) {
         passwordForm.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -245,15 +286,16 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Password changed successfully!');
             this.reset();
         });
-    }
+    }*/
     
+    /*
     if (notificationForm) {
         notificationForm.addEventListener('submit', function(e) {
             e.preventDefault();
             // In real implementation, this would send data via AJAX
             alert('Notification preferences saved!');
         });
-    }
+    }*/
 });
 </script>
 

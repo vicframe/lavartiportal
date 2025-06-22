@@ -32,11 +32,12 @@ define('APP_VERSION', '1.0.0');
 // Set APP_URL and BASE_PATH safely whether called from web or CLI
 if (php_sapi_name() === 'cli') {
     define('APP_URL', 'http://localhost:5000');
-    define('BASE_PATH', '/lavartiportal/');
+   // define('BASE_PATH', '/lavartiportal/');
+   define('BASE_PATH', '/');
 } else {
     // Manual override for base path - uncomment and set for subdirectory installations
-    $manual_base_path = '/lavartiportal'; // Set to '' for root directory or '/your-subdirectory' for subdirectory installation
-    
+    //$manual_base_path = '/lavartiportal'; // Set to '' for root directory or '/your-subdirectory' for subdirectory installation
+    $manual_base_path = ''; // Set to '' for root directory or '/your-subdirectory' for subdirectory installation
     if (isset($manual_base_path) && $manual_base_path !== false) {
         // Use manually specified base path
         $base_path = $manual_base_path;
@@ -51,8 +52,8 @@ if (php_sapi_name() === 'cli') {
     error_log('Detected base path: ' . $base_path);
     
     // If application is in a subdirectory, the base path will be something like '/lavartiportal'
-    define('BASE_PATH', '/lavartiportal');
-    
+    //define('BASE_PATH', '/lavartiportal');
+    define('BASE_PATH', '');
     // Set the full application URL
     define('APP_URL', (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . 
            '://' . $_SERVER['HTTP_HOST'] . BASE_PATH);
@@ -73,15 +74,20 @@ if (!file_exists(LOG_DIR)) {
 }
 
 // Database configuration
-define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
-define('DB_NAME', getenv('DB_NAME') ?: 'lavartiportal');
+//define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
+//define('DB_NAME', getenv('DB_NAME') ?: 'lavartiportal');
 //define('DB_USER', getenv('DB_USER') ?: 'lavartiportal_user');
 //define('DB_PASS', getenv('DB_PASS') ?: 'bK({bzO){g7#');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-
-
+//define('DB_USER', 'root');
+//define('DB_PASS', '');
+define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
+define('DB_NAME', getenv('DB_NAME') ?: 'lavartiportal');
+define('DB_USER', getenv('DB_USER') ?: 'lavartiportal_user');
+define('DB_PASS', getenv('DB_PASS') ?: 'I-]5d+pH.sgK');
 define('DB_PORT', getenv('DB_PORT') ?: 3306);
+
+
+//define('DB_PORT', getenv('DB_PORT') ?: 3306);
 
 // API Keys (should be stored securely in environment variables)
 define('GHL_API_KEY', getenv('GHL_API_KEY'));

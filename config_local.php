@@ -15,7 +15,7 @@ define('INCLUDE_PATH', __DIR__ . '/includes');
 define('ASSETS_PATH', __DIR__ . '/assets');
 
 // Include required files
-require_once INCLUDE_PATH . '/database_mysql.php'; // Use MySQL database functions instead of PostgreSQL
+require_once INCLUDE_PATH . '/database_mysql.php'; 
 require_once INCLUDE_PATH . '/functions.php';
 require_once INCLUDE_PATH . '/auth.php';
 

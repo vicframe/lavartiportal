@@ -3,57 +3,7 @@
  * Dashboard header template
  */
 
-if (!isset($user)) {
-    $user = ['first_name' => 'User'];
-}
-
-
- 
- function getRsiRedirectInfo($order) {
-    $rsi_secret = '%#c@r#vRS022'; // Replace with your actual secret
-    //$uid = $order['user_id'];
-    //$uid = $order['user_id'] ?? $user_id;
-    
-    //$uid = $user_id ?? ($user['id'] ?? null);
-
-        $uid = $order['user_id'] ?? '10081'; // This is the GHL uniquID we pass to rsi
-
-
-
-    //$sku = $order['item_sku'] ?? '';
-    $sku = $order['item_sku'] ?? 'PASS-US-GHL-SUB';
-
-    if (str_starts_with($sku, 'PASSLITE-')) {
-        $orgId = 803;
-        $label = 'Passport Lite';
-        $baseUrl = 'https://passportlite.thedash.life/index.php';
-    } elseif (str_starts_with($sku, 'PASS-')) {
-        $orgId = 793;
-        $label = 'Passport (Dashlife)';
-        $baseUrl = 'https://sso.thedash.life/index.php';
-    } elseif (str_starts_with($sku, 'PASSTA-')) {
-        $orgId = 826;
-        $label = 'Passport Travel Agent';
-        $baseUrl = 'https://travelagent.thedash.life/index.php';
-    } else {
-        return null;
-    }
-
-    $sk = md5($rsi_secret . $uid);
-    //$loginUrl = $baseUrl . '?uid=' . urlencode($uid) . '&sk=' . $sk;
-
-    $loginUrl = $baseUrl . '?uid=' . urlencode($uid ?? '') . '&sk=' . $sk;
-
-    return [
-        'product' => $label,
-        'org_id' => $orgId,
-        'url' => $loginUrl
-    ];
-}
-
-
-
-require_once __DIR__ . '/auth.php';
+  require_once __DIR__ . '/auth.php';
 
 if (!isset($page_title)) {
     $page_title = APP_NAME;
@@ -64,9 +14,7 @@ $current_user = null;
 if (function_exists('is_logged_in') && is_logged_in()) {
     $current_user = get_current_logged_user();
 }
-if (!isset($user)) {
-    $user = ['first_name' => 'User'];
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

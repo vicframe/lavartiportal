@@ -242,7 +242,9 @@ function loadOrderDetails(orderId) {
     `;
     
     // Fetch order details
-    fetch(`https://thephoenixlb.com/lavartiportal/api/order-details.php?id=${orderId}`)
+    //fetch(`https://thephoenixlb.com/lavartiportal/api/order-details.php?id=${orderId}`)
+        fetch(`https://levartiportal.com//api/order-details.php?id=${orderId}`)
+
         .then(response => response.json())
         .then(data => {
             if (data.success) {

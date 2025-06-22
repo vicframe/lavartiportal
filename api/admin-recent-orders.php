@@ -2,7 +2,7 @@
 /**
  * Admin Recent Orders API
  * 
- * Returns recent orders for the admin dashboard
+ * Admin Recent Orders API (Based on order_items only, no product_id)
  */
 
 require_once __DIR__ . '/../config.php';
@@ -28,21 +28,32 @@ if (!isset($user['is_admin']) || !$user['is_admin']) {
 }
 
 try {
-    // Get recent orders with user details
-    $orders_query = db_query("
-        SELECT o.*, 
-               u.first_name, 
-               u.last_name, 
-               CONCAT(u.first_name, ' ', u.last_name) as user_name
+    $query = "
+        SELECT 
+            o.*,
+            u.first_name,
+            u.last_name,
+            CONCAT(u.first_name, ' ', u.last_name) AS user_name,
+            oi.name AS product_name,
+            oi.price AS product_price
         FROM orders o
-        JOIN users u ON o.user_id = u.id
+        LEFT JOIN users u ON o.user_id = u.id
+        LEFT JOIN (
+            SELECT oi1.*
+            FROM order_items oi1
+            INNER JOIN (
+                SELECT order_id, MIN(id) AS min_id
+                FROM order_items
+                GROUP BY order_id
+            ) oi2 ON oi1.id = oi2.min_id
+        ) oi ON oi.order_id = o.id
         ORDER BY o.created_at DESC
-        LIMIT 10
-    ");
-    
-    $orders = db_fetch_all($orders_query);
-    
-    // Return orders
+        LIMIT 50
+    ";
+
+    $result = db_query($query);
+    $orders = db_fetch_all($result);
+
     echo json_encode([
         'success' => true,
         'orders' => $orders

@@ -14,16 +14,8 @@ require_login();
 $user = get_current_logged_user();
 $is_admin = isset($user['is_admin']) && $user['is_admin'];
 $user_id = $user['id'];
-?>
-
-<!-- ✅ This is now properly outside PHP -->
-<form action="/portal/rsi_redirect.php" method="post">
-  <button type="submit" class="btn btn-primary">Click RSI</button>
-</form>
 
 
-<?php
-// Get user's statistics
 $stats = [
     'orders_count' => 0,
     'total_spent' => 0,
@@ -150,7 +142,6 @@ $query = "
         o.updated_at,
         
         p.name AS product_name,
-        p.name AS item_name, 
         p.price AS product_price, 
         p.tier_level,
         
@@ -174,7 +165,7 @@ $query = "
         u.is_admin,
         
         i.id AS item_id,
-        p.name AS item_name,
+        i.name AS item_name,
         i.quantity AS item_quantity,
         i.sku AS item_sku,
         i.price AS item_price
@@ -194,7 +185,17 @@ $order = db_fetch_one($order_result);
 $custom_css = '<link href="' . asset_url('/assets/css/dashboard.css') . '" rel="stylesheet">';
 require_once __DIR__ . '/../includes/dashboard_header.php';
 ?>
+<style>
+    .upgrade-cta {
+        display: flex;
+        gap: 10px; /* spacing between buttons */
+        align-items: center;
+    }
 
+    .upgrade-cta form {
+        margin: 0; /* remove default margin */
+    }
+</style>
 <div class="dashboard-container">
     <!-- Sidebar -->
     <?php include __DIR__ . '/partials/sidebar.php'; ?>
@@ -212,10 +213,20 @@ require_once __DIR__ . '/../includes/dashboard_header.php';
                 </div>
                 
                 <?php if ($stats['membership_tier'] === 0): ?>
+                    <div class="upgrade-cta">
+                   
+                </div>
                 <div class="upgrade-cta">
                     <a href="https://dashlifetravel.com/pass-us-travel-2446" class="btn btn-primary">
                         <i class="fas fa-crown me-1"></i> Upgrade Membership
                     </a>
+                    <form action="rsi_form.php" method="POST">
+                            <input type="hidden" name="user_id" value="10081">
+                            <input type="hidden" name="item_sku" value="PASS-US-GHL-SUB">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-crown me-1"></i> Access Travel Portal
+                        </button>
+                    </form>
                 </div>
                 <?php endif; ?>
             </div>
@@ -273,8 +284,9 @@ require_once __DIR__ . '/../includes/dashboard_header.php';
                     <div class="card h-100">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h2 class="card-title">Recent Orders</h2>
-                            <a href="https://thephoenixlb.com/lavartiportal/dashboard/orders.php" class="btn btn-sm btn-outline-primary">
-                                View All
+                            <a href="https://levartiportal.com//dashboard/orders.php" class="btn btn-sm btn-outline-primary">
+                              
+                            View All
                             </a>
                         </div>
                         <div class="card-body">
@@ -389,28 +401,7 @@ require_once __DIR__ . '/../includes/dashboard_header.php';
                             </a>
                         </div>
                     </div>
-                </div>
-
-                                </div> <!-- end of affiliate card column -->
-
-                <!-- 🔽 Paste RSI block here -->
-                <?php
-                $rsiInfo = getRsiRedirectInfo($order);
-                if ($rsiInfo):
-                ?>
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <strong>🎫 RSI Travel Portal Access</strong>
-                        </div>
-                        <div class="card-body">
-                            <p><strong>Product:</strong> <?= $rsiInfo['product']; ?></p>
-                            <p><strong>Organization ID:</strong> <?= $rsiInfo['org_id']; ?></p>
-                            <a href="<?= $rsiInfo['url']; ?>" class="btn btn-primary" target="_blank">
-                                Access Your Travel Portal
-                            </a>
-                        </div>
-                    </div>
-                <?php endif; ?>
+                </div>   
 
                 <!-- Recent activity -->
                 <!--<div class="col-md-6 mb-4">-->

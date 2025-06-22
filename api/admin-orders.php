@@ -47,10 +47,22 @@ try {
     $query = "
         SELECT o.id, o.user_id, o.product_id, o.total_amount, o.status, o.order_date, o.created_at, 
                o.updated_at,
-               p.name as product_name, p.price as product_price, p.tier_level,
+               i.name as product_name, i.price as product_price,
+               p.tier_level,
                u.first_name, u.last_name, u.email
+
         FROM orders o
-        LEFT JOIN products p ON o.product_id = p.id
+        LEFT JOIN order_items i ON o.id = i.order_id
+        LEFT JOIN products p ON i.product_id = p.id
+        LEFT JOIN users u ON o.user_id = u.id
+        WHERE 1=1
+    ";
+
+    $count_query = "
+        SELECT COUNT(DISTINCT o.id) as count
+        FROM orders o
+        LEFT JOIN order_items i ON o.id = i.order_id
+        LEFT JOIN products p ON i.product_id = p.id
         LEFT JOIN users u ON o.user_id = u.id
         WHERE 1=1
     ";
@@ -60,6 +72,7 @@ try {
     // Add status filter
     if ($status && $status !== 'all') {
         $query .= " AND o.status = ?";
+        $count_query .= " AND o.status = ?";
         $params[] = $status;
     }
     
@@ -69,27 +82,27 @@ try {
             u.first_name LIKE ? OR 
             u.last_name LIKE ? OR 
             u.email LIKE ? OR 
-            p.name LIKE ? OR 
-            o.id::text LIKE ?
+            i.name LIKE ? OR 
+            CAST(o.id AS CHAR) LIKE ?
+              
+             
         )";
+        $count_query .= " AND (
+            u.first_name LIKE ? OR 
+            u.last_name LIKE ? OR 
+            u.email LIKE ? OR 
+            i.name LIKE ? OR 
+            CAST(o.id AS CHAR) LIKE ?
+        )";
+
+
         
         $searchTerm = "%{$search}%";
-        $params[] = $searchTerm;
-        $params[] = $searchTerm;
-        $params[] = $searchTerm;
-        $params[] = $searchTerm;
-        $params[] = $searchTerm;
+        $params = array_merge($params, array_fill(0, 5, $searchTerm));
+     
     }
     
-    // Count total orders with filters
-    $count_query = str_replace(
-        "SELECT o.id, o.user_id, o.product_id, o.total_amount, o.status, o.order_date, o.created_at, 
-               o.updated_at,
-               p.name as product_name, p.price as product_price, p.tier_level,
-               u.first_name, u.last_name, u.email",
-        "SELECT COUNT(*) as count",
-        $query
-    );
+   // Get total count
     
     $count_result = db_query($count_query, $params);
     $count_data = db_fetch_one($count_result);

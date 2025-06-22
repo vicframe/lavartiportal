@@ -17,8 +17,8 @@ function db_connect() {
         // Create connection
        // $mysqli = new mysqli('localhost', 'lavartiportal_user', 'dSMXNhI-cQ7+', 'lavartiportal');
         
-       $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-
+//       $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+        $mysqli = new mysqli('localhost', 'lavartiportal_user', 'I-]5d+pH.sgK', 'lavartiportal');
         // Check connection
         if ($mysqli->connect_error) {
             die('Database connection failed: ' . $mysqli->connect_error);
