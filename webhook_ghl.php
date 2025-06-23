@@ -1,5 +1,6 @@
 <?php
 // webhook_ghl.php
+require_once __DIR__ . '/./rsi_api.php'; //
 
 function getDBConnection() {
     $host = 'localhost';
@@ -154,8 +155,8 @@ function saveOrderItems($mysqli, $orderId, $items) {
     }
 }
 function sendToPillars($data) {
-    $pillarsUrl = 'https://api.yourpillars.com/endpoint'; // Replace with your actual Pillars API URL
-    $apiKey = 'YOUR_PILLARS_API_KEY'; // Replace with your Pillars API key
+    $pillarsUrl = 'https://api.pillarshub.com/api/v1/Orders'; // API URL
+    $apiKey = 'ZFge8sWV3T8JLB0sH9N5oQg89IJl40pjSLcx7Zhsu2mv'; //
 
     $payload = [
         'order_id' => $data['id'],
@@ -288,6 +289,46 @@ function handleWebhook() {
         echo json_encode(['status' => 'order exists or failed']);
         exit;
     }
+
+    // === RSI AUTO REGISTER ===
+try {
+    $first_name = $data['firstName'] ?? 'Unknown';
+    $last_name = $data['lastName'] ?? 'Unknown';
+    $email = $data['emailAddress'];
+    $phone = $data['phoneNumbers'][0]['number'] ?? '';
+
+    // Assume first SKU from line items
+    $sku = $data['orders']['lineItems'][0]['sku'] ?? null;
+
+    if ($sku) {
+        $rsi_payload = [
+            'id' => $user['user_id'],
+            'firstName' => $first_name,
+            'lastName' => $last_name,
+            'email' => $email,
+            'phone1' => $phone,
+            'address1' => $address['line1'] ?? '',
+            'city' => $address['city'] ?? '',
+            'state' => $address['stateCode'] ?? '',
+            'postalCode' => $address['zip'] ?? '',
+            'country' => $address['countryCode'] ?? 'US',
+            'sku' => $sku
+        ];
+
+        $rsi_response = rsi_register_user($rsi_payload);
+
+        if ($rsi_response) {
+            logMessage("✅ RSI registration successful for user {$email}");
+        } else {
+            logMessage("❌ RSI registration failed for user {$email}");
+        }
+    } else {
+        logMessage("❌ No SKU found for RSI registration");
+    }
+} catch (Exception $e) {
+    logMessage("❌ RSI Exception: " . $e->getMessage());
+}
+
 
     if (!empty($data['addresses'])) {
         foreach ($data['addresses'] as $address) {

@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * Dashboard Home
+ */
+echo "✅ You hit rsi_form.php<br>";
+print_r($_POST);
+exit;
+require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/../includes/auth.php';
+require_once __DIR__ . '/../includes/database.php';
+
 function getRsiRedirectInfo($order) {
     $rsi_secret = '%#c@r#vRS022';
     $uid = $order['user_id'] ?? null;
@@ -8,7 +18,7 @@ function getRsiRedirectInfo($order) {
     if (!$uid || !$sku) {
         return null;
     }
-
+ 
     // Determine correct RSI environment
     if (str_starts_with($sku, 'PASSLITE-')) {
         $orgId = 803;

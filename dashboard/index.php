@@ -220,7 +220,7 @@ require_once __DIR__ . '/../includes/dashboard_header.php';
                     <a href="https://dashlifetravel.com/pass-us-travel-2446" class="btn btn-primary">
                         <i class="fas fa-crown me-1"></i> Upgrade Membership
                     </a>
-                    <form action="rsi_form.php" method="POST">
+                    <form action="/dashboard/rsi_form.php" method="POST">
                             <input type="hidden" name="user_id" value="10081">
                             <input type="hidden" name="item_sku" value="PASS-US-GHL-SUB">
                         <button type="submit" class="btn btn-primary">
