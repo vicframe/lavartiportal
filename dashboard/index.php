@@ -220,13 +220,9 @@ require_once __DIR__ . '/../includes/dashboard_header.php';
                     <a href="https://dashlifetravel.com/pass-us-travel-2446" class="btn btn-primary">
                         <i class="fas fa-crown me-1"></i> Upgrade Membership
                     </a>
-                    <form action="/dashboard/rsi_form.php" method="POST">
-                            <input type="hidden" name="user_id" value="10081">
-                            <input type="hidden" name="item_sku" value="PASS-US-GHL-SUB">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-crown me-1"></i> Access Travel Portal
-                        </button>
-                    </form>
+                    <a href="<?php echo $user['rsi_redirect_url']; ?>"  target="_blank" class="btn btn-primary">
+                        <i class="fas fa-crown me-1"></i> Access Travel Portal
+                    </a>
                 </div>
                 <?php endif; ?>
             </div>

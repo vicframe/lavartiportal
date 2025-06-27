@@ -359,3 +359,143 @@ https://dashlifetravel.com/special-4010-3507?src=
 
 
 leverati@123
+
+
+<!-- Static Upsell Section -->
+<div id="affiliateUpsellBox" style="margin-top: 30px; padding: 20px; background: #f0f8ff; border: 2px solid #004aad; border-radius: 12px; max-width: 500px;">
+  <h3 style="font-size: 20px; margin-bottom: 10px;">Want to Upgrade Your Earnings?</h3>
+  <p style="font-size: 16px; margin-bottom: 15px;">
+    Become an Affiliate <strong>AND</strong> Upgrade to <strong>Passport</strong> to access the best discounts and earn <strong>more commissions</strong>!
+  </p>
+  <button onclick="checkBothBoxes()" style="padding: 10px 15px; background: #007bff; color: #fff; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">✅ Yes, Upgrade and Earn More</button>
+</div>
+
+<!-- Flashing upgrade callout -->
+<style>
+  .flash-upgrade {
+    animation: flash 1.5s infinite;
+  }
+
+  @keyframes flash {
+    0%, 100% { color: #004aad; text-shadow: none; }
+    50% { color: #ff0000; text-shadow: 0 0 8px #ff0000; }
+  }
+</style>
+
+<script>
+  function checkBothBoxes() {
+    // Affiliate checkbox (already pre-checked, but ensure it stays checked)
+    const affiliateBox = document.getElementById("checkbox-cone-step-order-V80gfCxv5f-6851cb3f6bbedbfc29b8a88f");
+
+    // Passport upgrade checkbox
+    const passportBox = document.getElementById("checkbox-cone-step-order-V80gfCxv5f-685dd21a6958a44aa0b75dac");
+
+    if (affiliateBox) affiliateBox.checked = true;
+    if (passportBox) passportBox.checked = true;
+
+    // Optional: scroll to checkout
+    passportBox?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+
+  // Optional: add flashing style to upgrade text if visible
+  window.addEventListener("load", () => {
+    const upgradeText = document.querySelector("a:contains('Click to Upgrade to PASSPORT')");
+    if (upgradeText) {
+      upgradeText.classList.add("flash-upgrade");
+    }
+  });
+</script>
+
+
+<div id="affiliateModal" style="display:none; position:fixed; top:15%; left:10%; width:80%; background:#ffffff; padding:20px; border:2px solid #000000; z-index:9999; box-shadow: 0 5px 15px rgba(0,0,0,0.3); border-radius: 10px; max-width: 400px;">
+  <h3 style="font-size: 20px; margin-bottom: 10px;">Become an Affiliate</h3>
+  <p style="font-size: 16px; margin-bottom: 20px;">
+    Earn <strong>25% on new referrals</strong> and <strong>10% recurring</strong>. Join our revenue share program!
+  </p>
+  <button onclick="addAffiliate()" style="padding:10px 15px; background:#007bff; color:#fff; border:none; border-radius:5px; cursor:pointer; margin-right:10px;">✅ Yes, Add $50 Affiliate Fee</button>
+  <button onclick="closeAffiliateModal()" style="padding:10px 15px; background:#ddd; color:#000; border:none; border-radius:5px; cursor:pointer;">🚫 No Thanks</button>
+</div>
+
+<script>
+  const AFFILIATE_BOX_ID = "checkbox-cone-step-order-V80gfCxv5f-6851cb3f6bbedbfc29b8a88f";
+
+  function getAffiliateFromQuery() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get("src"); // e.g. ?src=thur
+  }
+
+  function showAffiliateModal() {
+    const affiliate = getAffiliateFromQuery();
+    if (affiliate) {
+      setTimeout(() => {
+        const modal = document.getElementById("affiliateModal");
+        if (modal) modal.style.display = "block";
+      }, 5000); // 5 seconds delay
+    }
+  }
+
+  function addAffiliate() {
+    const box = document.getElementById(AFFILIATE_BOX_ID);
+    if (box) box.checked = true;
+    closeAffiliateModal();
+  }
+
+  function closeAffiliateModal() {
+    const modal = document.getElementById("affiliateModal");
+    if (modal) modal.style.display = "none";
+  }
+
+  window.addEventListener('load', showAffiliateModal);
+</script>
+
+
+best working custom html for GHL for Travel Agent Affilate Optional
+
+<div style="margin-top: 30px; padding: 20px; background: #f0faff; border: 2px solid #004aad; border-radius: 10px; max-width: 550px;">
+  <h3 style="font-size: 22px; margin-bottom: 12px;">Want to Earn as an Affiliate?</h3>
+
+  <ul style="padding-left: 20px; margin-bottom: 20px; font-size: 16px;">
+    <li style="margin-bottom: 8px;">💸 Add the <strong>Affiliate Upgrade</strong> for $50</li>
+    <li style="margin-bottom: 8px;">✅ Earn 25% on referrals</li>
+    <li style="margin-bottom: 8px;">✅ Earn 10% recurring income</li>
+    <li style="margin-bottom: 8px;">🌐 Promote your own travel link</li>
+  </ul>
+
+  <button onclick="addAffiliateOnly()" style="padding: 12px 16px; background: #007bff; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-size: 16px;">
+    ✅ Yes! Add Affiliate Upgrade
+  </button>
+
+  <div id="affiliateConfirmation" style="margin-top: 15px; font-size: 16px; color: green; display: none;">
+    ✅ <strong>Affiliate added!</strong> Great choice.
+  </div>
+</div>
+
+<script>
+  const affiliateBoxId = "checkbox-cone-step-order-30sovd-fq3-6851ca453a81cc503735e6fd";
+
+  function addAffiliateOnly() {
+    const affiliate = document.getElementById(affiliateBoxId);
+    const confirmation = document.getElementById("affiliateConfirmation");
+
+    if (affiliate) {
+      affiliate.checked = true;
+      console.log("✅ User selected: Affiliate Upgrade added.");
+      if (confirmation) confirmation.style.display = "block";
+    } else {
+      console.warn("⚠️ Affiliate checkbox not found. Double-check the ID.");
+    }
+  }
+
+  window.onload = () => {
+    const affiliate = document.getElementById(affiliateBoxId);
+    const confirmation = document.getElementById("affiliateConfirmation");
+
+    if (affiliate) affiliate.checked = false;
+    if (confirmation) confirmation.style.display = "none";
+
+    console.log("🔄 Reset affiliate checkbox on page load.");
+  };
+</script>
+
+
+next is passport lite upgrade to option 1, 2 or 3 
