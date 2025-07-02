@@ -5,6 +5,7 @@
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../includes/auth.php';
 require_once __DIR__ . '/../includes/database.php';
+require_once __DIR__ . '/../includes/functions.php';
 
 // Set page title
 $page_title = 'Dashboard';
@@ -182,6 +183,9 @@ $query = "
 // Execute query
 $order_result = db_query($query, [$user_id]);
 $order = db_fetch_one($order_result);
+
+$toProduct = get_product_by_tier_level($user['package_id']);
+
 $custom_css = '<link href="' . asset_url('/assets/css/dashboard.css') . '" rel="stylesheet">';
 require_once __DIR__ . '/../includes/dashboard_header.php';
 ?>
@@ -217,15 +221,34 @@ require_once __DIR__ . '/../includes/dashboard_header.php';
                    
                 </div>
                 <div class="upgrade-cta">
-                    <a href="https://dashlifetravel.com/pass-us-travel-2446" class="btn btn-primary">
-                        <i class="fas fa-crown me-1"></i> Upgrade Membership
+                    <a href="package.php" class="btn btn-warning">
+                     <i class="fas fa-arrow-up me-1"></i> Upgrade to Travel Agent
                     </a>
+
                     <a href="<?php echo $user['rsi_redirect_url']; ?>"  target="_blank" class="btn btn-primary">
                         <i class="fas fa-crown me-1"></i> Access Travel Portal
                     </a>
                 </div>
                 <?php endif; ?>
             </div>
+<?php
+function getProductFromUrl($url) {
+    if (strpos($url, 'passportlite.thedash.life') !== false) {
+        return 'Passport Lite';
+    } elseif (strpos($url, 'sso.thedash.life') !== false) {
+        return 'Passport';
+    } elseif (strpos($url, 'travelagent.thedash.life') !== false) {
+        return 'Travel Agent';
+    }
+    return '';
+}
+
+$currentProduct = getProductFromUrl($user['rsi_redirect_url'] ?? '');
+?>
+
+
+
+            
             
             <!-- Stats cards -->
             <div class="stats-container">
@@ -256,7 +279,7 @@ require_once __DIR__ . '/../includes/dashboard_header.php';
                     <div class="details">
                         <h3>
                         <?php 
-                        echo (is_array($order) && isset($order['item_name'])) ? $order['item_name'] : '';
+                        echo (isset($toProduct)) ? $toProduct['name']: '';
                         ?>
                         </h3>
                         <p class="label">Membership Tier</p>
@@ -388,7 +411,7 @@ require_once __DIR__ . '/../includes/dashboard_header.php';
                             </div>
                             
                             <div class="copy-input">
-                                <input type="text" value="<?php echo APP_URL; ?>/?ref=<?php echo $user_id; ?>" id="affiliateLink" readonly>
+                                <input type="text" value="<?php echo AFFILIATE_URL; ?>/?ref=<?php echo $user_id; ?>" id="affiliateLink" readonly>
                                 <button id="copyLinkBtn">Copy</button>
                             </div>
                             

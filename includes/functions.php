@@ -71,24 +71,24 @@ function get_all_products() {
         $products = [
             [
                 'id' => 1,
-                'name' => 'Basic Membership',
-                'description' => 'Essential travel benefits and access to basic training materials.',
+                'name' => 'PASSPORT LITE',
+                'description' => 'Unlocks Monthly Access of up to 70% off bookings on places to stay and accommodations all around the world',
                 'price' => 25.00,
-                'tier_level' => 1
+                'tier_level' => 803
             ],
             [
                 'id' => 2,
-                'name' => 'Premium Membership',
-                'description' => 'Enhanced travel benefits and access to premium training materials.',
+                'name' => 'PASSPORT',
+                'description' => 'Unlocks Monthly Access of up to 70% off bookings for:',
                 'price' => 65.00,
-                'tier_level' => 2
+                'tier_level' => 793
             ],
             [
                 'id' => 3,
-                'name' => 'Elite Membership',
-                'description' => 'VIP travel benefits, exclusive access to elite training materials, and premium support.',
-                'price' => 500.00,
-                'tier_level' => 3
+                'name' => 'TRAVEL AGENT',
+                'description' => 'Unlocks Monthly Access to resources.',
+                'price' => 99.00,
+                'tier_level' => 826
             ]
         ];
         
@@ -98,7 +98,17 @@ function get_all_products() {
         return [];
     }
 }
+function get_product_by_tier_level($id) {
+    $products = get_all_products();
 
+    foreach ($products as $product) {
+        if ((int)$product['tier_level'] === (int)$id) {
+            return $product;
+        }
+    }
+
+    return null; // Not found
+}
 /**
  * Get product by ID
  *

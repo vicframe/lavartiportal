@@ -14,7 +14,9 @@ require_login();
 $user = get_current_logged_user();
 
 // Generate Affiliate Link
-$affiliate_link = APP_URL . '/?ref=' . ($user['replicated_site'] ?? $user['id']);
+//$affiliate_link = APP_URL . '/?ref=' . ($user['replicated_site'] ?? $user['id']);
+$affiliate_link = AFFILIATE_URL . '/?ref=' . ($user['replicated_site'] ?? $user['id']);
+echo "<pre>Debug: Affiliate link = " . $affiliate_link . "</pre>";
 
 // Set custom styles for the dashboard
 $custom_css = '<link href="/assets/css/dashboard.css" rel="stylesheet">';
