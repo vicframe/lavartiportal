@@ -78,6 +78,35 @@ function log_debug($message, $data = null) {
 
 function findOrCreateUser($mysqli, $email, $data,$customer) {
 
+    
+  if (isset($customer['productCategory']) && !empty($customer['productCategory'])) {
+        $categoryMap = [
+            'Passport Lite' => [
+                'orgId' => 803,
+                'url' => 'https://passportlite.thedash.life/index.php',
+            ],
+            'Passport' => [
+                'orgId' => 793,
+                'url' => 'https://sso.thedash.life/index.php',
+            ],
+            'Passport Travel Agent' => [
+                'orgId' => 826,
+                'url' => 'https://travelagent.thedash.life/index.php',
+            ],
+        ];
+    
+        $productCategory = $customer['productCategory'];
+    
+        if (!isset($categoryMap[$productCategory])) {
+            $errorMsg = "Invalid product category: $productCategory";
+            log_debug("❌ $errorMsg");
+            throw new Exception($errorMsg);
+        }
+    
+        $orgId = $categoryMap[$productCategory]['orgId'];
+    } else {
+        $orgId = '';
+    }
     $email = $data['email'] ?? '';
 
     $url = $data['contact']['lastAttributionSource']['url'] ?? '';
@@ -212,7 +241,7 @@ function findOrCreateUser($mysqli, $email, $data,$customer) {
 
             address1, city, state, country, postal_code,
 
-            date_of_birth, locationName, locationId, src_url, enroller_id, customerType) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            date_of_birth, locationName, locationId, src_url, enroller_id, customerType,package_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 
     ");
 
@@ -230,13 +259,13 @@ function findOrCreateUser($mysqli, $email, $data,$customer) {
 
     $stmt->bind_param(
 
-        "sssssssssssssssss",
+        "ssssssssssssssssss",
 
         $email, $first_name, $last_name, $full_name, $phone, $defaultPassword,
 
         $address1, $city, $state, $country, $postal_code,
 
-        $date_of_birth, $locationName, $locationId,$src_url,$enroller_id,$customer_type
+        $date_of_birth, $locationName, $locationId,$src_url,$enroller_id,$customer_type,$orgId
 
     );
 
@@ -1069,9 +1098,7 @@ $customer = [
     : 2, 
     'productCategory' => isset($data['order']['line_items']) && is_array($data['order']['line_items']) 
 
-    ? checkProductCategory($data['order']['line_items']) 
-
-    : 2,
+    ? checkProductCategory($data['order']['line_items']): 2,
     'phoneNumbers'=> [
         'type'=>'mobile',
         'number'=>$data['phone'],

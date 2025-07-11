@@ -63,7 +63,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
     <div class="sidebar-header">
         <div class="logo">
             <a href="<?php echo url('dashboard'); ?>">
-                <span>LaVarti</span>
+                <span>Levarti</span>
                 <span class="systems">Systems</span>
             </a>
         </div>
@@ -129,7 +129,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
             </li>
             
             <!--<li>-->
-            <!--    <a href="<?php echo url('dashboard/affiliate.php'); ?>" class="<?php echo $current_page === 'affiliate.php' ? 'active' : ''; ?>">-->
+            <!--    <a href="<?php echo url('dashboard/store.php'); ?>" class="<?php echo $current_page === 'affiliate.php' ? 'active' : ''; ?>">-->
             <!--        <i class="fas fa-users"></i>-->
             <!--        <span>Affiliate Program</span>-->
             <!--    </a>-->

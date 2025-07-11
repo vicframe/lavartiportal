@@ -23,9 +23,9 @@ require_once __DIR__ . '/../includes/admin_header.php';
                     <button type="button" class="btn btn-sm btn-outline-primary me-2" id="refreshUsersBtn">
                         <i class="fas fa-sync-alt"></i> Refresh
                     </button>
-                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
-                        <i class="fas fa-plus"></i> Add User
-                    </button>
+                    <!--<button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">-->
+                    <!--    <i class="fas fa-plus"></i> Add User-->
+                    <!--</button>-->
                 </div>
             </div>
             <div class="card-body">
@@ -105,55 +105,6 @@ require_once __DIR__ . '/../includes/admin_header.php';
     </div>
 </div>
 
-<!-- User Distribution by Tier -->
-<div class="row mb-4">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="mb-0">User Distribution by Tier</h5>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <div class="card bg-light h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">Basic Tier</h5>
-                                <h2 class="mt-3 mb-3" id="basicTierCount">--</h2>
-                                <div class="progress">
-                                    <div class="progress-bar bg-primary" id="basicTierProgress" role="progressbar" style="width: 0%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-4 mb-3">
-                        <div class="card bg-light h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">Premium Tier</h5>
-                                <h2 class="mt-3 mb-3" id="premiumTierCount">--</h2>
-                                <div class="progress">
-                                    <div class="progress-bar bg-success" id="premiumTierProgress" role="progressbar" style="width: 0%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-4 mb-3">
-                        <div class="card bg-light h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">Elite Tier</h5>
-                                <h2 class="mt-3 mb-3" id="eliteTierCount">--</h2>
-                                <div class="progress">
-                                    <div class="progress-bar bg-warning" id="eliteTierProgress" role="progressbar" style="width: 0%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- Add User Modal -->
 <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
@@ -343,7 +294,7 @@ function loadUsers() {
     tableBody.innerHTML = '<tr><td colspan="7" class="text-center"><div class="spinner-border spinner-border-sm text-primary me-2" role="status"></div> Loading users...</td></tr>';
     
     // Fetch users
-    fetch(`https://thephoenixlb.com/lavartiportal/api/admin-users.php?page=${currentPage}&limit=${usersPerPage}`)
+    fetch(`https://levartiportal.com//api/admin-users.php?page=${currentPage}&limit=${usersPerPage}`)
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -379,7 +330,7 @@ function displayUsers(users) {
                 <td>${user.id}</td>
                 <td>${user.first_name} ${user.last_name}</td>
                 <td>${user.email}</td>
-                <td>${tierName}</td>
+                <td>${user.tierName}</td>
                 <td>${joinDate}</td>
                 <td><span class="badge bg-success">Active</span></td>
                 <td>
@@ -474,7 +425,7 @@ function generatePagination(totalUsers, totalPages) {
 }
 
 function loadUserStats() {
-    fetch('https://thephoenixlb.com/lavartiportal/api/admin-user-stats.php')
+    fetch('https://levartiportal.com//api/admin-user-stats.php')
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -541,7 +492,7 @@ function viewUser(userId) {
         displayUserDetails(user);
     } else {
         // Fetch user details
-        fetch(`https://thephoenixlb.com/lavartiportal/api/admin-user-details.php?id=${userId}`)
+        fetch(`https://levartiportal.com//api/admin-user-details.php?id=${userId}`)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -634,7 +585,7 @@ function editUser(userId) {
         editUserModal.show();
     } else {
         // Fetch user details
-        fetch(`https://thephoenixlb.com/lavartiportal/api/admin-user-details.php?id=${userId}`)
+        fetch(`https://levartiportal.com//api/admin-user-details.php?id=${userId}`)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -674,7 +625,7 @@ function saveUser() {
     userData.is_admin = formData.has('is_admin') ? 1 : 0;
     
     // Send request
-    fetch('https://thephoenixlb.com/lavartiportal/api/admin-create-user.php', {
+    fetch('https://levartiportal.com//api/admin-create-user.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -720,7 +671,7 @@ function updateUser() {
     }
     
     // Send request
-    fetch('https://thephoenixlb.com/lavartiportal/api/admin-update-user.php', {
+    fetch('https://levartiportal.com//api/admin-update-user.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -751,7 +702,7 @@ function updateUser() {
 
 function deleteUser(userId) {
     // Send request
-    fetch('https://thephoenixlb.com/lavartiportal/api/admin-delete-user.php', {
+    fetch('https://levartiportal.com//api/admin-delete-user.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

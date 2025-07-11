@@ -1,510 +1,1089 @@
-[02-May-2025 14:20:39 America/New_York] Script name: /lavartiportal/admin/index.php
+[02-May-2025 14:20:39 America/New_York] Script name: /admin/index.php
 [02-May-2025 14:20:39 America/New_York] Detected base path: /lavartiportal
-[02-May-2025 14:20:39 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[02-May-2025 14:20:52 America/New_York] Script name: /lavartiportal/admin/settings.php
+[02-May-2025 14:20:39 America/New_York] APP_URL set to: https://levartiportal.com/
+[02-May-2025 14:20:52 America/New_York] Script name: /admin/settings.php
 [02-May-2025 14:20:52 America/New_York] Detected base path: /lavartiportal
-[02-May-2025 14:20:52 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[02-May-2025 14:23:06 America/New_York] Script name: /lavartiportal/admin/index.php
+[02-May-2025 14:20:52 America/New_York] APP_URL set to: https://levartiportal.com/
+[02-May-2025 14:23:06 America/New_York] Script name: /admin/index.php
 [02-May-2025 14:23:06 America/New_York] Detected base path: /lavartiportal
-[02-May-2025 14:23:06 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[02-May-2025 14:23:47 America/New_York] Script name: /lavartiportal/admin/integrations.php
+[02-May-2025 14:23:06 America/New_York] APP_URL set to: https://levartiportal.com/
+[02-May-2025 14:23:47 America/New_York] Script name: /admin/integrations.php
 [02-May-2025 14:23:47 America/New_York] Detected base path: /lavartiportal
-[02-May-2025 14:23:47 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[02-May-2025 14:23:52 America/New_York] Script name: /lavartiportal/admin/integrations.php
+[02-May-2025 14:23:47 America/New_York] APP_URL set to: https://levartiportal.com/
+[02-May-2025 14:23:52 America/New_York] Script name: /admin/integrations.php
 [02-May-2025 14:23:52 America/New_York] Detected base path: /lavartiportal
-[02-May-2025 14:23:52 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[02-May-2025 14:23:56 America/New_York] Script name: /lavartiportal/admin/settings.php
+[02-May-2025 14:23:52 America/New_York] APP_URL set to: https://levartiportal.com/
+[02-May-2025 14:23:56 America/New_York] Script name: /admin/settings.php
 [02-May-2025 14:23:56 America/New_York] Detected base path: /lavartiportal
-[02-May-2025 14:23:56 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[02-May-2025 14:24:05 America/New_York] Script name: /lavartiportal/admin/settings.php
+[02-May-2025 14:23:56 America/New_York] APP_URL set to: https://levartiportal.com/
+[02-May-2025 14:24:05 America/New_York] Script name: /admin/settings.php
 [02-May-2025 14:24:05 America/New_York] Detected base path: /lavartiportal
-[02-May-2025 14:24:05 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[02-May-2025 14:24:08 America/New_York] Script name: /lavartiportal/admin/index.php
+[02-May-2025 14:24:05 America/New_York] APP_URL set to: https://levartiportal.com/
+[02-May-2025 14:24:08 America/New_York] Script name: /admin/index.php
 [02-May-2025 14:24:08 America/New_York] Detected base path: /lavartiportal
-[02-May-2025 14:24:08 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[02-May-2025 14:24:27 America/New_York] Script name: /lavartiportal/admin/index.php
+[02-May-2025 14:24:08 America/New_York] APP_URL set to: https://levartiportal.com/
+[02-May-2025 14:24:27 America/New_York] Script name: /admin/index.php
 [02-May-2025 14:24:27 America/New_York] Detected base path: /lavartiportal
-[02-May-2025 14:24:27 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[02-May-2025 14:24:28 America/New_York] Script name: /lavartiportal/admin/users.php
+[02-May-2025 14:24:27 America/New_York] APP_URL set to: https://levartiportal.com/
+[02-May-2025 14:24:28 America/New_York] Script name: /admin/users.php
 [02-May-2025 14:24:28 America/New_York] Detected base path: /lavartiportal
-[02-May-2025 14:24:28 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[02-May-2025 18:03:55 America/New_York] Script name: /lavartiportal/admin/index.php
+[02-May-2025 14:24:28 America/New_York] APP_URL set to: https://levartiportal.com/
+[02-May-2025 18:03:55 America/New_York] Script name: /admin/index.php
 [02-May-2025 18:03:55 America/New_York] Detected base path: /lavartiportal
-[02-May-2025 18:03:55 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[02-May-2025 18:04:00 America/New_York] Script name: /lavartiportal/admin/users.php
+[02-May-2025 18:03:55 America/New_York] APP_URL set to: https://levartiportal.com/
+[02-May-2025 18:04:00 America/New_York] Script name: /admin/users.php
 [02-May-2025 18:04:00 America/New_York] Detected base path: /lavartiportal
-[02-May-2025 18:04:00 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[02-May-2025 21:44:46 America/New_York] Script name: /lavartiportal/admin/index.php
+[02-May-2025 18:04:00 America/New_York] APP_URL set to: https://levartiportal.com/
+[02-May-2025 21:44:46 America/New_York] Script name: /admin/index.php
 [02-May-2025 21:44:46 America/New_York] Detected base path: /lavartiportal
-[02-May-2025 21:44:46 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[02-May-2025 21:45:00 America/New_York] Script name: /lavartiportal/admin/users.php
+[02-May-2025 21:44:46 America/New_York] APP_URL set to: https://levartiportal.com/
+[02-May-2025 21:45:00 America/New_York] Script name: /admin/users.php
 [02-May-2025 21:45:00 America/New_York] Detected base path: /lavartiportal
-[02-May-2025 21:45:00 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[02-May-2025 21:45:03 America/New_York] Script name: /lavartiportal/admin/orders.php
+[02-May-2025 21:45:00 America/New_York] APP_URL set to: https://levartiportal.com/
+[02-May-2025 21:45:03 America/New_York] Script name: /admin/orders.php
 [02-May-2025 21:45:03 America/New_York] Detected base path: /lavartiportal
-[02-May-2025 21:45:03 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[02-May-2025 21:45:09 America/New_York] Script name: /lavartiportal/admin/users.php
+[02-May-2025 21:45:03 America/New_York] APP_URL set to: https://levartiportal.com/
+[02-May-2025 21:45:09 America/New_York] Script name: /admin/users.php
 [02-May-2025 21:45:09 America/New_York] Detected base path: /lavartiportal
-[02-May-2025 21:45:09 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[02-May-2025 21:45:10 America/New_York] Script name: /lavartiportal/admin/index.php
+[02-May-2025 21:45:09 America/New_York] APP_URL set to: https://levartiportal.com/
+[02-May-2025 21:45:10 America/New_York] Script name: /admin/index.php
 [02-May-2025 21:45:10 America/New_York] Detected base path: /lavartiportal
-[02-May-2025 21:45:10 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-May-2025 12:26:17 America/New_York] Script name: /lavartiportal/admin/index.php
+[02-May-2025 21:45:10 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-May-2025 12:26:17 America/New_York] Script name: /admin/index.php
 [03-May-2025 12:26:17 America/New_York] Detected base path: /lavartiportal
-[03-May-2025 12:26:17 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[05-May-2025 13:04:14 America/New_York] Script name: /lavartiportal/admin/index.php
+[03-May-2025 12:26:17 America/New_York] APP_URL set to: https://levartiportal.com/
+[05-May-2025 13:04:14 America/New_York] Script name: /admin/index.php
 [05-May-2025 13:04:14 America/New_York] Detected base path: /lavartiportal
-[05-May-2025 13:04:14 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[05-May-2025 13:04:21 America/New_York] Script name: /lavartiportal/admin/index.php
+[05-May-2025 13:04:14 America/New_York] APP_URL set to: https://levartiportal.com/
+[05-May-2025 13:04:21 America/New_York] Script name: /admin/index.php
 [05-May-2025 13:04:21 America/New_York] Detected base path: /lavartiportal
-[05-May-2025 13:04:21 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[05-May-2025 13:04:24 America/New_York] Script name: /lavartiportal/admin/users.php
+[05-May-2025 13:04:21 America/New_York] APP_URL set to: https://levartiportal.com/
+[05-May-2025 13:04:24 America/New_York] Script name: /admin/users.php
 [05-May-2025 13:04:24 America/New_York] Detected base path: /lavartiportal
-[05-May-2025 13:04:24 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[06-May-2025 23:14:04 America/New_York] Script name: /lavartiportal/admin/index.php
+[05-May-2025 13:04:24 America/New_York] APP_URL set to: https://levartiportal.com/
+[06-May-2025 23:14:04 America/New_York] Script name: /admin/index.php
 [06-May-2025 23:14:04 America/New_York] Detected base path: /lavartiportal
-[06-May-2025 23:14:04 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[06-May-2025 23:17:40 America/New_York] Script name: /lavartiportal/admin/index.php
+[06-May-2025 23:14:04 America/New_York] APP_URL set to: https://levartiportal.com/
+[06-May-2025 23:17:40 America/New_York] Script name: /admin/index.php
 [06-May-2025 23:17:40 America/New_York] Detected base path: /lavartiportal
-[06-May-2025 23:17:40 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[06-May-2025 23:17:50 America/New_York] Script name: /lavartiportal/admin/users.php
+[06-May-2025 23:17:40 America/New_York] APP_URL set to: https://levartiportal.com/
+[06-May-2025 23:17:50 America/New_York] Script name: /admin/users.php
 [06-May-2025 23:17:50 America/New_York] Detected base path: /lavartiportal
-[06-May-2025 23:17:50 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[06-May-2025 23:26:16 America/New_York] Script name: /lavartiportal/admin/commissions.php
+[06-May-2025 23:17:50 America/New_York] APP_URL set to: https://levartiportal.com/
+[06-May-2025 23:26:16 America/New_York] Script name: /admin/commissions.php
 [06-May-2025 23:26:16 America/New_York] Detected base path: /lavartiportal
-[06-May-2025 23:26:16 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[06-May-2025 23:26:55 America/New_York] Script name: /lavartiportal/admin/settings.php
+[06-May-2025 23:26:16 America/New_York] APP_URL set to: https://levartiportal.com/
+[06-May-2025 23:26:55 America/New_York] Script name: /admin/settings.php
 [06-May-2025 23:26:55 America/New_York] Detected base path: /lavartiportal
-[06-May-2025 23:26:55 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[06-May-2025 23:27:56 America/New_York] Script name: /lavartiportal/admin/settings.php
+[06-May-2025 23:26:55 America/New_York] APP_URL set to: https://levartiportal.com/
+[06-May-2025 23:27:56 America/New_York] Script name: /admin/settings.php
 [06-May-2025 23:27:56 America/New_York] Detected base path: /lavartiportal
-[06-May-2025 23:27:56 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[06-May-2025 23:27:59 America/New_York] Script name: /lavartiportal/admin/integrations.php
+[06-May-2025 23:27:56 America/New_York] APP_URL set to: https://levartiportal.com/
+[06-May-2025 23:27:59 America/New_York] Script name: /admin/integrations.php
 [06-May-2025 23:27:59 America/New_York] Detected base path: /lavartiportal
-[06-May-2025 23:27:59 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[06-May-2025 23:28:09 America/New_York] Script name: /lavartiportal/admin/index.php
+[06-May-2025 23:27:59 America/New_York] APP_URL set to: https://levartiportal.com/
+[06-May-2025 23:28:09 America/New_York] Script name: /admin/index.php
 [06-May-2025 23:28:09 America/New_York] Detected base path: /lavartiportal
-[06-May-2025 23:28:09 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[06-May-2025 23:28:22 America/New_York] Script name: /lavartiportal/admin/index.php
+[06-May-2025 23:28:09 America/New_York] APP_URL set to: https://levartiportal.com/
+[06-May-2025 23:28:22 America/New_York] Script name: /admin/index.php
 [06-May-2025 23:28:22 America/New_York] Detected base path: /lavartiportal
-[06-May-2025 23:28:22 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[06-May-2025 23:56:32 America/New_York] Script name: /lavartiportal/admin/index.php
+[06-May-2025 23:28:22 America/New_York] APP_URL set to: https://levartiportal.com/
+[06-May-2025 23:56:32 America/New_York] Script name: /admin/index.php
 [06-May-2025 23:56:32 America/New_York] Detected base path: /lavartiportal
-[06-May-2025 23:56:32 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[06-May-2025 23:56:40 America/New_York] Script name: /lavartiportal/admin/users.php
+[06-May-2025 23:56:32 America/New_York] APP_URL set to: https://levartiportal.com/
+[06-May-2025 23:56:40 America/New_York] Script name: /admin/users.php
 [06-May-2025 23:56:40 America/New_York] Detected base path: /lavartiportal
-[06-May-2025 23:56:40 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[07-May-2025 11:32:31 America/New_York] Script name: /lavartiportal/admin/index.php
+[06-May-2025 23:56:40 America/New_York] APP_URL set to: https://levartiportal.com/
+[07-May-2025 11:32:31 America/New_York] Script name: /admin/index.php
 [07-May-2025 11:32:31 America/New_York] Detected base path: /lavartiportal
-[07-May-2025 11:32:31 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[07-May-2025 11:32:34 America/New_York] Script name: /lavartiportal/admin/users.php
+[07-May-2025 11:32:31 America/New_York] APP_URL set to: https://levartiportal.com/
+[07-May-2025 11:32:34 America/New_York] Script name: /admin/users.php
 [07-May-2025 11:32:34 America/New_York] Detected base path: /lavartiportal
-[07-May-2025 11:32:34 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[07-May-2025 11:32:36 America/New_York] Script name: /lavartiportal/admin/orders.php
+[07-May-2025 11:32:34 America/New_York] APP_URL set to: https://levartiportal.com/
+[07-May-2025 11:32:36 America/New_York] Script name: /admin/orders.php
 [07-May-2025 11:32:36 America/New_York] Detected base path: /lavartiportal
-[07-May-2025 11:32:36 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[07-May-2025 11:32:42 America/New_York] Script name: /lavartiportal/admin/orders.php
+[07-May-2025 11:32:36 America/New_York] APP_URL set to: https://levartiportal.com/
+[07-May-2025 11:32:42 America/New_York] Script name: /admin/orders.php
 [07-May-2025 11:32:42 America/New_York] Detected base path: /lavartiportal
-[07-May-2025 11:32:42 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[07-May-2025 12:27:03 America/New_York] Script name: /lavartiportal/admin/users.php
+[07-May-2025 11:32:42 America/New_York] APP_URL set to: https://levartiportal.com/
+[07-May-2025 12:27:03 America/New_York] Script name: /admin/users.php
 [07-May-2025 12:27:03 America/New_York] Detected base path: /lavartiportal
-[07-May-2025 12:27:03 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[07-May-2025 12:27:06 America/New_York] Script name: /lavartiportal/admin/orders.php
+[07-May-2025 12:27:03 America/New_York] APP_URL set to: https://levartiportal.com/
+[07-May-2025 12:27:06 America/New_York] Script name: /admin/orders.php
 [07-May-2025 12:27:06 America/New_York] Detected base path: /lavartiportal
-[07-May-2025 12:27:06 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[07-May-2025 12:27:42 America/New_York] Script name: /lavartiportal/admin/users.php
+[07-May-2025 12:27:06 America/New_York] APP_URL set to: https://levartiportal.com/
+[07-May-2025 12:27:42 America/New_York] Script name: /admin/users.php
 [07-May-2025 12:27:42 America/New_York] Detected base path: /lavartiportal
-[07-May-2025 12:27:42 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[07-May-2025 12:29:10 America/New_York] Script name: /lavartiportal/admin/index.php
+[07-May-2025 12:27:42 America/New_York] APP_URL set to: https://levartiportal.com/
+[07-May-2025 12:29:10 America/New_York] Script name: /admin/index.php
 [07-May-2025 12:29:10 America/New_York] Detected base path: /lavartiportal
-[07-May-2025 12:29:10 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[07-May-2025 12:29:16 America/New_York] Script name: /lavartiportal/admin/users.php
+[07-May-2025 12:29:10 America/New_York] APP_URL set to: https://levartiportal.com/
+[07-May-2025 12:29:16 America/New_York] Script name: /admin/users.php
 [07-May-2025 12:29:16 America/New_York] Detected base path: /lavartiportal
-[07-May-2025 12:29:16 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[07-May-2025 12:50:00 America/New_York] Script name: /lavartiportal/admin/index.php
+[07-May-2025 12:29:16 America/New_York] APP_URL set to: https://levartiportal.com/
+[07-May-2025 12:50:00 America/New_York] Script name: /admin/index.php
 [07-May-2025 12:50:00 America/New_York] Detected base path: /lavartiportal
-[07-May-2025 12:50:00 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[07-May-2025 12:50:09 America/New_York] Script name: /lavartiportal/admin/index.php
+[07-May-2025 12:50:00 America/New_York] APP_URL set to: https://levartiportal.com/
+[07-May-2025 12:50:09 America/New_York] Script name: /admin/index.php
 [07-May-2025 12:50:09 America/New_York] Detected base path: /lavartiportal
-[07-May-2025 12:50:09 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[07-May-2025 12:50:27 America/New_York] Script name: /lavartiportal/admin/users.php
+[07-May-2025 12:50:09 America/New_York] APP_URL set to: https://levartiportal.com/
+[07-May-2025 12:50:27 America/New_York] Script name: /admin/users.php
 [07-May-2025 12:50:27 America/New_York] Detected base path: /lavartiportal
-[07-May-2025 12:50:27 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[07-May-2025 12:50:29 America/New_York] Script name: /lavartiportal/admin/orders.php
+[07-May-2025 12:50:27 America/New_York] APP_URL set to: https://levartiportal.com/
+[07-May-2025 12:50:29 America/New_York] Script name: /admin/orders.php
 [07-May-2025 12:50:29 America/New_York] Detected base path: /lavartiportal
-[07-May-2025 12:50:29 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[07-May-2025 12:50:30 America/New_York] Script name: /lavartiportal/admin/commissions.php
+[07-May-2025 12:50:29 America/New_York] APP_URL set to: https://levartiportal.com/
+[07-May-2025 12:50:30 America/New_York] Script name: /admin/commissions.php
 [07-May-2025 12:50:30 America/New_York] Detected base path: /lavartiportal
-[07-May-2025 12:50:30 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[07-May-2025 12:50:32 America/New_York] Script name: /lavartiportal/admin/integrations.php
+[07-May-2025 12:50:30 America/New_York] APP_URL set to: https://levartiportal.com/
+[07-May-2025 12:50:32 America/New_York] Script name: /admin/integrations.php
 [07-May-2025 12:50:32 America/New_York] Detected base path: /lavartiportal
-[07-May-2025 12:50:32 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[07-May-2025 12:50:38 America/New_York] Script name: /lavartiportal/admin/settings.php
+[07-May-2025 12:50:32 America/New_York] APP_URL set to: https://levartiportal.com/
+[07-May-2025 12:50:38 America/New_York] Script name: /admin/settings.php
 [07-May-2025 12:50:38 America/New_York] Detected base path: /lavartiportal
-[07-May-2025 12:50:38 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[07-May-2025 12:50:42 America/New_York] Script name: /lavartiportal/admin/settings.php
+[07-May-2025 12:50:38 America/New_York] APP_URL set to: https://levartiportal.com/
+[07-May-2025 12:50:42 America/New_York] Script name: /admin/settings.php
 [07-May-2025 12:50:42 America/New_York] Detected base path: /lavartiportal
-[07-May-2025 12:50:42 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[07-May-2025 12:51:07 America/New_York] Script name: /lavartiportal/admin/index.php
+[07-May-2025 12:50:42 America/New_York] APP_URL set to: https://levartiportal.com/
+[07-May-2025 12:51:07 America/New_York] Script name: /admin/index.php
 [07-May-2025 12:51:07 America/New_York] Detected base path: /lavartiportal
-[07-May-2025 12:51:07 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[07-May-2025 12:51:22 America/New_York] Script name: /lavartiportal/admin/users.php
+[07-May-2025 12:51:07 America/New_York] APP_URL set to: https://levartiportal.com/
+[07-May-2025 12:51:22 America/New_York] Script name: /admin/users.php
 [07-May-2025 12:51:22 America/New_York] Detected base path: /lavartiportal
-[07-May-2025 12:51:22 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[07-May-2025 12:51:27 America/New_York] Script name: /lavartiportal/admin/index.php
+[07-May-2025 12:51:22 America/New_York] APP_URL set to: https://levartiportal.com/
+[07-May-2025 12:51:27 America/New_York] Script name: /admin/index.php
 [07-May-2025 12:51:27 America/New_York] Detected base path: /lavartiportal
-[07-May-2025 12:51:27 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[07-May-2025 17:45:50 America/New_York] Script name: /lavartiportal/admin/users.php
+[07-May-2025 12:51:27 America/New_York] APP_URL set to: https://levartiportal.com/
+[07-May-2025 17:45:50 America/New_York] Script name: /admin/users.php
 [07-May-2025 17:45:50 America/New_York] Detected base path: /lavartiportal
-[07-May-2025 17:45:50 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[07-May-2025 17:45:56 America/New_York] Script name: /lavartiportal/admin/index.php
+[07-May-2025 17:45:50 America/New_York] APP_URL set to: https://levartiportal.com/
+[07-May-2025 17:45:56 America/New_York] Script name: /admin/index.php
 [07-May-2025 17:45:56 America/New_York] Detected base path: /lavartiportal
-[07-May-2025 17:45:56 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[07-May-2025 17:45:59 America/New_York] Script name: /lavartiportal/admin/integrations.php
+[07-May-2025 17:45:56 America/New_York] APP_URL set to: https://levartiportal.com/
+[07-May-2025 17:45:59 America/New_York] Script name: /admin/integrations.php
 [07-May-2025 17:45:59 America/New_York] Detected base path: /lavartiportal
-[07-May-2025 17:45:59 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[07-May-2025 19:03:22 America/New_York] Script name: /lavartiportal/admin/orders.php
+[07-May-2025 17:45:59 America/New_York] APP_URL set to: https://levartiportal.com/
+[07-May-2025 19:03:22 America/New_York] Script name: /admin/orders.php
 [07-May-2025 19:03:22 America/New_York] Detected base path: /lavartiportal
-[07-May-2025 19:03:22 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[07-May-2025 20:19:00 America/New_York] Script name: /lavartiportal/admin/index.php
+[07-May-2025 19:03:22 America/New_York] APP_URL set to: https://levartiportal.com/
+[07-May-2025 20:19:00 America/New_York] Script name: /admin/index.php
 [07-May-2025 20:19:00 America/New_York] Detected base path: /lavartiportal
-[07-May-2025 20:19:00 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[07-May-2025 20:19:09 America/New_York] Script name: /lavartiportal/admin/index.php
+[07-May-2025 20:19:00 America/New_York] APP_URL set to: https://levartiportal.com/
+[07-May-2025 20:19:09 America/New_York] Script name: /admin/index.php
 [07-May-2025 20:19:09 America/New_York] Detected base path: /lavartiportal
-[07-May-2025 20:19:09 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[07-May-2025 20:19:48 America/New_York] Script name: /lavartiportal/admin/users.php
+[07-May-2025 20:19:09 America/New_York] APP_URL set to: https://levartiportal.com/
+[07-May-2025 20:19:48 America/New_York] Script name: /admin/users.php
 [07-May-2025 20:19:48 America/New_York] Detected base path: /lavartiportal
-[07-May-2025 20:19:48 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[07-May-2025 20:19:51 America/New_York] Script name: /lavartiportal/admin/orders.php
+[07-May-2025 20:19:48 America/New_York] APP_URL set to: https://levartiportal.com/
+[07-May-2025 20:19:51 America/New_York] Script name: /admin/orders.php
 [07-May-2025 20:19:51 America/New_York] Detected base path: /lavartiportal
-[07-May-2025 20:19:51 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[07-May-2025 20:19:55 America/New_York] Script name: /lavartiportal/admin/integrations.php
+[07-May-2025 20:19:51 America/New_York] APP_URL set to: https://levartiportal.com/
+[07-May-2025 20:19:55 America/New_York] Script name: /admin/integrations.php
 [07-May-2025 20:19:55 America/New_York] Detected base path: /lavartiportal
-[07-May-2025 20:19:55 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[07-May-2025 20:20:31 America/New_York] Script name: /lavartiportal/admin/settings.php
+[07-May-2025 20:19:55 America/New_York] APP_URL set to: https://levartiportal.com/
+[07-May-2025 20:20:31 America/New_York] Script name: /admin/settings.php
 [07-May-2025 20:20:31 America/New_York] Detected base path: /lavartiportal
-[07-May-2025 20:20:31 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[07-May-2025 20:20:42 America/New_York] Script name: /lavartiportal/admin/settings.php
+[07-May-2025 20:20:31 America/New_York] APP_URL set to: https://levartiportal.com/
+[07-May-2025 20:20:42 America/New_York] Script name: /admin/settings.php
 [07-May-2025 20:20:42 America/New_York] Detected base path: /lavartiportal
-[07-May-2025 20:20:42 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[07-May-2025 20:21:05 America/New_York] Script name: /lavartiportal/admin/index.php
+[07-May-2025 20:20:42 America/New_York] APP_URL set to: https://levartiportal.com/
+[07-May-2025 20:21:05 America/New_York] Script name: /admin/index.php
 [07-May-2025 20:21:05 America/New_York] Detected base path: /lavartiportal
-[07-May-2025 20:21:05 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[08-May-2025 11:40:04 America/New_York] Script name: /lavartiportal/admin/index.php
+[07-May-2025 20:21:05 America/New_York] APP_URL set to: https://levartiportal.com/
+[08-May-2025 11:40:04 America/New_York] Script name: /admin/index.php
 [08-May-2025 11:40:04 America/New_York] Detected base path: /lavartiportal
-[08-May-2025 11:40:04 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[16-May-2025 09:02:18 America/New_York] Script name: /lavartiportal/admin/index.php
+[08-May-2025 11:40:04 America/New_York] APP_URL set to: https://levartiportal.com/
+[16-May-2025 09:02:18 America/New_York] Script name: /admin/index.php
 [16-May-2025 09:02:18 America/New_York] Detected base path: /lavartiportal
-[16-May-2025 09:02:18 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[16-May-2025 09:02:21 America/New_York] Script name: /lavartiportal/admin/orders.php
+[16-May-2025 09:02:18 America/New_York] APP_URL set to: https://levartiportal.com/
+[16-May-2025 09:02:21 America/New_York] Script name: /admin/orders.php
 [16-May-2025 09:02:21 America/New_York] Detected base path: /lavartiportal
-[16-May-2025 09:02:21 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[16-May-2025 09:02:23 America/New_York] Script name: /lavartiportal/admin/users.php
+[16-May-2025 09:02:21 America/New_York] APP_URL set to: https://levartiportal.com/
+[16-May-2025 09:02:23 America/New_York] Script name: /admin/users.php
 [16-May-2025 09:02:23 America/New_York] Detected base path: /lavartiportal
-[16-May-2025 09:02:23 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[16-May-2025 09:02:25 America/New_York] Script name: /lavartiportal/admin/commissions.php
+[16-May-2025 09:02:23 America/New_York] APP_URL set to: https://levartiportal.com/
+[16-May-2025 09:02:25 America/New_York] Script name: /admin/commissions.php
 [16-May-2025 09:02:25 America/New_York] Detected base path: /lavartiportal
-[16-May-2025 09:02:25 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[16-May-2025 09:02:27 America/New_York] Script name: /lavartiportal/admin/users.php
+[16-May-2025 09:02:25 America/New_York] APP_URL set to: https://levartiportal.com/
+[16-May-2025 09:02:27 America/New_York] Script name: /admin/users.php
 [16-May-2025 09:02:27 America/New_York] Detected base path: /lavartiportal
-[16-May-2025 09:02:27 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[16-May-2025 11:03:10 America/New_York] Script name: /lavartiportal/admin/users.php
+[16-May-2025 09:02:27 America/New_York] APP_URL set to: https://levartiportal.com/
+[16-May-2025 11:03:10 America/New_York] Script name: /admin/users.php
 [16-May-2025 11:03:10 America/New_York] Detected base path: /lavartiportal
-[16-May-2025 11:03:10 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[16-May-2025 11:03:14 America/New_York] Script name: /lavartiportal/admin/commissions.php
+[16-May-2025 11:03:10 America/New_York] APP_URL set to: https://levartiportal.com/
+[16-May-2025 11:03:14 America/New_York] Script name: /admin/commissions.php
 [16-May-2025 11:03:14 America/New_York] Detected base path: /lavartiportal
-[16-May-2025 11:03:14 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[16-May-2025 11:03:27 America/New_York] Script name: /lavartiportal/admin/index.php
+[16-May-2025 11:03:14 America/New_York] APP_URL set to: https://levartiportal.com/
+[16-May-2025 11:03:27 America/New_York] Script name: /admin/index.php
 [16-May-2025 11:03:27 America/New_York] Detected base path: /lavartiportal
-[16-May-2025 11:03:27 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[16-May-2025 11:03:33 America/New_York] Script name: /lavartiportal/admin/users.php
+[16-May-2025 11:03:27 America/New_York] APP_URL set to: https://levartiportal.com/
+[16-May-2025 11:03:33 America/New_York] Script name: /admin/users.php
 [16-May-2025 11:03:33 America/New_York] Detected base path: /lavartiportal
-[16-May-2025 11:03:33 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[16-May-2025 11:03:35 America/New_York] Script name: /lavartiportal/admin/orders.php
+[16-May-2025 11:03:33 America/New_York] APP_URL set to: https://levartiportal.com/
+[16-May-2025 11:03:35 America/New_York] Script name: /admin/orders.php
 [16-May-2025 11:03:35 America/New_York] Detected base path: /lavartiportal
-[16-May-2025 11:03:35 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[16-May-2025 11:03:36 America/New_York] Script name: /lavartiportal/admin/index.php
+[16-May-2025 11:03:35 America/New_York] APP_URL set to: https://levartiportal.com/
+[16-May-2025 11:03:36 America/New_York] Script name: /admin/index.php
 [16-May-2025 11:03:36 America/New_York] Detected base path: /lavartiportal
-[16-May-2025 11:03:36 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[16-May-2025 11:03:43 America/New_York] Script name: /lavartiportal/admin/index.php
+[16-May-2025 11:03:36 America/New_York] APP_URL set to: https://levartiportal.com/
+[16-May-2025 11:03:43 America/New_York] Script name: /admin/index.php
 [16-May-2025 11:03:43 America/New_York] Detected base path: /lavartiportal
-[16-May-2025 11:03:43 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[18-May-2025 20:35:01 America/New_York] Script name: /lavartiportal/admin/index.php
+[16-May-2025 11:03:43 America/New_York] APP_URL set to: https://levartiportal.com/
+[18-May-2025 20:35:01 America/New_York] Script name: /admin/index.php
 [18-May-2025 20:35:01 America/New_York] Detected base path: /lavartiportal
-[18-May-2025 20:35:01 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[18-May-2025 20:35:06 America/New_York] Script name: /lavartiportal/admin/index.php
+[18-May-2025 20:35:01 America/New_York] APP_URL set to: https://levartiportal.com/
+[18-May-2025 20:35:06 America/New_York] Script name: /admin/index.php
 [18-May-2025 20:35:06 America/New_York] Detected base path: /lavartiportal
-[18-May-2025 20:35:06 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[19-May-2025 11:03:40 America/New_York] Script name: /lavartiportal/admin/users.php
+[18-May-2025 20:35:06 America/New_York] APP_URL set to: https://levartiportal.com/
+[19-May-2025 11:03:40 America/New_York] Script name: /admin/users.php
 [19-May-2025 11:03:40 America/New_York] Detected base path: /lavartiportal
-[19-May-2025 11:03:40 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[19-May-2025 11:03:43 America/New_York] Script name: /lavartiportal/admin/index.php
+[19-May-2025 11:03:40 America/New_York] APP_URL set to: https://levartiportal.com/
+[19-May-2025 11:03:43 America/New_York] Script name: /admin/index.php
 [19-May-2025 11:03:43 America/New_York] Detected base path: /lavartiportal
-[19-May-2025 11:03:43 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[27-May-2025 15:55:39 America/New_York] Script name: /lavartiportal/admin/index.php
+[19-May-2025 11:03:43 America/New_York] APP_URL set to: https://levartiportal.com/
+[27-May-2025 15:55:39 America/New_York] Script name: /admin/index.php
 [27-May-2025 15:55:39 America/New_York] Detected base path: /lavartiportal
-[27-May-2025 15:55:39 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[27-May-2025 16:57:44 America/New_York] Script name: /lavartiportal/admin/index.php
+[27-May-2025 15:55:39 America/New_York] APP_URL set to: https://levartiportal.com/
+[27-May-2025 16:57:44 America/New_York] Script name: /admin/index.php
 [27-May-2025 16:57:44 America/New_York] Detected base path: /lavartiportal
-[27-May-2025 16:57:44 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[27-May-2025 16:57:52 America/New_York] Script name: /lavartiportal/admin/users.php
+[27-May-2025 16:57:44 America/New_York] APP_URL set to: https://levartiportal.com/
+[27-May-2025 16:57:52 America/New_York] Script name: /admin/users.php
 [27-May-2025 16:57:52 America/New_York] Detected base path: /lavartiportal
-[27-May-2025 16:57:52 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[27-May-2025 16:57:54 America/New_York] Script name: /lavartiportal/admin/orders.php
+[27-May-2025 16:57:52 America/New_York] APP_URL set to: https://levartiportal.com/
+[27-May-2025 16:57:54 America/New_York] Script name: /admin/orders.php
 [27-May-2025 16:57:54 America/New_York] Detected base path: /lavartiportal
-[27-May-2025 16:57:54 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[27-May-2025 16:58:00 America/New_York] Script name: /lavartiportal/admin/commissions.php
+[27-May-2025 16:57:54 America/New_York] APP_URL set to: https://levartiportal.com/
+[27-May-2025 16:58:00 America/New_York] Script name: /admin/commissions.php
 [27-May-2025 16:58:00 America/New_York] Detected base path: /lavartiportal
-[27-May-2025 16:58:00 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[27-May-2025 16:58:06 America/New_York] Script name: /lavartiportal/admin/integrations.php
+[27-May-2025 16:58:00 America/New_York] APP_URL set to: https://levartiportal.com/
+[27-May-2025 16:58:06 America/New_York] Script name: /admin/integrations.php
 [27-May-2025 16:58:06 America/New_York] Detected base path: /lavartiportal
-[27-May-2025 16:58:06 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[27-May-2025 16:58:14 America/New_York] Script name: /lavartiportal/admin/settings.php
+[27-May-2025 16:58:06 America/New_York] APP_URL set to: https://levartiportal.com/
+[27-May-2025 16:58:14 America/New_York] Script name: /admin/settings.php
 [27-May-2025 16:58:14 America/New_York] Detected base path: /lavartiportal
-[27-May-2025 16:58:14 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[27-May-2025 16:58:25 America/New_York] Script name: /lavartiportal/admin/settings.php
+[27-May-2025 16:58:14 America/New_York] APP_URL set to: https://levartiportal.com/
+[27-May-2025 16:58:25 America/New_York] Script name: /admin/settings.php
 [27-May-2025 16:58:25 America/New_York] Detected base path: /lavartiportal
-[27-May-2025 16:58:25 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[27-May-2025 18:49:57 America/New_York] Script name: /lavartiportal/admin/index.php
+[27-May-2025 16:58:25 America/New_York] APP_URL set to: https://levartiportal.com/
+[27-May-2025 18:49:57 America/New_York] Script name: /admin/index.php
 [27-May-2025 18:49:57 America/New_York] Detected base path: /lavartiportal
-[27-May-2025 18:49:57 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[27-May-2025 18:50:01 America/New_York] Script name: /lavartiportal/admin/commissions.php
+[27-May-2025 18:49:57 America/New_York] APP_URL set to: https://levartiportal.com/
+[27-May-2025 18:50:01 America/New_York] Script name: /admin/commissions.php
 [27-May-2025 18:50:01 America/New_York] Detected base path: /lavartiportal
-[27-May-2025 18:50:01 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[28-May-2025 04:02:18 America/New_York] Script name: /lavartiportal/admin/commissions.php
+[27-May-2025 18:50:01 America/New_York] APP_URL set to: https://levartiportal.com/
+[28-May-2025 04:02:18 America/New_York] Script name: /admin/commissions.php
 [28-May-2025 04:02:18 America/New_York] Detected base path: /lavartiportal
-[28-May-2025 04:02:18 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[28-May-2025 11:26:58 America/New_York] Script name: /lavartiportal/admin/index.php
+[28-May-2025 04:02:18 America/New_York] APP_URL set to: https://levartiportal.com/
+[28-May-2025 11:26:58 America/New_York] Script name: /admin/index.php
 [28-May-2025 11:26:58 America/New_York] Detected base path: /lavartiportal
-[28-May-2025 11:26:58 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[28-May-2025 11:27:01 America/New_York] Script name: /lavartiportal/admin/orders.php
+[28-May-2025 11:26:58 America/New_York] APP_URL set to: https://levartiportal.com/
+[28-May-2025 11:27:01 America/New_York] Script name: /admin/orders.php
 [28-May-2025 11:27:01 America/New_York] Detected base path: /lavartiportal
-[28-May-2025 11:27:01 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[28-May-2025 11:37:54 America/New_York] Script name: /lavartiportal/admin/index.php
+[28-May-2025 11:27:01 America/New_York] APP_URL set to: https://levartiportal.com/
+[28-May-2025 11:37:54 America/New_York] Script name: /admin/index.php
 [28-May-2025 11:37:54 America/New_York] Detected base path: /lavartiportal
-[28-May-2025 11:37:54 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[28-May-2025 11:38:02 America/New_York] Script name: /lavartiportal/admin/users.php
+[28-May-2025 11:37:54 America/New_York] APP_URL set to: https://levartiportal.com/
+[28-May-2025 11:38:02 America/New_York] Script name: /admin/users.php
 [28-May-2025 11:38:02 America/New_York] Detected base path: /lavartiportal
-[28-May-2025 11:38:02 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 06:44:48 America/New_York] Script name: /lavartiportal/admin/index.php
+[28-May-2025 11:38:02 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 06:44:48 America/New_York] Script name: /admin/index.php
 [03-Jun-2025 06:44:48 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 06:44:48 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 06:45:30 America/New_York] Script name: /lavartiportal/admin/index.php
+[03-Jun-2025 06:44:48 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 06:45:30 America/New_York] Script name: /admin/index.php
 [03-Jun-2025 06:45:30 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 06:45:30 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 06:46:24 America/New_York] Script name: /lavartiportal/admin/index.php
+[03-Jun-2025 06:45:30 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 06:46:24 America/New_York] Script name: /admin/index.php
 [03-Jun-2025 06:46:24 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 06:46:24 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 06:53:05 America/New_York] Script name: /lavartiportal/admin/index.php
+[03-Jun-2025 06:46:24 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 06:53:05 America/New_York] Script name: /admin/index.php
 [03-Jun-2025 06:53:05 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 06:53:05 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 06:53:18 America/New_York] Script name: /lavartiportal/admin/index.php
+[03-Jun-2025 06:53:05 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 06:53:18 America/New_York] Script name: /admin/index.php
 [03-Jun-2025 06:53:18 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 06:53:18 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 06:53:24 America/New_York] Script name: /lavartiportal/admin/index.php
+[03-Jun-2025 06:53:18 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 06:53:24 America/New_York] Script name: /admin/index.php
 [03-Jun-2025 06:53:24 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 06:53:24 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 06:54:26 America/New_York] Script name: /lavartiportal/admin/index.php
+[03-Jun-2025 06:53:24 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 06:54:26 America/New_York] Script name: /admin/index.php
 [03-Jun-2025 06:54:26 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 06:54:26 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 06:54:43 America/New_York] Script name: /lavartiportal/admin/index.php
+[03-Jun-2025 06:54:26 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 06:54:43 America/New_York] Script name: /admin/index.php
 [03-Jun-2025 06:54:43 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 06:54:43 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 06:56:39 America/New_York] Script name: /lavartiportal/admin/index.php
+[03-Jun-2025 06:54:43 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 06:56:39 America/New_York] Script name: /admin/index.php
 [03-Jun-2025 06:56:39 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 06:56:39 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 06:56:55 America/New_York] Script name: /lavartiportal/admin/index.php
+[03-Jun-2025 06:56:39 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 06:56:55 America/New_York] Script name: /admin/index.php
 [03-Jun-2025 06:56:55 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 06:56:55 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 06:57:35 America/New_York] Script name: /lavartiportal/admin/index.php
+[03-Jun-2025 06:56:55 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 06:57:35 America/New_York] Script name: /admin/index.php
 [03-Jun-2025 06:57:35 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 06:57:35 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 06:59:51 America/New_York] Script name: /lavartiportal/admin/index.php
+[03-Jun-2025 06:57:35 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 06:59:51 America/New_York] Script name: /admin/index.php
 [03-Jun-2025 06:59:51 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 06:59:51 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:06:54 America/New_York] Script name: /lavartiportal/admin/index.php
+[03-Jun-2025 06:59:51 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:06:54 America/New_York] Script name: /admin/index.php
 [03-Jun-2025 07:06:54 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:06:54 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:07:01 America/New_York] Script name: /lavartiportal/admin/index.php
+[03-Jun-2025 07:06:54 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:07:01 America/New_York] Script name: /admin/index.php
 [03-Jun-2025 07:07:01 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:07:01 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:07:23 America/New_York] Script name: /lavartiportal/admin/index.php
+[03-Jun-2025 07:07:01 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:07:23 America/New_York] Script name: /admin/index.php
 [03-Jun-2025 07:07:23 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:07:23 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:10:48 America/New_York] Script name: /lavartiportal/admin/index.php
+[03-Jun-2025 07:07:23 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:10:48 America/New_York] Script name: /admin/index.php
 [03-Jun-2025 07:10:48 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:10:48 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:11:06 America/New_York] Script name: /lavartiportal/admin/index.php
+[03-Jun-2025 07:10:48 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:11:06 America/New_York] Script name: /admin/index.php
 [03-Jun-2025 07:11:06 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:11:06 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:11:11 America/New_York] Script name: /lavartiportal/admin/index.php
+[03-Jun-2025 07:11:06 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:11:11 America/New_York] Script name: /admin/index.php
 [03-Jun-2025 07:11:11 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:11:11 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:12:57 America/New_York] Script name: /lavartiportal/admin/index.php
+[03-Jun-2025 07:11:11 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:12:57 America/New_York] Script name: /admin/index.php
 [03-Jun-2025 07:12:57 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:12:57 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:14:09 America/New_York] Script name: /lavartiportal/admin/index.php
+[03-Jun-2025 07:12:57 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:14:09 America/New_York] Script name: /admin/index.php
 [03-Jun-2025 07:14:09 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:14:09 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:16:15 America/New_York] Script name: /lavartiportal/admin/index.php
+[03-Jun-2025 07:14:09 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:16:15 America/New_York] Script name: /admin/index.php
 [03-Jun-2025 07:16:15 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:16:15 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:19:46 America/New_York] Script name: /lavartiportal/admin/index.php
+[03-Jun-2025 07:16:15 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:19:46 America/New_York] Script name: /admin/index.php
 [03-Jun-2025 07:19:46 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:19:46 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:20:00 America/New_York] Script name: /lavartiportal/admin/index.php
+[03-Jun-2025 07:19:46 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:20:00 America/New_York] Script name: /admin/index.php
 [03-Jun-2025 07:20:00 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:20:00 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:22:03 America/New_York] Script name: /lavartiportal/admin/index.php
+[03-Jun-2025 07:20:00 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:22:03 America/New_York] Script name: /admin/index.php
 [03-Jun-2025 07:22:03 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:22:03 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:25:05 America/New_York] Script name: /lavartiportal/admin/users.php
+[03-Jun-2025 07:22:03 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:25:05 America/New_York] Script name: /admin/users.php
 [03-Jun-2025 07:25:05 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:25:05 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:25:11 America/New_York] Script name: /lavartiportal/admin/users.php
+[03-Jun-2025 07:25:05 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:25:11 America/New_York] Script name: /admin/users.php
 [03-Jun-2025 07:25:11 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:25:11 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:26:55 America/New_York] Script name: /lavartiportal/admin/users.php
+[03-Jun-2025 07:25:11 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:26:55 America/New_York] Script name: /admin/users.php
 [03-Jun-2025 07:26:55 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:26:55 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:27:01 America/New_York] Script name: /lavartiportal/admin/users.php
+[03-Jun-2025 07:26:55 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:27:01 America/New_York] Script name: /admin/users.php
 [03-Jun-2025 07:27:01 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:27:01 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:27:46 America/New_York] Script name: /lavartiportal/admin/users.php
+[03-Jun-2025 07:27:01 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:27:46 America/New_York] Script name: /admin/users.php
 [03-Jun-2025 07:27:46 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:27:46 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:30:00 America/New_York] Script name: /lavartiportal/admin/users.php
+[03-Jun-2025 07:27:46 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:30:00 America/New_York] Script name: /admin/users.php
 [03-Jun-2025 07:30:00 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:30:00 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:31:55 America/New_York] Script name: /lavartiportal/admin/users.php
+[03-Jun-2025 07:30:00 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:31:55 America/New_York] Script name: /admin/users.php
 [03-Jun-2025 07:31:55 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:31:55 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:33:37 America/New_York] Script name: /lavartiportal/admin/users.php
+[03-Jun-2025 07:31:55 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:33:37 America/New_York] Script name: /admin/users.php
 [03-Jun-2025 07:33:37 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:33:37 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:34:24 America/New_York] Script name: /lavartiportal/admin/users.php
+[03-Jun-2025 07:33:37 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:34:24 America/New_York] Script name: /admin/users.php
 [03-Jun-2025 07:34:24 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:34:24 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:35:18 America/New_York] Script name: /lavartiportal/admin/users.php
+[03-Jun-2025 07:34:24 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:35:18 America/New_York] Script name: /admin/users.php
 [03-Jun-2025 07:35:18 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:35:18 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:36:30 America/New_York] Script name: /lavartiportal/admin/users.php
+[03-Jun-2025 07:35:18 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:36:30 America/New_York] Script name: /admin/users.php
 [03-Jun-2025 07:36:30 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:36:30 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:36:48 America/New_York] Script name: /lavartiportal/admin/orders.php
+[03-Jun-2025 07:36:30 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:36:48 America/New_York] Script name: /admin/orders.php
 [03-Jun-2025 07:36:48 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:36:48 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:36:57 America/New_York] Script name: /lavartiportal/admin/orders.php
+[03-Jun-2025 07:36:48 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:36:57 America/New_York] Script name: /admin/orders.php
 [03-Jun-2025 07:36:57 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:36:57 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:39:48 America/New_York] Script name: /lavartiportal/admin/orders.php
+[03-Jun-2025 07:36:57 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:39:48 America/New_York] Script name: /admin/orders.php
 [03-Jun-2025 07:39:48 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:39:48 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:39:58 America/New_York] Script name: /lavartiportal/admin/orders.php
+[03-Jun-2025 07:39:48 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:39:58 America/New_York] Script name: /admin/orders.php
 [03-Jun-2025 07:39:58 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:39:58 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:40:08 America/New_York] Script name: /lavartiportal/admin/orders.php
+[03-Jun-2025 07:39:58 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:40:08 America/New_York] Script name: /admin/orders.php
 [03-Jun-2025 07:40:08 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:40:08 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:41:15 America/New_York] Script name: /lavartiportal/admin/orders.php
+[03-Jun-2025 07:40:08 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:41:15 America/New_York] Script name: /admin/orders.php
 [03-Jun-2025 07:41:15 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:41:15 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:41:41 America/New_York] Script name: /lavartiportal/admin/orders.php
+[03-Jun-2025 07:41:15 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:41:41 America/New_York] Script name: /admin/orders.php
 [03-Jun-2025 07:41:41 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:41:41 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:41:49 America/New_York] Script name: /lavartiportal/admin/orders.php
+[03-Jun-2025 07:41:41 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:41:49 America/New_York] Script name: /admin/orders.php
 [03-Jun-2025 07:41:49 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:41:49 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:42:31 America/New_York] Script name: /lavartiportal/admin/orders.php
+[03-Jun-2025 07:41:49 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:42:31 America/New_York] Script name: /admin/orders.php
 [03-Jun-2025 07:42:31 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:42:31 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:42:37 America/New_York] Script name: /lavartiportal/admin/commissions.php
+[03-Jun-2025 07:42:31 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:42:37 America/New_York] Script name: /admin/commissions.php
 [03-Jun-2025 07:42:37 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:42:37 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:42:41 America/New_York] Script name: /lavartiportal/admin/integrations.php
+[03-Jun-2025 07:42:37 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:42:41 America/New_York] Script name: /admin/integrations.php
 [03-Jun-2025 07:42:41 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:42:41 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:42:56 America/New_York] Script name: /lavartiportal/admin/integrations.php
+[03-Jun-2025 07:42:41 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:42:56 America/New_York] Script name: /admin/integrations.php
 [03-Jun-2025 07:42:56 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:42:56 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:43:03 America/New_York] Script name: /lavartiportal/admin/settings.php
+[03-Jun-2025 07:42:56 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:43:03 America/New_York] Script name: /admin/settings.php
 [03-Jun-2025 07:43:03 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:43:03 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:43:25 America/New_York] Script name: /lavartiportal/admin/settings.php
+[03-Jun-2025 07:43:03 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:43:25 America/New_York] Script name: /admin/settings.php
 [03-Jun-2025 07:43:25 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:43:25 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:43:37 America/New_York] Script name: /lavartiportal/admin/orders.php
+[03-Jun-2025 07:43:25 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:43:37 America/New_York] Script name: /admin/orders.php
 [03-Jun-2025 07:43:37 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:43:37 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:45:06 America/New_York] Script name: /lavartiportal/admin/orders.php
+[03-Jun-2025 07:43:37 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:45:06 America/New_York] Script name: /admin/orders.php
 [03-Jun-2025 07:45:06 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:45:06 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:47:03 America/New_York] Script name: /lavartiportal/admin/orders.php
+[03-Jun-2025 07:45:06 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:47:03 America/New_York] Script name: /admin/orders.php
 [03-Jun-2025 07:47:03 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:47:03 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:49:09 America/New_York] Script name: /lavartiportal/admin/orders.php
+[03-Jun-2025 07:47:03 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:49:09 America/New_York] Script name: /admin/orders.php
 [03-Jun-2025 07:49:09 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:49:09 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:50:19 America/New_York] Script name: /lavartiportal/admin/orders.php
+[03-Jun-2025 07:49:09 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:50:19 America/New_York] Script name: /admin/orders.php
 [03-Jun-2025 07:50:19 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:50:19 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:54:11 America/New_York] Script name: /lavartiportal/admin/users.php
+[03-Jun-2025 07:50:19 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:54:11 America/New_York] Script name: /admin/users.php
 [03-Jun-2025 07:54:11 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:54:11 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:56:16 America/New_York] Script name: /lavartiportal/admin/orders.php
+[03-Jun-2025 07:54:11 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:56:16 America/New_York] Script name: /admin/orders.php
 [03-Jun-2025 07:56:16 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:56:16 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 07:56:19 America/New_York] Script name: /lavartiportal/admin/users.php
+[03-Jun-2025 07:56:16 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 07:56:19 America/New_York] Script name: /admin/users.php
 [03-Jun-2025 07:56:19 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 07:56:19 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 08:11:18 America/New_York] Script name: /lavartiportal/admin/users.php
+[03-Jun-2025 07:56:19 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 08:11:18 America/New_York] Script name: /admin/users.php
 [03-Jun-2025 08:11:18 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 08:11:18 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 10:01:34 America/New_York] Script name: /lavartiportal/admin/orders.php
+[03-Jun-2025 08:11:18 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 10:01:34 America/New_York] Script name: /admin/orders.php
 [03-Jun-2025 10:01:34 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 10:01:34 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 12:27:30 America/New_York] Script name: /lavartiportal/admin/index.php
+[03-Jun-2025 10:01:34 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 12:27:30 America/New_York] Script name: /admin/index.php
 [03-Jun-2025 12:27:30 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 12:27:30 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 12:27:49 America/New_York] Script name: /lavartiportal/admin/users.php
+[03-Jun-2025 12:27:30 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 12:27:49 America/New_York] Script name: /admin/users.php
 [03-Jun-2025 12:27:49 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 12:27:49 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 12:28:02 America/New_York] Script name: /lavartiportal/admin/orders.php
+[03-Jun-2025 12:27:49 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 12:28:02 America/New_York] Script name: /admin/orders.php
 [03-Jun-2025 12:28:02 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 12:28:02 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[03-Jun-2025 12:29:56 America/New_York] Script name: /lavartiportal/admin/orders.php
+[03-Jun-2025 12:28:02 America/New_York] APP_URL set to: https://levartiportal.com/
+[03-Jun-2025 12:29:56 America/New_York] Script name: /admin/orders.php
 [03-Jun-2025 12:29:56 America/New_York] Detected base path: /lavartiportal
-[03-Jun-2025 12:29:56 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[05-Jun-2025 11:32:08 America/New_York] Script name: /lavartiportal/admin/index.php
+[03-Jun-2025 12:29:56 America/New_York] APP_URL set to: https://levartiportal.com/
+[05-Jun-2025 11:32:08 America/New_York] Script name: /admin/index.php
 [05-Jun-2025 11:32:08 America/New_York] Detected base path: /lavartiportal
-[05-Jun-2025 11:32:08 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[05-Jun-2025 11:33:20 America/New_York] Script name: /lavartiportal/admin/users.php
+[05-Jun-2025 11:32:08 America/New_York] APP_URL set to: https://levartiportal.com/
+[05-Jun-2025 11:33:20 America/New_York] Script name: /admin/users.php
 [05-Jun-2025 11:33:20 America/New_York] Detected base path: /lavartiportal
-[05-Jun-2025 11:33:20 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[05-Jun-2025 11:34:35 America/New_York] Script name: /lavartiportal/admin/index.php
+[05-Jun-2025 11:33:20 America/New_York] APP_URL set to: https://levartiportal.com/
+[05-Jun-2025 11:34:35 America/New_York] Script name: /admin/index.php
 [05-Jun-2025 11:34:35 America/New_York] Detected base path: /lavartiportal
-[05-Jun-2025 11:34:35 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[05-Jun-2025 11:34:46 America/New_York] Script name: /lavartiportal/admin/users.php
+[05-Jun-2025 11:34:35 America/New_York] APP_URL set to: https://levartiportal.com/
+[05-Jun-2025 11:34:46 America/New_York] Script name: /admin/users.php
 [05-Jun-2025 11:34:46 America/New_York] Detected base path: /lavartiportal
-[05-Jun-2025 11:34:46 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[05-Jun-2025 11:34:58 America/New_York] Script name: /lavartiportal/admin/orders.php
+[05-Jun-2025 11:34:46 America/New_York] APP_URL set to: https://levartiportal.com/
+[05-Jun-2025 11:34:58 America/New_York] Script name: /admin/orders.php
 [05-Jun-2025 11:34:58 America/New_York] Detected base path: /lavartiportal
-[05-Jun-2025 11:34:58 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[05-Jun-2025 11:36:13 America/New_York] Script name: /lavartiportal/admin/index.php
+[05-Jun-2025 11:34:58 America/New_York] APP_URL set to: https://levartiportal.com/
+[05-Jun-2025 11:36:13 America/New_York] Script name: /admin/index.php
 [05-Jun-2025 11:36:13 America/New_York] Detected base path: /lavartiportal
-[05-Jun-2025 11:36:13 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[05-Jun-2025 15:35:37 America/New_York] Script name: /lavartiportal/admin/orders.php
+[05-Jun-2025 11:36:13 America/New_York] APP_URL set to: https://levartiportal.com/
+[05-Jun-2025 15:35:37 America/New_York] Script name: /admin/orders.php
 [05-Jun-2025 15:35:37 America/New_York] Detected base path: /lavartiportal
-[05-Jun-2025 15:35:37 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[05-Jun-2025 15:35:53 America/New_York] Script name: /lavartiportal/admin/index.php
+[05-Jun-2025 15:35:37 America/New_York] APP_URL set to: https://levartiportal.com/
+[05-Jun-2025 15:35:53 America/New_York] Script name: /admin/index.php
 [05-Jun-2025 15:35:53 America/New_York] Detected base path: /lavartiportal
-[05-Jun-2025 15:35:53 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[05-Jun-2025 15:35:57 America/New_York] Script name: /lavartiportal/admin/users.php
+[05-Jun-2025 15:35:53 America/New_York] APP_URL set to: https://levartiportal.com/
+[05-Jun-2025 15:35:57 America/New_York] Script name: /admin/users.php
 [05-Jun-2025 15:35:57 America/New_York] Detected base path: /lavartiportal
-[05-Jun-2025 15:35:57 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[05-Jun-2025 15:36:01 America/New_York] Script name: /lavartiportal/admin/orders.php
+[05-Jun-2025 15:35:57 America/New_York] APP_URL set to: https://levartiportal.com/
+[05-Jun-2025 15:36:01 America/New_York] Script name: /admin/orders.php
 [05-Jun-2025 15:36:01 America/New_York] Detected base path: /lavartiportal
-[05-Jun-2025 15:36:01 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
-[10-Jun-2025 08:28:20 America/New_York] Script name: /lavartiportal/admin/index.php
+[05-Jun-2025 15:36:01 America/New_York] APP_URL set to: https://levartiportal.com/
+[10-Jun-2025 08:28:20 America/New_York] Script name: /admin/index.php
 [10-Jun-2025 08:28:20 America/New_York] Detected base path: /lavartiportal
-[10-Jun-2025 08:28:20 America/New_York] APP_URL set to: https://thephoenixlb.com/lavartiportal
+[10-Jun-2025 08:28:20 America/New_York] APP_URL set to: https://levartiportal.com/
+[12-Jun-2025 11:47:05 America/New_York] Script name: /admin/index.php
+[12-Jun-2025 11:47:05 America/New_York] Detected base path: 
+[12-Jun-2025 11:47:05 America/New_York] APP_URL set to: https://levartiportal.com
+[12-Jun-2025 11:47:08 America/New_York] Script name: /admin/users.php
+[12-Jun-2025 11:47:08 America/New_York] Detected base path: 
+[12-Jun-2025 11:47:08 America/New_York] APP_URL set to: https://levartiportal.com
+[12-Jun-2025 11:47:10 America/New_York] Script name: /admin/orders.php
+[12-Jun-2025 11:47:10 America/New_York] Detected base path: 
+[12-Jun-2025 11:47:10 America/New_York] APP_URL set to: https://levartiportal.com
+[12-Jun-2025 11:47:13 America/New_York] Script name: /admin/commissions.php
+[12-Jun-2025 11:47:13 America/New_York] Detected base path: 
+[12-Jun-2025 11:47:13 America/New_York] APP_URL set to: https://levartiportal.com
+[12-Jun-2025 11:47:14 America/New_York] Script name: /admin/orders.php
+[12-Jun-2025 11:47:14 America/New_York] Detected base path: 
+[12-Jun-2025 11:47:14 America/New_York] APP_URL set to: https://levartiportal.com
+[12-Jun-2025 11:57:04 America/New_York] Script name: /admin/commissions.php
+[12-Jun-2025 11:57:04 America/New_York] Detected base path: 
+[12-Jun-2025 11:57:04 America/New_York] APP_URL set to: https://levartiportal.com
+[12-Jun-2025 11:57:07 America/New_York] Script name: /admin/index.php
+[12-Jun-2025 11:57:07 America/New_York] Detected base path: 
+[12-Jun-2025 11:57:07 America/New_York] APP_URL set to: https://levartiportal.com
+[12-Jun-2025 11:57:33 America/New_York] Script name: /admin/orders.php
+[12-Jun-2025 11:57:33 America/New_York] Detected base path: 
+[12-Jun-2025 11:57:33 America/New_York] APP_URL set to: https://levartiportal.com
+[12-Jun-2025 11:57:34 America/New_York] Script name: /admin/users.php
+[12-Jun-2025 11:57:34 America/New_York] Detected base path: 
+[12-Jun-2025 11:57:34 America/New_York] APP_URL set to: https://levartiportal.com
+[12-Jun-2025 11:57:36 America/New_York] Script name: /admin/index.php
+[12-Jun-2025 11:57:36 America/New_York] Detected base path: 
+[12-Jun-2025 11:57:36 America/New_York] APP_URL set to: https://levartiportal.com
+[12-Jun-2025 11:57:37 America/New_York] Script name: /admin/orders.php
+[12-Jun-2025 11:57:37 America/New_York] Detected base path: 
+[12-Jun-2025 11:57:37 America/New_York] APP_URL set to: https://levartiportal.com
+[12-Jun-2025 11:57:38 America/New_York] Script name: /admin/commissions.php
+[12-Jun-2025 11:57:38 America/New_York] Detected base path: 
+[12-Jun-2025 11:57:38 America/New_York] APP_URL set to: https://levartiportal.com
+[12-Jun-2025 11:57:40 America/New_York] Script name: /admin/integrations.php
+[12-Jun-2025 11:57:40 America/New_York] Detected base path: 
+[12-Jun-2025 11:57:40 America/New_York] APP_URL set to: https://levartiportal.com
+[12-Jun-2025 11:57:43 America/New_York] Script name: /admin/settings.php
+[12-Jun-2025 11:57:43 America/New_York] Detected base path: 
+[12-Jun-2025 11:57:43 America/New_York] APP_URL set to: https://levartiportal.com
+[12-Jun-2025 11:58:29 America/New_York] Script name: /admin/settings.php
+[12-Jun-2025 11:58:29 America/New_York] Detected base path: 
+[12-Jun-2025 11:58:29 America/New_York] APP_URL set to: https://levartiportal.com
+[12-Jun-2025 11:58:35 America/New_York] Script name: /admin/integrations.php
+[12-Jun-2025 11:58:35 America/New_York] Detected base path: 
+[12-Jun-2025 11:58:35 America/New_York] APP_URL set to: https://levartiportal.com
+[12-Jun-2025 11:58:37 America/New_York] Script name: /admin/settings.php
+[12-Jun-2025 11:58:37 America/New_York] Detected base path: 
+[12-Jun-2025 11:58:37 America/New_York] APP_URL set to: https://levartiportal.com
+[12-Jun-2025 13:19:19 America/New_York] Script name: /admin/index.php
+[12-Jun-2025 13:19:19 America/New_York] Detected base path: 
+[12-Jun-2025 13:19:19 America/New_York] APP_URL set to: https://levartiportal.com
+[12-Jun-2025 13:40:55 America/New_York] Script name: /admin/index.php
+[12-Jun-2025 13:40:55 America/New_York] Detected base path: 
+[12-Jun-2025 13:40:55 America/New_York] APP_URL set to: https://levartiportal.com
+[12-Jun-2025 13:41:29 America/New_York] Script name: /admin/index.php
+[12-Jun-2025 13:41:29 America/New_York] Detected base path: 
+[12-Jun-2025 13:41:29 America/New_York] APP_URL set to: https://levartiportal.com
+[12-Jun-2025 13:42:58 America/New_York] Script name: /admin/index.php
+[12-Jun-2025 13:42:58 America/New_York] Detected base path: 
+[12-Jun-2025 13:42:58 America/New_York] APP_URL set to: https://levartiportal.com
+[12-Jun-2025 13:44:43 America/New_York] Script name: /admin/index.php
+[12-Jun-2025 13:44:43 America/New_York] Detected base path: 
+[12-Jun-2025 13:44:43 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 13:12:40 America/New_York] Script name: /admin/index.php
+[13-Jun-2025 13:12:40 America/New_York] Detected base path: 
+[13-Jun-2025 13:12:40 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 13:12:52 America/New_York] Script name: /admin/users.php
+[13-Jun-2025 13:12:52 America/New_York] Detected base path: 
+[13-Jun-2025 13:12:52 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 13:13:01 America/New_York] Script name: /admin/orders.php
+[13-Jun-2025 13:13:01 America/New_York] Detected base path: 
+[13-Jun-2025 13:13:01 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 13:13:15 America/New_York] Script name: /admin/commissions.php
+[13-Jun-2025 13:13:15 America/New_York] Detected base path: 
+[13-Jun-2025 13:13:15 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 13:18:13 America/New_York] Script name: /admin/orders.php
+[13-Jun-2025 13:18:13 America/New_York] Detected base path: 
+[13-Jun-2025 13:18:13 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 13:20:21 America/New_York] Script name: /admin/index.php
+[13-Jun-2025 13:20:21 America/New_York] Detected base path: 
+[13-Jun-2025 13:20:21 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 13:20:25 America/New_York] Script name: /admin/orders.php
+[13-Jun-2025 13:20:25 America/New_York] Detected base path: 
+[13-Jun-2025 13:20:25 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 13:20:28 America/New_York] Script name: /admin/orders.php
+[13-Jun-2025 13:20:28 America/New_York] Detected base path: 
+[13-Jun-2025 13:20:28 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 13:20:30 America/New_York] Script name: /admin/orders.php
+[13-Jun-2025 13:20:30 America/New_York] Detected base path: 
+[13-Jun-2025 13:20:30 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 13:29:00 America/New_York] Script name: /admin/orders.php
+[13-Jun-2025 13:29:00 America/New_York] Detected base path: 
+[13-Jun-2025 13:29:00 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 13:29:12 America/New_York] Script name: /admin/users.php
+[13-Jun-2025 13:29:12 America/New_York] Detected base path: 
+[13-Jun-2025 13:29:12 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 13:29:33 America/New_York] Script name: /admin/index.php
+[13-Jun-2025 13:29:33 America/New_York] Detected base path: 
+[13-Jun-2025 13:29:33 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 13:29:49 America/New_York] Script name: /admin/index.php
+[13-Jun-2025 13:29:49 America/New_York] Detected base path: 
+[13-Jun-2025 13:29:49 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 13:31:28 America/New_York] Script name: /admin/index.php
+[13-Jun-2025 13:31:28 America/New_York] Detected base path: 
+[13-Jun-2025 13:31:28 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 13:32:20 America/New_York] Script name: /admin/index.php
+[13-Jun-2025 13:32:20 America/New_York] Detected base path: 
+[13-Jun-2025 13:32:20 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 13:32:48 America/New_York] Script name: /admin/index.php
+[13-Jun-2025 13:32:48 America/New_York] Detected base path: 
+[13-Jun-2025 13:32:48 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 13:33:02 America/New_York] Script name: /admin/index.php
+[13-Jun-2025 13:33:02 America/New_York] Detected base path: 
+[13-Jun-2025 13:33:02 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 13:36:05 America/New_York] Script name: /admin/index.php
+[13-Jun-2025 13:36:05 America/New_York] Detected base path: 
+[13-Jun-2025 13:36:05 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 13:36:26 America/New_York] Script name: /admin/index.php
+[13-Jun-2025 13:36:26 America/New_York] Detected base path: 
+[13-Jun-2025 13:36:26 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 13:37:58 America/New_York] Script name: /admin/users.php
+[13-Jun-2025 13:37:58 America/New_York] Detected base path: 
+[13-Jun-2025 13:37:58 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 13:42:42 America/New_York] Script name: /admin/orders.php
+[13-Jun-2025 13:42:42 America/New_York] Detected base path: 
+[13-Jun-2025 13:42:42 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 13:45:46 America/New_York] Script name: /admin/users.php
+[13-Jun-2025 13:45:46 America/New_York] Detected base path: 
+[13-Jun-2025 13:45:46 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 13:45:50 America/New_York] Script name: /admin/index.php
+[13-Jun-2025 13:45:50 America/New_York] Detected base path: 
+[13-Jun-2025 13:45:50 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 13:47:26 America/New_York] Script name: /admin/users.php
+[13-Jun-2025 13:47:26 America/New_York] Detected base path: 
+[13-Jun-2025 13:47:26 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 13:47:27 America/New_York] Script name: /admin/index.php
+[13-Jun-2025 13:47:27 America/New_York] Detected base path: 
+[13-Jun-2025 13:47:27 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 13:47:31 America/New_York] Script name: /admin/index.php
+[13-Jun-2025 13:47:31 America/New_York] Detected base path: 
+[13-Jun-2025 13:47:31 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 13:47:35 America/New_York] Script name: /admin/index.php
+[13-Jun-2025 13:47:35 America/New_York] Detected base path: 
+[13-Jun-2025 13:47:35 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 13:47:59 America/New_York] Script name: /admin/index.php
+[13-Jun-2025 13:47:59 America/New_York] Detected base path: 
+[13-Jun-2025 13:47:59 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 13:49:48 America/New_York] Script name: /admin/index.php
+[13-Jun-2025 13:49:48 America/New_York] Detected base path: 
+[13-Jun-2025 13:49:48 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 13:50:00 America/New_York] Script name: /admin/index.php
+[13-Jun-2025 13:50:00 America/New_York] Detected base path: 
+[13-Jun-2025 13:50:00 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 13:51:13 America/New_York] Script name: /admin/index.php
+[13-Jun-2025 13:51:13 America/New_York] Detected base path: 
+[13-Jun-2025 13:51:13 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 13:55:16 America/New_York] Script name: /admin/index.php
+[13-Jun-2025 13:55:16 America/New_York] Detected base path: 
+[13-Jun-2025 13:55:16 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 13:55:25 America/New_York] Script name: /admin/index.php
+[13-Jun-2025 13:55:25 America/New_York] Detected base path: 
+[13-Jun-2025 13:55:25 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 13:55:27 America/New_York] Script name: /admin/index.php
+[13-Jun-2025 13:55:27 America/New_York] Detected base path: 
+[13-Jun-2025 13:55:27 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 13:59:37 America/New_York] Script name: /admin/index.php
+[13-Jun-2025 13:59:37 America/New_York] Detected base path: 
+[13-Jun-2025 13:59:37 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 14:00:26 America/New_York] Script name: /admin/index.php
+[13-Jun-2025 14:00:26 America/New_York] Detected base path: 
+[13-Jun-2025 14:00:26 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 14:04:32 America/New_York] Script name: /admin/index.php
+[13-Jun-2025 14:04:32 America/New_York] Detected base path: 
+[13-Jun-2025 14:04:32 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 14:04:50 America/New_York] Script name: /admin/index.php
+[13-Jun-2025 14:04:50 America/New_York] Detected base path: 
+[13-Jun-2025 14:04:50 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 14:05:55 America/New_York] Script name: /admin/index.php
+[13-Jun-2025 14:05:55 America/New_York] Detected base path: 
+[13-Jun-2025 14:05:55 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 14:06:06 America/New_York] Script name: /admin/users.php
+[13-Jun-2025 14:06:06 America/New_York] Detected base path: 
+[13-Jun-2025 14:06:06 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 14:06:07 America/New_York] Script name: /admin/orders.php
+[13-Jun-2025 14:06:07 America/New_York] Detected base path: 
+[13-Jun-2025 14:06:07 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 14:06:09 America/New_York] Script name: /admin/commissions.php
+[13-Jun-2025 14:06:09 America/New_York] Detected base path: 
+[13-Jun-2025 14:06:09 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 14:06:14 America/New_York] Script name: /admin/orders.php
+[13-Jun-2025 14:06:14 America/New_York] Detected base path: 
+[13-Jun-2025 14:06:14 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 15:16:28 America/New_York] Script name: /admin/index.php
+[13-Jun-2025 15:16:28 America/New_York] Detected base path: 
+[13-Jun-2025 15:16:28 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 15:16:35 America/New_York] Script name: /admin/orders.php
+[13-Jun-2025 15:16:35 America/New_York] Detected base path: 
+[13-Jun-2025 15:16:35 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 15:16:42 America/New_York] Script name: /admin/users.php
+[13-Jun-2025 15:16:42 America/New_York] Detected base path: 
+[13-Jun-2025 15:16:42 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 15:16:45 America/New_York] Script name: /admin/orders.php
+[13-Jun-2025 15:16:45 America/New_York] Detected base path: 
+[13-Jun-2025 15:16:45 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 15:16:58 America/New_York] Script name: /admin/users.php
+[13-Jun-2025 15:16:58 America/New_York] Detected base path: 
+[13-Jun-2025 15:16:58 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 15:17:13 America/New_York] Script name: /admin/orders.php
+[13-Jun-2025 15:17:13 America/New_York] Detected base path: 
+[13-Jun-2025 15:17:13 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 15:22:30 America/New_York] Script name: /admin/orders.php
+[13-Jun-2025 15:22:30 America/New_York] Detected base path: 
+[13-Jun-2025 15:22:30 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 15:22:36 America/New_York] Script name: /admin/users.php
+[13-Jun-2025 15:22:36 America/New_York] Detected base path: 
+[13-Jun-2025 15:22:36 America/New_York] APP_URL set to: https://levartiportal.com
+[13-Jun-2025 17:59:52 America/New_York] Script name: /admin/index.php
+[13-Jun-2025 17:59:52 America/New_York] Detected base path: 
+[13-Jun-2025 17:59:52 America/New_York] APP_URL set to: https://levartiportal.com
+[16-Jun-2025 18:15:23 America/New_York] Script name: /admin/index.php
+[16-Jun-2025 18:15:23 America/New_York] Detected base path: 
+[16-Jun-2025 18:15:23 America/New_York] APP_URL set to: https://levartiportal.com
+[16-Jun-2025 18:42:03 America/New_York] Script name: /admin/index.php
+[16-Jun-2025 18:42:03 America/New_York] Detected base path: 
+[16-Jun-2025 18:42:03 America/New_York] APP_URL set to: https://levartiportal.com
+[16-Jun-2025 18:49:30 America/New_York] Script name: /admin/index.php
+[16-Jun-2025 18:49:30 America/New_York] Detected base path: 
+[16-Jun-2025 18:49:30 America/New_York] APP_URL set to: https://levartiportal.com
+[16-Jun-2025 19:18:54 America/New_York] Script name: /admin/index.php
+[16-Jun-2025 19:18:54 America/New_York] Detected base path: 
+[16-Jun-2025 19:18:54 America/New_York] APP_URL set to: https://levartiportal.com
+[16-Jun-2025 19:19:02 America/New_York] Script name: /admin/users.php
+[16-Jun-2025 19:19:02 America/New_York] Detected base path: 
+[16-Jun-2025 19:19:02 America/New_York] APP_URL set to: https://levartiportal.com
+[16-Jun-2025 19:19:09 America/New_York] Script name: /admin/orders.php
+[16-Jun-2025 19:19:09 America/New_York] Detected base path: 
+[16-Jun-2025 19:19:09 America/New_York] APP_URL set to: https://levartiportal.com
+[17-Jun-2025 09:36:21 America/New_York] Script name: /admin/index.php
+[17-Jun-2025 09:36:21 America/New_York] Detected base path: 
+[17-Jun-2025 09:36:21 America/New_York] APP_URL set to: https://levartiportal.com
+[17-Jun-2025 12:20:17 America/New_York] Script name: /admin/index.php
+[17-Jun-2025 12:20:17 America/New_York] Detected base path: 
+[17-Jun-2025 12:20:17 America/New_York] APP_URL set to: https://levartiportal.com
+[17-Jun-2025 12:20:24 America/New_York] Script name: /admin/index.php
+[17-Jun-2025 12:20:24 America/New_York] Detected base path: 
+[17-Jun-2025 12:20:24 America/New_York] APP_URL set to: https://levartiportal.com
+[17-Jun-2025 15:07:45 America/New_York] Script name: /admin/index.php
+[17-Jun-2025 15:07:45 America/New_York] Detected base path: 
+[17-Jun-2025 15:07:45 America/New_York] APP_URL set to: https://levartiportal.com
+[18-Jun-2025 16:49:41 America/New_York] Script name: /admin/index.php
+[18-Jun-2025 16:49:41 America/New_York] Detected base path: 
+[18-Jun-2025 16:49:41 America/New_York] APP_URL set to: https://levartiportal.com
+[18-Jun-2025 16:50:20 America/New_York] Script name: /admin/index.php
+[18-Jun-2025 16:50:20 America/New_York] Detected base path: 
+[18-Jun-2025 16:50:20 America/New_York] APP_URL set to: https://levartiportal.com
+[19-Jun-2025 15:07:04 America/New_York] Script name: /admin/index.php
+[19-Jun-2025 15:07:04 America/New_York] Detected base path: 
+[19-Jun-2025 15:07:04 America/New_York] APP_URL set to: https://levartiportal.com
+[19-Jun-2025 15:07:11 America/New_York] Script name: /admin/orders.php
+[19-Jun-2025 15:07:11 America/New_York] Detected base path: 
+[19-Jun-2025 15:07:11 America/New_York] APP_URL set to: https://levartiportal.com
+[19-Jun-2025 15:07:21 America/New_York] Script name: /admin/users.php
+[19-Jun-2025 15:07:21 America/New_York] Detected base path: 
+[19-Jun-2025 15:07:21 America/New_York] APP_URL set to: https://levartiportal.com
+[19-Jun-2025 15:07:25 America/New_York] Script name: /admin/orders.php
+[19-Jun-2025 15:07:25 America/New_York] Detected base path: 
+[19-Jun-2025 15:07:25 America/New_York] APP_URL set to: https://levartiportal.com
+[19-Jun-2025 15:07:26 America/New_York] Script name: /admin/users.php
+[19-Jun-2025 15:07:26 America/New_York] Detected base path: 
+[19-Jun-2025 15:07:26 America/New_York] APP_URL set to: https://levartiportal.com
+[19-Jun-2025 15:07:31 America/New_York] Script name: /admin/orders.php
+[19-Jun-2025 15:07:31 America/New_York] Detected base path: 
+[19-Jun-2025 15:07:31 America/New_York] APP_URL set to: https://levartiportal.com
+[19-Jun-2025 15:09:53 America/New_York] Script name: /admin/users.php
+[19-Jun-2025 15:09:53 America/New_York] Detected base path: 
+[19-Jun-2025 15:09:53 America/New_York] APP_URL set to: https://levartiportal.com
+[19-Jun-2025 15:10:02 America/New_York] Script name: /admin/users.php
+[19-Jun-2025 15:10:02 America/New_York] Detected base path: 
+[19-Jun-2025 15:10:02 America/New_York] APP_URL set to: https://levartiportal.com
+[20-Jun-2025 12:19:55 America/New_York] Script name: /admin/index.php
+[20-Jun-2025 12:19:55 America/New_York] Detected base path: 
+[20-Jun-2025 12:19:55 America/New_York] APP_URL set to: https://levartiportal.com
+[20-Jun-2025 12:20:06 America/New_York] Script name: /admin/index.php
+[20-Jun-2025 12:20:06 America/New_York] Detected base path: 
+[20-Jun-2025 12:20:06 America/New_York] APP_URL set to: https://levartiportal.com
+[20-Jun-2025 12:20:13 America/New_York] Script name: /admin/integrations.php
+[20-Jun-2025 12:20:13 America/New_York] Detected base path: 
+[20-Jun-2025 12:20:13 America/New_York] APP_URL set to: https://levartiportal.com
+[20-Jun-2025 12:20:42 America/New_York] Script name: /admin/settings.php
+[20-Jun-2025 12:20:42 America/New_York] Detected base path: 
+[20-Jun-2025 12:20:42 America/New_York] APP_URL set to: https://levartiportal.com
+[20-Jun-2025 12:20:51 America/New_York] Script name: /admin/settings.php
+[20-Jun-2025 12:20:51 America/New_York] Detected base path: 
+[20-Jun-2025 12:20:51 America/New_York] APP_URL set to: https://levartiportal.com
+[20-Jun-2025 12:22:15 America/New_York] Script name: /admin/integrations.php
+[20-Jun-2025 12:22:15 America/New_York] Detected base path: 
+[20-Jun-2025 12:22:15 America/New_York] APP_URL set to: https://levartiportal.com
+[20-Jun-2025 12:50:25 America/New_York] Script name: /admin/index.php
+[20-Jun-2025 12:50:25 America/New_York] Detected base path: 
+[20-Jun-2025 12:50:25 America/New_York] APP_URL set to: https://levartiportal.com
+[20-Jun-2025 12:50:45 America/New_York] Script name: /admin/orders.php
+[20-Jun-2025 12:50:45 America/New_York] Detected base path: 
+[20-Jun-2025 12:50:45 America/New_York] APP_URL set to: https://levartiportal.com
+[20-Jun-2025 12:51:16 America/New_York] Script name: /admin/commissions.php
+[20-Jun-2025 12:51:16 America/New_York] Detected base path: 
+[20-Jun-2025 12:51:16 America/New_York] APP_URL set to: https://levartiportal.com
+[20-Jun-2025 13:10:07 America/New_York] Script name: /admin/users.php
+[20-Jun-2025 13:10:07 America/New_York] Detected base path: 
+[20-Jun-2025 13:10:07 America/New_York] APP_URL set to: https://levartiportal.com
+[20-Jun-2025 13:10:11 America/New_York] Script name: /admin/orders.php
+[20-Jun-2025 13:10:11 America/New_York] Detected base path: 
+[20-Jun-2025 13:10:11 America/New_York] APP_URL set to: https://levartiportal.com
+[20-Jun-2025 13:10:47 America/New_York] Script name: /admin/index.php
+[20-Jun-2025 13:10:47 America/New_York] Detected base path: 
+[20-Jun-2025 13:10:47 America/New_York] APP_URL set to: https://levartiportal.com
+[20-Jun-2025 13:10:49 America/New_York] Script name: /admin/commissions.php
+[20-Jun-2025 13:10:49 America/New_York] Detected base path: 
+[20-Jun-2025 13:10:49 America/New_York] APP_URL set to: https://levartiportal.com
+[20-Jun-2025 13:34:34 America/New_York] Script name: /admin/commissions.php
+[20-Jun-2025 13:34:34 America/New_York] Detected base path: 
+[20-Jun-2025 13:34:34 America/New_York] APP_URL set to: https://levartiportal.com
+[20-Jun-2025 13:35:05 America/New_York] Script name: /admin/users.php
+[20-Jun-2025 13:35:05 America/New_York] Detected base path: 
+[20-Jun-2025 13:35:05 America/New_York] APP_URL set to: https://levartiportal.com
+[20-Jun-2025 13:38:23 America/New_York] Script name: /admin/index.php
+[20-Jun-2025 13:38:23 America/New_York] Detected base path: 
+[20-Jun-2025 13:38:23 America/New_York] APP_URL set to: https://levartiportal.com
+[20-Jun-2025 13:38:24 America/New_York] Script name: /admin/integrations.php
+[20-Jun-2025 13:38:24 America/New_York] Detected base path: 
+[20-Jun-2025 13:38:24 America/New_York] APP_URL set to: https://levartiportal.com
+[20-Jun-2025 13:38:35 America/New_York] Script name: /admin/commissions.php
+[20-Jun-2025 13:38:35 America/New_York] Detected base path: 
+[20-Jun-2025 13:38:35 America/New_York] APP_URL set to: https://levartiportal.com
+[20-Jun-2025 13:38:39 America/New_York] Script name: /admin/integrations.php
+[20-Jun-2025 13:38:39 America/New_York] Detected base path: 
+[20-Jun-2025 13:38:39 America/New_York] APP_URL set to: https://levartiportal.com
+[20-Jun-2025 13:38:43 America/New_York] Script name: /admin/users.php
+[20-Jun-2025 13:38:43 America/New_York] Detected base path: 
+[20-Jun-2025 13:38:43 America/New_York] APP_URL set to: https://levartiportal.com
+[20-Jun-2025 13:39:11 America/New_York] Script name: /admin/index.php
+[20-Jun-2025 13:39:11 America/New_York] Detected base path: 
+[20-Jun-2025 13:39:11 America/New_York] APP_URL set to: https://levartiportal.com
+[20-Jun-2025 13:39:24 America/New_York] Script name: /admin/users.php
+[20-Jun-2025 13:39:24 America/New_York] Detected base path: 
+[20-Jun-2025 13:39:24 America/New_York] APP_URL set to: https://levartiportal.com
+[20-Jun-2025 13:39:26 America/New_York] Script name: /admin/integrations.php
+[20-Jun-2025 13:39:26 America/New_York] Detected base path: 
+[20-Jun-2025 13:39:26 America/New_York] APP_URL set to: https://levartiportal.com
+[20-Jun-2025 13:39:28 America/New_York] Script name: /admin/commissions.php
+[20-Jun-2025 13:39:28 America/New_York] Detected base path: 
+[20-Jun-2025 13:39:28 America/New_York] APP_URL set to: https://levartiportal.com
+[20-Jun-2025 13:39:30 America/New_York] Script name: /admin/integrations.php
+[20-Jun-2025 13:39:30 America/New_York] Detected base path: 
+[20-Jun-2025 13:39:30 America/New_York] APP_URL set to: https://levartiportal.com
+[20-Jun-2025 13:39:34 America/New_York] Script name: /admin/index.php
+[20-Jun-2025 13:39:34 America/New_York] Detected base path: 
+[20-Jun-2025 13:39:34 America/New_York] APP_URL set to: https://levartiportal.com
+[20-Jun-2025 13:39:46 America/New_York] Script name: /admin/orders.php
+[20-Jun-2025 13:39:46 America/New_York] Detected base path: 
+[20-Jun-2025 13:39:46 America/New_York] APP_URL set to: https://levartiportal.com
+[20-Jun-2025 13:40:38 America/New_York] Script name: /admin/index.php
+[20-Jun-2025 13:40:38 America/New_York] Detected base path: 
+[20-Jun-2025 13:40:38 America/New_York] APP_URL set to: https://levartiportal.com
+[20-Jun-2025 13:40:41 America/New_York] Script name: /admin/users.php
+[20-Jun-2025 13:40:41 America/New_York] Detected base path: 
+[20-Jun-2025 13:40:41 America/New_York] APP_URL set to: https://levartiportal.com
+[23-Jun-2025 11:39:08 America/New_York] Script name: /admin/index.php
+[23-Jun-2025 11:39:08 America/New_York] Detected base path: 
+[23-Jun-2025 11:39:08 America/New_York] APP_URL set to: https://levartiportal.com
+[23-Jun-2025 11:39:16 America/New_York] Script name: /admin/orders.php
+[23-Jun-2025 11:39:16 America/New_York] Detected base path: 
+[23-Jun-2025 11:39:16 America/New_York] APP_URL set to: https://levartiportal.com
+[24-Jun-2025 14:41:43 America/New_York] Script name: /admin/index.php
+[24-Jun-2025 14:41:43 America/New_York] Detected base path: 
+[24-Jun-2025 14:41:43 America/New_York] APP_URL set to: https://levartiportal.com
+[26-Jun-2025 00:05:45 America/New_York] Script name: /admin/index.php
+[26-Jun-2025 00:05:45 America/New_York] Detected base path: 
+[26-Jun-2025 00:05:45 America/New_York] APP_URL set to: https://levartiportal.com
+[26-Jun-2025 00:06:02 America/New_York] Script name: /admin/users.php
+[26-Jun-2025 00:06:02 America/New_York] Detected base path: 
+[26-Jun-2025 00:06:02 America/New_York] APP_URL set to: https://levartiportal.com
+[26-Jun-2025 00:11:32 America/New_York] Script name: /admin/orders.php
+[26-Jun-2025 00:11:32 America/New_York] Detected base path: 
+[26-Jun-2025 00:11:32 America/New_York] APP_URL set to: https://levartiportal.com
+[26-Jun-2025 00:11:57 America/New_York] Script name: /admin/commissions.php
+[26-Jun-2025 00:11:57 America/New_York] Detected base path: 
+[26-Jun-2025 00:11:57 America/New_York] APP_URL set to: https://levartiportal.com
+[26-Jun-2025 00:12:04 America/New_York] Script name: /admin/integrations.php
+[26-Jun-2025 00:12:04 America/New_York] Detected base path: 
+[26-Jun-2025 00:12:04 America/New_York] APP_URL set to: https://levartiportal.com
+[26-Jun-2025 00:12:09 America/New_York] Script name: /admin/settings.php
+[26-Jun-2025 00:12:09 America/New_York] Detected base path: 
+[26-Jun-2025 00:12:09 America/New_York] APP_URL set to: https://levartiportal.com
+[28-Jun-2025 09:31:14 America/New_York] Script name: /admin/index.php
+[28-Jun-2025 09:31:14 America/New_York] Detected base path: 
+[28-Jun-2025 09:31:14 America/New_York] APP_URL set to: https://levartiportal.com
+[28-Jun-2025 09:34:19 America/New_York] Script name: /admin/commissions.php
+[28-Jun-2025 09:34:19 America/New_York] Detected base path: 
+[28-Jun-2025 09:34:19 America/New_York] APP_URL set to: https://levartiportal.com
+[28-Jun-2025 09:34:24 America/New_York] Script name: /admin/orders.php
+[28-Jun-2025 09:34:24 America/New_York] Detected base path: 
+[28-Jun-2025 09:34:24 America/New_York] APP_URL set to: https://levartiportal.com
+[28-Jun-2025 09:34:26 America/New_York] Script name: /admin/integrations.php
+[28-Jun-2025 09:34:26 America/New_York] Detected base path: 
+[28-Jun-2025 09:34:26 America/New_York] APP_URL set to: https://levartiportal.com
+[28-Jun-2025 09:34:30 America/New_York] Script name: /admin/settings.php
+[28-Jun-2025 09:34:30 America/New_York] Detected base path: 
+[28-Jun-2025 09:34:30 America/New_York] APP_URL set to: https://levartiportal.com
+[28-Jun-2025 09:35:13 America/New_York] Script name: /admin/settings.php
+[28-Jun-2025 09:35:13 America/New_York] Detected base path: 
+[28-Jun-2025 09:35:13 America/New_York] APP_URL set to: https://levartiportal.com
+[01-Jul-2025 15:37:26 America/New_York] Script name: /admin/index.php
+[01-Jul-2025 15:37:26 America/New_York] Detected base path: 
+[01-Jul-2025 15:37:26 America/New_York] APP_URL set to: https://levartiportal.com
+[01-Jul-2025 15:39:51 America/New_York] Script name: /admin/index.php
+[01-Jul-2025 15:39:51 America/New_York] Detected base path: 
+[01-Jul-2025 15:39:51 America/New_York] APP_URL set to: https://levartiportal.com
+[01-Jul-2025 15:39:55 America/New_York] Script name: /admin/users.php
+[01-Jul-2025 15:39:55 America/New_York] Detected base path: 
+[01-Jul-2025 15:39:55 America/New_York] APP_URL set to: https://levartiportal.com
+[01-Jul-2025 15:49:39 America/New_York] Script name: /admin/index.php
+[01-Jul-2025 15:49:39 America/New_York] Detected base path: 
+[01-Jul-2025 15:49:39 America/New_York] APP_URL set to: https://levartiportal.com
+[01-Jul-2025 15:50:31 America/New_York] Script name: /admin/users.php
+[01-Jul-2025 15:50:31 America/New_York] Detected base path: 
+[01-Jul-2025 15:50:31 America/New_York] APP_URL set to: https://levartiportal.com
+[01-Jul-2025 15:52:15 America/New_York] Script name: /admin/index.php
+[01-Jul-2025 15:52:15 America/New_York] Detected base path: 
+[01-Jul-2025 15:52:15 America/New_York] APP_URL set to: https://levartiportal.com
+[01-Jul-2025 15:52:59 America/New_York] Script name: /admin/users.php
+[01-Jul-2025 15:52:59 America/New_York] Detected base path: 
+[01-Jul-2025 15:52:59 America/New_York] APP_URL set to: https://levartiportal.com
+[01-Jul-2025 15:53:27 America/New_York] Script name: /admin/users.php
+[01-Jul-2025 15:53:27 America/New_York] Detected base path: 
+[01-Jul-2025 15:53:27 America/New_York] APP_URL set to: https://levartiportal.com
+[01-Jul-2025 16:14:43 America/New_York] Script name: /admin/index.php
+[01-Jul-2025 16:14:43 America/New_York] Detected base path: 
+[01-Jul-2025 16:14:43 America/New_York] APP_URL set to: https://levartiportal.com
+[01-Jul-2025 16:14:46 America/New_York] Script name: /admin/users.php
+[01-Jul-2025 16:14:46 America/New_York] Detected base path: 
+[01-Jul-2025 16:14:46 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 10:18:09 America/New_York] Script name: /admin/index.php
+[03-Jul-2025 10:18:09 America/New_York] Detected base path: 
+[03-Jul-2025 10:18:09 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 10:18:15 America/New_York] Script name: /admin/users.php
+[03-Jul-2025 10:18:15 America/New_York] Detected base path: 
+[03-Jul-2025 10:18:15 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 10:18:48 America/New_York] Script name: /admin/users.php
+[03-Jul-2025 10:18:48 America/New_York] Detected base path: 
+[03-Jul-2025 10:18:48 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 11:24:07 America/New_York] Script name: /admin/orders.php
+[03-Jul-2025 11:24:07 America/New_York] Detected base path: 
+[03-Jul-2025 11:24:07 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 11:24:14 America/New_York] Script name: /admin/index.php
+[03-Jul-2025 11:24:14 America/New_York] Detected base path: 
+[03-Jul-2025 11:24:14 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 11:24:16 America/New_York] Script name: /admin/orders.php
+[03-Jul-2025 11:24:16 America/New_York] Detected base path: 
+[03-Jul-2025 11:24:16 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 11:24:19 America/New_York] Script name: /admin/users.php
+[03-Jul-2025 11:24:19 America/New_York] Detected base path: 
+[03-Jul-2025 11:24:19 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 11:29:33 America/New_York] Script name: /admin/users.php
+[03-Jul-2025 11:29:33 America/New_York] Detected base path: 
+[03-Jul-2025 11:29:33 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 11:35:27 America/New_York] Script name: /admin/index.php
+[03-Jul-2025 11:35:27 America/New_York] Detected base path: 
+[03-Jul-2025 11:35:27 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 11:35:29 America/New_York] Script name: /admin/users.php
+[03-Jul-2025 11:35:29 America/New_York] Detected base path: 
+[03-Jul-2025 11:35:29 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 11:35:31 America/New_York] Script name: /admin/users.php
+[03-Jul-2025 11:35:31 America/New_York] Detected base path: 
+[03-Jul-2025 11:35:31 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 11:35:33 America/New_York] Script name: /admin/users.php
+[03-Jul-2025 11:35:33 America/New_York] Detected base path: 
+[03-Jul-2025 11:35:33 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 11:40:42 America/New_York] Script name: /admin/users.php
+[03-Jul-2025 11:40:42 America/New_York] Detected base path: 
+[03-Jul-2025 11:40:42 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 11:43:40 America/New_York] Script name: /admin/users.php
+[03-Jul-2025 11:43:40 America/New_York] Detected base path: 
+[03-Jul-2025 11:43:40 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 11:43:44 America/New_York] Script name: /admin/users.php
+[03-Jul-2025 11:43:44 America/New_York] Detected base path: 
+[03-Jul-2025 11:43:44 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 11:43:46 America/New_York] Script name: /admin/users.php
+[03-Jul-2025 11:43:46 America/New_York] Detected base path: 
+[03-Jul-2025 11:43:46 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 11:43:48 America/New_York] Script name: /admin/users.php
+[03-Jul-2025 11:43:48 America/New_York] Detected base path: 
+[03-Jul-2025 11:43:48 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 11:44:25 America/New_York] Script name: /admin/users.php
+[03-Jul-2025 11:44:25 America/New_York] Detected base path: 
+[03-Jul-2025 11:44:25 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 11:45:07 America/New_York] Script name: /admin/users.php
+[03-Jul-2025 11:45:07 America/New_York] Detected base path: 
+[03-Jul-2025 11:45:07 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 11:45:40 America/New_York] Script name: /admin/users.php
+[03-Jul-2025 11:45:40 America/New_York] Detected base path: 
+[03-Jul-2025 11:45:40 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 11:45:47 America/New_York] Script name: /admin/users.php
+[03-Jul-2025 11:45:47 America/New_York] Detected base path: 
+[03-Jul-2025 11:45:47 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 11:45:50 America/New_York] Script name: /admin/users.php
+[03-Jul-2025 11:45:50 America/New_York] Detected base path: 
+[03-Jul-2025 11:45:50 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 11:45:52 America/New_York] Script name: /admin/users.php
+[03-Jul-2025 11:45:52 America/New_York] Detected base path: 
+[03-Jul-2025 11:45:52 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 11:47:38 America/New_York] Script name: /admin/users.php
+[03-Jul-2025 11:47:38 America/New_York] Detected base path: 
+[03-Jul-2025 11:47:38 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 11:47:42 America/New_York] Script name: /admin/users.php
+[03-Jul-2025 11:47:42 America/New_York] Detected base path: 
+[03-Jul-2025 11:47:42 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 11:47:45 America/New_York] Script name: /admin/users.php
+[03-Jul-2025 11:47:45 America/New_York] Detected base path: 
+[03-Jul-2025 11:47:45 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 11:49:28 America/New_York] Script name: /admin/users.php
+[03-Jul-2025 11:49:28 America/New_York] Detected base path: 
+[03-Jul-2025 11:49:28 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 12:10:36 America/New_York] Script name: /admin/users.php
+[03-Jul-2025 12:10:36 America/New_York] Detected base path: 
+[03-Jul-2025 12:10:36 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 12:10:39 America/New_York] Script name: /admin/users.php
+[03-Jul-2025 12:10:39 America/New_York] Detected base path: 
+[03-Jul-2025 12:10:39 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 12:11:46 America/New_York] Script name: /admin/users.php
+[03-Jul-2025 12:11:46 America/New_York] Detected base path: 
+[03-Jul-2025 12:11:46 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 12:13:21 America/New_York] Script name: /admin/users.php
+[03-Jul-2025 12:13:21 America/New_York] Detected base path: 
+[03-Jul-2025 12:13:21 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 12:13:58 America/New_York] Script name: /admin/users.php
+[03-Jul-2025 12:13:58 America/New_York] Detected base path: 
+[03-Jul-2025 12:13:58 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 12:14:23 America/New_York] Script name: /admin/users.php
+[03-Jul-2025 12:14:23 America/New_York] Detected base path: 
+[03-Jul-2025 12:14:23 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 12:19:29 America/New_York] Script name: /admin/users.php
+[03-Jul-2025 12:19:29 America/New_York] Detected base path: 
+[03-Jul-2025 12:19:29 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 12:30:15 America/New_York] Script name: /admin/users.php
+[03-Jul-2025 12:30:15 America/New_York] Detected base path: 
+[03-Jul-2025 12:30:15 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 13:36:55 America/New_York] Script name: /admin/index.php
+[03-Jul-2025 13:36:55 America/New_York] Detected base path: 
+[03-Jul-2025 13:36:55 America/New_York] APP_URL set to: https://levartiportal.com
+[03-Jul-2025 13:36:57 America/New_York] Script name: /admin/users.php
+[03-Jul-2025 13:36:57 America/New_York] Detected base path: 
+[03-Jul-2025 13:36:57 America/New_York] APP_URL set to: https://levartiportal.com
+[04-Jul-2025 16:19:00 America/New_York] Script name: /admin/index.php
+[04-Jul-2025 16:19:00 America/New_York] Detected base path: 
+[04-Jul-2025 16:19:00 America/New_York] APP_URL set to: https://levartiportal.com
+[04-Jul-2025 16:19:33 America/New_York] Script name: /admin/users.php
+[04-Jul-2025 16:19:33 America/New_York] Detected base path: 
+[04-Jul-2025 16:19:33 America/New_York] APP_URL set to: https://levartiportal.com
+[04-Jul-2025 16:19:43 America/New_York] Script name: /admin/orders.php
+[04-Jul-2025 16:19:43 America/New_York] Detected base path: 
+[04-Jul-2025 16:19:43 America/New_York] APP_URL set to: https://levartiportal.com
+[04-Jul-2025 16:20:15 America/New_York] Script name: /admin/users.php
+[04-Jul-2025 16:20:15 America/New_York] Detected base path: 
+[04-Jul-2025 16:20:15 America/New_York] APP_URL set to: https://levartiportal.com
+[07-Jul-2025 08:02:55 America/New_York] Script name: /admin/index.php
+[07-Jul-2025 08:02:55 America/New_York] Detected base path: 
+[07-Jul-2025 08:02:55 America/New_York] APP_URL set to: https://levartiportal.com
+[07-Jul-2025 08:06:34 America/New_York] Script name: /admin/index.php
+[07-Jul-2025 08:06:34 America/New_York] Detected base path: 
+[07-Jul-2025 08:06:34 America/New_York] APP_URL set to: https://levartiportal.com
+[07-Jul-2025 08:14:41 America/New_York] Script name: /admin/index.php
+[07-Jul-2025 08:14:41 America/New_York] Detected base path: 
+[07-Jul-2025 08:14:41 America/New_York] APP_URL set to: https://levartiportal.com
+[07-Jul-2025 08:25:32 America/New_York] Script name: /admin/orders.php
+[07-Jul-2025 08:25:32 America/New_York] Detected base path: 
+[07-Jul-2025 08:25:32 America/New_York] APP_URL set to: https://levartiportal.com

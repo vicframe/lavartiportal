@@ -8,6 +8,7 @@
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../includes/auth.php';
 require_once __DIR__ . '/../includes/database.php';
+require_once __DIR__ . '/../includes/functions.php';
 
 // Set content type to JSON
 header('Content-Type: application/json');
@@ -50,14 +51,21 @@ try {
     // Get users with pagination
     $users_query = db_query("
         SELECT id, email, first_name, last_name, tier_id, ghl_id, is_admin, phone, 
-               created_at, updated_at, sponsor_id, pillars_id
+               created_at, updated_at, sponsor_id, pillars_id, package_id
         FROM users
         ORDER BY created_at DESC
         LIMIT ? OFFSET ?
     ", [$limit, $offset]);
     
     $users = db_fetch_all($users_query);
-    
+    foreach ($users as &$user) {
+    if(isset($user['package_id']) and !empty($user['package_id'])){
+    $tier_level=get_product_by_tier_level($user['package_id']);
+    $user['tierName'] = $tier_level['name'] ;
+    }else{
+    $user['tierName'] ='No Membership';
+    }
+    }
     // Return users with pagination info
     echo json_encode([
         'success' => true,

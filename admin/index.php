@@ -234,7 +234,7 @@ function loadAdminDashboardData() {
     
     // Get base URL from the page
     // const baseUrl = document.querySelector('meta[name="base-url"]').getAttribute('content') || '';
-    const apiUrl ='https://thephoenixlb.com/lavartiportal/api/admin-stats.php';
+    const apiUrl ='https://levartiportal.com//api/admin-stats.php';
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
@@ -262,7 +262,7 @@ function updateDashboardStats(stats) {
 }
 
 function loadRecentOrders() {
-    fetch('https://thephoenixlb.com/lavartiportal/api/admin-recent-orders.php')
+    fetch('https://levartiportal.com//api/admin-recent-orders.php')
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -324,7 +324,7 @@ function displayRecentOrders(orders) {
 }
 
 function loadRecentUsers() {
-    fetch('https://thephoenixlb.com/lavartiportal/api/admin-recent-users.php')
+    fetch('https://levartiportal.com//api/admin-recent-users.php')
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -397,7 +397,7 @@ function checkIntegrationStatus(integration) {
         statusIcon.className = 'fas fa-spinner fa-spin';
         
         // Fetch integration status
-        fetch(`https://thephoenixlb.com/lavartiportal/api/check-integration.php?integration=${integration}`)
+        fetch(`https://levartiportal.com//api/check-integration.php?integration=${integration}`)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {

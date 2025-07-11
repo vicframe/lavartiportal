@@ -330,7 +330,7 @@ function loadOrders() {
     }
     
     // Fetch orders
-    fetch(`https://thephoenixlb.com/lavartiportal/api/admin-orders.php${queryParams}`)
+    fetch(`https://levartiportal.com//api/admin-orders.php${queryParams}`)
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -499,7 +499,7 @@ function generatePagination(totalOrders, totalPages) {
 }
 
 function loadOrderStats() {
-    fetch('https://thephoenixlb.com/lavartiportal/api/admin-order-stats.php')
+    fetch('https://levartiportal.com//api/admin-order-stats.php')
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -545,7 +545,7 @@ function viewOrder(orderId) {
         displayOrderDetails(order);
     } else {
         // Fetch order details
-        fetch(`https://thephoenixlb.com/lavartiportal/api/order-details.php?id=${orderId}`)
+        fetch(`https://levartiportal.com//api/order-details.php?id=${orderId}`)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -655,7 +655,7 @@ function displayOrderDetails(order) {
 
 function editOrder(orderId) {
     // First, load products for the dropdown
-    fetch('https://thephoenixlb.com/lavartiportal/api/admin-products.php')
+    fetch('https://levartiportal.com//api/admin-products.php')
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -676,7 +676,7 @@ function editOrder(orderId) {
                     populateEditForm(order);
                 } else {
                     // Fetch order details
-                    fetch(`https://thephoenixlb.com/lavartiportal/api/order-details.php?id=${orderId}`)
+                    fetch(`https://levartiportal.com//api/order-details.php?id=${orderId}`)
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
@@ -726,7 +726,7 @@ function updateOrder() {
     const orderData = Object.fromEntries(formData.entries());
     
     // Send request
-    fetch('https://thephoenixlb.com/lavartiportal/api/admin-update-order.php', {
+    fetch('https://levartiportal.com//api/admin-update-order.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -754,7 +754,7 @@ function updateOrder() {
         showAlert('danger', 'Failed to update order. Please try again.');
     });
 }
- 
+
 function exportOrders(format) {
     // Build query string
     let queryParams = `?format=${format}`;
@@ -768,7 +768,7 @@ function exportOrders(format) {
     }
     
     // Redirect to export endpoint
-    window.location.href = `https://thephoenixlb.com/lavartiportal/api/admin-export-orders.php${queryParams}`;
+    window.location.href = `https://levartiportal.com//api/admin-export-orders.php${queryParams}`;
 }
 
 function getTierName(tierId) {
